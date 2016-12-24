@@ -1,2 +1,2 @@
-# Circus Of Plates
+# Circus of Plates
 OOP class project
