@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Sphere?>
 
-<AnchorPane maxHeight="500" maxWidth="700" minHeight="500" minWidth="700" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MotionTest">
+<AnchorPane maxHeight="500" maxWidth="700" minHeight="500" minWidth="700" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.view.Controller">
     <children>
         <ToolBar prefHeight="32.0" prefWidth="700.0">
             <items>
@@ -22,7 +22,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="121.0" layoutX="223.0" layoutY="182.0" onDragDetected="#move" onDragDone="#move" onDragDropped="#move" onDragEntered="#move" stroke="BLACK" strokeType="INSIDE" width="136.0" />
+                        <Rectangle fx:id="clown" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="121.0" layoutX="223.0" layoutY="182.0" onDragDetected="#move" onDragDone="#move" onDragDropped="#move" onDragEntered="#move" stroke="BLACK" strokeType="INSIDE" width="136.0" />
                      </children></AnchorPane>
                     </content>
                 </Tab>
