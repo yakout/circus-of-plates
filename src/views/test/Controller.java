@@ -1,7 +1,11 @@
 package views.test;
 
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import javafx.fxml.FXML;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -12,8 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import javax.swing.*;
 
-public class Controller implements Initializable {
+
+public class Controller implements Initializable, ActionListener {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -25,6 +31,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
+        gameTimer = new Timer(10, this);
+        gameTimer.start();
+        /*rect.setVisible(false)*/;
     }
 
     @FXML
@@ -43,11 +52,13 @@ public class Controller implements Initializable {
     VBox helpMenu;
 
     @FXML
-    Rectangle rect;
-
+    Rectangle rect, plate1, plate2, rightRod, leftRod;
 
     private VBox currentMenu;
     private int currentItem = 0;
+    private Timer gameTimer;
+    private final int CLOWNSPEED = 10;
+    private final int PLATESPEED = 1;
 
 
     private Button getButton(int index) {
@@ -79,11 +90,10 @@ public class Controller implements Initializable {
                 }
                 break;
             case LEFT:
-                rect.setX(rect.getX() - 10);
+                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
                 break;
-
             case RIGHT:
-                rect.setX(rect.getX() + 10);
+                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
                 break;
             default:
                 break;
@@ -100,7 +110,6 @@ public class Controller implements Initializable {
             case "1":
                 handleHelpMenu(id);
                 break;
-
         }
     }
 
@@ -137,6 +146,26 @@ public class Controller implements Initializable {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //ALl these numbers will be replaced by relative positions.
+        //566 -> height of AnchorPane + half height of plate.
+        if (plate1.getY() >= 500) {
+            plate1.setX(639);
+            plate1.setY(43);
+        }
+        else if (plate1.getX() + PLATESPEED < -350 + 3 * plate1.getWidth() / 2.0) {
+            plate1.setY(plate1.getY() + PLATESPEED);
+        } else {
+            plate1.setX(plate1.getX() - PLATESPEED);
+        }
+        if (plate2.getX() + PLATESPEED > 350 - 3 * plate2.getWidth() / 2.0) {
+            plate2.setY(plate2.getY() + PLATESPEED);
+        } else {
+            plate2.setX(plate2.getX() + PLATESPEED);
         }
     }
 }
