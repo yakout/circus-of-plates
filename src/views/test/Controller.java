@@ -86,6 +86,7 @@ public class Controller implements Initializable {
                 rect.setX(rect.getX() + 10);
                 break;
             default:
+                break;
         }
     }
 
@@ -139,3 +140,4 @@ public class Controller implements Initializable {
         }
     }
 }
+
