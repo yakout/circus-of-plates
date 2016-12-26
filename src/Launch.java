@@ -12,7 +12,8 @@ public class Launch extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("mainView.fxml"));
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("views/mainView.fxl"));
         primaryStage.setTitle("Circus Of Plates");
         primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();

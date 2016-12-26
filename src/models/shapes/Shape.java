@@ -1,6 +1,8 @@
 package models.shapes;
 
-import java.awt.Color;
+
+import javafx.scene.paint.Color;
+
 
 public interface Shape {
     
@@ -9,6 +11,5 @@ public interface Shape {
     public int getWidth();
     public int getHeight();
 
-    
-    
+
 }
