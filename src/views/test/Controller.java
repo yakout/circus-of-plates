@@ -73,8 +73,16 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
-        gameTimer = new Timer(10, timerListener);
-        gameTimer.start();
+        PlateController<Rectangle> plate1Controller
+                = new PlateController<>(plate1, false);
+        PlateController<Rectangle> plate2Controller
+                = new PlateController<>(plate2, true);
+        plate1Controller.move();
+        plate2Controller.move();
+        //new Thread(plate1Controller).start();
+        //new Thread(plate2Controller).start();
+        //gameTimer = new Timer(10, timerListener);
+       // gameTimer.start();
         /*TranslateTransition tt = new TranslateTransition(Duration.millis
         (2000), plate1);
         tt.setByX(plate1.getX() - 500);
