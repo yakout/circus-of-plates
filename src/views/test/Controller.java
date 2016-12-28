@@ -1,20 +1,17 @@
 package views.test;
 
 
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -22,7 +19,7 @@ import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
-    private final double CLOWNSPEED = 20;
+    private final double CLOWNSPEED = 35;
     private final double PLATESPEED = 1.7;
     @FXML
     VBox startMenu;
@@ -36,9 +33,10 @@ public class Controller implements Initializable {
     VBox helpMenu;
     @FXML
     Rectangle rect, plate1, plate2, rightRod, leftRod;
+    @FXML
+    AnchorPane anchorPane;
     private VBox currentMenu;
     private int currentItem = 0;
-    private Timer gameTimer;
     private ActionListener timerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -47,7 +45,8 @@ public class Controller implements Initializable {
             if (plate1.getY() >= 500) {
                 plate1.setX(639);
                 plate1.setY(43);
-            } else if (plate1.getX() + plate1.getTranslateX() + PLATESPEED < -350 + 3 *
+            } else if (plate1.getX() + plate1.getTranslateX() + PLATESPEED <
+                    -350 + 3 *
                     plate1.getWidth()
                     / 2.0) {
                 plate1.setTranslateY(plate1.getTranslateY() + PLATESPEED);
@@ -63,6 +62,7 @@ public class Controller implements Initializable {
             }
         }
     };
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -75,15 +75,54 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
         PlateController<Rectangle> plate1Controller
-                = new PlateController<>(plate1, false);
+                = new PlateController<>(plate1, false, rightRod.getWidth());
         PlateController<Rectangle> plate2Controller
-                = new PlateController<>(plate2, true);
+                = new PlateController<>(plate2, true, leftRod.getWidth
+                ());
         /*plate1Controller.move();
-        plate2Controller.move();
-        */new Thread(plate1Controller, "PL1 THreaD").start();
-        new Thread(plate2Controller, "PL2 THreaD").start();
+        plate2Controller.move();*/
+        Thread rightPlateThread = new Thread(plate1Controller, "Right Plate Thread");
+        Thread leftPlateThread = new Thread(plate2Controller, "Left Plate Thread");
+        rightPlateThread.setDaemon(true);
+        leftPlateThread.setDaemon(true);
+        rightPlateThread.start();
+        leftPlateThread.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (rect.getBoundsInParent().intersects(
+                                    plate1.getBoundsInParent())) {
+                                System.out.println("Right Plate Bounds: "
+                                        + plate1.getBoundsInParent().toString());
+                                System.out.println("Clown Bounds: " + rect
+                                        .getBoundsInParent().toString());
+                                rightPlateThread.interrupt();
+                            }
+                            if (rect.getBoundsInParent().intersects(
+                                    plate2.getBoundsInParent())) {
+                                System.out.println("Clown Bounds: " + rect
+                                        .getBoundsInParent().toString());
+                                System.out.println("Left Plate Bounds: "
+                                        + plate2.getBoundsInParent().toString());
+                                leftPlateThread.interrupt();
+                            }
+                        }
+                    });
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Intersection Thread Interrupted");
+                        return;
+                    }
+                }
+            }
+        }).start();
         //gameTimer = new Timer(10, timerListener);
-       // gameTimer.start();
+        // gameTimer.start();
         /*TranslateTransition tt = new TranslateTransition(Duration.millis
         (2000), plate1);
         tt.setByX(plate1.getX() - 500);
@@ -123,12 +162,12 @@ public class Controller implements Initializable {
             case LEFT:
                 rect.setTranslateX(Math.max(rect.getTranslateX() - CLOWNSPEED,
                         -350 + rect
-                        .getWidth() / 2.0));
+                                .getWidth() / 2.0));
                 break;
             case RIGHT:
                 rect.setTranslateX(Math.min(rect.getTranslateX() + CLOWNSPEED,
                         350 - rect
-                        .getWidth() / 2.0));
+                                .getWidth() / 2.0));
                 break;
             default:
                 break;
