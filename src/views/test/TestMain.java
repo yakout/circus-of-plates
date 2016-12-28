@@ -18,7 +18,7 @@ public class TestMain extends Application {
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(700);
         primaryStage.setScene(new Scene(root, 700, 500));
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.show();
     }

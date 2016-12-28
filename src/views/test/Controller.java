@@ -2,6 +2,7 @@ package views.test;
 
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -77,10 +78,10 @@ public class Controller implements Initializable {
                 = new PlateController<>(plate1, false);
         PlateController<Rectangle> plate2Controller
                 = new PlateController<>(plate2, true);
-        plate1Controller.move();
+        /*plate1Controller.move();
         plate2Controller.move();
-        //new Thread(plate1Controller).start();
-        //new Thread(plate2Controller).start();
+        */new Thread(plate1Controller, "PL1 THreaD").start();
+        new Thread(plate2Controller, "PL2 THreaD").start();
         //gameTimer = new Timer(10, timerListener);
        // gameTimer.start();
         /*TranslateTransition tt = new TranslateTransition(Duration.millis
@@ -120,11 +121,13 @@ public class Controller implements Initializable {
                 }
                 break;
             case LEFT:
-                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect
+                rect.setTranslateX(Math.max(rect.getTranslateX() - CLOWNSPEED,
+                        -350 + rect
                         .getWidth() / 2.0));
                 break;
             case RIGHT:
-                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect
+                rect.setTranslateX(Math.min(rect.getTranslateX() + CLOWNSPEED,
+                        350 - rect
                         .getWidth() / 2.0));
                 break;
             default:
