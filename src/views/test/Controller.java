@@ -6,20 +6,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import javax.swing.text.html.ImageView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
-    private final double CLOWNSPEED = 35;
+    private final double CLOWNSPEED = 10;
     private final double PLATESPEED = 1.7;
     @FXML
     VBox startMenu;
@@ -32,9 +35,15 @@ public class Controller implements Initializable {
     @FXML
     VBox helpMenu;
     @FXML
-    Rectangle rect, plate1, plate2, rightRod, leftRod;
+    Rectangle rect, rightRod, leftRod;
     @FXML
     AnchorPane anchorPane;
+    @FXML
+    javafx.scene.image.ImageView clown;
+    @FXML
+    javafx.scene.image.ImageView plate1;
+    @FXML
+    javafx.scene.image.ImageView plate2;
     private VBox currentMenu;
     private int currentItem = 0;
     private ActionListener timerListener = new ActionListener() {
@@ -42,20 +51,19 @@ public class Controller implements Initializable {
         public void actionPerformed(ActionEvent e) {
             //ALl these numbers will be replaced by relative positions.
             //566 -> height of AnchorPane + half height of plate.
-            if (plate1.getY() >= 500) {
+            if (plate1.getY() >= plate1.getParent().getLayoutBounds().getHeight()) {
                 plate1.setX(639);
                 plate1.setY(43);
             } else if (plate1.getX() + plate1.getTranslateX() + PLATESPEED <
-                    -350 + 3 *
-                    plate1.getWidth()
-                    / 2.0) {
+                    -clown.getParent().getLayoutBounds().getWidth() / 2.0 + 3 *
+                    plate1.getLayoutBounds().getWidth() / 2.0) {
                 plate1.setTranslateY(plate1.getTranslateY() + PLATESPEED);
             } else {
                 plate1.setTranslateX(plate1.getTranslateX() - PLATESPEED);
             }
-            if (plate2.getX() + plate2.getTranslateX() + PLATESPEED > 350 - 3
-                    * plate2.getWidth() /
-                    2.0) {
+            if (plate2.getX() + plate2.getTranslateX() + PLATESPEED
+                    > clown.getParent().getLayoutBounds().getWidth() / 2.0
+                    - 3 * plate2.getLayoutBounds().getWidth() / 2.0) {
                 plate2.setTranslateY(plate2.getTranslateY() + PLATESPEED);
             } else {
                 plate2.setTranslateX(plate2.getTranslateX() + PLATESPEED);
@@ -74,11 +82,13 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
-        PlateController<Rectangle> plate1Controller
+        /*File file = new File("src/assets/images/Clowns/clown1.png");
+        Image img = new Image(file.toURI().toString());
+        clown.setImage(img);*/
+        PlateController<javafx.scene.image.ImageView> plate1Controller
                 = new PlateController<>(plate1, false, rightRod.getWidth());
-        PlateController<Rectangle> plate2Controller
-                = new PlateController<>(plate2, true, leftRod.getWidth
-                ());
+        PlateController<javafx.scene.image.ImageView> plate2Controller
+                = new PlateController<>(plate2, true, leftRod.getWidth());
         /*plate1Controller.move();
         plate2Controller.move();*/
         Thread rightPlateThread = new Thread(plate1Controller, "Right Plate Thread");
@@ -94,17 +104,17 @@ public class Controller implements Initializable {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            if (rect.getBoundsInParent().intersects(
+                            if (clown.getBoundsInParent().intersects(
                                     plate1.getBoundsInParent())) {
                                 System.out.println("Right Plate Bounds: "
                                         + plate1.getBoundsInParent().toString());
-                                System.out.println("Clown Bounds: " + rect
+                                System.out.println("Clown Bounds: " + clown
                                         .getBoundsInParent().toString());
                                 rightPlateThread.interrupt();
                             }
-                            if (rect.getBoundsInParent().intersects(
+                            if (clown.getBoundsInParent().intersects(
                                     plate2.getBoundsInParent())) {
-                                System.out.println("Clown Bounds: " + rect
+                                System.out.println("Clown Bounds: " + clown
                                         .getBoundsInParent().toString());
                                 System.out.println("Left Plate Bounds: "
                                         + plate2.getBoundsInParent().toString());
@@ -160,14 +170,17 @@ public class Controller implements Initializable {
                 }
                 break;
             case LEFT:
-                rect.setTranslateX(Math.max(rect.getTranslateX() - CLOWNSPEED,
-                        -350 + rect
-                                .getWidth() / 2.0));
+                double transX = clown.getTranslateX();
+                clown.setTranslateX(Math.max(clown.getTranslateX() - CLOWNSPEED,
+                        -clown.getParent().getLayoutBounds().getWidth() / 2.0
+                                 + clown.getLayoutBounds().getWidth()
+                                / 2.0));
                 break;
             case RIGHT:
-                rect.setTranslateX(Math.min(rect.getTranslateX() + CLOWNSPEED,
-                        350 - rect
-                                .getWidth() / 2.0));
+                clown.setTranslateX(Math.min(clown.getTranslateX() + CLOWNSPEED,
+                        clown.getParent()
+                                .getLayoutBounds().getWidth() / 2.0 - clown
+                                .getLayoutBounds().getWidth() / 2.0));
                 break;
             default:
                 break;

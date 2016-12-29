@@ -43,7 +43,7 @@ public class PlateController<T extends Node> implements Runnable {
         movingThread.start();*/
     }
 
-    public void move() {
+    /*public void move() {
         TranslateTransition tth = new TranslateTransition(Duration.millis
                 (PLATE_SPEED * STEP * 2), plate);
         TranslateTransition ttv = new TranslateTransition(Duration.millis
@@ -58,13 +58,12 @@ public class PlateController<T extends Node> implements Runnable {
         } else {
             sq.pause();
         }
-    }
+    }*/
 
     @Override
     public synchronized void run() {
         double center = plate.getParent().getLayoutBounds().getMinX() +
-                plate
-                        .getParent()
+                plate.getParent()
                         .getLayoutBounds().getWidth() / 2.0;
         //       /2.0;
         // double boundary = center - sign * 61 / 2.0;
@@ -72,11 +71,14 @@ public class PlateController<T extends Node> implements Runnable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (plate.getLayoutY() + plate.getTranslateY() >= 500) {
+                    if (plate.getLayoutY() + plate.getTranslateY() >= plate.getParent()
+                            .getLayoutBounds().getHeight()) {
                         plate.setTranslateX(0);
                         plate.setTranslateY(0);
-                    } else if (Math.abs(350 - (plate.getLayoutX() + plate
-                            .getTranslateX() + offset)) < Math.abs(350 -
+                    } else if (Math.abs(plate.getParent()
+                            .getLayoutBounds().getWidth() / 2.0 - (plate.getLayoutX() + plate
+                            .getTranslateX() + offset)) < Math.abs(plate.getParent()
+                            .getLayoutBounds().getWidth() / 2.0 -
                             rodLength)) {
                             /*Math.abs(350 - (plate.getLayoutX() + 61 /
                                     2.0 +
