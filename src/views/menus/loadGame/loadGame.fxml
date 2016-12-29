@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.Glow?>
+
+
+<!-- load game menu -->
+<VBox fx:id="loadGameMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="238.0" prefWidth="228.0" visible="false"
+      fx:controller="controllers.menus.LoadGame" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane prefHeight="230.0" prefWidth="228.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="226.0">
+                    <children>
+                        <VBox prefHeight="214.0" prefWidth="213.0">
+                            <children>
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="213.0" text="1-12-2012 gameName" />
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+            <effect>
+                <Glow />
+            </effect>
+        </ScrollPane>
+        <Button id="back" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="29.0" prefWidth="231.0" text="BACK" />
+    </children>
+
+    <stylesheets>
+        <URL value="@loadGame.css" />
+    </stylesheets>
+</VBox>

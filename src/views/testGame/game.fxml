@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onKeyPressed="#keyHandler" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.GameController">
+    <children>
+
+        <ImageView id="background" fitHeight="500.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" />
+
+        <!-- load menus -->
+        <fx:include source="../menus/start/start.fxml"/>
+        <fx:include source="../menus/gameMode/gameMode.fxml"/>
+        <fx:include source="../menus/help/help.fxml"/>
+        <fx:include source="../menus/options/options.fxml"/>
+        <fx:include source="../menus/loadGame/loadGame.fxml"/>
+
+        <!-- load plates object -->
+        <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="92.0" layoutX="300.0" layoutY="394.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+        <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="91.0" />
+        <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutX="470.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.bottomAnchor="407.0" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+        <Rectangle fx:id="plate1" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutX="639.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
+        <Rectangle fx:id="plate2" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
+
+    </children>
+
+    <stylesheets>
+        <URL value="@game.css" />
+    </stylesheets>
+</AnchorPane>
