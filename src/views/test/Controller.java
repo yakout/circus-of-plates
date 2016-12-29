@@ -167,6 +167,7 @@ public class Controller implements Initializable, ActionListener {
         } else {
             plate2.setX(plate2.getX() + PLATESPEED);
         }
+
     }
 }
 
