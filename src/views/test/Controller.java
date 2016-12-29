@@ -178,9 +178,8 @@ public class Controller implements Initializable {
                 break;
             case RIGHT:
                 clown.setTranslateX(Math.min(clown.getTranslateX() + CLOWNSPEED,
-                        clown.getParent()
-                                .getLayoutBounds().getWidth() / 2.0 - clown
-                                .getLayoutBounds().getWidth() / 2.0));
+                        clown.getParent().getLayoutBounds().getWidth()
+                                / 2.0 - clown.getLayoutBounds().getWidth() / 2.0));
                 break;
             default:
                 break;
