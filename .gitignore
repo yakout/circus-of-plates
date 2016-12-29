@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 bin/
 out/
 .idea/
+=======
+\bin
+\out
+.idea
+>>>>>>> 757bdac325e5ef13988b9f5e842748c0189b9dbe
