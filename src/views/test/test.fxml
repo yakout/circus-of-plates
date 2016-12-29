@@ -172,19 +172,19 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="90.0" />
-      <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
-      <ImageView fx:id="clown" fitHeight="138.0" fitWidth="106.0" layoutX="309.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+      <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="3.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="90.0" />
+      <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+      <ImageView fx:id="clown" fitHeight="138.0" fitWidth="106.0" AnchorPane.leftAnchor="309.0" AnchorPane.bottomAnchor="0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/images/Clowns/clown1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="plate1" fitHeight="32.0" fitWidth="61.0" layoutX="639.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plate1" fitHeight="32.0" fitWidth="61.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/images/Plates/plate1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="plate2" fitHeight="32.0" fitWidth="61.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plate2" fitHeight="32.0" fitWidth="61.0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/images/Plates/plate1.png" />
          </image>
