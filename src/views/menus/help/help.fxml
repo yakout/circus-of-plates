@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- help menu -->
+<VBox fx:id="helpMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0" visible="false"
+      fx:controller="controllers.menus.Help" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button id="help" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="GUIDE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="back" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="BACK">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+    </children>
+
+    <stylesheets>
+        <URL value="@help.css" />
+    </stylesheets>
+</VBox>

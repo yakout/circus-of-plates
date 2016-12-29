@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<!-- start menu -->
+<VBox fx:id="startMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0"
+      prefWidth="228.0" fx:controller="controllers.menus.Start" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button id="newGame" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="35.0" prefWidth="232.0" text="NEW GAME">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="continue" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler"  prefHeight="35.0" prefWidth="232.0" text="CONTINUE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="loadGame" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="LOAD GAME">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="options" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler"  prefHeight="24.0" prefWidth="232.0" text="OPTIONS">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="help" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="HELP">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="exit" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="EXIT">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+    </children>
+
+    <stylesheets>
+        <URL value="@start.css"/>
+    </stylesheets>
+</VBox>
