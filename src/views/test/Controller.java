@@ -44,32 +44,12 @@ public class Controller implements Initializable {
     javafx.scene.image.ImageView plate1;
     @FXML
     javafx.scene.image.ImageView plate2;
+    @FXML
+    Rectangle leftStack;
+    @FXML
+    Rectangle rightStack;
     private VBox currentMenu;
     private int currentItem = 0;
-    private ActionListener timerListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //ALl these numbers will be replaced by relative positions.
-            //566 -> height of AnchorPane + half height of plate.
-            if (plate1.getY() >= plate1.getParent().getLayoutBounds().getHeight()) {
-                plate1.setX(639);
-                plate1.setY(43);
-            } else if (plate1.getX() + plate1.getTranslateX() + PLATESPEED <
-                    -clown.getParent().getLayoutBounds().getWidth() / 2.0 + 3 *
-                    plate1.getLayoutBounds().getWidth() / 2.0) {
-                plate1.setTranslateY(plate1.getTranslateY() + PLATESPEED);
-            } else {
-                plate1.setTranslateX(plate1.getTranslateX() - PLATESPEED);
-            }
-            if (plate2.getX() + plate2.getTranslateX() + PLATESPEED
-                    > clown.getParent().getLayoutBounds().getWidth() / 2.0
-                    - 3 * plate2.getLayoutBounds().getWidth() / 2.0) {
-                plate2.setTranslateY(plate2.getTranslateY() + PLATESPEED);
-            } else {
-                plate2.setTranslateX(plate2.getTranslateX() + PLATESPEED);
-            }
-        }
-    };
 
     /**
      * Called to initialize a controller after its root element has been
@@ -90,7 +70,9 @@ public class Controller implements Initializable {
         PlateController<javafx.scene.image.ImageView> plate2Controller
                 = new PlateController<>(plate2, true, leftRod.getWidth());
         /*plate1Controller.move();
-        plate2Controller.move();*/
+        plate2Controller.move();*//*
+        leftStack.layoutXProperty().bind(clown.layoutXProperty());
+        leftStack.layoutXProperty().bind(clown.layoutXProperty());*/
         Thread rightPlateThread = new Thread(plate1Controller, "Right Plate Thread");
         Thread leftPlateThread = new Thread(plate2Controller, "Left Plate Thread");
         rightPlateThread.setDaemon(true);
@@ -104,21 +86,35 @@ public class Controller implements Initializable {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            if (clown.getBoundsInParent().intersects(
-                                    plate1.getBoundsInParent())) {
+                            if (intersects(plate1, rightStack)) {
                                 System.out.println("Right Plate Bounds: "
                                         + plate1.getBoundsInParent().toString());
-                                System.out.println("Clown Bounds: " + clown
+                                System.out.println("Right stack Bounds: " + rightStack
                                         .getBoundsInParent().toString());
                                 rightPlateThread.interrupt();
                             }
-                            if (clown.getBoundsInParent().intersects(
-                                    plate2.getBoundsInParent())) {
-                                System.out.println("Clown Bounds: " + clown
+                            if (intersects(plate1, leftStack)) {
+                                System.out.println("Right Plate Bounds: "
+                                        + plate1.getBoundsInParent().toString());
+                                System.out.println("Left stack Bounds: " + leftStack
                                         .getBoundsInParent().toString());
+                                rightPlateThread.interrupt();
+
+                            }
+                            if (intersects(plate2, rightStack)) {
                                 System.out.println("Left Plate Bounds: "
                                         + plate2.getBoundsInParent().toString());
+                                System.out.println("Right Bounds: " + rightStack
+                                        .getBoundsInParent().toString());
                                 leftPlateThread.interrupt();
+                            }
+                            if (intersects(plate2, leftStack)) {
+                                System.out.println("Left Plate Bounds: "
+                                        + plate2.getBoundsInParent().toString());
+                                System.out.println("Left stack Bounds: " + leftStack
+                                        .getBoundsInParent().toString());
+                                leftPlateThread.interrupt();
+
                             }
                         }
                     });
@@ -139,6 +135,13 @@ public class Controller implements Initializable {
         tt.play();*/
         /*rect.setVisible(false)*/
         ;
+    }
+
+    private boolean intersects (Node obj1, Node obj2) {
+         if (obj1.getBoundsInParent().intersects(obj2.getBoundsInParent())) {
+             return true;
+        }
+        return false;
     }
 
     private Button getButton(int index) {

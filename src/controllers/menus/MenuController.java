@@ -16,14 +16,15 @@ public abstract class MenuController implements Initializable {
     }
 
     private Button getButton(int index) {
-        return (Button) getMenu().getChildren().get(index);
+
+        return (Button)getMenu().getChildren().get(index);
     }
 
     public void activateOption(int id) {
         try {
             getButton(id).setTextFill(Color.DARKGOLDENROD);
         } catch (ClassCastException e) {
-            e.printStackTrace();
+
         }
     }
 
