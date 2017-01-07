@@ -28,7 +28,7 @@ public class Options extends MenuController {
     public void initialize(URL location, ResourceBundle resources) {
         currentItem = 0;
         menu = optionsMenu;
-        activateOption(0);
+        activateOption(getButton(currentItem));
     }
 
 

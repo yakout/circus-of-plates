@@ -1,29 +1,24 @@
 package controllers.input.joystick;
 
 import javafx.beans.NamedArg;
-import javafx.event.EventTarget;
 import javafx.event.EventType;
 import javafx.scene.input.InputEvent;
 
 public class JoystickEvent extends InputEvent {
+     private final JoystickCode joystickCode;
 
     /**
      * Creates new instance of InputEvent.
      *
      * @param eventType Type of the event
      */
-    public JoystickEvent(@NamedArg("eventType") EventType<? extends InputEvent> eventType) {
+    public JoystickEvent(@NamedArg("eventType") EventType<? extends InputEvent> eventType,
+                         @NamedArg("code") JoystickCode joystickCode) {
         super(eventType);
+        this.joystickCode = joystickCode;
     }
 
-    /**
-     * Creates new instance of InputEvent.
-     *
-     * @param source    Event source
-     * @param target    Event target
-     * @param eventType Type of the event
-     */
-    public JoystickEvent(@NamedArg("source") Object source, @NamedArg("target") EventTarget target, @NamedArg("eventType") EventType<? extends InputEvent> eventType) {
-        super(source, target, eventType);
+    public JoystickCode getJoystickCode() {
+        return joystickCode;
     }
 }

@@ -1,5 +1,11 @@
 package controllers.main;
 
+import controllers.input.ActionType;
+import controllers.input.Input;
+import controllers.input.InputAction;
+import controllers.input.InputType;
+import controllers.input.joystick.Joystick;
+import controllers.input.joystick.JoystickEvent;
 import controllers.menus.Start;
 import javafx.fxml.FXML;
 import java.awt.event.ActionEvent;
@@ -8,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javax.swing.*;
@@ -18,9 +25,12 @@ public class GameController implements Initializable, ActionListener {
     private final int CLOWNSPEED = 20;
     private final int PLATESPEED = 1;
     private static GameController instance;
+    private Input joystickInput;
 
     @FXML
-    Rectangle rect, plate1, plate2, rightRod, leftRod;
+    Rectangle rect;
+
+    @FXML Rectangle plate1, plate2, rightRod, leftRod;
 
 
     public static GameController getInstance() {
@@ -43,25 +53,28 @@ public class GameController implements Initializable, ActionListener {
         currentMenu = Start.getInstance().getMenu();
         gameTimer = new Timer(10, this);
         gameTimer.start();
+        instance  = this;
+
+        joystickInput = new Joystick(this.getClass());
     }
 
     public void setCurrentMenu(VBox currentMenu) {
         this.currentMenu = currentMenu;
     }
 
-//    private Double currentX;
-//    @FXML
-//    public void mouseHandler(MouseEvent event) {
-//        if (currentX == null) {
-//            currentX = event.getX();
-//        } else {
-//            if (currentX > event.getX()) {
-//                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
-//            } else {
-//                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
-//            }
-//        }
-//    }
+    private Double currentX;
+    @FXML
+    public void mouseHandler(MouseEvent event) {
+        if (currentX == null) {
+            currentX = event.getX();
+        } else {
+            if (currentX > event.getX()) {
+                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+            } else {
+                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+            }
+        }
+    }
 
     @FXML
     public void keyHandler(KeyEvent event) {
@@ -81,6 +94,24 @@ public class GameController implements Initializable, ActionListener {
             default:
                 break;
         }
+    }
+
+
+    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
+    public void performJoystickAction(JoystickEvent event) {
+        if (event.getJoystickCode().getCode() == 0x3) {
+            moveRight();
+        } else if (event.getJoystickCode().getCode() == 0x4) {
+            moveLeft();
+        }
+    }
+
+    void moveLeft() {
+        rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+    }
+
+    void moveRight() {
+        rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
     }
 
 

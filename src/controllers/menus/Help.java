@@ -27,7 +27,7 @@ public class Help extends MenuController {
     public void initialize(URL location, ResourceBundle resources) {
         currentItem = 0;
         menu = helpMenu;
-        activateOption(0);
+        activateOption(getButton(currentItem));
     }
 
     @FXML

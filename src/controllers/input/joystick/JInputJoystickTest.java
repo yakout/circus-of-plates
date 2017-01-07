@@ -37,6 +37,7 @@ public class JInputJoystickTest {
             firstController.poll();
             Component[] components = firstController.getComponents();
             for(int i = 0; i < components.length; i++) {
+                System.out.println(components[i]);
                 if(components[i].isAnalog()) {
                     if (components[i].getName().equals("y")) {
                         if (components[i].getPollData() == 1.0f) {

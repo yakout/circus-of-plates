@@ -8,19 +8,20 @@
 
 <!-- options menu -->
 <VBox fx:id="optionsMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0" visible="false"
-      fx:controller="controllers.menus.Options" xmlns:fx="http://javafx.com/fxml/1">
+      fx:controller="controllers.menus.Options" xmlns:fx="http://javafx.com/fxml/1"
+      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
     <children>
-        <Button id="graphics" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="35.0" prefWidth="232.0" text="GRAPHICS">
+        <Button id="graphics" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="GRAPHICS">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="audio" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="35.0" prefWidth="232.0" text="AUDIO">
+        <Button id="audio" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="AUDIO">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="input" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="24.0" prefWidth="232.0" text="INPUT">
+        <Button id="input" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="INPUT">
             <font>
                 <Font size="18.0" />
             </font>

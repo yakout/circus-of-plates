@@ -12,6 +12,8 @@
 
         <ImageView id="background" fitHeight="500.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" />
 
+        <!--<fx:script source="../../controllers/input/Keyboard.java"/>-->
+
         <!-- load menus -->
         <fx:include source="../menus/start/start.fxml"/>
         <fx:include source="../menus/gameMode/gameMode.fxml"/>

@@ -28,7 +28,7 @@ public class GameMode extends MenuController {
     public void initialize(URL location, ResourceBundle resources) {
         currentItem = 0;
         menu = gameModeMenu;
-        activateOption(0);
+        activateOption(getButton(currentItem));
     }
 
     @FXML

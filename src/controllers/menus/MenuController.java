@@ -9,31 +9,28 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import controllers.main.GameController;
 
+import java.awt.event.MouseEvent;
+
 public abstract class MenuController implements Initializable {
     private int currentItem;
 
     public MenuController() {
     }
 
-    private Button getButton(int index) {
-
+    protected Button getButton(int index) {
         return (Button)getMenu().getChildren().get(index);
     }
 
-    public void activateOption(int id) {
-        try {
-            getButton(id).setTextFill(Color.DARKGOLDENROD);
-        } catch (ClassCastException e) {
-
-        }
+    protected Button getButton(String id) {
+        return (Button) getMenu().getScene().lookup("#" + id);
     }
 
-    public void disActivateOption(int id) {
-        try {
-            getButton(id).setTextFill(Color.BLACK);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+    public void activateOption(Button btn) {
+        btn.setTextFill(Color.DARKGOLDENROD);
+    }
+
+    public void disActivateOption(Button btn) {
+        btn.setTextFill(Color.BLACK);
     }
 
     void updateCurrentMenu(VBox newMenu) {
@@ -44,17 +41,25 @@ public abstract class MenuController implements Initializable {
 
     @FXML
     public void keyHandler(KeyEvent event) {
+        String id = ((Node) event.getSource()).getId();
         switch (event.getCode()) {
             case UP:
                 if (currentItem != 0) {
-                    disActivateOption(currentItem);
-                    activateOption(--currentItem);
+                    // System.out.println(getButton(0).isHover());
+                    System.out.println(getButton(currentItem).isFocused());
+                    System.out.println(getButton(currentItem).getId());
+
+                    currentItem = getCurrentItem();
+                    disActivateOption(getButton(currentItem));
+                    activateOption(getButton(--currentItem));
                 }
                 break;
             case DOWN:
                 if (currentItem != getMenu().getChildren().size() - 1) {
-                    disActivateOption(currentItem);
-                    activateOption(++currentItem);
+                    currentItem = getCurrentItem();
+
+                    disActivateOption(getButton(currentItem));
+                    activateOption(getButton(++currentItem));
                 }
                 break;
             default:
@@ -67,6 +72,23 @@ public abstract class MenuController implements Initializable {
         String id = ((Node) event.getSource()).getId();
         handle(id);
         currentItem = 0;
+    }
+
+    @FXML
+    public void MouseHandler(MouseEvent event) {
+        String id = ((Node) event.getSource()).getId();
+
+    }
+
+    public int getCurrentItem() {
+        int index = 0;
+        for(Node button : getMenu().getChildren()) {
+            if (button.isFocused()) {
+                break;
+            }
+            index++;
+        }
+        return index;
     }
 
     public abstract VBox getMenu();

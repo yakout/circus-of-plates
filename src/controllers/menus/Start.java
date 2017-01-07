@@ -28,7 +28,7 @@ public class Start extends MenuController {
     public void initialize(URL location, ResourceBundle resources) {
         currentItem = 0;
         menu = startMenu;
-        activateOption(0);
+        activateOption(getButton(currentItem));
     }
 
     @FXML

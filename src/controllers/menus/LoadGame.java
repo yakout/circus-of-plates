@@ -26,9 +26,9 @@ public class LoadGame extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 0;
+        currentItem = 1;
         menu = loadGameMenu;
-        activateOption(0);
+        activateOption(getButton(currentItem));
     }
 
     @FXML
