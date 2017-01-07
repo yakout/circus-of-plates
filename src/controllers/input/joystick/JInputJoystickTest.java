@@ -1,4 +1,4 @@
-package controllers.input;
+package controllers.input.joystick;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
