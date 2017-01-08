@@ -26,6 +26,7 @@ public class Joystick extends Input {
 
     public Joystick() {
         listeners = new ArrayList<>();
+
         start();
     }
 

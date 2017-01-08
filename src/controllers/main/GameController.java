@@ -5,8 +5,10 @@ import controllers.input.Input;
 import controllers.input.InputAction;
 import controllers.input.InputType;
 import controllers.input.joystick.Joystick;
+import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.menus.Start;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,10 +101,20 @@ public class GameController implements Initializable, ActionListener {
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
-        if (event.getJoystickCode().getCode() == 0x3) {
-            moveRight();
-        } else if (event.getJoystickCode().getCode() == 0x4) {
-            moveLeft();
+        if (event.getJoystickCode() == JoystickCode.LEFT) {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    moveLeft();
+                }
+            });
+        } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    moveRight();
+                }
+            });
         }
     }
 

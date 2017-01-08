@@ -1,5 +1,7 @@
 package controllers.menus;
 
+import controllers.input.InputAction;
+import controllers.input.joystick.JoystickEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -65,6 +67,16 @@ public abstract class MenuController implements Initializable {
             default:
                 break;
         }
+    }
+
+    private void handleEvent() {
+        // // TODO: 1/8/17  
+    }
+
+
+    @InputAction
+    public void joystickHancdle(JoystickEvent event) {
+       // // TODO: 1/8/17  
     }
 
     @FXML
