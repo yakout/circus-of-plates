@@ -57,7 +57,8 @@ public class GameController implements Initializable, ActionListener {
         gameTimer.start();
         instance  = this;
 
-        joystickInput = new Joystick(this.getClass());
+        joystickInput = Joystick.getInstance();
+        joystickInput.registerClassForInputAction(getClass());
     }
 
     public void setCurrentMenu(VBox currentMenu) {
@@ -101,21 +102,16 @@ public class GameController implements Initializable, ActionListener {
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
-        if (event.getJoystickCode() == JoystickCode.LEFT) {
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run() {
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                if (event.getJoystickCode() == JoystickCode.LEFT) {
                     moveLeft();
-                }
-            });
-        } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run() {
+                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
                     moveRight();
                 }
-            });
-        }
+            }
+        });
     }
 
     void moveLeft() {

@@ -1,6 +1,8 @@
 package controllers.menus;
 
 import controllers.input.InputAction;
+import controllers.input.joystick.Joystick;
+import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,8 +17,14 @@ import java.awt.event.MouseEvent;
 
 public abstract class MenuController implements Initializable {
     private int currentItem;
+    
+    enum Direction {
+        UP,
+        DOWN
+    }
 
     public MenuController() {
+        // Joystick.getInstance().registerClassForInputAction(getClass());
     }
 
     protected Button getButton(int index) {
@@ -43,8 +51,20 @@ public abstract class MenuController implements Initializable {
 
     @FXML
     public void keyHandler(KeyEvent event) {
-        String id = ((Node) event.getSource()).getId();
         switch (event.getCode()) {
+            case UP:
+                handleEvent(Direction.UP);
+                break;
+            case DOWN:
+                handleEvent(Direction.DOWN);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleEvent(Direction direction) {
+        switch (direction) {
             case UP:
                 if (currentItem != 0) {
                     // System.out.println(getButton(0).isHover());
@@ -69,14 +89,19 @@ public abstract class MenuController implements Initializable {
         }
     }
 
-    private void handleEvent() {
-        // // TODO: 1/8/17  
-    }
-
 
     @InputAction
     public void joystickHancdle(JoystickEvent event) {
-       // // TODO: 1/8/17  
+       switch (event.getJoystickCode()) {
+           case DOWN:
+               handleEvent(Direction.DOWN);
+               break;
+           case UP:
+               handleEvent(Direction.UP);
+               break;
+           default:
+               break;
+       }
     }
 
     @FXML
@@ -89,7 +114,7 @@ public abstract class MenuController implements Initializable {
     @FXML
     public void MouseHandler(MouseEvent event) {
         String id = ((Node) event.getSource()).getId();
-
+        // // TODO: 1/9/17  
     }
 
     public int getCurrentItem() {
