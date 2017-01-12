@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class GameMain extends Application {
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         // load needed classes

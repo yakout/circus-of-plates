@@ -9,6 +9,7 @@ import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.menus.Start;
 import javafx.application.Platform;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,9 +57,10 @@ public class GameController implements Initializable, ActionListener {
         gameTimer = new Timer(10, this);
         gameTimer.start();
         instance  = this;
+        
 
         joystickInput = Joystick.getInstance();
-        joystickInput.registerClassForInputAction(getClass());
+        joystickInput.registerClassForInputAction(getClass(), this);
     }
 
     public void setCurrentMenu(VBox currentMenu) {

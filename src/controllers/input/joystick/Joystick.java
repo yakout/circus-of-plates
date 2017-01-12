@@ -13,9 +13,7 @@ import net.java.games.input.ControllerEnvironment;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Joystick extends Input {
     private static Joystick instance;
@@ -24,7 +22,7 @@ public class Joystick extends Input {
     private List<Method> onActionBeginMethods = new ArrayList<>();
     private List<Method> onActionEndMethods = new ArrayList<>();
     private Thread thread;
-    private List<Class<?>> listeners = new ArrayList<>();
+    private Map<Class<?>, Object> listeners = new HashMap<>();
     private EventType eventType = new EventType<JoystickEvent>("Joystick");
 
     private Joystick() {
@@ -148,34 +146,34 @@ public class Joystick extends Input {
     }
 
     public void findAnnotatedMethods() {
-        for (Class<?> klass : listeners) {
-            // need to iterated thought hierarchy in order to retrieve methods from above the current instance
-            while (klass != Object.class) {
-                // iterate though the list of methods declared in the class represented by klass variable,
-                // and add those annotated with the specified annotation
-                final List<Method> allMethods =
-                        new ArrayList<Method>(Arrays.asList(klass.getDeclaredMethods()));
-                for (final Method method : allMethods) {
-                    if (method.isAnnotationPresent(InputAction.class)) {
-                        Annotation annotInstance = method.getAnnotation(InputAction.class);
-                        // process annotInstance
-                        switch (((InputAction) annotInstance).ACTION_TYPE()) {
-                            case BEGIN:
-                                onActionBeginMethods.add(method);
-                                break;
-                            case ONACTION:
-                                onActionMethods.add(method);
-                                break;
-                            case END:
-                                onActionEndMethods.add(method);
-                        }
-                        System.out.println(method.getName());
-                    }
-                }
-                // move to the upper class in the hierarchy in search for more methods
-                klass = klass.getSuperclass();
-            }
-        }
+//        for (Class<?> klass : listeners) {
+//            // need to iterated thought hierarchy in order to retrieve methods from above the current instance
+//            while (klass != Object.class) {
+//                // iterate though the list of methods declared in the class represented by klass variable,
+//                // and add those annotated with the specified annotation
+//                final List<Method> allMethods =
+//                        new ArrayList<Method>(Arrays.asList(klass.getDeclaredMethods()));
+//                for (final Method method : allMethods) {
+//                    if (method.isAnnotationPresent(InputAction.class)) {
+//                        Annotation annotInstance = method.getAnnotation(InputAction.class);
+//                        // process annotInstance
+//                        switch (((InputAction) annotInstance).ACTION_TYPE()) {
+//                            case BEGIN:
+//                                onActionBeginMethods.add(method);
+//                                break;
+//                            case ONACTION:
+//                                onActionMethods.add(method);
+//                                break;
+//                            case END:
+//                                onActionEndMethods.add(method);
+//                        }
+//                        System.out.println(method.getName());
+//                    }
+//                }
+//                // move to the upper class in the hierarchy in search for more methods
+//                klass = klass.getSuperclass();
+//            }
+//        }
     }
 
     @Override
@@ -184,8 +182,8 @@ public class Joystick extends Input {
     }
 
     @Override
-    public void registerClassForInputAction(Class<?> clazz) {
-        listeners.add(clazz);
+    public void registerClassForInputAction(Class<?> clazz, Object instance) {
+        listeners.put(clazz, instance);
     }
 
     public static void main(String[] args) {
