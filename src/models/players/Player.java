@@ -1,28 +1,30 @@
 package models.players;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 import models.GameRules;
-import models.levels.Level;
+import models.Point;
 import models.shapes.Shape;
 
 public class Player {
 
     private static int num_of_players = 0;
 
-    private List<Shape> plates;
+    private Object avatar; // TODO
+    private Stack<Shape> leftStick;
+    private Stack<Shape> rightStick;
     private String playerName;
-    private int score;
-    private Level level;
     private Point position;
-
+    private int score;
+    private double speed;
+    
     public Player() {
         this.playerName = "Player " + ++num_of_players;
         this.score = 0;
         this.position = new Point(0, 0);
-        this.plates = new ArrayList<>();
+        this.leftStick = new Stack<>();
+        this.rightStick = new Stack<>();
     }
 
     public Player(String name) {
@@ -30,42 +32,55 @@ public class Player {
         this.playerName = name;
     }
 
-    public boolean pushPlate(Shape shape) {
-        this.plates.add(shape);
-        if (this.plates.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
+    public boolean pushPlateLeft(Shape shape) {
+        return pushPlate(this.leftStick, shape);
+    }
+    
+    public boolean pushPlateRight(Shape shape) {
+        return pushPlate(this.rightStick, shape);
+    }
+    
+    private void popPlate(Stack<Shape> stick) throws EmptyStackException {
+        stick.pop();
+    }
+    
+    // returns true if got consecutive plates and the score increased
+    private boolean pushPlate(Stack<Shape> stick, Shape shape) {
+        stick.add(shape);
+        if (stick.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
             for (int i = 1; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
-                if (this.plates.get(this.plates.size() - i - 1).equals(shape.getColor())) {
+                if (!stick.peek().equals(shape.getColor())) {
                     return false;
                 }
             }
             for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
-                this.plates.remove(this.plates.size() - 1);
+                this.popPlate(stick);
             }
             this.addScore(GameRules.CONSECUTIVE_PLATES_ADDED_SCORE);
             return true;
         }
         return false;
     }
-
-    public void popPlate() {
-        if (!this.plates.isEmpty())
-            this.plates.remove(this.plates.size() - 1);
+    
+    public void addScore(int change) {
+        this.score += change;
     }
 
-    public void clearPlates() {
-        this.plates.clear();
+    // TODO keep the player within the boundaries of the stage
+    public void moveLeft() {
+        this.position.setX(this.position.getX() - this.speed);
     }
 
-    public int getNumOfPlates() {
-        return this.plates.size();
+    public void moveRight() {
+        this.position.setX(this.position.getX() + this.speed);
     }
 
-    public void setLevel(Level newLevel) {
-        this.level = newLevel;
+    public int getNumOfLeftPlates() {
+        return this.leftStick.size();
     }
-
-    public Level getLevel() {
-        return this.level;
+    
+    public int getNumOfRightPlates() {
+        return this.rightStick.size();
     }
 
     public void setName(String newName) {
@@ -88,17 +103,12 @@ public class Player {
         return this.score;
     }
 
-    public void addScore(int change) {
-        this.score += change;
+    public void setAvatar(Object avatar) {
+        this.avatar = avatar;
     }
-
-    // TODO keep the player within the boundaries of the stage
-    public void moveLeft() {
-        this.position.x = this.position.x - GameRules.PLAYER_SPEED;
-    }
-
-    public void moveRight() {
-        this.position.x = this.position.x + GameRules.PLAYER_SPEED;
+    
+    public Object getAvatar() {
+        return this.avatar;
     }
 
 }
