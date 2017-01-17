@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<!-- game mode menu -->
+<VBox fx:id="gameModeMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0"
+      visible="false" fx:controller="controllers.menus.GameMode" xmlns:fx="http://javafx.com/fxml/1"
+      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
+    <children>
+        <Button id="timeAttack" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="TIME ATTACK">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="normal" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="NORMAL">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="chooseLevel" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="CHOOSE LEVEL">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button id="back" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="BACK">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+    </children>
+    <stylesheets>
+        <URL value="@gameMode.css" />
+    </stylesheets>
+</VBox>

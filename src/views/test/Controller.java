@@ -1,65 +1,148 @@
 package views.test;
 
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import javax.swing.*;
+import javax.swing.text.html.ImageView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable, ActionListener {
+public class Controller implements Initializable {
+    private final double CLOWNSPEED = 10;
+    private final double PLATESPEED = 1.7;
+    @FXML
+    VBox startMenu;
+    @FXML
+    VBox gameModeMenu;
+    @FXML
+    VBox optionsMenu;
+    @FXML
+    VBox loadGameMenu;
+    @FXML
+    VBox helpMenu;
+    @FXML
+    Rectangle rect, rightRod, leftRod;
+    @FXML
+    AnchorPane anchorPane;
+    @FXML
+    javafx.scene.image.ImageView clown;
+    @FXML
+    javafx.scene.image.ImageView plate1;
+    @FXML
+    javafx.scene.image.ImageView plate2;
+    @FXML
+    Rectangle leftStack;
+    @FXML
+    Rectangle rightStack;
+    private VBox currentMenu;
+    private int currentItem = 0;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or
+     *                  <tt>null</tt> if
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
-        gameTimer = new Timer(10, this);
-        gameTimer.start();
-        /*rect.setVisible(false)*/;
+        /*File file = new File("src/assets/images/Clowns/clown1.png");
+        Image img = new Image(file.toURI().toString());
+        clown.setImage(img);*/
+        PlateController<javafx.scene.image.ImageView> plate1Controller
+                = new PlateController<>(plate1, false, rightRod.getWidth());
+        PlateController<javafx.scene.image.ImageView> plate2Controller
+                = new PlateController<>(plate2, true, leftRod.getWidth());
+        /*plate1Controller.move();
+        plate2Controller.move();*//*
+        leftStack.layoutXProperty().bind(clown.layoutXProperty());
+        leftStack.layoutXProperty().bind(clown.layoutXProperty());*/
+        Thread rightPlateThread = new Thread(plate1Controller, "Right Plate Thread");
+        Thread leftPlateThread = new Thread(plate2Controller, "Left Plate Thread");
+        rightPlateThread.setDaemon(true);
+        leftPlateThread.setDaemon(true);
+        rightPlateThread.start();
+        leftPlateThread.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (intersects(plate1, rightStack)) {
+                                System.out.println("Right Plate Bounds: "
+                                        + plate1.getBoundsInParent().toString());
+                                System.out.println("Right stack Bounds: " + rightStack
+                                        .getBoundsInParent().toString());
+                                rightPlateThread.interrupt();
+                            }
+                            if (intersects(plate1, leftStack)) {
+                                System.out.println("Right Plate Bounds: "
+                                        + plate1.getBoundsInParent().toString());
+                                System.out.println("Left stack Bounds: " + leftStack
+                                        .getBoundsInParent().toString());
+                                rightPlateThread.interrupt();
+
+                            }
+                            if (intersects(plate2, rightStack)) {
+                                System.out.println("Left Plate Bounds: "
+                                        + plate2.getBoundsInParent().toString());
+                                System.out.println("Right Bounds: " + rightStack
+                                        .getBoundsInParent().toString());
+                                leftPlateThread.interrupt();
+                            }
+                            if (intersects(plate2, leftStack)) {
+                                System.out.println("Left Plate Bounds: "
+                                        + plate2.getBoundsInParent().toString());
+                                System.out.println("Left stack Bounds: " + leftStack
+                                        .getBoundsInParent().toString());
+                                leftPlateThread.interrupt();
+
+                            }
+                        }
+                    });
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Intersection Thread Interrupted");
+                        return;
+                    }
+                }
+            }
+        }).start();
+        //gameTimer = new Timer(10, timerListener);
+        // gameTimer.start();
+        /*TranslateTransition tt = new TranslateTransition(Duration.millis
+        (2000), plate1);
+        tt.setByX(plate1.getX() - 500);
+        tt.play();*/
+        /*rect.setVisible(false)*/
+        ;
     }
 
-    @FXML
-    VBox startMenu;
-
-    @FXML
-    VBox gameModeMenu;
-
-    @FXML
-    VBox optionsMenu;
-
-    @FXML
-    VBox loadGameMenu;
-
-    @FXML
-    VBox helpMenu;
-
-    @FXML
-    Rectangle rect, plate1, plate2, rightRod, leftRod;
-
-    private VBox currentMenu;
-    private int currentItem = 0;
-    private Timer gameTimer;
-    private final int CLOWNSPEED = 10;
-    private final int PLATESPEED = 1;
-
+    private boolean intersects (Node obj1, Node obj2) {
+         if (obj1.getBoundsInParent().intersects(obj2.getBoundsInParent())) {
+             return true;
+        }
+        return false;
+    }
 
     private Button getButton(int index) {
         return (Button) currentMenu.getChildren().get(index);
@@ -90,10 +173,17 @@ public class Controller implements Initializable, ActionListener {
                 }
                 break;
             case LEFT:
-                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                double transX = clown.getTranslateX();
+                clown.setTranslateX(Math.max(clown.getTranslateX() - CLOWNSPEED,
+                        -clown.getParent().getLayoutBounds().getWidth() / 2.0
+                                 + clown.getLayoutBounds().getWidth()
+                                / 2.0));
                 break;
             case RIGHT:
-                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                clown.setTranslateX(Math.min(clown.getTranslateX() + CLOWNSPEED,
+                        clown.getParent()
+                                .getLayoutBounds().getWidth() / 2.0 - clown
+                                .getLayoutBounds().getWidth() / 2.0));
                 break;
             default:
                 break;
@@ -146,26 +236,6 @@ public class Controller implements Initializable, ActionListener {
                 break;
             default:
                 break;
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //ALl these numbers will be replaced by relative positions.
-        //566 -> height of AnchorPane + half height of plate.
-        if (plate1.getY() >= 500) {
-            plate1.setX(639);
-            plate1.setY(43);
-        }
-        else if (plate1.getX() + PLATESPEED < -350 + 3 * plate1.getWidth() / 2.0) {
-            plate1.setY(plate1.getY() + PLATESPEED);
-        } else {
-            plate1.setX(plate1.getX() - PLATESPEED);
-        }
-        if (plate2.getX() + PLATESPEED > 350 - 3 * plate2.getWidth() / 2.0) {
-            plate2.setY(plate2.getY() + PLATESPEED);
-        } else {
-            plate2.setX(plate2.getX() + PLATESPEED);
         }
     }
 }
