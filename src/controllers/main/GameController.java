@@ -56,9 +56,10 @@ public class GameController implements Initializable, ActionListener {
         gameTimer = new Timer(10, this);
         gameTimer.start();
         instance  = this;
+        
 
         joystickInput = Joystick.getInstance();
-        joystickInput.registerClassForInputAction(getClass());
+        joystickInput.registerClassForInputAction(getClass(), instance);
     }
 
     public void setCurrentMenu(VBox currentMenu) {

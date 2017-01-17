@@ -6,7 +6,7 @@ import javafx.scene.input.InputEvent;
 
 public class JoystickEvent extends InputEvent {
     private final JoystickCode joystickCode;
-    private final PlayerType playerType;
+    private final JoystickType joystickType;
 
     /**
      * Creates new instance of InputEvent.
@@ -14,18 +14,18 @@ public class JoystickEvent extends InputEvent {
      * @param eventType Type of the event
      */
     public JoystickEvent(@NamedArg("eventType") EventType<? extends InputEvent> eventType,
-                         @NamedArg("code") JoystickCode joystickCode, PlayerType playerType) {
+                         @NamedArg("code") JoystickCode joystickCode, JoystickType joystickType) {
         // // TODO: 1/9/17 add parameter for player type
         super(eventType);
         this.joystickCode = joystickCode;
-        this.playerType = playerType;
+        this.joystickType = joystickType;
     }
 
     public JoystickCode getJoystickCode() {
         return joystickCode;
     }
 
-    public PlayerType getPlayerType() {
-        return playerType;
+    public JoystickType getJoystickType() {
+        return joystickType;
     }
 }
