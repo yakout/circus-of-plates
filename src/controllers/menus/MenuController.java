@@ -4,16 +4,20 @@ import controllers.input.InputAction;
 import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import controllers.main.GameController;
 
 import java.awt.event.MouseEvent;
+import java.lang.management.PlatformLoggingMXBean;
 
 public abstract class MenuController implements Initializable {
     private int currentItem;
@@ -24,11 +28,10 @@ public abstract class MenuController implements Initializable {
     }
 
     public MenuController() {
-        // Joystick.getInstance().registerClassForInputAction(getClass());
     }
 
     protected Button getButton(int index) {
-        return (Button)getMenu().getChildren().get(index);
+        return (Button) getMenu().getChildren().get(index);
     }
 
     protected Button getButton(String id) {
@@ -94,10 +97,20 @@ public abstract class MenuController implements Initializable {
     public void joystickHancdle(JoystickEvent event) {
        switch (event.getJoystickCode()) {
            case DOWN:
-               handleEvent(Direction.DOWN);
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       handleEvent(Direction.DOWN);
+                   }
+               });
                break;
            case UP:
-               handleEvent(Direction.UP);
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       handleEvent(Direction.UP);
+                   }
+               });
                break;
            default:
                break;

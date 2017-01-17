@@ -1,5 +1,7 @@
 package views.testGame;
 
+import com.sun.tools.javac.comp.Todo;
+import controllers.input.joystick.Joystick;
 import controllers.menus.Help;
 import controllers.menus.MenuController;
 import javafx.application.Application;
@@ -32,6 +34,9 @@ public class GameMain extends Application {
         primaryStage.setAlwaysOnTop(true);
         primaryStage.setResizable(false);
         primaryStage.show();
+
+        // TODO: 1/17/17  
+        Joystick.getInstance().start();
     }
 
     public static void main(String[] args) {

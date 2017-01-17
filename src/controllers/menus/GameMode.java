@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 

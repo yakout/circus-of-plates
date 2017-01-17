@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -29,6 +30,7 @@ public class Start extends MenuController {
         currentItem = 0;
         menu = startMenu;
         activateOption(getButton(currentItem));
+        Joystick.getInstance().registerClassForInputAction(MenuController.class, instance);
     }
 
     @FXML
