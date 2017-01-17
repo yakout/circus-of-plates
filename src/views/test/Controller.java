@@ -113,7 +113,7 @@ public class Controller implements Initializable {
 								//								plate1.setTranslateX(0);
 								plate1Moving = false;
 								rightPlateThread.interrupt();
-								plate1.translateXProperty().bind(clown.translateXProperty().add(plate1.getTranslateX()));
+								plate1.translateXProperty().bind(clown.translateXProperty().add(plate1.getTranslateX() - clown.getTranslateX()));
 								//plate1.xProperty().bind(clown.xProperty());
 								System.out.println(clown.getX());
 								System.out.println(clown.getLayoutX());
@@ -131,7 +131,7 @@ public class Controller implements Initializable {
 								leftPlateThread.interrupt();
 								System.out.println(plate2.getTranslateX());
 								System.out.println(plate2.getX());
-								plate2.translateXProperty().bind(clown.translateXProperty().add(plate2.getTranslateX()));
+								plate2.translateXProperty().bind(clown.translateXProperty().add(plate2.getTranslateX() - clown.getTranslateX()));
 								//								plate2.setX(plate2.getX() + plate2.getTranslateX());
 								//								plate2.setTranslateX(0);
 								//								plate2.translateXProperty().bind(clown.translateXProperty());
