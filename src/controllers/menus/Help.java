@@ -1,6 +1,5 @@
 package controllers.menus;
 
-import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import java.net.URL;
@@ -8,7 +7,6 @@ import java.util.ResourceBundle;
 
 public class Help extends MenuController {
     private VBox menu;
-    private int currentItem;
     private static Help instance;
 
     public Help() {
@@ -26,9 +24,7 @@ public class Help extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 0;
         menu = helpMenu;
-        activateOption(getButton(currentItem));
     }
 
     @FXML

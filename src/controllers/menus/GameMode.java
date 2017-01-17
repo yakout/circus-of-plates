@@ -1,6 +1,5 @@
 package controllers.menus;
 
-import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -9,7 +8,6 @@ import java.util.ResourceBundle;
 
 public class GameMode extends MenuController {
     private VBox menu;
-    private int currentItem;
     private static GameMode instance;
 
     public GameMode() {
@@ -27,9 +25,7 @@ public class GameMode extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 0;
         menu = gameModeMenu;
-        activateOption(getButton(currentItem));
     }
 
     @FXML

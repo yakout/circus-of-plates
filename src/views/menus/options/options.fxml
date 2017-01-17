@@ -9,7 +9,7 @@
 <!-- options menu -->
 <VBox fx:id="optionsMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0" visible="false"
       fx:controller="controllers.menus.Options" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
+      onKeyReleased="#keyHandler">
     <children>
         <Button id="graphics" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="GRAPHICS">
             <font>

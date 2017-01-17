@@ -9,7 +9,7 @@
 <!-- game mode menu -->
 <VBox fx:id="gameModeMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0"
       visible="false" fx:controller="controllers.menus.GameMode" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
+      onKeyReleased="#keyHandler">
     <children>
         <Button id="timeAttack" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="TIME ATTACK">
             <font>

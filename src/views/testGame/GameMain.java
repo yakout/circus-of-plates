@@ -1,16 +1,10 @@
 package views.testGame;
 
-import com.sun.tools.javac.comp.Todo;
 import controllers.input.joystick.Joystick;
-import controllers.menus.Help;
-import controllers.menus.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;

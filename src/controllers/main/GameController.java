@@ -92,7 +92,15 @@ public class GameController implements Initializable, ActionListener {
                 // rect.setX(rect.getX() + 10);
                 break;
             case ESCAPE:
-                // startMenu.setVisible(currentMenu.isVisible() == startMenu.isVisible());
+                Platform.runLater(() -> {
+                    if (currentMenu.isVisible()) {
+                        currentMenu.setVisible(false);
+                    } else {
+                        currentMenu = Start.getInstance().getMenu();
+                        currentMenu.setVisible(true);
+                    }
+                    System.out.println(currentMenu.isVisible());
+                });
                 // rect.setX(rect.getX() + 10);
                 break;
             default:

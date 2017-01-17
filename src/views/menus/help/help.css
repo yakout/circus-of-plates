@@ -1,0 +1,3 @@
+.button:focused {
+    -fx-text-fill: DARKGOLDENROD;
+}

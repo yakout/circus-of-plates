@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -9,7 +10,6 @@ import java.util.ResourceBundle;
 
 public class Start extends MenuController {
     private VBox menu;
-    private int currentItem;
     private static Start instance;
 
     public Start() {
@@ -27,9 +27,7 @@ public class Start extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 0;
         menu = startMenu;
-        activateOption(getButton(currentItem));
         Joystick.getInstance().registerClassForInputAction(MenuController.class, instance);
     }
 
@@ -39,13 +37,11 @@ public class Start extends MenuController {
     @Override
     void handle(String id) {
         startMenu.setVisible(false);
+        System.out.println("id = " + id);
         switch (id) {
             case "newGame":
                 GameMode.getInstance().getMenu().setVisible(true);
                 updateCurrentMenu(GameMode.getInstance().getMenu());
-                break;
-            case "continue":
-                // TODO: 12/25/16  show the game pad
                 break;
             case "loadGame":
                 LoadGame.getInstance().getMenu().setVisible(true);
@@ -60,6 +56,7 @@ public class Start extends MenuController {
                 updateCurrentMenu(Help.getInstance().getMenu());
                 break;
             case "exit":
+                System.out.println("should exit");
                 System.exit(0);
                 break;
             default:

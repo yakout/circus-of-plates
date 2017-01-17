@@ -8,34 +8,34 @@
 <!-- start menu -->
 <VBox fx:id="startMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0"
       prefWidth="228.0" fx:controller="controllers.menus.Start" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
+      onKeyReleased="#keyHandler">
     <children>
-        <Button id="newGame" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="NEW GAME">
+        <Button id="newGame" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="35.0" prefWidth="232.0" text="NEW GAME">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="continue" mnemonicParsing="false"   prefHeight="35.0" prefWidth="232.0" text="CONTINUE">
+        <Button id="continue" mnemonicParsing="false" onMousePressed="#MouseHandler"  prefHeight="35.0" prefWidth="232.0" text="CONTINUE">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="loadGame" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="LOAD GAME">
+        <Button id="loadGame" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="LOAD GAME">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="options" mnemonicParsing="false"   prefHeight="24.0" prefWidth="232.0" text="OPTIONS">
+        <Button id="options" mnemonicParsing="false" onMousePressed="#MouseHandler"  prefHeight="24.0" prefWidth="232.0" text="OPTIONS">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="help" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="HELP">
+        <Button id="help" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="HELP">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="exit" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="EXIT">
+        <Button id="exit" mnemonicParsing="false"  onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="EXIT">
             <font>
                 <Font size="18.0" />
             </font>

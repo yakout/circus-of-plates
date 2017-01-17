@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 public class Options extends MenuController {
     private VBox menu;
-    private int currentItem;
     private static Options instance;
 
     public Options() {
@@ -26,9 +25,7 @@ public class Options extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 0;
         menu = optionsMenu;
-        activateOption(getButton(currentItem));
     }
 
 

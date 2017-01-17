@@ -1,26 +1,21 @@
 package controllers.menus;
 
 import controllers.input.InputAction;
-import controllers.input.joystick.Joystick;
-import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import controllers.main.GameController;
 
-import java.awt.event.MouseEvent;
-import java.lang.management.PlatformLoggingMXBean;
 
 public abstract class MenuController implements Initializable {
-    private int currentItem;
+    private int currentIndex = 0;
     
     enum Direction {
         UP,
@@ -30,68 +25,53 @@ public abstract class MenuController implements Initializable {
     public MenuController() {
     }
 
-    protected Button getButton(int index) {
-        return (Button) getMenu().getChildren().get(index);
-    }
-
     protected Button getButton(String id) {
         return (Button) getMenu().getScene().lookup("#" + id);
     }
 
-    public void activateOption(Button btn) {
-        btn.setTextFill(Color.DARKGOLDENROD);
+    protected Button getButton(int index) {
+        return (Button) getMenu().getChildren().get(index);
     }
 
-    public void disActivateOption(Button btn) {
-        btn.setTextFill(Color.BLACK);
+    protected int getCurrentIndex() {
+        int index = 0;
+        for(Node button : getMenu().getChildren()) {
+            if (button.isFocused()) {
+                break;
+            }
+            index++;
+        }
+        currentIndex = index;
+        return currentIndex;
     }
 
     void updateCurrentMenu(VBox newMenu) {
         GameController.getInstance().setCurrentMenu(newMenu);
     }
 
+    void requestFocus(int index) {
+        Platform.runLater(() -> getButton(index).requestFocus());
+    }
+
     abstract void handle(String id);
 
-    @FXML
-    public void keyHandler(KeyEvent event) {
-        switch (event.getCode()) {
-            case UP:
-                handleEvent(Direction.UP);
-                break;
-            case DOWN:
-                handleEvent(Direction.DOWN);
-                break;
-            default:
-                break;
-        }
-    }
-
     private void handleEvent(Direction direction) {
+        getCurrentIndex();
         switch (direction) {
             case UP:
-                if (currentItem != 0) {
-                    // System.out.println(getButton(0).isHover());
-                    System.out.println(getButton(currentItem).isFocused());
-                    System.out.println(getButton(currentItem).getId());
-
-                    currentItem = getCurrentItem();
-                    disActivateOption(getButton(currentItem));
-                    activateOption(getButton(--currentItem));
+                if (currentIndex != 0) {
+                    requestFocus(--currentIndex);
                 }
                 break;
             case DOWN:
-                if (currentItem != getMenu().getChildren().size() - 1) {
-                    currentItem = getCurrentItem();
-
-                    disActivateOption(getButton(currentItem));
-                    activateOption(getButton(++currentItem));
+                if (currentIndex != getMenu().getChildren().size() - 1) {
+                    requestFocus(++currentIndex);
                 }
                 break;
             default:
                 break;
         }
     }
-
 
     @InputAction
     public void joystickHancdle(JoystickEvent event) {
@@ -117,28 +97,17 @@ public abstract class MenuController implements Initializable {
        }
     }
 
+
     @FXML
-    public void handleKeyAction(KeyEvent event) {
-        String id = ((Node) event.getSource()).getId();
-        handle(id);
-        currentItem = 0;
+    public void keyHandler(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            handle(getButton(getCurrentIndex()).getId());
+        }
     }
 
     @FXML
     public void MouseHandler(MouseEvent event) {
-        String id = ((Node) event.getSource()).getId();
-        // // TODO: 1/9/17  
-    }
-
-    public int getCurrentItem() {
-        int index = 0;
-        for(Node button : getMenu().getChildren()) {
-            if (button.isFocused()) {
-                break;
-            }
-            index++;
-        }
-        return index;
+        handle(((Node) event.getSource()).getId());
     }
 
     public abstract VBox getMenu();

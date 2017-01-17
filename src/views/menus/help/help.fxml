@@ -8,7 +8,7 @@
 <!-- help menu -->
 <VBox fx:id="helpMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0" visible="false"
       fx:controller="controllers.menus.Help" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler">
+      onKeyPressed="#keyHandler">
     <children>
         <Button id="help" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="GUIDE">
             <font>

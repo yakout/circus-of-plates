@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 public class LoadGame extends MenuController {
     private VBox menu;
-    private int currentItem;
     private static LoadGame instance;
 
     public LoadGame() {
@@ -26,9 +25,7 @@ public class LoadGame extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentItem = 1;
         menu = loadGameMenu;
-        activateOption(getButton(currentItem));
     }
 
     @FXML
