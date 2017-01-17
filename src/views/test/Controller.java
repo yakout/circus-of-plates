@@ -229,22 +229,27 @@ public class Controller implements Initializable {
 		currentMenu.setVisible(false);
 		switch (id) {
 		case "0":
+			currentItem = 0;
 			gameModeMenu.setVisible(true);
 			currentMenu = gameModeMenu;
 			break;
 		case "1":
+			currentItem = 0;
 			currentMenu.setVisible(false);
 			// TODO: 12/25/16  show the game pad
 			break;
 		case "2":
+			currentItem = 0;
 			loadGameMenu.setVisible(true);
 			currentMenu = loadGameMenu;
 			break;
 		case "3":
+			currentItem = 0;
 			optionsMenu.setVisible(true);
 			currentMenu = optionsMenu;
 			break;
 		case "4":
+			currentItem = 0;
 			helpMenu.setVisible(true);
 			currentMenu = helpMenu;
 			break;
