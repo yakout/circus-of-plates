@@ -18,8 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import javax.swing.text.html.ImageView;
-
 
 public class Controller implements Initializable {
 	private final double CLOWNSPEED = 10;
@@ -56,7 +54,7 @@ public class Controller implements Initializable {
 				plate1.setY(43);
 			} else if (plate1.getX() + plate1.getTranslateX() + PLATESPEED <
 					-clown.getParent().getLayoutBounds().getWidth() / 2.0 + 3 *
-							plate1.getLayoutBounds().getWidth() / 2.0) {
+					plate1.getLayoutBounds().getWidth() / 2.0) {
 				plate1.setTranslateY(plate1.getTranslateY() + PLATESPEED);
 			} else {
 				plate1.setTranslateX(plate1.getTranslateX() - PLATESPEED);
@@ -87,9 +85,9 @@ public class Controller implements Initializable {
         Image img = new Image(file.toURI().toString());
         clown.setImage(img);*/
 		final PlateController<javafx.scene.image.ImageView> plate1Controller
-				= new PlateController<>(plate1, false, rightRod.getWidth());
+		= new PlateController<>(plate1, false, rightRod.getWidth());
 		final PlateController<javafx.scene.image.ImageView> plate2Controller
-				= new PlateController<>(plate2, true, leftRod.getWidth());
+		= new PlateController<>(plate2, true, leftRod.getWidth());
 		/*plate1Controller.move();
         plate2Controller.move();*/
 		final Thread rightPlateThread = new Thread(plate1Controller, "Right Plate Thread");
@@ -98,32 +96,31 @@ public class Controller implements Initializable {
 		leftPlateThread.setDaemon(true);
 		rightPlateThread.start();
 		leftPlateThread.start();
-//		final Thread plateGenerationThread = new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//
-//			}
-//		});
+		//		final Thread plateGenerationThread = new Thread(new Runnable() {
+		//			@Override
+		//			public void run() {
+		//
+		//			}
+		//		});
 		final Thread plateGeneratorThread = new Thread(new Runnable() {
-            boolean left = true;
-            @Override
+			boolean left = true;
+			@Override
 			public void run() {
 				while(true) {
-				    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createPlate(left);
-                            if (left) left = false;
-                            else left = true;
-                        }
-                    });
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException e) {
-                        System.out.println("Plate-generator Thread has been interrupted");
-                        return;
-                    }
-                }
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							createPlate(left);
+							createPlate(!left);
+						}
+					});
+					try {
+						Thread.sleep(5000);
+					} catch (final InterruptedException e) {
+						System.out.println("Plate-generator Thread has been interrupted");
+						return;
+					}
+				}
 			}
 		});
 		plateGeneratorThread.setDaemon(true);
@@ -144,7 +141,7 @@ public class Controller implements Initializable {
 										+ plate1.getBoundsInParent().toString());
 								System.out.println("Clown Bounds: " + clown
 										.getBoundsInParent().toString());
-								// plate1.setX(plate1.getX()
+								// plate1.setX(plate1.getX();
 								// + plate1.getTranslateX());
 								//	plate1.setTranslateX(0);
 								plate1Moving = false;
@@ -197,12 +194,11 @@ public class Controller implements Initializable {
         (2000), plate1);
         tt.setByX(plate1.getX() - 500);
         tt.play();*/
-        /*rect.setVisible(false)*/
-		;
+		/*rect.setVisible(false)*/
 	}
-	private void createPlate(boolean isLeftPlate) {
-		javafx.scene.image.ImageView newPlate = new javafx.scene.image.ImageView();
-		Image img = new Image("./src/assets/images/Plates/plate1.png");
+	private void createPlate(final boolean isLeftPlate) {
+		final javafx.scene.image.ImageView newPlate = new javafx.scene.image.ImageView();
+		final Image img = new Image("assets/images/Plates/plate1.png");
 		newPlate.setImage(img);
 		if (isLeftPlate) {
 			newPlate.setLayoutX(0);
@@ -212,102 +208,102 @@ public class Controller implements Initializable {
 		newPlate.setLayoutY(rightRod.getLayoutY());
 		anchorPane.getChildren().add(newPlate);
 		final PlateController<javafx.scene.image.ImageView> plateRController
-				= new PlateController<>(newPlate, isLeftPlate, rightRod.getWidth());
+		= new PlateController<>(newPlate, isLeftPlate, rightRod.getWidth());
 		final Thread plateThread = new Thread(plateRController, "New Right plate");
-        plateThread.setDaemon(true);
-        plateThread.start();
+		plateThread.setDaemon(true);
+		plateThread.start();
 	}
-	private Button getButton(int index) {
+	private Button getButton(final int index) {
 		return (Button) currentMenu.getChildren().get(index);
 	}
 
 
-	public void active(int id) {
+	public void activate(final int id) {
 		getButton(id).setTextFill(Color.DARKGOLDENROD);
 	}
 
-	public void disActive(int id) {
+	public void deactivate(final int id) {
 		getButton(id).setTextFill(Color.BLACK);
 	}
 
 	@FXML
-	public void keyHandler(KeyEvent event) {
+	public void keyHandler(final KeyEvent event) {
 		switch (event.getCode()) {
-			case UP:
-				if (currentItem != 0) {
-					disActive(currentItem);
-					active(--currentItem);
-				}
-				break;
-			case DOWN:
-				if (currentItem != currentMenu.getChildren().size() - 1) {
-					disActive(currentItem);
-					active(++currentItem);
-				}
-				break;
-			case LEFT:
-				double transX = clown.getTranslateX();
-				clown.setTranslateX(Math.max(clown.getTranslateX() - CLOWNSPEED,
-						-clown.getParent().getLayoutBounds().getWidth() / 2.0
-								+ clown.getLayoutBounds().getWidth()
-								/ 2.0));
-				break;
-			case RIGHT:
-				clown.setTranslateX(Math.min(clown.getTranslateX() + CLOWNSPEED,
-						clown.getParent().getLayoutBounds().getWidth()
-								/ 2.0 - clown.getLayoutBounds().getWidth() / 2.0));
-				break;
-			default:
-				break;
+		case UP:
+			if (currentItem != 0) {
+				deactivate(currentItem);
+				activate(--currentItem);
+			}
+			break;
+		case DOWN:
+			if (currentItem != currentMenu.getChildren().size() - 1) {
+				deactivate(currentItem);
+				activate(++currentItem);
+			}
+			break;
+		case LEFT:
+			final double transX = clown.getTranslateX();
+			clown.setTranslateX(Math.max(clown.getTranslateX() - CLOWNSPEED,
+					-clown.getParent().getLayoutBounds().getWidth() / 2.0
+					+ clown.getLayoutBounds().getWidth()
+					/ 2.0));
+			break;
+		case RIGHT:
+			clown.setTranslateX(Math.min(clown.getTranslateX() + CLOWNSPEED,
+					clown.getParent().getLayoutBounds().getWidth()
+					/ 2.0 - clown.getLayoutBounds().getWidth() / 2.0));
+			break;
+		default:
+			break;
 		}
 	}
 
 	@FXML
-	void handleKeyAction(KeyEvent event) {
-		String id = ((Node) event.getSource()).getId();
+	void handleKeyAction(final KeyEvent event) {
+		final String id = ((Node) event.getSource()).getId();
 		switch (currentMenu.getId()) {
-			case "0":
-				handleStartMenu(id);
-				break;
-			case "1":
-				handleHelpMenu(id);
-				break;
+		case "0":
+			handleStartMenu(id);
+			break;
+		case "1":
+			handleHelpMenu(id);
+			break;
 		}
 	}
 
 
-	private void handleHelpMenu(String id) {
+	private void handleHelpMenu(final String id) {
 		// currentMenu.setVisible(false);
 	}
 
-	private void handleStartMenu(String id) {
+	private void handleStartMenu(final String id) {
 		currentMenu.setVisible(false);
 		switch (id) {
-			case "0":
-				gameModeMenu.setVisible(true);
-				currentMenu = gameModeMenu;
-				break;
-			case "1":
-				currentMenu.setVisible(false);
-				// TODO: 12/25/16  show the game pad
-				break;
-			case "2":
-				loadGameMenu.setVisible(true);
-				currentMenu = loadGameMenu;
-				break;
-			case "3":
-				optionsMenu.setVisible(true);
-				currentMenu = optionsMenu;
-				break;
-			case "4":
-				helpMenu.setVisible(true);
-				currentMenu = helpMenu;
-				break;
-			case "5":
-				System.exit(0);
-				break;
-			default:
-				break;
+		case "0":
+			gameModeMenu.setVisible(true);
+			currentMenu = gameModeMenu;
+			break;
+		case "1":
+			currentMenu.setVisible(false);
+			// TODO: 12/25/16  show the game pad
+			break;
+		case "2":
+			loadGameMenu.setVisible(true);
+			currentMenu = loadGameMenu;
+			break;
+		case "3":
+			optionsMenu.setVisible(true);
+			currentMenu = optionsMenu;
+			break;
+		case "4":
+			helpMenu.setVisible(true);
+			currentMenu = helpMenu;
+			break;
+		case "5":
+			System.exit(0);
+			break;
+		default:
+			break;
 		}
 	}
 }
