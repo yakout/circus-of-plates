@@ -200,6 +200,10 @@ public class Controller implements Initializable {
 		final javafx.scene.image.ImageView newPlate = new javafx.scene.image.ImageView();
 		final Image img = new Image("assets/images/Plates/plate1.png");
 		newPlate.setImage(img);
+		newPlate.setFitHeight(32);
+		newPlate.setFitWidth(61);
+		newPlate.setPickOnBounds(true);
+		newPlate.setPreserveRatio(true);
 		if (isLeftPlate) {
 			newPlate.setLayoutX(0);
 		} else {
