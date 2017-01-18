@@ -5,6 +5,7 @@ import controllers.input.Input;
 import controllers.input.InputAction;
 import controllers.input.UserAction;
 import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
@@ -22,7 +23,7 @@ public class Joystick extends Input {
     private Map<Class<?>, Method> onActionEndMethods = new HashMap<>();
     private Thread thread;
     private Map<Class<?>, Object> registeredClasses = new HashMap<>();
-    private EventType eventType = new EventType<JoystickEvent>("Joystick");
+    private EventType<? extends InputEvent> eventType = new EventType<JoystickEvent>("Joystick");
 
     private Joystick() {
     }
@@ -74,45 +75,77 @@ public class Joystick extends Input {
     }
 
     private void poll(Controller controller) {
+        Component prevComponent = null;
+        Component currentComponent;
+        JoystickEvent joystick = null;
         while(true) {
             try {
                 controller.poll();
                 Component[] components = controller.getComponents();
-                JoystickEvent joystick = null;
+                joystick = null;
                 for(int i = 0; i < components.length; i++) {
                     if(components[i].isAnalog()) {
-                        if (components[i].getName().equals("y")) {
+                        currentComponent = components[i];
+                        if (currentComponent.getName().equals("y")) {
                             if (components[i].getPollData() == 1.0f) {
-                                System.out.println("down" + " done by controller: "
-                                        + (i > 11 ? "player 2" : "player 1"));
+//                                System.out.println("down" + " done by controller: "
+//                                        + (i > 11 ? "player 2" : "player 1"));
                                 joystick = new JoystickEvent(eventType, JoystickCode.DOWN,
                                         i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                            } else if (components[i].getPollData() == -1.0f) {
+                            } else if (currentComponent.getPollData() == -1.0f) {
                                 joystick = new JoystickEvent(eventType, JoystickCode.UP,
                                         i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                                System.out.println("up" + " done by controller: "
-                                        + (i > 11 ? "player 2" : "player 1"));
+//                                System.out.println("up" + " done by controller: "
+//                                        + (i > 11 ? "player 2" : "player 1"));
                             }
                         } else {
-                            if (components[i].getPollData() == 1.0f) {
+                            if (currentComponent.getPollData() == 1.0f) {
                                 joystick = new JoystickEvent(eventType, JoystickCode.RIGHT,
                                         i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                                System.out.println("right" + " done by controller: "
-                                        + (i > 11 ? "player 2" : "player 1"));
+//                                System.out.println("right" + " done by controller: "
+//                                        + (i > 11 ? "player 2" : "player 1"));
 
-                            } else if (components[i].getPollData() == -1.0f) {
+                            } else if (currentComponent.getPollData() == -1.0f) {
                                 joystick = new JoystickEvent(eventType, JoystickCode.LEFT,
                                         i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                                System.out.println("left" + " done by controller: "
-                                        + (i > 11 ? "player 2" : "player 1"));
+//                                System.out.println("left" + " done by controller: "
+//                                        + (i > 11 ? "player 2" : "player 1"));
                             }
                         }
-                        if (joystick != null) invokeOnActionBeginMethods(joystick);
+
+                        // ======================================================================
+
+
+//                        if (joystick != null) { //&& !currentComponent.equals(prevComponent)) {
+//                            invokeOnActionBeginMethods(joystick);
+//                            // invokeOnActionMethods(joystick);
+//                        }
+//                        else if (joystick != null && currentComponent.equals(prevComponent)) {
+//                            invokeOnActionMethods(joystick);
+//                            System.out.println("on");
+//                        }
+
+
+                        // component is not analog
+                    } else {
+                        if (components[i].getName().equals("2") && components[i].getPollData() == 1.0f) {
+//                            System.out.println( i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
+                            joystick = new JoystickEvent(eventType, JoystickCode.PRESS,
+                                    i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
+                        }
                     }
+
+                    if (joystick != null) {
+                        invokeOnActionBeginMethods(joystick);
+                    }
+//                    if (joystick != null && prevComponent != null && !prevComponent.equals(components[i])) {
+//                        invokeOnActionEndMethods(joystick);
+//                        System.out.println("end");
+//                    }
+//                    prevComponent = components[i];
                 }
-                // // TODO: 1/9/17 invoke onActionMethods
-                Thread.sleep(50);
-                if (joystick != null) invokeOnActionEndMethods(joystick);
+
+                Thread.sleep(100);
             } catch (InterruptedException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -148,8 +181,9 @@ public class Joystick extends Input {
 
     public void findAnnotatedMethods() {
         for (Map.Entry<Class<?>, Object> entry : registeredClasses.entrySet()) {
-            Class<?> klass = entry.getKey();
+            Class<?> _class = entry.getKey();
             // need to iterated thought hierarchy in order to retrieve methods from above the current instance
+            Class<?> klass = _class;
             while (klass != Object.class) {
                 // iterate though the list of methods declared in the class represented by klass variable,
                 // and add those annotated with the specified annotation
@@ -161,13 +195,13 @@ public class Joystick extends Input {
                         // process annotInstance
                         switch (((InputAction) annotInstance).ACTION_TYPE()) {
                             case BEGIN:
-                                onActionBeginMethods.put(klass, method);
+                                onActionBeginMethods.put(_class, method);
                                 break;
                             case ONACTION:
-                                onActionMethods.put(klass, method);
+                                onActionMethods.put(_class, method);
                                 break;
                             case END:
-                                onActionEndMethods.put(klass, method);
+                                onActionEndMethods.put(_class, method);
                         }
                         System.out.println(method.getName());
                     }

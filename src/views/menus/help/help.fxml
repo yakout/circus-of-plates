@@ -6,16 +6,16 @@
 <?import javafx.scene.text.*?>
 
 <!-- help menu -->
-<VBox fx:id="helpMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0" visible="false"
+<VBox fx:id="helpMenu" alignment="CENTER" visible="false"
       fx:controller="controllers.menus.Help" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyPressed="#keyHandler">
+      onKeyReleased="#keyHandler">
     <children>
-        <Button id="help" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="GUIDE">
+        <Button id="help" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="GUIDE">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="back" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="BACK">
+        <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
             <font>
                 <Font size="18.0" />
             </font>

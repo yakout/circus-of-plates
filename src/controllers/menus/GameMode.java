@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -26,6 +27,7 @@ public class GameMode extends MenuController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menu = gameModeMenu;
+        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
 
     @FXML
@@ -37,7 +39,7 @@ public class GameMode extends MenuController {
         switch (id) {
             case "back":
                 Start.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(Start.getInstance().getMenu());
+                updateCurrentMenu(Start.getInstance());
                 break;
             case "sandBox":
                 // TODO: 12/25/16 save the current mode and go to player menu

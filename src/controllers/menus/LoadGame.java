@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -26,6 +27,8 @@ public class LoadGame extends MenuController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menu = loadGameMenu;
+        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
+
     }
 
     @FXML
@@ -33,11 +36,11 @@ public class LoadGame extends MenuController {
 
     @Override
     void handle(String id) {
+        menu.setVisible(false);
         switch (id) {
             case "back":
-                menu.setVisible(false);
                 Start.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(Start.getInstance().getMenu());
+                updateCurrentMenu(Start.getInstance());
                 break;
         }
     }

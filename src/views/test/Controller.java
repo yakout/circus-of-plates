@@ -62,7 +62,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = startMenu;
-        /*File file = new File("src/assets/images/Clowns/clown1.png");
+        /*File file = new File("src/assets/images/clowns/clown1.png");
         Image img = new Image(file.toURI().toString());
         clown.setImage(img);*/
         PlateController<javafx.scene.image.ImageView> plate1Controller

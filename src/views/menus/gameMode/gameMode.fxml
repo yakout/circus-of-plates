@@ -7,26 +7,26 @@
 
 
 <!-- game mode menu -->
-<VBox fx:id="gameModeMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0" prefWidth="228.0"
-      visible="false" fx:controller="controllers.menus.GameMode" xmlns:fx="http://javafx.com/fxml/1"
+<VBox fx:id="gameModeMenu" alignment="CENTER" visible="false" 
+      fx:controller="controllers.menus.GameMode" xmlns:fx="http://javafx.com/fxml/1"
       onKeyReleased="#keyHandler">
     <children>
-        <Button id="timeAttack" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="TIME ATTACK">
+        <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="normal" mnemonicParsing="false"  prefHeight="35.0" prefWidth="232.0" text="NORMAL">
+        <Button id="normal" maxWidth="1.7976931348623157E308" mnemonicParsing="false"  onMouseClicked="#mouseHandler" text="NORMAL">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="chooseLevel" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="CHOOSE LEVEL">
+        <Button id="chooseLevel" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE LEVEL">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="back" mnemonicParsing="false"  prefHeight="24.0" prefWidth="232.0" text="BACK">
+        <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
             <font>
                 <Font size="18.0" />
             </font>

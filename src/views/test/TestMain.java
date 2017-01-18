@@ -14,7 +14,7 @@ public class TestMain extends Application {
     public void start(Stage primaryStage) throws IOException {
         // load needed classes
         Pane root = FXMLLoader.load(getClass().getResource("test.fxml"));
-        primaryStage.setTitle("Circus Of Plates");
+        primaryStage.setTitle("Circus Of plates");
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(700);
         primaryStage.setScene(new Scene(root, 700, 500));

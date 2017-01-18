@@ -7,7 +7,7 @@
 
 
 <!-- load game menu -->
-<VBox fx:id="loadGameMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="238.0" prefWidth="228.0" visible="false"
+<VBox fx:id="loadGameMenu" alignment="CENTER" visible="false"
       fx:controller="controllers.menus.LoadGame" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ScrollPane prefHeight="230.0" prefWidth="228.0">
@@ -40,7 +40,7 @@
                 <Glow />
             </effect>
         </ScrollPane>
-        <Button id="back" mnemonicParsing="false" onKeyTyped="#handleKeyAction" onKeyPressed="#keyHandler" prefHeight="29.0" prefWidth="231.0" text="BACK" />
+        <Button id="back"  maxWidth="1.7976931348623157E308" mnemonicParsing="false" onKeyReleased="#keyHandler" onMouseClicked="#mouseHandler" text="BACK" />
     </children>
 
     <stylesheets>

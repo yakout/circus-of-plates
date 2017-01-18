@@ -7,11 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import controllers.main.GameController;
+import javafx.scene.media.MediaPlayer;
 
 
 public abstract class MenuController implements Initializable {
@@ -19,7 +19,8 @@ public abstract class MenuController implements Initializable {
     
     enum Direction {
         UP,
-        DOWN
+        DOWN,
+        PRESS
     }
 
     public MenuController() {
@@ -45,29 +46,34 @@ public abstract class MenuController implements Initializable {
         return currentIndex;
     }
 
-    void updateCurrentMenu(VBox newMenu) {
-        GameController.getInstance().setCurrentMenu(newMenu);
+    void updateCurrentMenu(MenuController menuController) {
+        GameController.getInstance().setCurrentMenu(menuController);
     }
 
-    void requestFocus(int index) {
+    public void requestFocus(int index) {
         Platform.runLater(() -> getButton(index).requestFocus());
     }
 
     abstract void handle(String id);
 
     private void handleEvent(Direction direction) {
+        System.out.println("prev " + currentIndex);
         getCurrentIndex();
+        System.out.println(" curr " + currentIndex);
         switch (direction) {
             case UP:
-                if (currentIndex != 0) {
+                if (currentIndex > 0) {
                     requestFocus(--currentIndex);
                 }
                 break;
             case DOWN:
-                if (currentIndex != getMenu().getChildren().size() - 1) {
+                if (currentIndex < getMenu().getChildren().size() - 1) {
                     requestFocus(++currentIndex);
                 }
                 break;
+            case PRESS:
+                handle(getButton(currentIndex).getId());
+                currentIndex = 0;
             default:
                 break;
         }
@@ -75,38 +81,56 @@ public abstract class MenuController implements Initializable {
 
     @InputAction
     public void joystickHancdle(JoystickEvent event) {
-       switch (event.getJoystickCode()) {
-           case DOWN:
-               Platform.runLater(new Runnable() {
-                   @Override
-                   public void run() {
-                       handleEvent(Direction.DOWN);
-                   }
-               });
-               break;
-           case UP:
-               Platform.runLater(new Runnable() {
-                   @Override
-                   public void run() {
-                       handleEvent(Direction.UP);
-                   }
-               });
-               break;
-           default:
-               break;
-       }
+        if (!getMenu().isVisible()) {
+            return;
+        }
+        switch (event.getJoystickCode()) {
+            case DOWN:
+                Platform.runLater(() -> {
+                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    handleEvent(Direction.DOWN);
+                });
+                break;
+            case UP:
+                Platform.runLater(() -> {
+                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    handleEvent(Direction.UP);
+                });
+                break;
+            case PRESS:
+                Platform.runLater(() -> {
+                    new MediaPlayer(Utils.menuSelectionMedia).play();
+                    handleEvent(Direction.PRESS);
+                });
+            default:
+                break;
+        }
     }
 
 
     @FXML
     public void keyHandler(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            handle(getButton(getCurrentIndex()).getId());
+        switch (event.getCode()) {
+            case ENTER:
+                new MediaPlayer(Utils.menuSelectionMedia).play();
+                handle(getButton(getCurrentIndex()).getId());
+                break;
+            case ESCAPE:
+                System.out.println("escape is pressed and triggered by a menu");
+                break;
+            case DOWN:
+                new MediaPlayer(Utils.menuChoiceMedia).play();
+                break;
+            case UP:
+                new MediaPlayer(Utils.menuChoiceMedia).play();
+                break;
+            default:
+                break;
         }
     }
 
     @FXML
-    public void MouseHandler(MouseEvent event) {
+    public void mouseHandler(MouseEvent event) {
         handle(((Node) event.getSource()).getId());
     }
 

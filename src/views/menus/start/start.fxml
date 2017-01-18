@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<!-- start menu -->
-<VBox fx:id="startMenu" alignment="TOP_CENTER" layoutX="236.0" layoutY="149.0" prefHeight="230.0"
-      prefWidth="228.0" fx:controller="controllers.menus.Start" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyReleased="#keyHandler">
+
+<VBox fx:id="startMenu" alignment="CENTER" onKeyReleased="#keyHandler"
+      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="controllers.menus.Start">
     <children>
-        <Button id="newGame" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="35.0" prefWidth="232.0" text="NEW GAME">
+        <Button id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NEW GAME">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="continue" mnemonicParsing="false" onMousePressed="#MouseHandler"  prefHeight="35.0" prefWidth="232.0" text="CONTINUE">
+        <Button id="continue" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="loadGame" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="LOAD GAME">
+        <Button id="loadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD GAME">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="options" mnemonicParsing="false" onMousePressed="#MouseHandler"  prefHeight="24.0" prefWidth="232.0" text="OPTIONS">
+        <Button id="options" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="OPTIONS">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="help" mnemonicParsing="false" onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="HELP">
+        <Button id="help" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="HELP">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="exit" mnemonicParsing="false"  onMousePressed="#MouseHandler" prefHeight="24.0" prefWidth="232.0" text="EXIT">
+        <Button id="exit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="EXIT">
             <font>
                 <Font size="18.0" />
             </font>
@@ -43,6 +42,6 @@
     </children>
 
     <stylesheets>
-        <URL value="@start.css"/>
+        <URL value="@start.css" />
     </stylesheets>
 </VBox>

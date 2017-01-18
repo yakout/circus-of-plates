@@ -1,3 +1,5 @@
-#background {
-  -fx-image:url("File:src/assets/images/wallpapers/doll.jpg");
+.root {
+  -fx-background-image: url("../../assets/images/backgrounds/darkBackground.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
 }

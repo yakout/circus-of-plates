@@ -7,6 +7,7 @@ import controllers.input.InputType;
 import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
+import controllers.menus.MenuController;
 import controllers.menus.Start;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,14 +16,16 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+
 import javax.swing.*;
 
 public class GameController implements Initializable, ActionListener {
-    private VBox currentMenu;
+    private MenuController currentMenu;
     private Timer gameTimer;
     private final int CLOWNSPEED = 20;
     private final int PLATESPEED = 1;
@@ -30,9 +33,19 @@ public class GameController implements Initializable, ActionListener {
     private Input joystickInput;
 
     @FXML
-    Rectangle rect;
+    private Rectangle rect;
 
-    @FXML Rectangle plate1, plate2, rightRod, leftRod;
+    @FXML
+    private AnchorPane mainGame;
+
+    @FXML
+    private Rectangle plate1;
+    @FXML
+    private Rectangle plate2;
+    @FXML
+    private Rectangle rightRod;
+    @FXML
+    private Rectangle leftRod;
 
 
     public static GameController getInstance() {
@@ -52,18 +65,25 @@ public class GameController implements Initializable, ActionListener {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentMenu = Start.getInstance().getMenu();
+        currentMenu = Start.getInstance();
         gameTimer = new Timer(10, this);
         gameTimer.start();
         instance  = this;
-        
 
         joystickInput = Joystick.getInstance();
         joystickInput.registerClassForInputAction(getClass(), instance);
     }
 
-    public void setCurrentMenu(VBox currentMenu) {
+    public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
+    }
+
+    public MenuController getCurrentMenu() {
+        return currentMenu;
+    }
+
+    public AnchorPane getMainGame() {
+        return mainGame;
     }
 
     private Double currentX;
@@ -93,15 +113,19 @@ public class GameController implements Initializable, ActionListener {
                 break;
             case ESCAPE:
                 Platform.runLater(() -> {
-                    if (currentMenu.isVisible()) {
-                        currentMenu.setVisible(false);
+                    if (currentMenu.getMenu().isVisible()) {
+                        currentMenu.getMenu().setDisable(true);
+                        currentMenu.getMenu().setVisible(false);
+                        mainGame.requestFocus();
+                        mainGame.setDisable(false);
                     } else {
-                        currentMenu = Start.getInstance().getMenu();
-                        currentMenu.setVisible(true);
+                        currentMenu = Start.getInstance();
+                        currentMenu.getMenu().setVisible(true);
+                        currentMenu.getMenu().setDisable(false);
+                        currentMenu.getMenu().requestFocus();
+                        currentMenu.requestFocus(0);
                     }
-                    System.out.println(currentMenu.isVisible());
                 });
-                // rect.setX(rect.getX() + 10);
                 break;
             default:
                 break;

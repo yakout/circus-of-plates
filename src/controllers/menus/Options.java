@@ -1,8 +1,13 @@
 package controllers.menus;
 
+import controllers.input.joystick.Joystick;
+import controllers.main.GameController;
+import controllers.menus.options.Audio;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,6 +31,7 @@ public class Options extends MenuController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menu = optionsMenu;
+        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
 
 
@@ -34,11 +40,15 @@ public class Options extends MenuController {
 
     @Override
     void handle(String id) {
+        menu.setVisible(false);
         switch (id) {
             case "back":
-                menu.setVisible(false);
                 Start.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(Start.getInstance().getMenu());
+                updateCurrentMenu(Start.getInstance());
+                break;
+            case "audio":
+                Audio.getInstance().getAudioSettings();
+                break;
         }
     }
 

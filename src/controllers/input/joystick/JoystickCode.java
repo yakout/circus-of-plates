@@ -4,7 +4,8 @@ public enum JoystickCode {
     UP(0x1, "Up"),
     DOWN(0x2, "Down"),
     RIGHT(0x3, "Right"),
-    LEFT(0x4, "Left");
+    LEFT(0x4, "Left"),
+    PRESS(0x5, "Press");
 
     private final String name;
     private final int code;

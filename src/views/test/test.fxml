@@ -176,17 +176,17 @@
       <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
       <ImageView fx:id="clown" fitHeight="138.0" fitWidth="106.0" layoutX="294.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/Clowns/clown2.png" />
+            <Image url="@../../assets/images/clowns/clown2.png" />
          </image>
       </ImageView>
       <ImageView fx:id="plate1" fitHeight="32.0" fitWidth="61.0" layoutX="639.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/Plates/plate1.png" />
+            <Image url="@../../assets/images/plates/plate1.png" />
          </image>
       </ImageView>
       <ImageView fx:id="plate2" fitHeight="32.0" fitWidth="61.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/Plates/plate1.png" />
+            <Image url="@../../assets/images/plates/plate1.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="leftStack" arcHeight="5.0" arcWidth="5.0" fill="#1cffa4" height="32.0" layoutX="283.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" width="35.0" />

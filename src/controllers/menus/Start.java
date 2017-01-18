@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -28,7 +29,7 @@ public class Start extends MenuController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menu = startMenu;
-        Joystick.getInstance().registerClassForInputAction(MenuController.class, instance);
+        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
 
     @FXML
@@ -37,26 +38,25 @@ public class Start extends MenuController {
     @Override
     void handle(String id) {
         startMenu.setVisible(false);
-        System.out.println("id = " + id);
         switch (id) {
             case "newGame":
                 GameMode.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(GameMode.getInstance().getMenu());
+                updateCurrentMenu(GameMode.getInstance());
                 break;
             case "loadGame":
                 LoadGame.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(LoadGame.getInstance().getMenu());
+                updateCurrentMenu(LoadGame.getInstance());
                 break;
             case "options":
                 Options.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(Options.getInstance().getMenu());
+                updateCurrentMenu(Options.getInstance());
                 break;
             case "help":
                 Help.getInstance().getMenu().setVisible(true);
-                updateCurrentMenu(Help.getInstance().getMenu());
+                updateCurrentMenu(Help.getInstance());
                 break;
             case "exit":
-                System.out.println("should exit");
+                Platform.exit();
                 System.exit(0);
                 break;
             default:
