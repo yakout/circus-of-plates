@@ -11,11 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import javax.swing.text.html.ImageView;
 
 
 public class Controller implements Initializable {
@@ -95,6 +98,36 @@ public class Controller implements Initializable {
 		leftPlateThread.setDaemon(true);
 		rightPlateThread.start();
 		leftPlateThread.start();
+//		final Thread plateGenerationThread = new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//
+//			}
+//		});
+		final Thread plateGeneratorThread = new Thread(new Runnable() {
+            boolean left = true;
+            @Override
+			public void run() {
+				while(true) {
+				    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createPlate(left);
+                            if (left) left = false;
+                            else left = true;
+                        }
+                    });
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        System.out.println("Plate-generator Thread has been interrupted");
+                        return;
+                    }
+                }
+			}
+		});
+		plateGeneratorThread.setDaemon(true);
+		plateGeneratorThread.start();
 		final Thread intersectionThread = new Thread(new Runnable() {
 			boolean plate1Moving = true;
 			boolean plate2Moving = true;
@@ -111,17 +144,21 @@ public class Controller implements Initializable {
 										+ plate1.getBoundsInParent().toString());
 								System.out.println("Clown Bounds: " + clown
 										.getBoundsInParent().toString());
-								//								plate1.setX(plate1.getX() + plate1.getTranslateX());
-								//								plate1.setTranslateX(0);
+								// plate1.setX(plate1.getX()
+								// + plate1.getTranslateX());
+								//	plate1.setTranslateX(0);
 								plate1Moving = false;
+
 								rightPlateThread.interrupt();
-								plate1.translateXProperty().bind(clown.translateXProperty().add(plate1.getTranslateX() - clown.getTranslateX()));
+								createPlate(false);
+								plate1.translateXProperty().bind(clown.translateXProperty().add(
+										plate1.getTranslateX() - clown.getTranslateX()));
 								//plate1.xProperty().bind(clown.xProperty());
 								System.out.println(clown.getX());
 								System.out.println(clown.getLayoutX());
 								System.out.println(clown.getTranslateX());
 								//clown.layoutXProperty().bind(plate1.layoutXProperty());
-								//								plate2.layoutXProperty().bind(clown.layoutXProperty());
+								//plate2.layoutXProperty().bind(clown.layoutXProperty());
 							}
 							if (plate2Moving && clown.getBoundsInParent().intersects(
 									plate2.getBoundsInParent())) {
@@ -131,14 +168,15 @@ public class Controller implements Initializable {
 										+ plate2.getBoundsInParent().toString());
 								plate2Moving = false;
 								leftPlateThread.interrupt();
+								createPlate(true);
 								System.out.println(plate2.getTranslateX());
 								System.out.println(plate2.getX());
-								plate2.translateXProperty().bind(clown.translateXProperty().add(plate2.getTranslateX() - clown.getTranslateX()));
-								//								plate2.setX(plate2.getX() + plate2.getTranslateX());
-								//								plate2.setTranslateX(0);
-								//								plate2.translateXProperty().bind(clown.translateXProperty());
-
-								//								plate2.layoutXProperty().bind(clown.layoutXProperty());
+								plate2.translateXProperty().bind(clown.translateXProperty().add(
+										plate2.getTranslateX() - clown.getTranslateX()));
+								// plate2.setX(plate2.getX() + plate2.getTranslateX());
+								// plate2.setTranslateX(0);
+								// plate2.translateXProperty().bind(clown.translateXProperty());
+								// plate2.layoutXProperty().bind(clown.layoutXProperty());
 							}
 						}
 					});
@@ -162,7 +200,23 @@ public class Controller implements Initializable {
         /*rect.setVisible(false)*/
 		;
 	}
-
+	private void createPlate(boolean isLeftPlate) {
+		javafx.scene.image.ImageView newPlate = new javafx.scene.image.ImageView();
+		Image img = new Image("./src/assets/images/Plates/plate1.png");
+		newPlate.setImage(img);
+		if (isLeftPlate) {
+			newPlate.setLayoutX(0);
+		} else {
+			newPlate.setLayoutX(clown.getParent().getBoundsInParent().getWidth());
+		}
+		newPlate.setLayoutY(rightRod.getLayoutY());
+		anchorPane.getChildren().add(newPlate);
+		final PlateController<javafx.scene.image.ImageView> plateRController
+				= new PlateController<>(newPlate, isLeftPlate, rightRod.getWidth());
+		final Thread plateThread = new Thread(plateRController, "New Right plate");
+        plateThread.setDaemon(true);
+        plateThread.start();
+	}
 	private Button getButton(int index) {
 		return (Button) currentMenu.getChildren().get(index);
 	}

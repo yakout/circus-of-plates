@@ -59,8 +59,7 @@ public class PlateController<T extends Node> implements Runnable {
 	@Override
 	public synchronized void run() {
 		final double center = plate.getParent().getLayoutBounds().getMinX() +
-				plate.getParent()
-		.getLayoutBounds().getWidth() / 2.0;
+				plate.getParent().getLayoutBounds().getWidth() / 2.0;
 		//       /2.0;
 		// double boundary = center - sign * 61 / 2.0;
 		while (true) {
@@ -78,8 +77,7 @@ public class PlateController<T extends Node> implements Runnable {
 											rodLength)) {
 						/*Math.abs(350 - (plate.getLayoutX() + 61 /
                                     2.0 +
-                                    plate
-                                            .getTranslateX() -
+                                    plate.getTranslateX() -
                                     sign * PLATE_SPEED / 7.5)) <
                                     61*/
 						plate.setTranslateY(plate.getTranslateY() +
