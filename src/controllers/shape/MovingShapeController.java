@@ -23,10 +23,13 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 					public void run() {
 						final double width = shape.getLayoutBounds().getWidth();
 						if (Math.abs(shape.getParent()
-								.getLayoutBounds().getWidth() / 2.0 - (shape.getLayoutX() + shape
-										.getTranslateX() + shapeModel.getWidth().doubleValue()))
+								.getLayoutBounds().getWidth() / 2.0
+								- (shape.getLayoutX() + shape.getTranslateX()
+								+ shapeModel.getWidth().doubleValue()))
 								< Math.abs(width / 2.0 -
 										platform.getWidth().doubleValue())) {
+							logger.info("A Shape Reached the End of The "
+									+ "Shelf");
 							shapeMovingObserver.shapeShouldStartFalling();
 						} else {
 							shape.setTranslateX(shape.getTranslateX() + sign *
@@ -37,12 +40,13 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				try {
 					this.wait(THREAD_SLEEP_TIME);
 				} catch (final InterruptedException e) {
-					System.out.println("Thread (" + Thread.currentThread()
+					logger.debug("Thread (" + Thread.currentThread()
 					.getName() + ") Interrupted");
 					break;
 				}
 			}
-			System.out.println("Thread: " + Thread.currentThread().getName() + " Stopped");
+			logger.debug("Thread: " + Thread.currentThread().getName()
+					+ " Stopped");
 		}
 	};
 	public MovingShapeController(final T shape, final Shape model,
@@ -52,9 +56,11 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 		this.platform = platform;
 		switch(platform.getOrientation()) {
 		case LEFT:
+			logger.info("Movement Requested for A Shape in The Left Half");
 			sign = 1;
 			break;
 		case RIGHT:
+			logger.info("Movement Requested for A Shape in The Left Half");
 			sign = -1;
 			break;
 		default:
@@ -64,7 +70,7 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				"Horizontal Movement Thread " + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
-		logger.debug("Shape " + shape.getId() + " Started Moving");
+		logger.debug("A Shape Started Moving");
 	}
 
 }

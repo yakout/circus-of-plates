@@ -1,12 +1,11 @@
 package models;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URLClassLoader;
-
-
-import org.apache.commons.io.FileUtils;
 
 public class ShapeLoader {
 
@@ -17,7 +16,9 @@ public class ShapeLoader {
 
     public static void loadShapes(File source) {
 
-        String path = new File("").getAbsolutePath() + File.separatorChar + "models" + File.separatorChar + "shapes"
+        String path = new File("").getAbsolutePath()
+                + File.separatorChar +
+                "models" + File.separatorChar + "shapes"
                 + File.separatorChar;
         new File(path).mkdirs();
 
@@ -40,7 +41,7 @@ public class ShapeLoader {
             e.printStackTrace();
             return;
         }
-        java.net.URL[] urls = new java.net.URL[] { url };
+        java.net.URL[] urls = new java.net.URL[]{url};
 
         // load this folder into Class loader
         ClassLoader cl = new URLClassLoader(urls);
@@ -50,8 +51,9 @@ public class ShapeLoader {
             if (file.isFile()) {
                 Class<?> cls = null;
                 try {
-                    cls = cl.loadClass("models.shapes" + file.getName().substring(0, file.getName().indexOf('.')));
-                    ShapeFactory.register(cls);
+                    cls = cl.loadClass("models.shapes." + file.getName()
+                            .substring(0, file.getName().indexOf('.')));
+                    cls.getName();
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
