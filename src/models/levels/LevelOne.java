@@ -1,5 +1,6 @@
 package models.levels;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import models.Platform;
 
@@ -9,14 +10,21 @@ import java.util.List;
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class LevelOne implements Level {
-    @Override
-    public Object getBackground() {
-        return null;
+
+    private Image background;
+
+    public void LevelOne() {
+        background = new Image("assets/images/backgrounds/background_1.png");
     }
 
     @Override
-    public void setBackground(Object newBackground) {
+    public Image getBackground() {
+        return background;
+    }
 
+    @Override
+    public void setBackground(Image background) {
+        this.background = background;
     }
 
     @Override
@@ -57,5 +65,10 @@ public class LevelOne implements Level {
     @Override
     public List<Platform> getPlatforms() {
         return null;
+    }
+
+    @Override
+    public void setNumberOfPlatforms(int size) {
+
     }
 }

@@ -58,4 +58,11 @@ public class LevelTwo implements Level {
     public List<Platform> getPlatforms() {
         return null;
     }
+
+    @Override
+    public void setNumberOfPlatforms(int size) {
+
+    }
+
+
 }
