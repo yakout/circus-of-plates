@@ -3,6 +3,8 @@ package models.levels;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import models.Platform;
+import models.Point;
+import models.states.Orientation;
 
 import java.util.List;
 
@@ -12,6 +14,11 @@ import java.util.List;
 public class LevelOne implements Level {
 
     private Image background;
+    private int noOfPlatforms = 2;
+    private List<Platform> platforms;
+    final double PLATE_SPEED = 2.0;
+    final double CLOWN_SPEED = 20.0;
+    final double platformOffset = 30.0;
 
     public void LevelOne() {
         background = new Image("assets/images/backgrounds/background_1.png");
@@ -29,12 +36,12 @@ public class LevelOne implements Level {
 
     @Override
     public double getPlatesSpeed() {
-        return 0;
+        return PLATE_SPEED;
     }
 
     @Override
     public double getPlayerSpeed() {
-        return 0;
+        return CLOWN_SPEED;
     }
 
     @Override
@@ -59,16 +66,26 @@ public class LevelOne implements Level {
 
     @Override
     public int getNumPlatforms() {
-        return 0;
+        return noOfPlatforms;
     }
 
     @Override
     public List<Platform> getPlatforms() {
+        for (int i = 0; i < noOfPlatforms; i++) {
+            if (i % 2 == 0) {
+                Platform platform = new Platform(, Orientation.RIGHT);
+                platform.setWidth();
+                platforms.add();
+            } else {
+                platforms.add(new Platform(, Orientation.LEFT));
+            }
+        }
+
         return null;
     }
 
     @Override
     public void setNumberOfPlatforms(int size) {
-
+        noOfPlatforms = size;
     }
 }
