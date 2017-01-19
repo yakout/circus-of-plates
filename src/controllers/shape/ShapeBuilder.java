@@ -41,11 +41,6 @@ public class ShapeBuilder {
         }
         shape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
         ShapeController<ImageView> shapeController = new ShapeController<>(shape, shapeModel, platform);
-
-        final PlateController<ImageView> plateRController
-//                = new PlateController<>(newShape, isLeftPlate, rightRod.getWidth());
-        final Thread plateThread = new Thread(plateRController, "New Right plate");
-        plateThread.setDaemon(true);
-        plateThread.start();
+        shapeController.startMoving();
     }
 }
