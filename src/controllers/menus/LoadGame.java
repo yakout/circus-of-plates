@@ -2,6 +2,7 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -46,8 +47,18 @@ public class LoadGame extends MenuController {
     }
 
     @Override
-    public VBox getMenu() {
+    protected VBox getMenu() {
         return menu;
+    }
+
+    @Override
+    public void setMenuVisible(boolean visible) {
+        loadGameMenu.setVisible(visible);
+    }
+
+    @Override
+    public boolean isVisible() {
+        return loadGameMenu.isVisible();
     }
 
     public static MenuController getInstance() {

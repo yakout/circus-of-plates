@@ -4,24 +4,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="rootPane" maxHeight="2000" maxWidth="2500" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" prefHeight="1100" prefWidth="1500" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.GameController">
+<AnchorPane fx:id="rootPane" maxHeight="2000" maxWidth="2500" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" prefHeight="1100" prefWidth="1500"
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.main.GameController">
     <children>
 
         <AnchorPane fx:id="menuPane" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <!--load menus-->
-            <fx:include source="../menus/start/start.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0" />
-            <fx:include source="../menus/gameMode/gameMode.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0" />
-            <fx:include source="../menus/help/help.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0" />
-            <fx:include source="../menus/options/options.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0" />
+            <fx:include source="../menus/start/start.fxml" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+            <fx:include source="../menus/gameMode/gameMode.fxml" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+            <fx:include source="../menus/help/help.fxml" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+            <fx:include source="../menus/options/options.fxml" AnchorPane.bottomAnchor="200.0" AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"/>
             <fx:include source="../menus/loadGame/loadGame.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0" />
         </AnchorPane>
 
 
         <AnchorPane fx:id="mainGame" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <!-- load plates object -->
-            <Rectangle fx:id="rect" arcHeight="5.0" arcWidth="5.0" height="92.0" layoutX="325.0" layoutY="408.0" stroke="BLACK" strokeType="INSIDE" width="50.0" AnchorPane.bottomAnchor="0.0" />
+            <!-- load clowns -->
+            <AnchorPane id="clown1" fx:id="rect" layoutX="325.0" layoutY="408.0" prefHeight="300.0" prefWidth="270.0" AnchorPane.bottomAnchor="0.0" />
+            <AnchorPane id="clown2" fx:id="rect1" layoutX="750.0" layoutY="805.0" prefHeight="300.0" prefWidth="270.0" AnchorPane.bottomAnchor="-5.0" />
+
+            <!-- load rods -->
             <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutY="91.0" stroke="white" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="91.0" />
             <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="470.0" layoutY="90.0" stroke="white" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+
+            <!-- load plates object -->
             <Rectangle fx:id="plate1" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutX="639.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
             <Rectangle fx:id="plate2" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
         </AnchorPane>

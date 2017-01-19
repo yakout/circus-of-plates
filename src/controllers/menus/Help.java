@@ -2,6 +2,7 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,8 +45,18 @@ public class Help extends MenuController {
     }
 
     @Override
-    public VBox getMenu() {
+    protected VBox getMenu() {
         return menu;
+    }
+
+    @Override
+    public void setMenuVisible(boolean visible) {
+        helpMenu.setVisible(visible);
+    }
+
+    @Override
+    public boolean isVisible() {
+        return helpMenu.isVisible();
     }
 
     public static MenuController getInstance() {

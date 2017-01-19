@@ -3,8 +3,8 @@ package controllers.menus;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -42,22 +42,22 @@ public class Start extends MenuController {
         startMenu.setVisible(false);
         switch (id) {
             case "newGame":
-                GameMode.getInstance().getMenu().setVisible(true);
+                GameMode.getInstance().setMenuVisible(true);
                 updateCurrentMenu(GameMode.getInstance());
                 break;
             case "continue":
                 GameController.getInstance().getMainGame().setVisible(true);
                 break;
             case "loadGame":
-                LoadGame.getInstance().getMenu().setVisible(true);
+                LoadGame.getInstance().setMenuVisible(true);
                 updateCurrentMenu(LoadGame.getInstance());
                 break;
             case "options":
-                Options.getInstance().getMenu().setVisible(true);
+                Options.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Options.getInstance());
                 break;
             case "help":
-                Help.getInstance().getMenu().setVisible(true);
+                Help.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Help.getInstance());
                 break;
             case "exit":
@@ -70,8 +70,18 @@ public class Start extends MenuController {
     }
 
     @Override
-    public VBox getMenu() {
+    protected VBox getMenu() {
         return menu;
+    }
+
+    @Override
+    public void setMenuVisible(boolean visible) {
+        startMenu.setVisible(visible);
+    }
+
+    @Override
+    public boolean isVisible() {
+        return startMenu.isVisible();
     }
 
     public static MenuController getInstance() {

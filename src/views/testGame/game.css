@@ -3,3 +3,15 @@
   -fx-background-repeat: no-repeat;
   -fx-background-size: stretch;
 }
+
+#clown1 {
+  -fx-background-image: url("../../assets/images/clowns/clown_2.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+}
+
+#clown2 {
+  -fx-background-image: url("../../assets/images/clowns/clown_1.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+}

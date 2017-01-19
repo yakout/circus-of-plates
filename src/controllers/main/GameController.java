@@ -29,6 +29,12 @@ import javax.swing.*;
 
 public class GameController implements Initializable, ActionListener {
     private MenuController currentMenu;
+
+    // // TODO: 1/19/17 plate Controller
+
+    // TODO: 1/19/17 clown controller
+
+
     private Timer gameTimer;
     private final int CLOWNSPEED = 20;
     private final int PLATESPEED = 1;
@@ -45,7 +51,7 @@ public class GameController implements Initializable, ActionListener {
     private AnchorPane mainGame;
 
     @FXML
-    private Rectangle rect;
+    private AnchorPane rect;
 
     @FXML
     private Rectangle plate1;
@@ -102,9 +108,9 @@ public class GameController implements Initializable, ActionListener {
             currentX = event.getX();
         } else {
             if (currentX > event.getX()) {
-                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
             } else {
-                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
             }
         }
     }
@@ -114,24 +120,23 @@ public class GameController implements Initializable, ActionListener {
         switch (event.getCode()) {
             case LEFT:
                 if (mainGame.isVisible()) {
-                    rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                    rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
                 }
                 break;
             case RIGHT:
                 if (mainGame.isVisible()) {
-                    rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                    rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
                 }
                 break;
             case ESCAPE:
                 Platform.runLater(() -> {
-                    if (currentMenu.getMenu().isVisible()) {
-                        currentMenu.getMenu().setVisible(false);
+                    if (currentMenu.isVisible()) {
+                        currentMenu.setMenuVisible(false);
                         mainGame.requestFocus();
                         mainGame.setVisible(true);
                     } else {
                         currentMenu = Start.getInstance();
-                        currentMenu.getMenu().setVisible(true);
-                        currentMenu.getMenu().requestFocus();
+                        currentMenu.setMenuVisible(true);
                         currentMenu.requestFocus(0);
                         mainGame.setVisible(false);
                     }
@@ -158,11 +163,11 @@ public class GameController implements Initializable, ActionListener {
     }
 
     void moveLeft() {
-        rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+        rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
     }
 
     void moveRight() {
-        rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+        rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
     }
 
 
