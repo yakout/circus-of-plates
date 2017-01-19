@@ -11,6 +11,8 @@ import java.util.List;
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class ShapeGenerator<T extends Node> {
+
+    private final long THREAD_SLEEP_TIME = 2000;
     private Level level;
     private final Thread shapeGeneratorThread;
     private final Runnable shapeGenerator = new Runnable() {
@@ -28,7 +30,7 @@ public class ShapeGenerator<T extends Node> {
                     }
                 });
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
                     System.out.println("Plate-generator Thread has been interrupted");
                     return;

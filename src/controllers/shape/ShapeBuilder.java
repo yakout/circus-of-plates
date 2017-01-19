@@ -14,7 +14,7 @@ public class ShapeBuilder {
     private ShapeBuilder() {
     }
 
-    public static ShapeBuilder getInstance() {
+    public synchronized static ShapeBuilder getInstance() {
         if (creatorInstance == null) {
             creatorInstance = new ShapeBuilder();
         }
