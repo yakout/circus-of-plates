@@ -12,7 +12,7 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 	private double sign;
 	private static final Long THREAD_SLEEP_TIME = 10L;
 	private final ShapeMovingObserver shapeMovingObserver;
-	static Logger logger = LogManager.
+	static Logger logger = LogManager.getLogger(MovingShapeController.class);
 	private final Runnable shapeMover = new Runnable() {
 
 		@Override
@@ -64,7 +64,7 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				"Horizontal Movement Thread " + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
-		logger.log("")
+		logger.debug("Shape " + shape.getId() + " Started Moving");
 	}
 
 }
