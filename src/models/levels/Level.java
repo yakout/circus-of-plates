@@ -18,10 +18,10 @@ public interface Level {
     public double getPlayerSpeed();
 
     public List<String> getSupportedShapes();
-    public boolean isSupportedShape();
+    public boolean isSupportedShape(String shape);
 
-    public List<Color> getSupportedColors();
-    public boolean isSupportedColor(Color color);
+    public List<models.states.Color> getSupportedColors();
+    public boolean isSupportedColor(models.states.Color color);
 
     public int getNumPlatforms();
     public List<Platform> getPlatforms();
