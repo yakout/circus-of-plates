@@ -1,7 +1,8 @@
 package models.states;
 
 public enum PlateStates {
-    STANDING,
-    MOVING,
-    ON_THE_QUEUE,
+	ON_THE_STACK,
+	MOVING,
+	FALLING,
+	INACTIVE
 }
