@@ -1,4 +1,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="clown1" fx:id="rect" layoutX="325.0" layoutY="408.0" prefHeight="300.0" prefWidth="270.0"
-            AnchorPane.bottomAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1"/>
+<?import java.net.URL?>
+<AnchorPane id="clown" layoutX="325.0" layoutY="408.0" prefHeight="300.0" prefWidth="270.0"
+            AnchorPane.bottomAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1">
+
+    <stylesheets>
+        <URL value="@clown.css" />
+    </stylesheets>
+</AnchorPane>

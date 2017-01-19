@@ -1,0 +1,5 @@
+#clown {
+  -fx-background-image: url("../assets/images/clowns/clown_2.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+}

@@ -11,14 +11,12 @@ import controllers.menus.MenuController;
 import controllers.menus.Start;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +25,7 @@ import models.players.PlayerFactory;
 
 import javax.swing.*;
 
-public class GameController implements Initializable, ActionListener {
+public class GameController implements Initializable {
     private MenuController currentMenu;
     private PlayerController playerController;
     // TODO: 1/19/17 plate Controller
@@ -70,6 +68,8 @@ public class GameController implements Initializable, ActionListener {
         return instance;
     }
 
+    Node player;
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -84,14 +84,14 @@ public class GameController implements Initializable, ActionListener {
         currentMenu = Start.getInstance();
         playerController = new PlayerController();
         try {
-            URL url = new File("src/views/menus/options/audio/audio.fxml").toURI().toURL();
-            playerController.createPlayer("player1", url);
+            URL url = new File("src/views/clown.fxml").toURI().toURL();
+            Node node = playerController.createPlayer("player1", url);
+            mainGame.getChildren().add(node);
+            player = node;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        gameTimer = new Timer(10, this);
-        gameTimer.start();
         instance  = this;
 
         joystickInput = Joystick.getInstance();
@@ -193,36 +193,9 @@ public class GameController implements Initializable, ActionListener {
         });
     }
 
-    void moveLeft() {
-        rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+    public double getStageWidth() {
+        return mainGame.getWidth();
     }
 
-    void moveRight() {
-        rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (!mainGame.isVisible()) {
-            return;
-        }
-        //ALl these numbers will be replaced by relative positions.
-        //566 -> height of AnchorPane + half height of plate.
-        if (plate1.getY() >= 500) {
-            plate1.setX(639);
-            plate1.setY(43);
-        }
-        else if (plate1.getX() + PLATESPEED < -350 + 3 * plate1.getWidth() / 2.0) {
-            plate1.setY(plate1.getY() + PLATESPEED);
-        } else {
-            plate1.setX(plate1.getX() - PLATESPEED);
-        }
-        if (plate2.getX() + PLATESPEED > 350 - 3 * plate2.getWidth() / 2.0) {
-            plate2.setY(plate2.getY() + PLATESPEED);
-        } else {
-            plate2.setX(plate2.getX() + PLATESPEED);
-        }
-    }
 }
 
