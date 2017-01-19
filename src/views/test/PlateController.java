@@ -8,7 +8,7 @@ import javafx.scene.Node;
  */
 public class PlateController<T extends Node> implements Runnable {
 	private final T plate;
-	private static final double PLATE_SPEED = 20;
+	private static final double PLATE_SPEED = 2.2;
 	private static final double PLATE_X_SPEED = 2.3;
 	private static final double PLATE_Y_SPEED = 2.0;
 	private static final double STEP = 50;
@@ -58,15 +58,11 @@ public class PlateController<T extends Node> implements Runnable {
 
 	@Override
 	public synchronized void run() {
-		final double center = plate.getParent().getLayoutBounds().getMinX() +
-				plate.getParent().getLayoutBounds().getWidth() / 2.0;
-		//       /2.0;
-		// double boundary = center - sign * 61 / 2.0;
 		while (true) {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					if (plate.getLayoutY() + plate.getTranslateY() >= plate.getParent()
+					if (plate.getLayoutY() + plate.getTranslateY() + plate.getLayoutBounds().getHeight() >= plate.getParent()
 							.getLayoutBounds().getHeight()) {
 						plate.setTranslateX(0);
 						plate.setTranslateY(0);
@@ -75,11 +71,6 @@ public class PlateController<T extends Node> implements Runnable {
 									.getTranslateX() + offset)) < Math.abs(plate.getParent()
 											.getLayoutBounds().getWidth() / 2.0 -
 											rodLength)) {
-						/*Math.abs(350 - (plate.getLayoutX() + 61 /
-                                    2.0 +
-                                    plate.getTranslateX() -
-                                    sign * PLATE_SPEED / 7.5)) <
-                                    61*/
 						plate.setTranslateY(plate.getTranslateY() +
 								PLATE_SPEED / 4);
 					} else {
@@ -89,7 +80,7 @@ public class PlateController<T extends Node> implements Runnable {
 				}
 			});
 			try {
-				this.wait(10);
+				this.wait(1);
 			} catch (final InterruptedException e) {
 				System.out.println("Thread (" + Thread.currentThread()
 				.getName() + ") Interrupted");

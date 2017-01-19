@@ -103,29 +103,29 @@ public class Controller implements Initializable {
 		//
 		//			}
 		//		});
-		final Thread plateGeneratorThread = new Thread(new Runnable() {
-			boolean left = true;
-			@Override
-			public void run() {
-				while(true) {
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							createPlate(left);
-							createPlate(!left);
-						}
-					});
-					try {
-						Thread.sleep(5000);
-					} catch (final InterruptedException e) {
-						System.out.println("Plate-generator Thread has been interrupted");
-						return;
-					}
-				}
-			}
-		});
-		plateGeneratorThread.setDaemon(true);
-		plateGeneratorThread.start();
+		//		final Thread plateGeneratorThread = new Thread(new Runnable() {
+		//			boolean left = true;
+		//			@Override
+		//			public void run() {
+		//				while(true) {
+		//					Platform.runLater(new Runnable() {
+		//						@Override
+		//						public void run() {
+		//							createPlate(left);
+		//							createPlate(!left);
+		//						}
+		//					});
+		//					try {
+		//						Thread.sleep(5000);
+		//					} catch (final InterruptedException e) {
+		//						System.out.println("Plate-generator Thread has been interrupted");
+		//						return;
+		//					}
+		//				}
+		//			}
+		//		});
+		//		plateGeneratorThread.setDaemon(true);
+		//plateGeneratorThread.start();
 		final Thread intersectionThread = new Thread(new Runnable() {
 			boolean plate1Moving = true;
 			boolean plate2Moving = true;
@@ -136,19 +136,18 @@ public class Controller implements Initializable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							if (plate1Moving && clown.getBoundsInParent().intersects(
-									plate1.getBoundsInParent())) {
-								System.out.println("Right Plate Bounds: "
-										+ plate1.getBoundsInParent().toString());
-								System.out.println("Clown Bounds: " + clown
-										.getBoundsInParent().toString());
+							final double plate1Y = plate1.getLayoutY() + plate1.getTranslateY()
+							+ plate1.getLayoutBounds().getHeight();
+							if (plate1Moving && plate1Y
+									>=  clown.getLayoutY()
+									&&  plate1Y
+									<= (clown.getLayoutY() + 0.05 * clown.getLayoutBounds().getHeight())) {
 								// plate1.setX(plate1.getX();
 								// + plate1.getTranslateX());
 								//	plate1.setTranslateX(0);
+								System.out.println("hi");
 								plate1Moving = false;
-
 								rightPlateThread.interrupt();
-								createPlate(false);
 								plate1.translateXProperty().bind(clown.translateXProperty().add(
 										plate1.getTranslateX() - clown.getTranslateX()));
 								//plate1.xProperty().bind(clown.xProperty());
@@ -166,7 +165,6 @@ public class Controller implements Initializable {
 										+ plate2.getBoundsInParent().toString());
 								plate2Moving = false;
 								leftPlateThread.interrupt();
-								createPlate(true);
 								System.out.println(plate2.getTranslateX());
 								System.out.println(plate2.getX());
 								plate2.translateXProperty().bind(clown.translateXProperty().add(

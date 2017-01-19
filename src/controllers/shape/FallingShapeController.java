@@ -16,7 +16,10 @@ public class FallingShapeController<T extends Node> extends ShapeMovementControl
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if (shape.getLayoutY() + shape.getTranslateY() >= shape.getParent()
+						if (shape.getLayoutY()
+								+ shape.getTranslateY()
+								+ shape.getLayoutBounds().getHeight()
+								>= shape.getParent()
 								.getLayoutBounds().getHeight()) {
 							shapeFallingObserver.shapeShouldStopFalling();
 						} else {
