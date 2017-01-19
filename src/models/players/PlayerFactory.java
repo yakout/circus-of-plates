@@ -20,7 +20,7 @@ public class PlayerFactory {
         return factory;
     }
 
-    public Player createPlayer(String name) {
+    public Player registerPlayer(String name) {
         players.put(name, new Player(name));
         return players.get(name);
     }

@@ -3,12 +3,17 @@ package models;
 import javafx.beans.property.DoubleProperty;
 import models.states.Orientation;
 
-public class Platform {
+public class 	Platform {
 	// TODO &&&&&&&&888888888888&&8&8&8&8&8&-----------------------___ (:  :)   ()::()
 	private Point center;
 	private DoubleProperty width;
 	private DoubleProperty height;
 	private Orientation orientation;
+
+	public Platform(Point center, Orientation orientation) {
+		this.orientation = orientation;
+		this.center = center;
+	}
 
 	public void setWidth(DoubleProperty width) {
 		this.width = width;
