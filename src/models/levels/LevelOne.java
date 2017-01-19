@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
-public class LevelOne implements Level {
+public class LevelOne extends Level {
 
     private Image background;
     private int noOfPlatforms = 2;
@@ -24,7 +24,8 @@ public class LevelOne implements Level {
     final double CLOWN_SPEED = 20.0;
     final double platformOffset = 30.0;
 
-    public void LevelOne() {
+    public LevelOne() {
+        super(noO);
         background = new Image("assets/images/backgrounds/background_1.png");
         supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
@@ -105,8 +106,9 @@ public class LevelOne implements Level {
 
     @Override
     public void setNumberOfPlatforms(int size) {
-        noOfPlatforms = size;
+        super(size);
     }
+
 
     private void addSupportedColors() {
         supportedColors.add(Color.GREEN);
