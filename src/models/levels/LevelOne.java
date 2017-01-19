@@ -15,43 +15,20 @@ import java.util.List;
  */
 public class LevelOne extends Level {
 
-    private Image background;
-    private int noOfPlatforms = 2;
     private List<Platform> platforms;
     private List<String> supportedShapes;
     private List<Color> supportedColors;
-    final double PLATE_SPEED = 2.0;
-    final double CLOWN_SPEED = 20.0;
-    final double platformOffset = 30.0;
+    private static final int PLATFORMS = 2;
+    private static final int LEVEL = 1;
 
     public LevelOne() {
-        super(noO);
-        background = new Image("assets/images/backgrounds/background_1.png");
+        super(LEVEL, PLATFORMS);
         supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
         addSupportedColors();
-        supportedShapes.add(PlateShape.getIdentifier());
+        // To be checked later.........................
+        supportedShapes.add(PlateShape.class.getName());
         // TODO (adding more shapes goes here).
-    }
-
-    @Override
-    public Image getBackground() {
-        return background;
-    }
-
-    @Override
-    public void setBackground(Image background) {
-        this.background = background;
-    }
-
-    @Override
-    public double getPlatesSpeed() {
-        return PLATE_SPEED;
-    }
-
-    @Override
-    public double getPlayerSpeed() {
-        return CLOWN_SPEED;
     }
 
     @Override
@@ -85,28 +62,14 @@ public class LevelOne extends Level {
     }
 
     @Override
-    public int getNumPlatforms() {
-        return noOfPlatforms;
-    }
-
-    @Override
     public List<Platform> getPlatforms() {
         for (int i = 0; i < noOfPlatforms; i++) {
             if (i % 2 == 0) {
-                Platform platform = new Platform(, Orientation.RIGHT);
-                platform.setWidth();
-                platforms.add();
-            } else {
-                platforms.add(new Platform(, Orientation.LEFT));
+                // TODO...
             }
         }
 
         return null;
-    }
-
-    @Override
-    public void setNumberOfPlatforms(int size) {
-        super(size);
     }
 
 
