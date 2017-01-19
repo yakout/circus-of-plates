@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import models.levels.Level;
 import models.shapes.Shape;
@@ -13,7 +14,6 @@ import models.shapes.Shape;
 public class ShapePool {
     
     private static List<Shape> pool;
-    
     public static Shape getShape(Level curLevel) {
         if (pool == null) {
             pool = new ArrayList<>();
