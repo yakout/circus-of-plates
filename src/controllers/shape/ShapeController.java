@@ -26,6 +26,10 @@ ShapeMovingObserver {
 	@Override
 	public void shapeShouldStopFalling() {
 		currentController.stopMoving();
-		//TODO:- Add the plate to the pool.
+		//TODO:- Ask the main controller to add the plate to the pool.
+	}
+
+	public void shapeFellOnTheStack() {
+		currentController.stopMoving();
 	}
 }
