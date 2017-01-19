@@ -1,78 +1,30 @@
 package models.shapes;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.paint.Color;
-import models.Point;
-import models.levels.Level;
+import models.ShapeFactory;
 
-import java.util.List;
+import javax.print.DocFlavor;
 
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class PlateShape extends Shape {
-    
-    public static String getIdentifier() {
-        return "PLATE";
+    private static final String URL = "INSERT_URL_IN_HERE";
+    private static final double HORIZONTAL_VELOCITY = 1.0;
+    private static final double VERTICAL_VELOCITY = 1.2;
+    public static final String KEY = PlateShape.class.getName();
+
+    static {
+        ShapeFactory.registerShape(PlateShape.class
+        .getName(), PlateShape.class);
     }
-    
-    public Thread.State getState() {
-        return null;
+    public PlateShape() {
+        setKey(KEY);
+        setHorizontalVelocity(HORIZONTAL_VELOCITY);
+        setVerticalVelocity(VERTICAL_VELOCITY);
     }
-
-    public void setState(Thread.State newState) {
-
-    }
-
-    public Color getColor() {
-        return null;
-    }
-
-    public void setColor(Color newColor) {
-
-    }
-
-    public DoubleProperty getWidth() {
-        return null;
-    }
-
-    public DoubleProperty getHeight() {
-        return null;
-    }
-
-    public Point getPosition() {
-        return null;
-    }
-
-    public void setPosition() {
-
-    }
-
-    public double getHorizontalVelocity() {
-        return 0;
-    }
-
-    public double getVerticalVelocity() {
-        return 0;
-    }
-
+    @Override
     public String getShapeURL() {
-        return null;
+        return URL;
     }
 
-    public void translate(double x, double y) {
-
-    }
-
-    public void setVisible(boolean isVisible) {
-
-    }
-
-    public List<Level> getSupportedLevels() {
-        return null;
-    }
-
-    public boolean isSupportedLevel() {
-        return false;
-    }
 }

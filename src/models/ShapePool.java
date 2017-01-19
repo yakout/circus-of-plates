@@ -1,31 +1,30 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
-
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import models.levels.Level;
 import models.shapes.Shape;
+import models.states.Color;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShapePool {
-    
+
     private static List<Shape> pool;
+
     public static Shape getShape(Level curLevel) {
         if (pool == null) {
             pool = new ArrayList<>();
         }
         Color color = ShapeFactory.getRandomColor(curLevel);
-        String shapeIdentifier = ShapeFactory.getRandomShapeIdentifier(curLevel);
+        String shapeIdentifier = ShapeFactory.getRandomShapeIdentifier
+                (curLevel);
         for (int i = 0; i < pool.size(); i++) {
-            if (pool.get(i).getColor().equals(color) && pool.get(i).getIdentifier().equals(shapeIdentifier)){
+            if (pool.get(i).getColor().equals(color) && pool.get(i)
+                    .getIdentifier().equals(shapeIdentifier)) {
                 return pool.remove(i);
             }
         }
-        return ShapeFactory.getShape(curLevel, color, shapeIdentifier);
+        return ShapeFactory.getShape(color, shapeIdentifier);
     }
 
     /**
@@ -36,7 +35,7 @@ public class ShapePool {
         ShapeFactory.resetShape(shape);
         pool.add(shape);
     }
-    
+
     public static void clearPool() {
         pool.clear();
     }
