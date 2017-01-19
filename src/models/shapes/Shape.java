@@ -9,29 +9,33 @@ import models.Point;
 import models.levels.Level;
 
 
-public interface Shape {
+public abstract class Shape {
 
-	public State getState();
-	public void setState(State newState);
+    public static String getIdentifier() {
+        return null;
+    }
 
-	public Color getColor();
-	public void setColor(Color newColor);
+	public abstract State getState();
+	public abstract void setState(State newState);
 
-	public DoubleProperty getWidth();
-	public DoubleProperty getHeight();
+	public abstract Color getColor();
+	public abstract void setColor(Color newColor);
 
-	public Point getPosition();
-	public void setPosition();
+	public abstract DoubleProperty getWidth();
+	public abstract DoubleProperty getHeight();
 
-	public double getHorizontalVelocity();
-	public double getVerticalVelocity();
+	public abstract Point getPosition();
+	public abstract void setPosition();
 
-	public String getShapeURL();
+	public abstract double getHorizontalVelocity();
+	public abstract double getVerticalVelocity();
 
-	public void translate(double x, double y);
-	public void setVisible(boolean isVisible);
+	public abstract String getShapeURL();
 
-	public List<Level> getSupportedLevels();
-	public boolean isSupportedLevel();
+	public abstract void translate(double x, double y);
+	public abstract void setVisible(boolean isVisible);
+
+	public abstract List<Level> getSupportedLevels();
+	public abstract boolean isSupportedLevel();
 
 }

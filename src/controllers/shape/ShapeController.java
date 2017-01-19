@@ -5,9 +5,12 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		ShapeMovingObserver {
+	static Logger logger = LogManager.getLogger(ShapeController.class);
 	private final T shape;
 	private final Shape shapeModel;
 	private final Platform platform;
@@ -21,6 +24,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	}
 
 	public void startMoving() {
+		logger.debug("Shape" + shape.getId() + "Movement Requested");
 		currentController
 		= new MovingShapeController<>(shape, shapeModel, platform, this);
 	}

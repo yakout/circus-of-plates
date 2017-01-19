@@ -1,7 +1,7 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
-import controllers.GameController;
+import controllers.main.GameController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;

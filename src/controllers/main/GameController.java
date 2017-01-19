@@ -1,5 +1,6 @@
-package controllers;
+package controllers.main;
 
+import controllers.PlayerController;
 import controllers.input.ActionType;
 import controllers.input.Input;
 import controllers.input.InputAction;

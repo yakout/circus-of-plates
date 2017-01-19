@@ -1,6 +1,6 @@
 package controllers.player;
 
-import controllers.GameController;
+import controllers.main.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
