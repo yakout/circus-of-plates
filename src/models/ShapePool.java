@@ -19,13 +19,13 @@ public class ShapePool {
             pool = new ArrayList<>();
         }
         Color color = ShapeFactory.getRandomColor(curLevel);
-        Class<?> shapeClass = ShapeFactory.getRandomShapeClass(curLevel);
+        String shapeIdentifier = ShapeFactory.getRandomShapeIdentifier(curLevel);
         for (int i = 0; i < pool.size(); i++) {
-            if (pool.get(i).getColor().equals(color) && pool.get(i).getClass().equals(shapeClass)){
+            if (pool.get(i).getColor().equals(color) && pool.get(i).getIdentifier().equals(shapeIdentifier)){
                 return pool.remove(i);
             }
         }
-        return ShapeFactory.getShape(curLevel, color, shapeClass);
+        return ShapeFactory.getShape(curLevel, color, shapeIdentifier);
     }
 
     /**

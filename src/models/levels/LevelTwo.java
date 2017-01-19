@@ -30,7 +30,7 @@ public class LevelTwo implements Level {
     }
 
     @Override
-    public List<Class<?>> getSupportedShapes() {
+    public List<String> getSupportedShapes() {
         return null;
     }
 
