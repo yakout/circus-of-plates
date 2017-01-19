@@ -19,7 +19,8 @@ public class GameMain extends Application {
 		//        final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		//        mediaPlayer.play();
 
-		final Pane root = FXMLLoader.load(getClass().getResource("src/views/game.fxml"));
+		final Pane root = FXMLLoader.load(getClass().getResource
+				("src/views/game.fxml"));
 		primaryStage.setTitle("Circus Of plates");
 		//        primaryStage.setMinHeight(500);
 		//        primaryStage.setMinWidth(700);
