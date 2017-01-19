@@ -36,6 +36,4 @@ public class ShapePool {
     public static void clearPool() {
         pool.clear();
     }
-
-    
 }
