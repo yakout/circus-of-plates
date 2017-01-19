@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.input.InputType;
+import controllers.main.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import models.players.PlayerFactory;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class PlayerController {
     private Map<String, Node> players;
 
-    PlayerController() {
+    public PlayerController() {
         players = new HashMap<>();
     }
 
