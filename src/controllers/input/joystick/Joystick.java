@@ -57,7 +57,7 @@ public class Joystick extends Input {
                 poll(firstController);
             }
         });
-        //thread.start();
+        thread.start();
     }
 
     public void stop() {

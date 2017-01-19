@@ -8,8 +8,10 @@ import controllers.input.InputType;
 import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
+import controllers.input.joystick.JoystickType;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
+import controllers.player.PlayerController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.io.File;
@@ -24,16 +26,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import models.players.PlayerFactory;
 
-import javax.swing.*;
 
 public class GameController implements Initializable {
     private MenuController currentMenu;
     private PlayerController playerController;
     // TODO: 1/19/17 plate Controller
 
-    private Timer gameTimer;
-    private final int CLOWNSPEED = 20;
-    private final int PLATESPEED = 1;
     private static GameController instance;
     private Input joystickInput;
 
@@ -41,13 +39,10 @@ public class GameController implements Initializable {
     private AnchorPane rootPane;
 
     @FXML
-    AnchorPane menuPane;
+    private AnchorPane menuPane;
 
     @FXML
     private AnchorPane mainGame;
-
-    @FXML
-    private AnchorPane rect;
 
     @FXML
     private Rectangle plate1;
@@ -69,7 +64,6 @@ public class GameController implements Initializable {
         return instance;
     }
 
-    Node player;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -86,9 +80,15 @@ public class GameController implements Initializable {
         playerController = new PlayerController();
         try {
             URL url = new File("src/views/clown.fxml").toURI().toURL();
-            Node node = playerController.createPlayer("player1", url);
-            mainGame.getChildren().add(node);
-            player = node;
+            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.JOYSTICK_ONE);
+            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.JOYSTICK_TWO);
+
+            Node node1 = playerController.createPlayer("player1", url);
+            Node node2 = playerController.createPlayer("player2", url);
+            node2.setLayoutX(node2.getLayoutX() + 500);
+            mainGame.getChildren().add(node1);
+            mainGame.getChildren().add(node2);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,31 +111,27 @@ public class GameController implements Initializable {
         return mainGame;
     }
 
-    private Double currentX;
-    @FXML
-    public void mouseHandler(MouseEvent event) {
-        if (currentX == null) {
-            currentX = event.getX();
-        } else {
-            if (currentX > event.getX()) {
-                rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
-            } else {
-                rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
-            }
-        }
-    }
 
     @FXML
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
+            // KEYBOARD_ONE
             case LEFT:
                 if (mainGame.isVisible()) {
-                    rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                    String playerName = PlayerFactory.getFactory()
+                            .getPlayerNameWithController(InputType.KEYBOARD_ONE);
+                    if (playerName != null) {
+                        playerController.moveLeft(playerName);
+                    }
                 }
                 break;
             case RIGHT:
                 if (mainGame.isVisible()) {
-                    rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                    String playerName = PlayerFactory.getFactory()
+                            .getPlayerNameWithController(InputType.KEYBOARD_ONE);
+                    if (playerName != null) {
+                        playerController.moveRight(playerName);
+                    }
                 }
                 break;
             case ESCAPE:
@@ -179,16 +175,29 @@ public class GameController implements Initializable {
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
-        String playerName = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK);
+        String playerName2 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_TWO);
+        String playerName1 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_ONE);
 
         Platform.runLater(() -> {
-            if (event.getJoystickCode() == JoystickCode.LEFT) {
-                if (playerName != null) {
-                    playerController.moveLeft(playerName);
+            if (event.getJoystickType() == JoystickType.PRIMARY) {
+                if (event.getJoystickCode() == JoystickCode.LEFT) {
+                    if (playerName1 != null) {
+                        playerController.moveLeft(playerName1);
+                    }
+                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
+                    if (playerName1 != null) {
+                        playerController.moveRight(playerName1);
+                    }
                 }
-            } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
-                if (playerName != null) {
-                    playerController.moveRight(playerName);
+            } else {
+                if (event.getJoystickCode() == JoystickCode.LEFT) {
+                    if (playerName2 != null) {
+                        playerController.moveLeft(playerName2);
+                    }
+                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
+                    if (playerName2 != null) {
+                        playerController.moveRight(playerName2);
+                    }
                 }
             }
         });
@@ -196,6 +205,22 @@ public class GameController implements Initializable {
 
     public double getStageWidth() {
         return mainGame.getWidth();
+    }
+
+
+    // TODO: Mouse handler
+    private Double currentX;
+    @FXML
+    public void mouseHandler(MouseEvent event) {
+        if (currentX == null) {
+            currentX = event.getX();
+        } else {
+            if (currentX > event.getX()) {
+                // rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+            } else {
+                // rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+            }
+        }
     }
 
 }
