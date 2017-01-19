@@ -2,6 +2,8 @@ package views.testGame;
 
 import controllers.input.joystick.Joystick;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -9,6 +11,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,13 +41,17 @@ public class GameMain extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit full screen."
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("Ctrl+F"));
-        // =========================== FULL SCREEN =================================
 
-
+        // =========================== EXIT ON WINDOW CLOSE =================================
         primaryStage.setAlwaysOnTop(true);
-        //primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
+        primaryStage.setResizable(false);
         primaryStage.show();
-        root.requestFocus(); // the root don't have the focus when the stage is shown it goes to the first node.
+        // root.requestFocus(); // the root don't have the focus when the stage is shown it goes to the first node.
 
         // TODO: 1/17/17  
         Joystick.getInstance().start();

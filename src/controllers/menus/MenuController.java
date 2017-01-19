@@ -48,6 +48,7 @@ public abstract class MenuController implements Initializable {
 
     void updateCurrentMenu(MenuController menuController) {
         GameController.getInstance().setCurrentMenu(menuController);
+        menuController.requestFocus(0);
     }
 
     public void requestFocus(int index) {

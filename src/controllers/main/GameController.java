@@ -20,7 +20,10 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import views.testGame.GameMain;
 
 import javax.swing.*;
 
@@ -33,10 +36,16 @@ public class GameController implements Initializable, ActionListener {
     private Input joystickInput;
 
     @FXML
-    private Rectangle rect;
+    private AnchorPane rootPane;
+
+    @FXML
+    AnchorPane menuPane;
 
     @FXML
     private AnchorPane mainGame;
+
+    @FXML
+    private Rectangle rect;
 
     @FXML
     private Rectangle plate1;
@@ -104,26 +113,27 @@ public class GameController implements Initializable, ActionListener {
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
             case LEFT:
-                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
-                // rect.setX(rect.getX() - 10);
+                if (mainGame.isVisible()) {
+                    rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                }
                 break;
             case RIGHT:
-                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
-                // rect.setX(rect.getX() + 10);
+                if (mainGame.isVisible()) {
+                    rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                }
                 break;
             case ESCAPE:
                 Platform.runLater(() -> {
                     if (currentMenu.getMenu().isVisible()) {
-                        currentMenu.getMenu().setDisable(true);
                         currentMenu.getMenu().setVisible(false);
                         mainGame.requestFocus();
-                        mainGame.setDisable(false);
+                        mainGame.setVisible(true);
                     } else {
                         currentMenu = Start.getInstance();
                         currentMenu.getMenu().setVisible(true);
-                        currentMenu.getMenu().setDisable(false);
                         currentMenu.getMenu().requestFocus();
                         currentMenu.requestFocus(0);
+                        mainGame.setVisible(false);
                     }
                 });
                 break;
@@ -158,6 +168,9 @@ public class GameController implements Initializable, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (!mainGame.isVisible()) {
+            return;
+        }
         //ALl these numbers will be replaced by relative positions.
         //566 -> height of AnchorPane + half height of plate.
         if (plate1.getY() >= 500) {
