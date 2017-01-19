@@ -9,7 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import controllers.main.GameController;
+import controllers.GameController;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 

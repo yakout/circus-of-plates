@@ -1,10 +1,9 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
-import controllers.main.GameController;
+import controllers.GameController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
