@@ -2,26 +2,26 @@ package controllers.shape;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import models.Platform;
 import models.shapes.Shape;
-import models.states.Orientation;
 import views.test.PlateController;
 
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
-public class ShapeCreator {
-    private static ShapeCreator creatorInstance = null;
-    private ShapeCreator() {
+public class ShapeBuilder {
+    private static ShapeBuilder creatorInstance = null;
+    private ShapeBuilder() {
     }
 
-    public static ShapeCreator getInstance() {
+    public static ShapeBuilder getInstance() {
         if (creatorInstance == null) {
-            creatorInstance = new ShapeCreator();
+            creatorInstance = new ShapeBuilder();
         }
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Orientation direction, final Shape shape) {
+    public synchronized void createShape(final Platform platform, final Shape shape) {
         final Image img = new Image(shape.getShapeURL());
         final javafx.scene.image.ImageView newShape = new javafx.scene.image.ImageView();
         newShape.setImage(img);
@@ -29,20 +29,20 @@ public class ShapeCreator {
         newShape.setFitWidth(shape.getWidth().doubleValue());
         newShape.setPickOnBounds(true);
         newShape.setPreserveRatio(true);
-        switch (direction) {
+        switch (platform.getOrientation()) {
             case LEFT:
-                newShape.setLayoutX(0);
+                newShape.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
                 break;
             case RIGHT:
-                newShape.setLayoutX(clown.getParent().getBoundsInParent().getWidth());
+                newShape.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
                 break;
             default:
                 break;
         }
-        newShape.setLayoutY(rightRod.getLayoutY());
-        anchorPane.getChildren().add(newShape);
+        newShape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
+//        anchorPane.getChildren().add(newShape);
         final PlateController<ImageView> plateRController
-                = new PlateController<>(newShape, isLeftPlate, rightRod.getWidth());
+//                = new PlateController<>(newShape, isLeftPlate, rightRod.getWidth());
         final Thread plateThread = new Thread(plateRController, "New Right plate");
         plateThread.setDaemon(true);
         plateThread.start();

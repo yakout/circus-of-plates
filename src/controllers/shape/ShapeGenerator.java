@@ -4,8 +4,6 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import models.ShapePool;
 import models.levels.Level;
-import models.shapes.Shape;
-import models.states.Orientation;
 
 import java.util.List;
 
@@ -23,10 +21,10 @@ public class ShapeGenerator<T extends Node> {
                     @Override
                     public void run() {
                         List<models.Platform> platforms = level.getPlatforms();
-                        ShapeCreator.getInstance().createShape(
-                                Orientation.LEFT, ShapePool.getShape(level));
-                        ShapeCreator.getInstance().createShape(
-                                Orientation.RIGHT, ShapePool.getShape(level));
+                        for (models.Platform platform : platforms) {
+                            ShapeBuilder.getInstance().createShape(platform,
+                                    ShapePool.getShape(level));
+                        }
                     }
                 });
                 try {
