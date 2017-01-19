@@ -22,7 +22,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.test.Controller">
     <children>
-        <ImageView fx:id="re" fitHeight="472.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="re" fitHeight="472.0" fitWidth="700.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
 
 
         <!-- start menu -->
@@ -172,25 +172,23 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="90.0" />
-      <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
-      <ImageView fx:id="clown" fitHeight="138.0" fitWidth="106.0" layoutX="294.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+      <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="3.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="90.0" />
+      <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="3.0" stroke="BLACK" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+      <ImageView fx:id="clown" fitHeight="138.0" fitWidth="106.0" AnchorPane.leftAnchor="309.0" AnchorPane.bottomAnchor="0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/clowns/clown2.png" />
+            <Image url="@../../assets/images/Clowns/clown1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="plate1" fitHeight="32.0" fitWidth="61.0" layoutX="639.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plate1" fitHeight="32.0" fitWidth="61.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/plates/plate1.png" />
+            <Image url="@../../assets/images/Plates/plate1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="plate2" fitHeight="32.0" fitWidth="61.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plate2" fitHeight="32.0" fitWidth="61.0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../assets/images/plates/plate1.png" />
+            <Image url="@../../assets/images/Plates/plate1.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="leftStack" arcHeight="5.0" arcWidth="5.0" fill="#1cffa4" height="32.0" layoutX="283.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" width="35.0" />
-      <Rectangle fx:id="rightStack" arcHeight="5.0" arcWidth="5.0" fill="#1cffa4" height="45.0" layoutX="383.0" layoutY="358.0" stroke="BLACK" strokeType="INSIDE" width="35.0" />
 
 
     </children>
