@@ -17,7 +17,7 @@ public class GameSettings {
     }
     
     private void initializeDefaultSettings() {
-        this.audioSettings = new Audio();
+        this.audioSettings = new Audio(50, false);
         this.graphicsSettings = new Graphics();
         this.generalSettings = new General();
     }

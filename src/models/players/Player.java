@@ -3,13 +3,16 @@ package models.players;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import controllers.input.InputType;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import models.GameRules;
 import models.Point;
 import models.shapes.Shape;
 
 public class Player {
 
-    private static int num_of_players = 0;
+    private static int numOfPlayers = 0;
 
     private Object avatar; // TODO
     private Stack<Shape> leftStick;
@@ -17,14 +20,16 @@ public class Player {
     private String playerName;
     private Point position;
     private int score;
-    private double speed;
+    private DoubleProperty speed;
+    private InputType inputType;
     
     public Player() {
-        this.playerName = "Player " + ++num_of_players;
+        this.playerName = "Player " + ++numOfPlayers;
         this.score = 0;
         this.position = new Point(0, 0);
         this.leftStick = new Stack<>();
         this.rightStick = new Stack<>();
+        this.speed = new SimpleDoubleProperty();
     }
 
     public Player(String name) {
@@ -66,15 +71,6 @@ public class Player {
         this.score += change;
     }
 
-    // TODO keep the player within the boundaries of the stage
-    public void moveLeft() {
-        this.position.setX(this.position.getX() - this.speed);
-    }
-
-    public void moveRight() {
-        this.position.setX(this.position.getX() + this.speed);
-    }
-
     public int getNumOfLeftPlates() {
         return this.leftStick.size();
     }
@@ -101,6 +97,22 @@ public class Player {
 
     public int getScore() {
         return this.score;
+    }
+
+    public double getSpeed() {
+        return speed.get();
+    }
+
+    public void setSpeed(double speed) {
+        this.speed.set(speed);
+    }
+
+    public void setInputType(InputType inputType) {
+        this.inputType = inputType;
+    }
+
+    public InputType getInputType() {
+        return inputType;
     }
 
     public void setAvatar(Object avatar) {
