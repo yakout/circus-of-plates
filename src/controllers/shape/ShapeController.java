@@ -6,11 +6,12 @@ import javafx.scene.Node;
 import models.shapes.Shape;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
-ShapeMovingObserver {
+		ShapeMovingObserver {
 	private final T shape;
 	private final Shape shapeModel;
 	ShapeMovementController<T> currentController;
-	public ShapeController() {
+	public ShapeController(final T shape, final Shape model,
+						   final models.Platform platform) {
 		this.shape = shape;
 		this.shapeModel = model;
 		currentController = new MovingShapeController<>(shape, model, platform, this);
@@ -20,7 +21,7 @@ ShapeMovingObserver {
 	public void shapeShouldStartFalling() {
 		currentController.stopMoving();
 		currentController
-		= new FallingShapeController<>(shape, shapeModel, this);
+				= new FallingShapeController<>(shape, shapeModel, this);
 	}
 
 	@Override

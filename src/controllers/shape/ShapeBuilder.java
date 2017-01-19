@@ -21,27 +21,27 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Platform platform, final Shape shape) {
-        final Image img = new Image(shape.getShapeURL());
-        final ImageView newShape = new ImageView();
-        newShape.setImage(img);
-        newShape.setFitHeight(shape.getHeight().doubleValue());
-        newShape.setFitWidth(shape.getWidth().doubleValue());
-        newShape.setPickOnBounds(true);
-        newShape.setPreserveRatio(true);
+    public synchronized void createShape(final Platform platform, final Shape shapeModel) {
+        final Image img = new Image(shapeModel.getShapeURL());
+        final ImageView shape = new ImageView();
+        shape.setImage(img);
+        shape.setFitHeight(shapeModel.getHeight().doubleValue());
+        shape.setFitWidth(shapeModel.getWidth().doubleValue());
+        shape.setPickOnBounds(true);
+        shape.setPreserveRatio(true);
         switch (platform.getOrientation()) {
             case LEFT:
-                newShape.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
+                shape.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
                 break;
             case RIGHT:
-                newShape.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
+                shape.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
                 break;
             default:
                 break;
         }
-        newShape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
-        ShapeController<ImageView> shapeController = new ShapeController<>();
-        anchorPane.getChildren().add(newShape);
+        shape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
+        ShapeController<ImageView> shapeController = new ShapeController<>(shape, shapeModel, platform);
+
         final PlateController<ImageView> plateRController
 //                = new PlateController<>(newShape, isLeftPlate, rightRod.getWidth());
         final Thread plateThread = new Thread(plateRController, "New Right plate");
