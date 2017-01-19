@@ -22,25 +22,19 @@ public class ShapeBuilder {
     }
 
     public synchronized void createShape(final Platform platform, final Shape shapeModel) {
-        final Image img = new Image(shapeModel.getShapeURL());
-        final ImageView shape = new ImageView();
-        shape.setImage(img);
-        shape.setFitHeight(shapeModel.getHeight().doubleValue());
-        shape.setFitWidth(shapeModel.getWidth().doubleValue());
-        shape.setPickOnBounds(true);
-        shape.setPreserveRatio(true);
+        final ImageView shapeView = ViewConverter.convertToImageView(shapeModel);
         switch (platform.getOrientation()) {
             case LEFT:
-                shape.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
+                shapeView.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
                 break;
             case RIGHT:
-                shape.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
+                shapeView.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
                 break;
             default:
                 break;
         }
-        shape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
-        ShapeController<ImageView> shapeController = new ShapeController<>(shape, shapeModel, platform);
+        shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
+        ShapeController<ImageView> shapeController = new ShapeController<>(shapeView, shapeModel, platform);
         shapeController.startMoving();
     }
 }
