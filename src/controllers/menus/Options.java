@@ -59,6 +59,7 @@ public class Options extends MenuController {
                 break;
             case "audio":
                 audio.setVisible(true);
+                audio.requestFocus();
                 break;
             case "graphics":
                 graphics.setVisible(true);

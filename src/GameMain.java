@@ -32,7 +32,7 @@ public class GameMain extends Application {
 		primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit full screen."
 		primaryStage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("Ctrl+F"));
 		// =========================== EXIT ON WINDOW CLOSE =================================
-		primaryStage.setAlwaysOnTop(true);
+		// primaryStage.setAlwaysOnTop(true);
 		primaryStage.setOnCloseRequest(event -> {
 			Platform.exit();
 			System.exit(0);
