@@ -26,6 +26,8 @@ public interface Shape {
 	public double getHorizontalVelocity();
 	public double getVerticalVelocity();
 
+	public String getShapeURL();
+
 	public void translate(double x, double y);
 	public void setVisible(boolean isVisible);
 

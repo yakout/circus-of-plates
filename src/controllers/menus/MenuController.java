@@ -9,8 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import controllers.GameController;
 import javafx.scene.layout.VBox;
-import controllers.main.GameController;
 import javafx.scene.media.MediaPlayer;
 
 
@@ -135,5 +135,10 @@ public abstract class MenuController implements Initializable {
         handle(((Node) event.getSource()).getId());
     }
 
-    public abstract VBox getMenu();
+    protected abstract VBox getMenu();
+
+    public abstract void setMenuVisible(boolean visible);
+
+    public abstract boolean isVisible();
+
 }

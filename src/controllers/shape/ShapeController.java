@@ -7,13 +7,13 @@ import models.Platform;
 import models.shapes.Shape;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
-ShapeMovingObserver {
+		ShapeMovingObserver {
 	private final T shape;
 	private final Shape shapeModel;
 	private final Platform platform;
 	private ShapeMovementController<T> currentController;
 	public ShapeController(final T shape, final Shape model,
-			final models.Platform platform) {
+						   final models.Platform platform) {
 		this.shape = shape;
 		this.shapeModel = model;
 		this.platform = platform;
@@ -32,7 +32,7 @@ ShapeMovingObserver {
 		}
 		currentController.stopMoving();
 		currentController
-		= new FallingShapeController<>(shape, shapeModel, this);
+				= new FallingShapeController<>(shape, shapeModel, this);
 	}
 
 	@Override

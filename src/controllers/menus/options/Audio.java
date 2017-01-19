@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 
 public class Audio implements Initializable {
-    public static Audio instance;
+    private static Audio instance;
 
     @FXML
     private SplitPane audioSettings;

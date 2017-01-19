@@ -1,4 +1,4 @@
-package controllers.main;
+package controllers;
 
 import controllers.input.ActionType;
 import controllers.input.Input;
@@ -13,22 +13,25 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import views.testGame.GameMain;
+import models.players.PlayerFactory;
 
 import javax.swing.*;
 
 public class GameController implements Initializable, ActionListener {
     private MenuController currentMenu;
+    private PlayerController playerController;
+    // TODO: 1/19/17 plate Controller
+
     private Timer gameTimer;
     private final int CLOWNSPEED = 20;
     private final int PLATESPEED = 1;
@@ -45,14 +48,17 @@ public class GameController implements Initializable, ActionListener {
     private AnchorPane mainGame;
 
     @FXML
-    private Rectangle rect;
+    private AnchorPane rect;
 
     @FXML
     private Rectangle plate1;
+
     @FXML
     private Rectangle plate2;
+
     @FXML
     private Rectangle rightRod;
+
     @FXML
     private Rectangle leftRod;
 
@@ -74,7 +80,16 @@ public class GameController implements Initializable, ActionListener {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Controllers
         currentMenu = Start.getInstance();
+        playerController = new PlayerController();
+        try {
+            URL url = new File("src/views/menus/options/audio/audio.fxml").toURI().toURL();
+            playerController.createPlayer("player1", url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         gameTimer = new Timer(10, this);
         gameTimer.start();
         instance  = this;
@@ -102,9 +117,9 @@ public class GameController implements Initializable, ActionListener {
             currentX = event.getX();
         } else {
             if (currentX > event.getX()) {
-                rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
             } else {
-                rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
             }
         }
     }
@@ -114,28 +129,46 @@ public class GameController implements Initializable, ActionListener {
         switch (event.getCode()) {
             case LEFT:
                 if (mainGame.isVisible()) {
-                    rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                    rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
                 }
                 break;
             case RIGHT:
                 if (mainGame.isVisible()) {
-                    rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                    rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
                 }
                 break;
             case ESCAPE:
                 Platform.runLater(() -> {
-                    if (currentMenu.getMenu().isVisible()) {
-                        currentMenu.getMenu().setVisible(false);
+                    if (currentMenu.isVisible()) {
+                        currentMenu.setMenuVisible(false);
                         mainGame.requestFocus();
                         mainGame.setVisible(true);
                     } else {
                         currentMenu = Start.getInstance();
-                        currentMenu.getMenu().setVisible(true);
-                        currentMenu.getMenu().requestFocus();
+                        currentMenu.setMenuVisible(true);
                         currentMenu.requestFocus(0);
                         mainGame.setVisible(false);
                     }
                 });
+                break;
+            // keyboard_two
+            case A:
+                if (mainGame.isVisible()) {
+                    String playerName = PlayerFactory.getFactory()
+                            .getPlayerNameWithController(InputType.KEYBOARD_TWO);
+                    if (playerName != null) {
+                        playerController.moveLeft(playerName);
+                    }
+                }
+                break;
+            case D:
+                if (mainGame.isVisible()) {
+                    String playerName = PlayerFactory.getFactory()
+                            .getPlayerNameWithController(InputType.KEYBOARD_TWO);
+                    if (playerName != null) {
+                        playerController.moveRight(playerName);
+                    }
+                }
                 break;
             default:
                 break;
@@ -145,24 +178,27 @@ public class GameController implements Initializable, ActionListener {
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                if (event.getJoystickCode() == JoystickCode.LEFT) {
-                    moveLeft();
-                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
-                    moveRight();
+        String playerName = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK);
+
+        Platform.runLater(() -> {
+            if (event.getJoystickCode() == JoystickCode.LEFT) {
+                if (playerName != null) {
+                    playerController.moveLeft(playerName);
+                }
+            } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
+                if (playerName != null) {
+                    playerController.moveRight(playerName);
                 }
             }
         });
     }
 
     void moveLeft() {
-        rect.setX(Math.max(rect.getX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+        rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
     }
 
     void moveRight() {
-        rect.setX(Math.min(rect.getX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+        rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
     }
 
 

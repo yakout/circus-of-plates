@@ -15,6 +15,4 @@ class Utils {
 
     static final MediaPlayer menuSelectionMediaPlayer = new MediaPlayer(menuChoiceMedia);
     static final MediaPlayer menuChoiceMediaPlayer = new MediaPlayer(menuSelectionMedia);
-
-
 }
