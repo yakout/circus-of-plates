@@ -15,7 +15,7 @@ public class PlateShape implements Shape {
     public Thread.State getState() {
         return null;
     }
-
+x
     @Override
     public void setState(Thread.State newState) {
 

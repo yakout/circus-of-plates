@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
-public class LevelOne implements Level {
+public class LevelTwo implements Level {
     @Override
     public Object getBackground() {
         return null;
