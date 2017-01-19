@@ -10,11 +10,10 @@ public abstract class Level {
 
     private final String IMG_EXTENSION = ".png";
     private final String DIRECTORY = "assets/images/backgrounds/background_";
-    protected double plateSpeed = 2.0;
-    protected double clownSpeed = 20.0;
     protected int noOfPlatforms;
     protected Image background;
     protected int currentLevel;
+
     // TODO not an object :3
 
     public Level(int currentLevel, int noOfPlatforms) {
@@ -30,12 +29,8 @@ public abstract class Level {
         this.background = background;
     }
 
-    public double getPlatesSpeed() {
-        return plateSpeed;
-    }
-    public double getPlayerSpeed() {
-        return clownSpeed;
-    }
+    public abstract double getPlatesSpeed();
+    public abstract double getPlayerSpeed();
 
     public abstract List<String> getSupportedShapes();
     public abstract boolean isSupportedShape(String shape);
@@ -43,10 +38,11 @@ public abstract class Level {
     public abstract List<Color> getSupportedColors();
     public abstract boolean isSupportedColor(Color color);
 
+    public abstract List<Platform> getPlatforms();
+
     public int getNumPlatforms() {
         return noOfPlatforms;
     }
-    public abstract List<Platform> getPlatforms();
 
     public void setNumberOfPlatforms(int size) {
         this.noOfPlatforms = size;
