@@ -16,7 +16,7 @@ public interface Level {
     public double getPlatesSpeed();
     public double getPlayerSpeed();
 
-    public List<Class<?>> getSupportedShapes();
+    public List<String> getSupportedShapes();
     public boolean isSupportedShape();
 
     public List<Color> getSupportedColors();
