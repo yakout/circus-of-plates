@@ -1,22 +1,20 @@
 package controllers.shape;
 
+import controllers.shape.util.ShapeMovingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
 
-public class MovingShapeController<T extends Node> {
-	private final T shape;
-	private final Shape shapeModel;
+public class MovingShapeController<T extends Node> extends ShapeMovementController<T> {
 	private final models.Platform platform;
-	private final ShapeController<T> parent;
 	private double sign;
 	private static final Long THREAD_SLEEP_TIME = 10L;
-	private final Thread shapeMovementThread;
+	private final ShapeMovingObserver shapeMovingObserver;
 	private final Runnable shapeMover = new Runnable() {
 
 		@Override
 		public synchronized void run() {
-			while (true) {
+			while (threadRunning) {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -26,8 +24,7 @@ public class MovingShapeController<T extends Node> {
 										.getTranslateX() + shapeModel.getWidth().doubleValue()))
 								< Math.abs(width / 2.0 -
 										platform.getWidth().doubleValue())) {
-							//TODO notify the main controller that
-							// the plate should start falling
+							shapeMovingObserver.shapeShouldStartFalling();
 						} else {
 							shape.setTranslateX(shape.getTranslateX() + sign *
 									shapeModel.getHorizontalVelocity());
@@ -42,14 +39,14 @@ public class MovingShapeController<T extends Node> {
 					break;
 				}
 			}
+			System.out.println("Thread: " + Thread.currentThread().getName() + " Stopped");
 		}
 	};
 	public MovingShapeController(final T shape, final Shape model,
-			final models.Platform platform, final ShapeController<T> parent) {
-		this.shape = shape;
-		this.shapeModel = model;
+			final models.Platform platform, final ShapeMovingObserver shapeMovingObserver) {
+		super(shape, model);
+		this.shapeMovingObserver = shapeMovingObserver;
 		this.platform = platform;
-		this.parent = parent;
 		switch(platform.getOrientation()) {
 		case LEFT:
 			sign = 1;
@@ -60,24 +57,10 @@ public class MovingShapeController<T extends Node> {
 		default:
 			break;
 		}
-		shapeMovementThread = new Thread(shapeMover);
+		shapeMovementThread = new Thread(shapeMover,
+				"Horizontal Movement Thread " + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
 	}
-	public void stopMoving() {
-		shapeMovementThread.interrupt();
-	}
-	/*
-	 * if (shape.getLayoutY() + shape.getTranslateY() >= shape.getParent()
-								.getLayoutBounds().getHeight()) {
-							shape.setTranslateX(0);
-							shape.setTranslateY(0);
-						} else
-
-
-
-shape.setTranslateY(shape.getTranslateY() +
-									shapeModel.getVerticalVelocity() / 4);
-	 */
 
 }
