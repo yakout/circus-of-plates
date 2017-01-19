@@ -4,12 +4,15 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MovingShapeController<T extends Node> extends ShapeMovementController<T> {
 	private final models.Platform platform;
 	private double sign;
 	private static final Long THREAD_SLEEP_TIME = 10L;
 	private final ShapeMovingObserver shapeMovingObserver;
+	static Logger logger = LogManager.
 	private final Runnable shapeMover = new Runnable() {
 
 		@Override
@@ -61,6 +64,7 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				"Horizontal Movement Thread " + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
+		logger.log("")
 	}
 
 }
