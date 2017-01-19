@@ -27,7 +27,11 @@ public class ShapePool {
         }
         return ShapeFactory.getShape(curLevel, color, shapeClass);
     }
-    
+
+    /**
+     * Get called when plates are lost.
+     * @param shape
+     */
     public static void destroyShape(Shape shape) {
         ShapeFactory.resetShape(shape);
         pool.add(shape);

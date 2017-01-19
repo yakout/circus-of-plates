@@ -2,6 +2,7 @@ package controllers.shape;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import models.shapes.Shape;
 import models.states.Orientation;
 import views.test.PlateController;
 
@@ -10,8 +11,7 @@ import views.test.PlateController;
  */
 public class ShapeCreator {
 
-
-    public static synchronized void createPlate(final Orientation direction) {
+    public static synchronized void createPlate(final Orientation direction, final Shape shape) {
         final javafx.scene.image.ImageView newPlate = new javafx.scene.image.ImageView();
         final Image img = new Image("assets/images/Plates/plate1.png");
         newPlate.setImage(img);
