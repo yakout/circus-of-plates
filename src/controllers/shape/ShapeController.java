@@ -10,8 +10,7 @@ ShapeMovingObserver {
 	private final T shape;
 	private final Shape shapeModel;
 	ShapeMovementController<T> currentController;
-	public ShapeController(final T shape, final Shape model,
-			final models.Platform platform) {
+	public ShapeController() {
 		this.shape = shape;
 		this.shapeModel = model;
 		currentController = new MovingShapeController<>(shape, model, platform, this);

@@ -23,7 +23,7 @@ public class ShapeBuilder {
 
     public synchronized void createShape(final Platform platform, final Shape shape) {
         final Image img = new Image(shape.getShapeURL());
-        final javafx.scene.image.ImageView newShape = new javafx.scene.image.ImageView();
+        final ImageView newShape = new ImageView();
         newShape.setImage(img);
         newShape.setFitHeight(shape.getHeight().doubleValue());
         newShape.setFitWidth(shape.getWidth().doubleValue());
@@ -40,7 +40,8 @@ public class ShapeBuilder {
                 break;
         }
         newShape.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
-//        anchorPane.getChildren().add(newShape);
+        ShapeController<ImageView> shapeController = new ShapeController<>();
+        anchorPane.getChildren().add(newShape);
         final PlateController<ImageView> plateRController
 //                = new PlateController<>(newShape, isLeftPlate, rightRod.getWidth());
         final Thread plateThread = new Thread(plateRController, "New Right plate");

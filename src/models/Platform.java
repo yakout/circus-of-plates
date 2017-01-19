@@ -12,14 +12,14 @@ public class Platform {
 	public DoubleProperty getWidth() {
 		return width;
 	}
+
+	public DoubleProperty getHeight() {
+		return height;
+	}
+
 	public Orientation getOrientation() {
 		return orientation;
 	}
-
-	/**
-	 * To get the place of the platform in order to generate
-	 * plates on it.
-	 * @return
-	 */
 	public Point getCenter(){ return center; }
+
 }
