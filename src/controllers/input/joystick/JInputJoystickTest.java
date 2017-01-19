@@ -22,6 +22,7 @@ public class JInputJoystickTest {
                 firstController = controller;
                 break;
             }
+
         }
 
         if(firstController == null) {
