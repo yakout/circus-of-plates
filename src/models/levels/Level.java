@@ -10,6 +10,8 @@ public abstract class Level {
 
     private final String IMG_EXTENSION = ".png";
     private final String DIRECTORY = "assets/images/backgrounds/background_";
+    private double plateSpeedRatio = 1.0;
+    private double clownSpeedRatio = 1.0;
     protected int noOfPlatforms;
     protected Image background;
     protected int currentLevel;
@@ -22,15 +24,20 @@ public abstract class Level {
         background = new Image(DIRECTORY + currentLevel + IMG_EXTENSION);
     }
 
+    protected void setPlateSpeed(double speedRatio) {
+        plateSpeedRatio = speedRatio;
+    }
+
+    protected void setClownSpeed(double speedRatio) {
+        clownSpeedRatio = speedRatio;
+    }
+
     public Image getBackground() {
         return background;
     }
     public void setBackground(Image background) {
         this.background = background;
     }
-
-    public abstract double getPlatesSpeed();
-    public abstract double getPlayerSpeed();
 
     public abstract List<String> getSupportedShapes();
     public abstract boolean isSupportedShape(String shape);

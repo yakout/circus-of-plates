@@ -17,7 +17,7 @@ public class LevelOne extends Level {
     private List<String> supportedShapes;
     private List<Color> supportedColors;
     private final double PLATE_SPEED_RATIO = 1.0;
-    protected double CLOWN_SPEED_RATIO = 1.0;
+    private final double CLOWN_SPEED_RATIO = 1.0;
     private static final int PLATFORMS = 2;
     private static final int LEVEL = 1;
 
@@ -26,20 +26,12 @@ public class LevelOne extends Level {
         supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
         addSupportedColors();
+
         // To be checked later.........................
         supportedShapes.add(PlateShape.class.getName());
         // TODO (adding more shapes goes here).
     }
 
-    @Override
-    public double getPlatesSpeed() {
-        return PLATE_SPEED_RATIO;
-    }
-
-    @Override
-    public double getPlayerSpeed() {
-        return CLOWN_SPEED_RATIO;
-    }
 
     @Override
     public List<String> getSupportedShapes() {
@@ -81,7 +73,6 @@ public class LevelOne extends Level {
 
         return null;
     }
-
 
     private void addSupportedColors() {
         supportedColors.add(Color.GREEN);
