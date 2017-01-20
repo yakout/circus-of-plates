@@ -15,6 +15,9 @@ public abstract class Level {
     protected int noOfPlatforms;
     protected Image background;
     protected int currentLevel;
+    private List<Platform> platforms;
+    private List<String> supportedShapes;
+    private List<Color> supportedColors;
 
     // TODO not an object :3
 
@@ -32,6 +35,14 @@ public abstract class Level {
         clownSpeedRatio = speedRatio;
     }
 
+    protected void setSupportedShapes(List<String> supportedShapes) {
+        this.supportedShapes = supportedShapes;
+    }
+
+    protected void setSupportedColors(List<Color> supportedColors) {
+        this.supportedColors = supportedColors;
+    }
+
     public Image getBackground() {
         return background;
     }
@@ -39,11 +50,29 @@ public abstract class Level {
         this.background = background;
     }
 
-    public abstract List<String> getSupportedShapes();
-    public abstract boolean isSupportedShape(String shape);
+    public List<String> getSupportedShapes() {
+        return supportedShapes;
+    }
+    public boolean isSupportedShape(String shape) {
+        for (String key : supportedShapes) {
+            if (key.equals(shape)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public abstract List<Color> getSupportedColors();
-    public abstract boolean isSupportedColor(Color color);
+    public List<Color> getSupportedColors() {
+        return supportedColors;
+    }
+    public boolean isSupportedColor(Color color) {
+        for (Color currColor : supportedColors) {
+            if (currColor == color) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public abstract List<Platform> getPlatforms();
 

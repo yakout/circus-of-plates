@@ -25,42 +25,16 @@ public class LevelOne extends Level {
         super(LEVEL, PLATFORMS);
         supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
+        setClownSpeed(CLOWN_SPEED_RATIO);
+        setPlateSpeed(PLATE_SPEED_RATIO);
         addSupportedColors();
-
         // To be checked later.........................
         supportedShapes.add(PlateShape.class.getName());
         // TODO (adding more shapes goes here).
-    }
 
 
-    @Override
-    public List<String> getSupportedShapes() {
-        return supportedShapes;
-    }
-
-    @Override
-    public boolean isSupportedShape(String shape) {
-        for (String key : supportedShapes) {
-            if (key.equals(shape)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public List<Color> getSupportedColors() {
-        return supportedColors;
-    }
-
-    @Override
-    public boolean isSupportedColor(Color color) {
-        for (Color currColor : supportedColors) {
-            if (currColor == color) {
-                return true;
-            }
-        }
-        return false;
+        setSupportedColors(supportedColors);
+        setSupportedShapes(supportedShapes);
     }
 
     @Override
