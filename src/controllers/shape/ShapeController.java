@@ -31,6 +31,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
 	@Override
 	public void shapeShouldStartFalling() {
+	    logger.debug("A Shape Should Start Falling");
 		if (currentController == null) {
 			return;
 		}

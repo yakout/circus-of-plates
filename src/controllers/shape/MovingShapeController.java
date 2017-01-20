@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class MovingShapeController<T extends Node> extends ShapeMovementController<T> {
 	private final models.Platform platform;
 	private double sign;
-	private static final Long THREAD_SLEEP_TIME = 10L;
+	private static final Long THREAD_SLEEP_TIME = 1000L;
 	private final ShapeMovingObserver shapeMovingObserver;
 	static Logger logger = LogManager.getLogger(MovingShapeController.class);
 	private final Runnable shapeMover = new Runnable() {
@@ -42,7 +42,11 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				} catch (final InterruptedException e) {
 					logger.debug("Thread (" + Thread.currentThread()
 					.getName() + ") Interrupted");
-					break;
+					if (!threadRunning) {
+                        break;
+                    } else {
+					    continue;
+                    }
 				}
 			}
 			logger.debug("Thread: " + Thread.currentThread().getName()
