@@ -11,6 +11,7 @@ import controllers.input.joystick.JoystickType;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
+import controllers.shape.ShapeController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.io.File;
@@ -24,7 +25,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import models.GameMode;
+import models.Point;
 import models.players.PlayerFactory;
+import models.shapes.PlateShape;
+import models.shapes.Shape;
+import models.states.Orientation;
 
 
 public class GameController implements Initializable {
@@ -97,6 +102,25 @@ public class GameController implements Initializable {
 
         joystickInput = Joystick.getInstance();
         joystickInput.registerClassForInputAction(getClass(), instance);
+        Shape shape1 = new PlateShape();
+        shape1.setPosition(new Point(plate2.getLayoutX(), plate2.getLayoutY()));
+        shape1.getPosition().xProperty().bindBidirectional(plate2.layoutXProperty());
+        shape1.getPosition().yProperty().bindBidirectional(plate2.layoutYProperty());
+        shape1.setHorizontalVelocity(20);
+        shape1.setVerticalVelocity(20);
+        shape1.setWidth(plate2.getWidth());
+        shape1.setHeight(plate2.getHeight());
+        models.Platform platform = new models.Platform(new
+                Point(leftRod.getLayoutX()
+                + leftRod.getWidth() / 2.0, leftRod.getLayoutY()),
+                Orientation.LEFT);
+        platform.setWidth(leftRod.widthProperty());
+        platform.setHeight(leftRod.heightProperty());
+        ShapeController<Rectangle> controller = new ShapeController<>(plate2,
+                shape1, platform);
+        controller.startMoving();
+//        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
+//                new LevelOne());
     }
 
     public void setCurrentMenu(MenuController currentMenu) {

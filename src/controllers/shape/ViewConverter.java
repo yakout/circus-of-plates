@@ -17,7 +17,7 @@ public class ViewConverter {
      * @param shapeModel shapeModel requested from model.
      * @return shape in imageView form.
      */
-    public static ImageView convertToImageView(Shape shapeModel) {
+    public synchronized static ImageView convertToImageView(Shape shapeModel) {
         final Image img = new Image(shapeModel.getShapeURL());
         final ImageView shapeView = new ImageView();
         shapeView.setImage(img);

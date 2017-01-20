@@ -1,41 +1,84 @@
 package models.shapes;
 
-import java.lang.Thread.State; // TODO Not this state :D
-import java.util.List;
-
 import javafx.beans.property.DoubleProperty;
-import javafx.scene.paint.Color;
+import javafx.beans.property.SimpleDoubleProperty;
 import models.Point;
-import models.levels.Level;
+import models.states.Color;
+
+import java.lang.Thread.State;
 
 
 public abstract class Shape {
 
-    public static String getIdentifier() {
-        return null;
+	protected Color color;
+	protected Point position;
+	protected double xVelocity;
+	protected double yVelocity;
+	protected State state;
+	protected DoubleProperty width;
+	protected DoubleProperty height;
+	protected String key;
+	public String getIdentifier() {
+		return key;
+	}
+	protected void setKey(String key) {
+		this.key = key;
+	}
+	public Shape() {
+        this.height = new SimpleDoubleProperty();
+        this.width = new SimpleDoubleProperty();
+	}
+	public State getState() {
+    	return state;
+	}
+	public void setState(State newState) {
+		state = newState;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color newColor) {
+		color = newColor;
+	}
+
+	public DoubleProperty getWidth() {
+		return width;
+	}
+	public DoubleProperty getHeight() {
+		return height;
+	}
+    public void setWidth (double newWidth) {
+	    width.setValue(newWidth);
     }
+    public void setHeight (double newHeight) {
+        height.setValue(newHeight);
+    }
+	public Point getPosition() {
+		return position;
+	}
+	public void setPosition(Point position) {
+		this.position = position;
+	}
 
-	public abstract State getState();
-	public abstract void setState(State newState);
-
-	public abstract Color getColor();
-	public abstract void setColor(Color newColor);
-
-	public abstract DoubleProperty getWidth();
-	public abstract DoubleProperty getHeight();
-
-	public abstract Point getPosition();
-	public abstract void setPosition();
-
-	public abstract double getHorizontalVelocity();
-	public abstract double getVerticalVelocity();
+	public double getHorizontalVelocity() {
+		return xVelocity;
+	}
+	public double getVerticalVelocity() {
+		return yVelocity;
+	}
+	public void setHorizontalVelocity(double xVelocity) {
+		this.xVelocity = xVelocity;
+	}
+	public void setVerticalVelocity(double yVelocity) {
+		this.yVelocity = yVelocity;
+	}
 
 	public abstract String getShapeURL();
 
-	public abstract void translate(double x, double y);
-	public abstract void setVisible(boolean isVisible);
-
-	public abstract List<Level> getSupportedLevels();
-	public abstract boolean isSupportedLevel();
+	public void translate(double x, double y) {
+		position.xProperty().add(x);
+		position.yProperty().add(y);
+	}
 
 }

@@ -10,6 +10,11 @@ public class Platform {
 	private DoubleProperty height;
 	private Orientation orientation;
 
+	public Platform(Point center, Orientation orientation) {
+		this.orientation = orientation;
+		this.center = center;
+	}
+
 	public void setWidth(DoubleProperty width) {
 		this.width = width;
 	}

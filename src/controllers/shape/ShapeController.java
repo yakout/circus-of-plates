@@ -24,13 +24,14 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	}
 
 	public void startMoving() {
-		logger.debug("Shape" + shape.getId() + "Movement Requested");
+		logger.debug("Shape " + shape.getId() + " Movement Requested");
 		currentController
 		= new MovingShapeController<>(shape, shapeModel, platform, this);
 	}
 
 	@Override
 	public void shapeShouldStartFalling() {
+	    logger.debug("A Shape Should Start Falling");
 		if (currentController == null) {
 			return;
 		}
