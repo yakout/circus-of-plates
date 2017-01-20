@@ -18,11 +18,10 @@ public class LevelOne extends Level {
     private final double CLOWN_SPEED_RATIO = 1.0;
     private static final int PLATFORMS = 2;
     private static final int LEVEL = 1;
-    protected static List<String> supportedShapes
+    private static List<String> supportedShapes
             = new ArrayList<>();
     public LevelOne(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
-        supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
         platforms = new ArrayList<>();
         setClownSpeed(CLOWN_SPEED_RATIO);

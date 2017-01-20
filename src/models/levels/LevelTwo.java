@@ -18,12 +18,11 @@ public class LevelTwo extends Level {
     private final double CLOWN_SPEED_RATIO = 1.2;
     private static final int PLATFORMS = 4;
     private static final int LEVEL = 2;
-    protected static List<String> supportedShapes
+    private static List<String> supportedShapes
             = new ArrayList<>();
 
     public LevelTwo(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
-        supportedShapes = new ArrayList<>();
         supportedColors = new ArrayList<>();
         setClownSpeed(CLOWN_SPEED_RATIO);
         setPlateSpeed(PLATE_SPEED_RATIO);
@@ -54,7 +53,7 @@ public class LevelTwo extends Level {
     }
 
     protected static void setSupportedShapes(List<String> supportedShapes) {
-        LevelOne.supportedShapes = supportedShapes;
+        LevelTwo.supportedShapes = supportedShapes;
     }
 
     private void addSupportedColors() {

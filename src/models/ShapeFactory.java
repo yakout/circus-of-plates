@@ -18,7 +18,7 @@ public class ShapeFactory {
         if (registeredShapes == null) {
             registeredShapes = new HashMap<>();
         }
-
+        registeredShapes.put(key, shapeClass);
     }
 
     public static Color getRandomColor(Level curLevel) {
