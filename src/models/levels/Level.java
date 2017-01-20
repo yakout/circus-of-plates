@@ -1,10 +1,14 @@
 package models.levels;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
+import models.Point;
 import models.states.Color;
 import models.Platform;
+import models.states.Orientation;
 
 public abstract class Level {
 
@@ -15,10 +19,12 @@ public abstract class Level {
     protected int noOfPlatforms;
     protected Image background;
     protected int currentLevel;
-    private List<Platform> platforms;
-    private List<String> supportedShapes;
-    private List<Color> supportedColors;
-
+    protected List<Platform> platforms;
+    protected List<Color> supportedColors;
+    protected double minX, minY, maxX, maxY;
+    protected static final double PLATFORM_BASE_WIDTH = 120;
+    protected static final double PLATFORM_BASE_Y_Factor = 0.1;
+    protected static final double PLATFORM_HEIGHT = 5;
     // TODO not an object :3
 
     public Level(int currentLevel, int noOfPlatforms) {
@@ -30,38 +36,20 @@ public abstract class Level {
     protected void setPlateSpeed(double speedRatio) {
         plateSpeedRatio = speedRatio;
     }
-
     protected void setClownSpeed(double speedRatio) {
         clownSpeedRatio = speedRatio;
     }
-
-    protected void setSupportedShapes(List<String> supportedShapes) {
-        this.supportedShapes = supportedShapes;
-    }
-
+    public abstract List<String> getSupportedShapes();
+    public abstract boolean isSupportedShape(String shape);
     protected void setSupportedColors(List<Color> supportedColors) {
         this.supportedColors = supportedColors;
     }
-
     public Image getBackground() {
         return background;
     }
     public void setBackground(Image background) {
         this.background = background;
     }
-
-    public List<String> getSupportedShapes() {
-        return supportedShapes;
-    }
-    public boolean isSupportedShape(String shape) {
-        for (String key : supportedShapes) {
-            if (key.equals(shape)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public List<Color> getSupportedColors() {
         return supportedColors;
     }
@@ -73,8 +61,35 @@ public abstract class Level {
         }
         return false;
     }
+    protected void addPlatforms() {
+        Platform newPlatform = null;
+        double stageHeight = maxY - minY;
+        //TODO: Make the ratios more dependent on the stage's dimensions
+        for (int i = 0 ; i < getNumPlatforms() ; i++) {
+            double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.1 * i);
+            double platformNewY = stageHeight * (0.1 + 0.05 * i);
+            if(isEven(i)) {
+                newPlatform = new Platform(new Point(minX
+                        + platformNewWidth / 2.0, platformNewY),
+                        Orientation.LEFT);
+            } else {
+                newPlatform = new Platform(new Point(maxX
+                        - platformNewWidth / 2.0, platformNewY),
+                        Orientation.RIGHT);
+            }
+            newPlatform.setHeight(new SimpleDoubleProperty(PLATFORM_HEIGHT));
+            newPlatform.setWidth(new SimpleDoubleProperty(platformNewWidth));
+            platforms.add(newPlatform);
+        }
+    }
 
-    public abstract List<Platform> getPlatforms();
+    private boolean isEven(int i) {
+        return (i % 2) == 0;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
 
     public int getNumPlatforms() {
         return noOfPlatforms;

@@ -1,6 +1,8 @@
 package models.shapes;
 
 import models.ShapeFactory;
+import models.levels.LevelOne;
+import models.levels.LevelTwo;
 
 import javax.print.DocFlavor;
 
@@ -14,8 +16,9 @@ public class PlateShape extends Shape {
     public static final String KEY = PlateShape.class.getName();
 
     static {
-        ShapeFactory.registerShape(PlateShape.class
-        .getName(), PlateShape.class);
+        ShapeFactory.registerShape(KEY, PlateShape.class);
+        LevelOne.registerShape(KEY);
+        LevelTwo.registerShape(KEY);
     }
     public PlateShape() {
         setKey(KEY);
