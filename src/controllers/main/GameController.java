@@ -217,8 +217,8 @@ public class GameController implements Initializable {
     private void startNormalGame() {
         try {
             URL url = new File("src/views/clown.fxml").toURI().toURL();
-            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.JOYSTICK_ONE);
-            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.JOYSTICK_TWO);
+            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.KEYBOARD_ONE);
+            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.KEYBOARD_TWO);
 
             Node node1 = playerController.createPlayer("player1", url);
             Node node2 = playerController.createPlayer("player2", url);
