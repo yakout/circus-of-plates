@@ -113,17 +113,23 @@ public abstract class MenuController implements Initializable {
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
             case ENTER:
-                new MediaPlayer(Utils.menuSelectionMedia).play();
+                new Thread(() -> {
+                    new MediaPlayer(Utils.menuSelectionMedia).play();
+                }).start();
                 handle(getButton(getCurrentIndex()).getId());
                 break;
             case ESCAPE:
                 System.out.println("escape is pressed and triggered by a menu");
                 break;
             case DOWN:
-                new MediaPlayer(Utils.menuChoiceMedia).play();
+                new Thread(() -> {
+                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                }).start();
                 break;
             case UP:
-                new MediaPlayer(Utils.menuChoiceMedia).play();
+                new Thread(() -> {
+                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                }).start();
                 break;
             default:
                 break;

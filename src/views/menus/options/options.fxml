@@ -7,7 +7,7 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane fx:id="optionsMenu" onKeyReleased="#keyHandler" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options" >
     <children>
 
         <VBox fx:id="menu" visible="true" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -39,8 +39,10 @@
         </VBox>
 
 
-        <AnchorPane fx:id="audio" visible="false">
-            <fx:include source="audio/audio.fxml"/>
+        <AnchorPane fx:id="audio" visible="false" AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <fx:include source="audio/audio.fxml" AnchorPane.topAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
         </AnchorPane>
 
         <!--<AnchorPane fx:id="graphics">-->

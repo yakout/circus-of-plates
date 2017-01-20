@@ -1,6 +1,5 @@
 package controllers.main;
 
-import controllers.PlayerController;
 import controllers.input.ActionType;
 import controllers.input.Input;
 import controllers.input.InputAction;
@@ -24,15 +23,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import models.GameMode;
 import models.players.PlayerFactory;
 
 
 public class GameController implements Initializable {
+    private static GameController instance;
     private MenuController currentMenu;
     private PlayerController playerController;
     // TODO: 1/19/17 plate Controller
 
-    private static GameController instance;
     private Input joystickInput;
 
     @FXML
@@ -208,6 +208,23 @@ public class GameController implements Initializable {
     }
 
 
+    public void startGame(GameMode gameMode) {
+        switch (gameMode) {
+            case NORMAL:
+                startNormalGame();
+                break;
+            case TIMEATTACK:
+                break;
+            case LEVEL:
+                break;
+            case SANDBOX:
+                break;
+        }
+    }
+
+    private void startNormalGame() {
+    }
+
     // TODO: Mouse handler
     private Double currentX;
     @FXML
@@ -222,6 +239,5 @@ public class GameController implements Initializable {
             }
         }
     }
-
 }
 
