@@ -12,7 +12,6 @@ import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
 import controllers.shape.ShapeController;
-import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.io.File;
@@ -25,8 +24,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import models.GameMode;
 import models.Point;
-import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.shapes.PlateShape;
 import models.shapes.Shape;
@@ -34,11 +33,11 @@ import models.states.Orientation;
 
 
 public class GameController implements Initializable {
+    private static GameController instance;
     private MenuController currentMenu;
     private PlayerController playerController;
     // TODO: 1/19/17 plate Controller
 
-    private static GameController instance;
     private Input joystickInput;
 
     @FXML
@@ -84,44 +83,12 @@ public class GameController implements Initializable {
         // Controllers
         currentMenu = Start.getInstance();
         playerController = new PlayerController();
-        try {
-            URL url = new File("src/views/clown.fxml").toURI().toURL();
-            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.JOYSTICK_ONE);
-            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.JOYSTICK_TWO);
 
-            Node node1 = playerController.createPlayer("player1", url);
-            Node node2 = playerController.createPlayer("player2", url);
-            node2.setLayoutX(node2.getLayoutX() + 500);
-            mainGame.getChildren().add(node1);
-            mainGame.getChildren().add(node2);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         instance  = this;
 
         joystickInput = Joystick.getInstance();
         joystickInput.registerClassForInputAction(getClass(), instance);
-        Shape shape1 = new PlateShape();
-        shape1.setPosition(new Point(plate2.getLayoutX(), plate2.getLayoutY()));
-        shape1.getPosition().xProperty().bindBidirectional(plate2.layoutXProperty());
-        shape1.getPosition().yProperty().bindBidirectional(plate2.layoutYProperty());
-        shape1.setHorizontalVelocity(20);
-        shape1.setVerticalVelocity(20);
-        shape1.setWidth(plate2.getWidth());
-        shape1.setHeight(plate2.getHeight());
-        models.Platform platform = new models.Platform(new
-                Point(leftRod.getLayoutX()
-                + leftRod.getWidth() / 2.0, leftRod.getLayoutY()),
-                Orientation.LEFT);
-        platform.setWidth(leftRod.widthProperty());
-        platform.setHeight(leftRod.heightProperty());
-        ShapeController<Rectangle> controller = new ShapeController<>(plate2,
-                shape1, platform);
-        controller.startMoving();
-//        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
-//                new LevelOne());
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -233,6 +200,59 @@ public class GameController implements Initializable {
     }
 
 
+    public void startGame(GameMode gameMode) {
+        switch (gameMode) {
+            case NORMAL:
+                startNormalGame();
+                break;
+            case TIMEATTACK:
+                break;
+            case LEVEL:
+                break;
+            case SANDBOX:
+                break;
+        }
+    }
+
+    private void startNormalGame() {
+        try {
+            URL url = new File("src/views/clown.fxml").toURI().toURL();
+            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.JOYSTICK_ONE);
+            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.JOYSTICK_TWO);
+
+            Node node1 = playerController.createPlayer("player1", url);
+            Node node2 = playerController.createPlayer("player2", url);
+            node2.setLayoutX(node2.getLayoutX() + 500);
+            mainGame.getChildren().add(node1);
+            mainGame.getChildren().add(node2);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // ===========================
+        Shape shape1 = new PlateShape();
+        shape1.setPosition(new Point(plate2.getLayoutX(), plate2.getLayoutY()));
+        shape1.getPosition().xProperty().bindBidirectional(plate2.layoutXProperty());
+        shape1.getPosition().yProperty().bindBidirectional(plate2.layoutYProperty());
+        shape1.setHorizontalVelocity(20);
+        shape1.setVerticalVelocity(20);
+        shape1.setWidth(plate2.getWidth());
+        shape1.setHeight(plate2.getHeight());
+        models.Platform platform = new models.Platform(new
+                Point(leftRod.getLayoutX()
+                + leftRod.getWidth() / 2.0, leftRod.getLayoutY()),
+                Orientation.LEFT);
+        platform.setWidth(leftRod.widthProperty());
+        platform.setHeight(leftRod.heightProperty());
+        ShapeController<Rectangle> controller = new ShapeController<>(plate2,
+                shape1, platform);
+        controller.startMoving();
+//        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
+//                new LevelOne());
+    }
+
     // TODO: Mouse handler
     private Double currentX;
     @FXML
@@ -247,6 +267,5 @@ public class GameController implements Initializable {
             }
         }
     }
-
 }
 

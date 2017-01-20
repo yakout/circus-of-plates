@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
+import controllers.main.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -49,7 +50,8 @@ public class GameMode extends MenuController {
                 // TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "normal":
-                // TODO: 12/25/16 save the current mode and go to player menu
+                GameController.getInstance().startGame(models.GameMode.NORMAL);
+                GameController.getInstance().getMainGame().setVisible(true);
                 break;
             case "chooseLevel":
                 // TODO: 12/25/16 save the current mode and go to player menu
