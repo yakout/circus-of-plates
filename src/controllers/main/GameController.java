@@ -12,6 +12,7 @@ import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
 import controllers.shape.ShapeController;
+import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import java.io.File;
@@ -26,10 +27,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import models.GameMode;
 import models.Point;
+import models.levels.Level;
+import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.shapes.PlateShape;
 import models.shapes.Shape;
 import models.states.Orientation;
+
+import javax.swing.text.html.ImageView;
 
 
 public class GameController implements Initializable {
@@ -249,6 +254,20 @@ public class GameController implements Initializable {
         ShapeController<Rectangle> controller = new ShapeController<>(plate2,
                 shape1, platform);
         controller.startMoving();
+        try {
+            Class.forName("models.shapes.PlateShape");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Level level = new
+                LevelOne(rootPane.getLayoutX(),
+                rootPane.getLayoutY(), rootPane.getLayoutX()
+                + rootPane.getWidth(), rootPane.getLayoutY()
+                + rootPane.getHeight());
+        System.out.println(level.getSupportedShapes().size());
+        ShapeGenerator generator
+                = new ShapeGenerator(level);
+
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
     }

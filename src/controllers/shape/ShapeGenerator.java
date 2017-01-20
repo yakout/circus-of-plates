@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
-public class ShapeGenerator<T extends Node> {
+public class ShapeGenerator {
 
     private final long THREAD_SLEEP_TIME = 2000;
     private Level level;
