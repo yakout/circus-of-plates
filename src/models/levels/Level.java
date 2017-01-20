@@ -25,7 +25,6 @@ public abstract class Level {
     protected static final double PLATFORM_BASE_WIDTH = 120;
     protected static final double PLATFORM_BASE_Y_Factor = 0.1;
     protected static final double PLATFORM_HEIGHT = 5;
-    // TODO not an object :3
 
     public Level(int currentLevel, int noOfPlatforms) {
         this.noOfPlatforms = noOfPlatforms;
@@ -39,6 +38,7 @@ public abstract class Level {
     protected void setClownSpeed(double speedRatio) {
         clownSpeedRatio = speedRatio;
     }
+
     public abstract List<String> getSupportedShapes();
     public abstract boolean isSupportedShape(String shape);
     protected void setSupportedColors(List<Color> supportedColors) {
