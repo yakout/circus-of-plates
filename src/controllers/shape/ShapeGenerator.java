@@ -64,12 +64,15 @@ public class ShapeGenerator<T extends Node> {
         generationThreadPaused = false;
         shapeGeneratorThread.setDaemon(true);
         shapeGeneratorThread.start();
+        logger.debug("Shape Generator Created");
+        logger.debug("Shape Generation Thread Started Running")
     }
 
     /**
      * Pauses the thread-generator.
      */
     public void pauseGenerator() {
+        logger.info("Generation Thread Pause Requested");
         generationThreadPaused = true;
     }
 
@@ -77,6 +80,7 @@ public class ShapeGenerator<T extends Node> {
      * Resumes the thread-generator.
      */
     public void resumeGenerator() {
+        logger.info("Generation Thread Resume Requested");
         generationThreadPaused = false;
         shapeGeneratorThread.interrupt();
     }
