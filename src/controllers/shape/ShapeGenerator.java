@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import models.ShapePool;
 import models.levels.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -15,11 +17,22 @@ public class ShapeGenerator<T extends Node> {
     private final long THREAD_SLEEP_TIME = 2000;
     private Level level;
     private final Thread shapeGeneratorThread;
-    private boolean isActiveThread;
+    private boolean generationThreadRunning;
+    private boolean generationThreadPaused;
+    private static Logger logger = LogManager.getLogger(ShapeGenerator.class);
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            while(true) {
+            while(generationThreadRunning) {
+                while (generationThreadPaused) {
+                    try {
+                        logger.debug("Generation Thread Paused")
+                        Thread.currentThread().sleep(Long.MAX_VALUE);
+                    } catch (InterruptedException e) {
+                        logger.info("Generation Thread Resumed");
+                        break;
+                    }
+                }
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -34,7 +47,7 @@ public class ShapeGenerator<T extends Node> {
                     Thread.sleep(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
                     System.out.println("Plate-generator Thread has been interrupted");
-                    if (isActiveThread) {
+                    if (generationThreadRunning) {
                         continue;
                     } else {
                         break;
@@ -47,7 +60,8 @@ public class ShapeGenerator<T extends Node> {
     public ShapeGenerator(Level level) {
         this.level = level;
         shapeGeneratorThread = new Thread(shapeGenerator);
-        isActiveThread = true;
+        generationThreadRunning = true;
+        generationThreadPaused = false;
         shapeGeneratorThread.setDaemon(true);
         shapeGeneratorThread.start();
     }
@@ -56,22 +70,19 @@ public class ShapeGenerator<T extends Node> {
      * Pauses the thread-generator.
      */
     public void pauseGenerator() {
-        try {
-            shapeGeneratorThread.sleep(Long.MAX_VALUE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        generationThreadPaused = true;
     }
 
     /**
      * Resumes the thread-generator.
      */
     public void resumeGenerator() {
+        generationThreadPaused = false;
         shapeGeneratorThread.interrupt();
     }
 
     public void stopGeneration() {
-        isActiveThread = false;
+        generationThreadRunning = false;
         shapeGeneratorThread.interrupt();
     }
 }
