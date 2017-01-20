@@ -2,6 +2,7 @@ package controllers.shape;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import models.Platform;
 import models.shapes.Shape;
 import views.test.PlateController;
@@ -21,7 +22,7 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Platform platform, final Shape shapeModel) {
+    public synchronized void createShape(final Platform platform, final Shape shapeModel, Pane parent) {
         final ImageView shapeView = ViewConverter.convertToImageView(shapeModel);
         switch (platform.getOrientation()) {
             case LEFT:
@@ -33,6 +34,7 @@ public class ShapeBuilder {
             default:
                 break;
         }
+        parent.getChildren().add(shapeView);
         shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
         ShapeController<ImageView> shapeController = new ShapeController<>(shapeView, shapeModel, platform);
         shapeController.startMoving();

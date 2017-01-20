@@ -2,6 +2,7 @@ package controllers.shape;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import models.ShapePool;
 import models.levels.Level;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,7 @@ public class ShapeGenerator {
     private boolean generationThreadIsNotStopped;
     private boolean generationThreadPaused;
     private static Logger logger = LogManager.getLogger(ShapeGenerator.class);
+    private Pane parent;
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
@@ -39,7 +41,7 @@ public class ShapeGenerator {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
                             ShapeBuilder.getInstance().createShape(platform,
-                                    ShapePool.getShape(level));
+                                    ShapePool.getShape(level), parent);
                         }
                     }
                 });
@@ -57,8 +59,9 @@ public class ShapeGenerator {
         }
     };
 
-    public ShapeGenerator(Level level) {
+    public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
+        this.parent = parent;
         shapeGeneratorThread = new Thread(shapeGenerator);
         generationThreadIsNotStopped = true;
         generationThreadPaused = false;

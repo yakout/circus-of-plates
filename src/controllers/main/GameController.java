@@ -266,7 +266,7 @@ public class GameController implements Initializable {
                 + rootPane.getHeight());
         System.out.println(level.getSupportedShapes().size());
         ShapeGenerator generator
-                = new ShapeGenerator(level);
+                = new ShapeGenerator(level, rootPane);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
