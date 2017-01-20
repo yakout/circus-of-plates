@@ -38,10 +38,15 @@ public class FallingShapeController<T extends Node> extends ShapeMovementControl
 				} catch (final InterruptedException e) {
 					logger.debug("Thread (" + Thread.currentThread()
 					.getName() + ") Interrupted");
-					break;
+                    if (!threadRunning) {
+                        break;
+                    } else {
+                        continue;
+                    }
 				}
 			}
-			logger.debug("Thread: " + Thread.currentThread().getName() + " "
+			logger.debug("Thread: \"" + Thread.currentThread().getName()
+                    + "\" "
 					+ "Stopped");
 		}
 	};
@@ -50,7 +55,7 @@ public class FallingShapeController<T extends Node> extends ShapeMovementControl
 		super(shape, model);
 		this.shapeFallingObserver = shapeFallingObserver;
 		shapeMovementThread = new Thread(shapeMover,
-				"Horizontal Movement Thread:" + shape.getId());
+				"Vertical Movement Thread:" + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
 		logger.debug("A Shape Started Falling");

@@ -1,6 +1,7 @@
 package models.shapes;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import models.Point;
 import models.states.Color;
 
@@ -24,7 +25,8 @@ public abstract class Shape {
 		this.key = key;
 	}
 	public Shape() {
-
+        this.height = new SimpleDoubleProperty();
+        this.width = new SimpleDoubleProperty();
 	}
 	public State getState() {
     	return state;
@@ -46,7 +48,12 @@ public abstract class Shape {
 	public DoubleProperty getHeight() {
 		return height;
 	}
-
+    public void setWidth (double newWidth) {
+	    width.setValue(newWidth);
+    }
+    public void setHeight (double newHeight) {
+        height.setValue(newHeight);
+    }
 	public Point getPosition() {
 		return position;
 	}

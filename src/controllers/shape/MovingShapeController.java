@@ -42,7 +42,11 @@ public class MovingShapeController<T extends Node> extends ShapeMovementControll
 				} catch (final InterruptedException e) {
 					logger.debug("Thread (" + Thread.currentThread()
 					.getName() + ") Interrupted");
-					break;
+					if (!threadRunning) {
+                        break;
+                    } else {
+					    continue;
+                    }
 				}
 			}
 			logger.debug("Thread: " + Thread.currentThread().getName()
