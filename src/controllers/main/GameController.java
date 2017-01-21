@@ -8,6 +8,8 @@ import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
+import controllers.input.keyboard.Keyboard;
+import controllers.input.keyboard.KeyboardEvent;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
@@ -19,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -34,16 +38,12 @@ import models.shapes.PlateShape;
 import models.shapes.Shape;
 import models.states.Orientation;
 
-import javax.swing.text.html.ImageView;
-
 
 public class GameController implements Initializable {
     private static GameController instance;
     private MenuController currentMenu;
     private PlayerController playerController;
     // TODO: 1/19/17 plate Controller
-
-    private Input joystickInput;
 
     @FXML
     private AnchorPane rootPane;
@@ -92,8 +92,8 @@ public class GameController implements Initializable {
 
         instance  = this;
 
-        joystickInput = Joystick.getInstance();
-        joystickInput.registerClassForInputAction(getClass(), instance);
+        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
+        Keyboard.getInstance().registerClassForInputAction(getClass(), instance);
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -112,25 +112,25 @@ public class GameController implements Initializable {
     @FXML
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
-            // KEYBOARD_ONE
-            case LEFT:
-                if (mainGame.isVisible()) {
-                    String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_ONE);
-                    if (playerName != null) {
-                        playerController.moveLeft(playerName);
-                    }
-                }
-                break;
-            case RIGHT:
-                if (mainGame.isVisible()) {
-                    String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_ONE);
-                    if (playerName != null) {
-                        playerController.moveRight(playerName);
-                    }
-                }
-                break;
+            // KEYBOARD_PRIMARY
+//            case LEFT:
+//                if (mainGame.isVisible()) {
+//                    String playerName = PlayerFactory.getFactory()
+//                            .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY);
+//                    if (playerName != null) {
+//                        playerController.moveLeft(playerName);
+//                    }
+//                }
+//                break;
+//            case RIGHT:
+//                if (mainGame.isVisible()) {
+//                    String playerName = PlayerFactory.getFactory()
+//                            .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY);
+//                    if (playerName != null) {
+//                        playerController.moveRight(playerName);
+//                    }
+//                }
+//                break;
             case ESCAPE:
                 Platform.runLater(() -> {
                     if (currentMenu.isVisible()) {
@@ -149,7 +149,7 @@ public class GameController implements Initializable {
             case A:
                 if (mainGame.isVisible()) {
                     String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_TWO);
+                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
                     if (playerName != null) {
                         playerController.moveLeft(playerName);
                     }
@@ -158,7 +158,7 @@ public class GameController implements Initializable {
             case D:
                 if (mainGame.isVisible()) {
                     String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_TWO);
+                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
                     if (playerName != null) {
                         playerController.moveRight(playerName);
                     }
@@ -170,10 +170,49 @@ public class GameController implements Initializable {
     }
 
 
+//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_PRIMARY)
+//    public void primaryKeyboardHandler(KeyboardEvent keyboardEvent) {
+//        Platform.runLater(() -> {
+//            switch (keyboardEvent.getKeyboardCode()) {
+//                case LEFT:
+//                    playerController.moveLeft(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//                    break;
+//                case RIGHT:
+//                    playerController.moveRight(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//            }
+//        });
+//    }
+
+//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_SECONDARY)
+//    public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
+//        Platform.runLater(() -> {
+//            switch (keyboardEvent.getKeyboardCode()) {
+//                case A:
+//                    playerController.moveLeft(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+//                    break;
+//                case D:
+//                    playerController.moveRight(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+//                    break;
+//                case LEFT:
+//                    playerController.moveLeft(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//                    break;
+//                case RIGHT:
+//                    playerController.moveRight(PlayerFactory
+//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//            }
+//        });
+//    }
+
+
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
-    public void performJoystickAction(JoystickEvent event) {
-        String playerName2 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_TWO);
-        String playerName1 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_ONE);
+    private void performJoystickAction(JoystickEvent event) {
+        String playerName2 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_SECONDARY);
+        String playerName1 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_PRIMARY);
 
         Platform.runLater(() -> {
             if (event.getJoystickType() == JoystickType.PRIMARY) {
@@ -222,8 +261,8 @@ public class GameController implements Initializable {
     private void startNormalGame() {
         try {
             URL url = new File("src/views/clown.fxml").toURI().toURL();
-            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.KEYBOARD_ONE);
-            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.KEYBOARD_TWO);
+            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.KEYBOARD_PRIMARY);
+            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.KEYBOARD_SECONDARY);
 
             Node node1 = playerController.createPlayer("player1", url);
             Node node2 = playerController.createPlayer("player2", url);

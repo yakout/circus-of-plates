@@ -20,7 +20,7 @@ public class PlayerController {
     public Node createPlayer(String playerName, URL url) throws IOException {
         Node player = FXMLLoader.load(url);
         players.put(playerName, player);
-        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(25); // 5 for primary joystick as it's too fast
+        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(0.5); // 5 for primary joystick as it's too fast
                                                                         // 20 is default
         return player;
     }

@@ -3,6 +3,7 @@ package controllers.input.joystick;
 
 import controllers.input.Input;
 import controllers.input.InputAction;
+import controllers.input.InputType;
 import controllers.input.UserAction;
 import javafx.event.EventType;
 import javafx.scene.input.InputEvent;
@@ -18,14 +19,20 @@ import java.util.*;
 public class Joystick extends Input {
     private static Joystick instance;
     private List<UserAction> actions;
-    private Map<Class<?>, Method> onActionMethods = new HashMap<>();
-    private Map<Class<?>, Method> onActionBeginMethods = new HashMap<>();
-    private Map<Class<?>, Method> onActionEndMethods = new HashMap<>();
+    private Map<Class<?>, Method> onActionMethods;
+    private Map<Class<?>, Method> onActionBeginMethods;
+    private Map<Class<?>, Method> onActionEndMethods;
     private Thread thread;
-    private Map<Class<?>, Object> registeredClasses = new HashMap<>();
-    private EventType<? extends InputEvent> eventType = new EventType<JoystickEvent>("Joystick");
+    private Map<Class<?>, Object> registeredClasses;
+    private EventType<? extends InputEvent> eventType;
 
     private Joystick() {
+        actions = new ArrayList<>();
+        onActionMethods = new HashMap<>();
+        onActionBeginMethods = new HashMap<>();
+        onActionEndMethods = new HashMap<>();
+        registeredClasses = new HashMap<>();
+        eventType = new EventType<JoystickEvent>("Joystick");
     }
 
     public static synchronized Joystick getInstance() {
@@ -179,7 +186,7 @@ public class Joystick extends Input {
 
 
 
-    public void findAnnotatedMethods() {
+    private void findAnnotatedMethods() {
         for (Map.Entry<Class<?>, Object> entry : registeredClasses.entrySet()) {
             Class<?> _class = entry.getKey();
             // need to iterated thought hierarchy in order to retrieve methods from above the current instance
@@ -192,6 +199,11 @@ public class Joystick extends Input {
                 for (final Method method : allMethods) {
                     if (method.isAnnotationPresent(InputAction.class)) {
                         Annotation annotInstance = method.getAnnotation(InputAction.class);
+                        if (((InputAction) annotInstance).INPUT_TYPE() != InputType.JOYSTICK
+                                && ((InputAction) annotInstance).INPUT_TYPE() != InputType.JOYSTICK_PRIMARY
+                                && ((InputAction) annotInstance).INPUT_TYPE() != InputType.KEYBOARD_SECONDARY) {
+                            return;
+                        }
                         // process annotInstance
                         switch (((InputAction) annotInstance).ACTION_TYPE()) {
                             case BEGIN:

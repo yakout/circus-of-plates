@@ -4,7 +4,7 @@ import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
-public class JInputJoystickTest {
+public class JoystickTest {
     /**
      * Prints controllers components and its values.
      * 
@@ -38,7 +38,6 @@ public class JInputJoystickTest {
             firstController.poll();
             Component[] components = firstController.getComponents();
             for(int i = 0; i < components.length; i++) {
-                System.out.println(components[i]);
                 if(components[i].isAnalog()) {
                     if (components[i].getName().equals("y")) {
                         if (components[i].getPollData() == 1.0f) {
@@ -64,7 +63,7 @@ public class JInputJoystickTest {
     }
 
     public static void main(String[] args) {
-        new JInputJoystickTest().pollControllerAndItsComponents(Controller.Type.STICK);
+        new JoystickTest().pollControllerAndItsComponents(Controller.Type.STICK);
     }
     
 }

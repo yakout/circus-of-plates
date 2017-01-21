@@ -44,17 +44,17 @@ public class GameMode extends MenuController {
                 updateCurrentMenu(Start.getInstance());
                 break;
             case "sandBox":
-                // TODO: 12/25/16 save the current mode and go to player menu
+//                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "timeAttack":
-                // TODO: 12/25/16 save the current mode and go to player menu
+//                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
                 GameController.getInstance().getMainGame().setVisible(true);
                 break;
             case "chooseLevel":
-                // TODO: 12/25/16 save the current mode and go to player menu
+//                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
         }
     }

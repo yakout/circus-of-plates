@@ -2,9 +2,9 @@ package controllers.input;
 
 public enum InputType {
     JOYSTICK,
-    JOYSTICK_ONE,
-    JOYSTICK_TWO,
+    JOYSTICK_PRIMARY,
+    JOYSTICK_SECONDARY,
     MOUSE,
-    KEYBOARD_ONE,
-    KEYBOARD_TWO
+    KEYBOARD_PRIMARY,
+    KEYBOARD_SECONDARY
 }
