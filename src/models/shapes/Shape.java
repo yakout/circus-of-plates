@@ -4,8 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import models.Point;
 import models.states.Color;
-
-import java.lang.Thread.State;
+import models.states.ShapeState;
 
 
 public abstract class Shape {
@@ -14,7 +13,7 @@ public abstract class Shape {
 	protected Point position;
 	protected double xVelocity;
 	protected double yVelocity;
-	protected State state;
+	protected ShapeState state;
 	protected DoubleProperty width;
 	protected DoubleProperty height;
 	protected String key;
@@ -27,11 +26,12 @@ public abstract class Shape {
 	public Shape() {
         this.height = new SimpleDoubleProperty();
         this.width = new SimpleDoubleProperty();
+        state = ShapeState.MOVING_HORIZONTALLY;
 	}
-	public State getState() {
+	public ShapeState getState() {
     	return state;
 	}
-	public void setState(State newState) {
+	public void setState(ShapeState newState) {
 		state = newState;
 	}
 
