@@ -5,6 +5,7 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
+import models.states.ShapeState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,8 +26,21 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
 	public void startMoving() {
 		logger.debug("Shape " + shape.getId() + " Movement Requested");
-		currentController
-		= new MovingShapeController<>(shape, shapeModel, platform, this);
+		switch (shapeModel.getState()) {
+			case MOVING_HORIZONTALLY:
+				currentController
+						= new MovingShapeController<>(
+								shape, shapeModel,
+						platform, this);
+				break;
+			case FALLING:
+				currentController
+						= new FallingShapeController<>(shape,
+						shapeModel, this);
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
@@ -36,6 +50,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 			return;
 		}
 		currentController.stopMoving();
+		shapeModel.setState(ShapeState.FALLING);
 		currentController
 				= new FallingShapeController<>(shape, shapeModel, this);
 	}
@@ -45,6 +60,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		if (currentController == null) {
 			return;
 		}
+		shapeModel.setState(ShapeState.ON_THE_GROUND);
 		currentController.stopMoving();
 		//TODO:- Ask the main controller to add the plate to the pool.
 	}
@@ -53,6 +69,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		if (currentController == null) {
 			return;
 		}
+		shapeModel.setState(ShapeState.ON_THE_STACK);
 		currentController.stopMoving();
 	}
 }
