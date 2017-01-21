@@ -145,27 +145,27 @@ public class GameController implements Initializable {
                     }
                 });
                 break;
-            // keyboard_two
-            case A:
-                if (mainGame.isVisible()) {
-                    String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
-                    if (playerName != null) {
-                        playerController.moveLeft(playerName);
-                    }
-                }
-                break;
-            case D:
-                if (mainGame.isVisible()) {
-                    String playerName = PlayerFactory.getFactory()
-                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
-                    if (playerName != null) {
-                        playerController.moveRight(playerName);
-                    }
-                }
-                break;
-            default:
-                break;
+//            // keyboard_two
+//            case A:
+//                if (mainGame.isVisible()) {
+//                    String playerName = PlayerFactory.getFactory()
+//                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
+//                    if (playerName != null) {
+//                        playerController.moveLeft(playerName);
+//                    }
+//                }
+//                break;
+//            case D:
+//                if (mainGame.isVisible()) {
+//                    String playerName = PlayerFactory.getFactory()
+//                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
+//                    if (playerName != null) {
+//                        playerController.moveRight(playerName);
+//                    }
+//                }
+//                break;
+//            default:
+//                break;
         }
     }
 
@@ -185,28 +185,28 @@ public class GameController implements Initializable {
 //        });
 //    }
 
-//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_SECONDARY)
-//    public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-//        Platform.runLater(() -> {
-//            switch (keyboardEvent.getKeyboardCode()) {
-//                case A:
-//                    playerController.moveLeft(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
-//                    break;
-//                case D:
-//                    playerController.moveRight(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
-//                    break;
-//                case LEFT:
-//                    playerController.moveLeft(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
-//                    break;
-//                case RIGHT:
-//                    playerController.moveRight(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
-//            }
-//        });
-//    }
+    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_SECONDARY)
+    public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
+        Platform.runLater(() -> {
+            switch (keyboardEvent.getKeyboardCode()) {
+                case A:
+                    playerController.moveLeft(PlayerFactory
+                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                    break;
+                case D:
+                    playerController.moveRight(PlayerFactory
+                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                    break;
+                case LEFT:
+                    playerController.moveLeft(PlayerFactory
+                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+                    break;
+                case RIGHT:
+                    playerController.moveRight(PlayerFactory
+                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
+        });
+    }
 
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
@@ -310,6 +310,7 @@ public class GameController implements Initializable {
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
     }
+
 
     // TODO: Mouse handler
     private Double currentX;
