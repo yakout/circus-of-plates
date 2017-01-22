@@ -4,7 +4,6 @@ import javafx.beans.property.DoubleProperty;
 import models.states.Orientation;
 
 public class Platform {
-	// TODO &&&&&&&&888888888888&&8&8&8&8&8&-----------------------___ (:  :)   ()::()
 	private Point center;
 	private DoubleProperty width;
 	private DoubleProperty height;

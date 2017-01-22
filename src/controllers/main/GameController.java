@@ -10,6 +10,7 @@ import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
 import controllers.input.keyboard.Keyboard;
 import controllers.input.keyboard.KeyboardEvent;
+import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
@@ -53,19 +54,6 @@ public class GameController implements Initializable {
 
     @FXML
     private AnchorPane mainGame;
-
-    @FXML
-    private Rectangle plate1;
-
-    @FXML
-    private Rectangle plate2;
-
-    @FXML
-    private Rectangle rightRod;
-
-    @FXML
-    private Rectangle leftRod;
-
 
     public static GameController getInstance() {
         if (instance == null) {
@@ -249,7 +237,7 @@ public class GameController implements Initializable {
             case NORMAL:
                 startNormalGame();
                 break;
-            case TIMEATTACK:
+            case TIME_ATTACK:
                 break;
             case LEVEL:
                 break;
@@ -277,23 +265,6 @@ public class GameController implements Initializable {
 
 
         // ===========================
-        Shape shape1 = new PlateShape();
-        shape1.setPosition(new Point(plate2.getLayoutX(), plate2.getLayoutY()));
-        shape1.getPosition().xProperty().bindBidirectional(plate2.layoutXProperty());
-        shape1.getPosition().yProperty().bindBidirectional(plate2.layoutYProperty());
-        shape1.setHorizontalVelocity(20);
-        shape1.setVerticalVelocity(20);
-        shape1.setWidth(plate2.getWidth());
-        shape1.setHeight(plate2.getHeight());
-        models.Platform platform = new models.Platform(new
-                Point(leftRod.getLayoutX()
-                + leftRod.getWidth() / 2.0, leftRod.getLayoutY()),
-                Orientation.LEFT);
-        platform.setWidth(leftRod.widthProperty());
-        platform.setHeight(leftRod.heightProperty());
-        ShapeController<Rectangle> controller = new ShapeController<>(plate2,
-                shape1, platform);
-        controller.startMoving();
         try {
             Class.forName("models.shapes.PlateShape");
         } catch (ClassNotFoundException e) {
@@ -304,6 +275,10 @@ public class GameController implements Initializable {
                 rootPane.getLayoutY(), rootPane.getLayoutX()
                 + rootPane.getWidth(), rootPane.getLayoutY()
                 + rootPane.getHeight());
+        PlatformBuilder builder = new PlatformBuilder();
+        for (models.Platform platform : level.getPlatforms()) {
+            rootPane.getChildren().add(builder.build(platform));
+        }
         System.out.println(level.getSupportedShapes().size());
         ShapeGenerator generator
                 = new ShapeGenerator(level, rootPane);

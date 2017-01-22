@@ -70,11 +70,13 @@ public abstract class Level {
             double platformNewY = stageHeight * (0.1 + 0.05 * i);
             if(isEven(i)) {
                 newPlatform = new Platform(new Point(minX
-                        + platformNewWidth / 2.0, platformNewY),
+                        + platformNewWidth / 2.0,
+                        platformNewY -PLATFORM_HEIGHT / 2.0),
                         Orientation.LEFT);
             } else {
                 newPlatform = new Platform(new Point(maxX
-                        - platformNewWidth / 2.0, platformNewY),
+                        - platformNewWidth / 2.0, platformNewY
+                        -PLATFORM_HEIGHT / 2.0),
                         Orientation.RIGHT);
             }
             newPlatform.setHeight(new SimpleDoubleProperty(PLATFORM_HEIGHT));

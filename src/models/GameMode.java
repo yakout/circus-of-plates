@@ -2,7 +2,7 @@ package models;
 
 public enum GameMode {
     NORMAL,
-    TIMEATTACK,
+    TIME_ATTACK,
     SANDBOX,
     LEVEL
 }

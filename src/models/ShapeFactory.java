@@ -3,6 +3,7 @@ package models;
 import models.levels.Level;
 import models.shapes.Shape;
 import models.states.Color;
+import models.states.ShapeState;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -72,7 +73,7 @@ public class ShapeFactory {
 
     public static void resetShape(Shape shape) {
         //shape.setVisible(false);
-        shape.setState(null); // TODO
+        shape.setState(ShapeState.MOVING_HORIZONTALLY); // TODO
     }
 
 }
