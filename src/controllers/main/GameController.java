@@ -269,6 +269,7 @@ public class GameController implements Initializable {
             node2.setLayoutX(node2.getLayoutX() + 500);
             mainGame.getChildren().add(node1);
             mainGame.getChildren().add(node2);
+            plate1.layoutXProperty().bind(node1.layoutXProperty());
 
         } catch (IOException e) {
             e.printStackTrace();
