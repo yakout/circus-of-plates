@@ -22,10 +22,11 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		this.shapeModel = model;
 		this.platform = platform;
 		currentController = null;
+		System.out.println(platform.getWidth());
 	}
 
 	public void startMoving() {
-		logger.debug("Shape " + shape.getId() + " Movement Requested");
+		logger.debug("Shape " + " Movement Requested");
 		switch (shapeModel.getState()) {
 			case MOVING_HORIZONTALLY:
 				currentController

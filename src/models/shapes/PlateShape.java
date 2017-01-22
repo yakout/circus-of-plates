@@ -27,6 +27,7 @@ public class PlateShape extends Shape {
         logger.debug("Class " + KEY + " Initialized");
     }
     public PlateShape() {
+        super();
         setKey(KEY);
         setHorizontalVelocity(HORIZONTAL_VELOCITY);
         setVerticalVelocity(VERTICAL_VELOCITY);

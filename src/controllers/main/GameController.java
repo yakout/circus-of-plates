@@ -249,7 +249,7 @@ public class GameController implements Initializable {
             case NORMAL:
                 startNormalGame();
                 break;
-            case TIMEATTACK:
+            case TIME_ATTACK:
                 break;
             case LEVEL:
                 break;
