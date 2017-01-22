@@ -4,6 +4,7 @@ import controllers.main.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import models.players.Player;
 import models.players.PlayerFactory;
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +21,13 @@ public class PlayerController {
     public Node createPlayer(String playerName, URL url) throws IOException {
         Node player = FXMLLoader.load(url);
         players.put(playerName, player);
-        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(0.5); // 5 for primary joystick as it's too fast
-                                                                        // 20 is default
+        Player playerModel = PlayerFactory.getFactory().getPlayer(playerName);
+        playerModel.setSpeed(0.5); // 5 for primary joystick as it's too fast
+                                   // 20 is default
+        playerModel.getPosition().xProperty().bind(player.translateXProperty
+                ().add(player.getLayoutX()));
+        playerModel.getPosition().yProperty().bind(player.translateYProperty
+                ().add(player.getLayoutY()));
         return player;
     }
 
@@ -29,9 +35,9 @@ public class PlayerController {
         double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
         double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
 
-        double transsition = players.get(playerName).getLayoutX()
+        double transition = players.get(playerName).getLayoutX()
                 - PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
-        double newX = Math.max(0, Math.min(transsition, maxDistance));
+        double newX = Math.max(0, Math.min(transition, maxDistance));
         players.get(playerName).setLayoutX(newX);
     }
 
