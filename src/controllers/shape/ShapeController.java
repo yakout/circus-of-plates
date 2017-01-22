@@ -22,7 +22,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		this.shapeModel = model;
 		this.platform = platform;
 		currentController = null;
-		System.out.println(platform.getWidth());
+		System.out.println(shape.getParent().getLayoutBounds().getWidth());
 	}
 
 	public void startMoving() {

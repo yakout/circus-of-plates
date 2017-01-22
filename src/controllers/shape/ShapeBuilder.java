@@ -1,17 +1,16 @@
 package controllers.shape;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.Platform;
 import models.shapes.Shape;
-import views.test.PlateController;
 
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class ShapeBuilder {
     private static ShapeBuilder creatorInstance = null;
+
     private ShapeBuilder() {
     }
 
@@ -22,21 +21,34 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Platform platform, final Shape shapeModel, Pane parent) {
-        final ImageView shapeView = ViewConverter.convertToImageView(shapeModel);
+    public synchronized void createShape(final Platform platform, final Shape
+            shapeModel, Pane parent) {
+        final ImageView shapeView = ViewConverter.convertToImageView
+                (shapeModel);
         switch (platform.getOrientation()) {
             case LEFT:
-                shapeView.setLayoutX(platform.getCenter().getX() - platform.getWidth().doubleValue());
+                shapeView.setLayoutX(platform.getCenter().getX() - platform
+                        .getWidth().doubleValue());
                 break;
             case RIGHT:
-                shapeView.setLayoutX(platform.getCenter().getX() + platform.getWidth().doubleValue());
+                shapeView.setLayoutX(platform.getCenter().getX() + platform
+                        .getWidth().doubleValue());
                 break;
             default:
                 break;
         }
         parent.getChildren().add(shapeView);
-        shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight().doubleValue() / 2.0);
-        ShapeController<ImageView> shapeController = new ShapeController<>(shapeView, shapeModel, platform);
+        System.out.println(shapeView.getFitHeight());
+        shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight
+                ().doubleValue() / 2.0 - shapeView.getFitHeight());
+        shapeModel.getWidth().bind(shapeView.fitWidthProperty());
+        shapeModel.getHeight().bind(shapeView.fitHeightProperty());
+        shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
+        .add(shapeView.getLayoutX()));
+        shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
+                .add(shapeView.getLayoutY()));
+        ShapeController<ImageView> shapeController = new ShapeController<>
+                (shapeView, shapeModel, platform);
         shapeController.startMoving();
     }
 }

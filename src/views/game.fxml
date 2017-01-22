@@ -26,12 +26,15 @@
             <!--<AnchorPane id="clown2" fx:id="rect1" layoutX="750.0" layoutY="805.0" prefHeight="300.0" prefWidth="270.0" AnchorPane.bottomAnchor="-5.0"/>-->
 
             <!-- load rods -->
+            <!--
             <Rectangle fx:id="leftRod" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutY="91.0" stroke="white" strokeType="INSIDE" width="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="91.0" />
             <Rectangle fx:id="rightRod" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="470.0" layoutY="90.0" stroke="white" strokeType="INSIDE" width="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
-
+            -->
             <!-- load plates object -->
+            <!--
             <Rectangle fx:id="plate1" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutX="639.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
             <Rectangle fx:id="plate2" arcHeight="5.0" arcWidth="5.0" fill="#3f3fa6" height="32.0" layoutY="59.0" stroke="BLACK" strokeType="INSIDE" width="61.0" />
+            -->
         </AnchorPane>
 
     </children>
