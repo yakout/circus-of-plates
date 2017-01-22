@@ -38,9 +38,9 @@ public class ShapeBuilder {
                 break;
         }
         parent.getChildren().add(shapeView);
-        System.out.println(shapeView.getFitHeight());
+        System.out.println(shapeView.getLayoutBounds().getHeight());
         shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight
-                ().doubleValue() / 2.0 - shapeView.getFitHeight());
+                ().doubleValue() / 2.0 - shapeView.getLayoutBounds().getHeight());
         shapeModel.getWidth().bind(shapeView.fitWidthProperty());
         shapeModel.getHeight().bind(shapeView.fitHeightProperty());
         shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
