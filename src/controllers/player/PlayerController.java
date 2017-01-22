@@ -39,10 +39,10 @@ public class PlayerController {
         double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
         double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
 
-        double transsition = players.get(playerName).getLayoutX()
+        double transition = players.get(playerName).getLayoutX()
                 + PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
         double newX = Math.max(0,
-                Math.min(transsition, maxDistance));
+                Math.min(transition, maxDistance));
         players.get(playerName).setLayoutX(newX);
     }
 
