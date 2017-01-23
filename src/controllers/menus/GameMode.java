@@ -56,6 +56,11 @@ public class GameMode extends MenuController {
             case "chooseLevel":
 //                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
+            case "choosePlayer":
+                //TODO
+                break;
+            default:
+                break;
         }
     }
 
