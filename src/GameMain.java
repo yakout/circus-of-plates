@@ -6,14 +6,18 @@ import controllers.input.keyboard.Keyboard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GameMain extends Application {
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
+		Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+
 		// load needed classes
 		final URL resource = getClass().getResource("/assets/sounds/Circus Dilemma.mp3");
 		//        final Media media = new Media(resource.toString());
@@ -26,7 +30,7 @@ public class GameMain extends Application {
 		primaryStage.setTitle("Circus Of plates");
 		//        primaryStage.setMinHeight(500);
 		//        primaryStage.setMinWidth(700);
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root,  visualBounds.getWidth(),  visualBounds.getHeight()));
 		//primaryStage.setMaximized(true);
 
 
