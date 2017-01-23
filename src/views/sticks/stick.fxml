@@ -1,0 +1,10 @@
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import java.net.URL?>
+<AnchorPane id="stick_1" layoutX="325.0" layoutY="408.0" prefHeight="300.0" prefWidth="270.0"
+            AnchorPane.bottomAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1">
+
+    <stylesheets>
+        <URL value="@../sticks/stick.css"/>
+    </stylesheets>
+</AnchorPane>

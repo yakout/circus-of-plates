@@ -183,4 +183,20 @@ public class Keyboard extends Input {
             entry.getValue().invoke(instance, keyboardEvent);
         }
     }
+
+    private void invokeOnActionMethods(KeyboardEvent keyboardEvent)
+            throws InvocationTargetException, IllegalAccessException {
+        for (Map.Entry<Class<?>, Method> entry : onActionMethods.entrySet()) {
+            Object instance = registeredClasses.get(entry.getKey());
+            entry.getValue().invoke(instance, keyboardEvent);
+        }
+    }
+
+    private void invokeOnActionEndMethods(KeyboardEvent keyboardEvent)
+            throws InvocationTargetException, IllegalAccessException {
+        for (Map.Entry<Class<?>, Method> entry : onActionEndMethods.entrySet()) {
+            Object instance = registeredClasses.get(entry.getKey());
+            entry.getValue().invoke(instance, keyboardEvent);
+        }
+    }
 }
