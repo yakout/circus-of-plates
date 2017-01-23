@@ -21,25 +21,12 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized Node createShape(final Platform platform, final Shape
-            shapeModel) {
+    public synchronized Node createShape(final Shape shapeModel) {
         if (shapeModel == null) {
             return null;
         }
         final ImageView shapeView = ViewConverter.convertToImageView
                 (shapeModel);
-        switch (platform.getOrientation()) {
-            case LEFT:
-                shapeView.setLayoutX(platform.getCenter().getX() - platform
-                        .getWidth().doubleValue());
-                break;
-            case RIGHT:
-                shapeView.setLayoutX(platform.getCenter().getX() + platform
-                        .getWidth().doubleValue());
-                break;
-            default:
-                break;
-        }
         return shapeView;
     }
 }

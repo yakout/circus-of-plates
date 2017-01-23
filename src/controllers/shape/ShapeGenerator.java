@@ -43,8 +43,8 @@ public class ShapeGenerator {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
                             Shape shapeModel = ShapePool.getShape(level);
-                            ImageView imgView = (ImageView) ShapeBuilder.getInstance().createShape(platform,
-                                    shapeModel);
+                            ImageView imgView = (ImageView) ShapeBuilder.getInstance().
+                                    createShape(shapeModel);
                             if (imgView == null) {
                                 continue;
                             }
@@ -80,12 +80,21 @@ public class ShapeGenerator {
     }
 
     private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
+        switch (platform.getOrientation()) {
+            case LEFT:
+                imgView.setLayoutX(platform.getCenter().getX() - platform
+                        .getWidth().doubleValue());
+                break;
+            case RIGHT:
+                imgView.setLayoutX(platform.getCenter().getX() + platform
+                        .getWidth().doubleValue());
+                break;
+            default:
+                break;
+        }
         parent.getChildren().add(imgView);
         imgView.setLayoutY(platform.getCenter().getY() - platform.getHeight
                 ().doubleValue() / 2.0 - imgView.getLayoutBounds().getHeight());
-        //shapeModel.getWidth().bind(shapeView.fitWidthProperty());
-        //shapeModel.getHeight().bind(shapeView.fitHeightProperty());//can't
-        // bind it, image views :(
         shapeModel.getPosition().xProperty().bind(imgView.translateXProperty()
                 .add(imgView.getLayoutX()));
         shapeModel.getPosition().yProperty().bind(imgView.translateYProperty()
