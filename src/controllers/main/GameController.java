@@ -26,7 +26,6 @@ import models.GameMode;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
