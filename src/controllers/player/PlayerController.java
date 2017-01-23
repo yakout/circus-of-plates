@@ -42,7 +42,7 @@ public class PlayerController {
         return playerModel;
     }
 
-    public boolean intersectsLeftStick(ShapeController<? extends Node>
+    public synchronized boolean intersectsLeftStick(ShapeController<? extends Node>
                                                shapeController) {
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
@@ -57,14 +57,13 @@ public class PlayerController {
         if (intersects(shapeModel, leftStickMinX,
                 leftStickMaxX, leftStickIntersectionMinY,
                 leftStickIntersectionMaxY)) {
-            shapeController.shapeFellOnTheStack();
             playerModel.pushPlateLeft(shapeModel);
             return true;
         }
         return false;
     }
 
-    private boolean intersectsRightStick(ShapeController<? extends Node>
+    public synchronized boolean intersectsRightStick(ShapeController<? extends Node>
                                                  shapeController) {
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
@@ -79,14 +78,13 @@ public class PlayerController {
         if (intersects(shapeModel, rightStickMinX,
                 rightStickMaxX, rightStickIntersectionMinY,
                 rightStickIntersectionMaxY)) {
-            shapeController.shapeFellOnTheStack();
             playerModel.pushPlateRight(shapeModel);
             return true;
         }
         return false;
     }
 
-    private boolean intersects(Shape shapeModel, double stickMinX, double
+    private synchronized boolean intersects(Shape shapeModel, double stickMinX, double
             stickMaxX, double stickMinY, double stickMaxY) {
         double shapeMinY = shapeModel.getPosition().getY();
         double shapeMaxY = shapeModel.getPosition().getY() + shapeModel

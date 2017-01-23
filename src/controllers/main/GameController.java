@@ -13,6 +13,7 @@ import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayersController;
+import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -254,19 +255,19 @@ public class GameController implements Initializable {
     }
 
     private void startNormalGame() {
-        String player1Path = "src/views/clowns/clown_5/clown.fxml";
-        String player2Path = "src/views/clowns/clown_6/clown.fxml";
+        String path_0 = "src/views/clowns/clown_5/clown.fxml";
+        String path_1_ = "src/views/clowns/clown_6/clown.fxml";
+
         try {
-            playersController.createPlayer(player1Path,
-                    "player1",
-                    InputType.KEYBOARD_PRIMARY);
-            playersController.createPlayer(player2Path,
-                    "player2",
-                    InputType.KEYBOARD_SECONDARY);
+            Node player1 = playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
+            Node player2 = playersController.createPlayer(path_1_, "player2", InputType.KEYBOARD_SECONDARY);
+
+            mainGame.getChildren().add(player2);
+            mainGame.getChildren().add(player1);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         // ===========================
         try {
@@ -294,6 +295,15 @@ public class GameController implements Initializable {
 
     // TODO: Mouse handler
     private Double currentX;
+
+    public synchronized boolean checkIntersection(
+            ShapeController<? extends Node> shapeController) {
+        if (playersController.checkIntersection(shapeController)) {
+            shapeController.shapeFellOnTheStack();
+            return true;
+        }
+        return false;
+    }
 
     @FXML
     public void mouseHandler(MouseEvent event) {

@@ -1,5 +1,6 @@
 package controllers.shape;
 
+import controllers.main.GameController;
 import controllers.shape.util.ShapeFallingObserver;
 import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
@@ -66,6 +67,11 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		//TODO:- Ask the main controller to add the plate to the pool.
 	}
 
+	@Override
+	public void checkIntersection() {
+		GameController.getInstance().checkIntersection(this);
+	}
+
 	public void shapeFellOnTheStack() {
 		if (currentController == null) {
 			return;
@@ -93,4 +99,5 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	public Platform getPlatform() {
 		return platform;
 	}
+
 }
