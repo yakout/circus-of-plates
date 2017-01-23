@@ -46,6 +46,14 @@ public class Player {
         this.playerName = name;
     }
 
+    public Stack<Shape> getLeftStack() {
+        return leftStick;
+    }
+
+    public Stack<Shape> getRightStack() {
+        return rightStick;
+    }
+
     public boolean pushPlateLeft(Shape shape) {
         return pushPlate(this.leftStick, shape);
     }

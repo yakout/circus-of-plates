@@ -5,6 +5,8 @@ import controllers.shape.ShapeController;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import models.players.Player;
 import models.shapes.Shape;
 import models.states.ShapeState;
@@ -19,7 +21,7 @@ public class PlayerController {
     private Node playerPane;
     private Node clown;
     private Player playerModel;
-    private static final double STICK_BASE_RATIO = 0.2;
+    private static final double STICK_BASE_RATIO = 0.55;
     PlayerController(String name, Node playerPane, models
             .players.Player playerModel) {
         this.name = name;
@@ -79,6 +81,7 @@ public class PlayerController {
                 leftStickMaxX, leftStickIntersectionMinY,
                 leftStickIntersectionMaxY)) {
             playerModel.pushPlateLeft(shapeModel);
+            bindLeftStick(shapeController);
             return true;
         }
         return false;
@@ -97,15 +100,14 @@ public class PlayerController {
         double rightStickIntersectionMinY = playerPane.getLayoutY() + rightStick
                 .getLayoutY();
         double rightStickMaxX = playerPane.getLayoutX() + rightStick
-                .getLayoutX() +
-                rightStick
-                        .getLayoutBounds().getWidth();
+                .getLayoutX() + rightStick.getLayoutBounds().getWidth();
         double rightStickMinX = rightStickMaxX - STICK_BASE_RATIO * rightStick
                 .getLayoutBounds().getWidth();
         if (intersects(shapeModel, rightStickMinX,
                 rightStickMaxX, rightStickIntersectionMinY,
                 rightStickIntersectionMaxY)) {
             playerModel.pushPlateRight(shapeModel);
+            bindRightStick(shapeController);
             return true;
         }
         return false;
@@ -135,4 +137,45 @@ public class PlayerController {
         return stickBounds.intersects(shapeBounds);
     }
 
+    public void bindLeftStick(ShapeController<? extends Node> shapeController) {
+        Node shape = shapeController.getShape();
+        double relativeLeftStickCenter = leftStick.getLayoutX()
+                + STICK_BASE_RATIO * leftStick.getLayoutBounds()
+                .getWidth() / 2.0;
+        double leftStickCenter = playerPane.getLayoutX() +
+                relativeLeftStickCenter;
+        shape.setLayoutX(leftStickCenter - shape.getLayoutBounds().getWidth()
+                / 2.0);
+        double leftStickY = playerPane.getLayoutY() + leftStick
+                .getLayoutY();
+        shape.setLayoutY(leftStickY - shape.getLayoutBounds().getHeight());
+        shape.setTranslateX(0);
+        shape.setTranslateY(0);
+        shape.translateXProperty().bind(playerPane.layoutXProperty().add
+                (relativeLeftStickCenter - shape.getLayoutBounds().getWidth()
+                / 2.0 - shape.getLayoutX()));
+    }
+
+    public void bindRightStick(ShapeController<? extends Node> shapeController) {
+        Node shape = shapeController.getShape();
+        double rightStickCenter = playerPane.getLayoutX() + rightStick
+                .getLayoutX() + (1 - STICK_BASE_RATIO) * rightStick
+                .getLayoutBounds()
+                .getWidth();
+        System.out.println("rsc: " + rightStickCenter);
+        shape.setLayoutX(rightStickCenter - shape.getLayoutBounds().getWidth()
+                / 2.0);
+        double rightStickY = playerPane.getLayoutY() + rightStick
+                .getLayoutY();
+        System.out.println("rsy: " + rightStickY);
+        shape.setLayoutY(rightStickY - shape.getLayoutBounds().getHeight());
+        shape.translateXProperty().bind(playerPane.layoutXProperty().subtract
+                (shape.getLayoutX()));
+    }
+
+    private double calculateLeftStackY() {
+        double initialY = playerPane.getLayoutY() + rightStick
+                .getLayoutY();
+        for (Shape shape : playerModel.)
+    }
 }
