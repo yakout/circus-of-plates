@@ -1,0 +1,11 @@
+#leftstick_2 {
+  -fx-background-image: url("../../../assets/images/sticks/leftstick_2.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+}
+
+#rightstick_2 {
+  -fx-background-image: url("../../../assets/images/sticks/rightstick_2.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+}
