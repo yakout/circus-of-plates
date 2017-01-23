@@ -111,7 +111,7 @@ public class PlayersController {
         stick.translateXProperty().bind(player.translateXProperty());
     }
 
-    public boolean checkIntersection(
+    public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         for (String name : players.keySet()) {
             if (players.get(name).intersectsLeftStick(shapeController)) {

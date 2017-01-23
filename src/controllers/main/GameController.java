@@ -296,9 +296,13 @@ public class GameController implements Initializable {
     // TODO: Mouse handler
     private Double currentX;
 
-    public boolean checkIntersection(
+    public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        return playersController.checkIntersection(shapeController);
+        if (playersController.checkIntersection(shapeController)) {
+            shapeController.shapeFellOnTheStack();
+            return true;
+        }
+        return false;
     }
 
     @FXML

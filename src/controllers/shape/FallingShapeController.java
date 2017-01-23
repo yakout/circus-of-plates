@@ -1,5 +1,6 @@
 package controllers.shape;
 
+import controllers.main.GameController;
 import controllers.shape.util.ShapeFallingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -40,6 +41,7 @@ public class FallingShapeController<T extends Node> extends ShapeMovementControl
 							shape.setTranslateY(shape.getTranslateY() +
 									shapeModel.getVerticalVelocity());
 						}
+						shapeFallingObserver.checkIntersection();
 					}
 				});
 				try {
