@@ -1,66 +1,107 @@
 package controllers.player;
 
-import controllers.input.InputType;
-import controllers.main.GameController;
-import javafx.fxml.FXMLLoader;
+
+import controllers.shape.ShapeController;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import models.players.Player;
-import models.players.PlayerFactory;
+import models.shapes.Shape;
+import models.states.ShapeState;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Created by ahmedyakout on 1/23/17.
+ */
 public class PlayerController {
-    private Map<String, Node> players;
+    private String name;
+    private Node leftStick;
+    private Node rightStick;
+    private Node playerPane;
+    private models.players.Player playerModel;
 
-    public PlayerController() {
-        players = new HashMap<>();
+    PlayerController(Node rightStick, Node leftStick, Node playerPane, models
+            .players.Player playerModel) {
+        this.playerModel = playerModel;
+        this.leftStick = leftStick;
+        this.rightStick = rightStick;
+        this.playerPane = playerPane;
     }
 
-    public Node createPlayer(String path, String playerName, InputType inputType) throws IOException {
-        URL url = new File(path).toURI().toURL();
-        Node player = FXMLLoader.load(url);
-        players.put(playerName, player);
-        PlayerFactory.getFactory().registerPlayer(playerName).setInputType(inputType);
-        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(1); // 5 for primary joystick as it's too fast
-                                                                        // 20 is default
-        return player;
+    public Node getLeftStick() {
+        return leftStick;
     }
 
-    public void moveLeft(String playerName) {
-        double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
-        double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
-
-        double transition = players.get(playerName).getLayoutX()
-                - PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
-        double newX = Math.max(0, Math.min(transition, maxDistance));
-        players.get(playerName).setLayoutX(newX);
+    public Node getRightStick() {
+        return rightStick;
     }
 
-    public void moveRight(String playerName) {
-        double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
-        double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
-
-        double transition = players.get(playerName).getLayoutX()
-                + PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
-        double newX = Math.max(0,
-                Math.min(transition, maxDistance));
-        players.get(playerName).setLayoutX(newX);
+    public Node getPlayerView() {
+        return playerPane;
     }
 
-    public Node createStick(String path) throws IOException {
-        URL url = new File(path).toURI().toURL();
-        Node plate = FXMLLoader.load(url);
-
-        return plate;
+    public models.players.Player getPlayerModel() {
+        return playerModel;
     }
 
-    public void bindStickWithPlayer(Node player, Node stick) {
-//        stick.layoutXProperty().bindBidirectional(player.layoutXProperty());
+    public boolean intersectsLeftStick(ShapeController<? extends Node>
+                                               shapeController) {
+        Shape shapeModel = shapeController.getShapeModel();
+        if (shapeModel.getState() != ShapeState.FALLING) {
+            return false;
+        }
+        double leftStickIntersectionMaxY = leftStick.getLayoutY() - 0.1 *
+                leftStick.getLayoutBounds().getHeight();
+        double leftStickIntersectionMinY = leftStick.getLayoutY();
+        double leftStickMinX = leftStick.getLayoutX();
+        double leftStickMaxX = leftStick.getLayoutX() + leftStick
+                .getLayoutBounds().getWidth();
+        if (intersects(shapeModel, leftStickMinX,
+                leftStickMaxX, leftStickIntersectionMinY,
+                leftStickIntersectionMaxY)) {
+            shapeController.shapeFellOnTheStack();
+            playerModel.pushPlateLeft(shapeModel);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean intersectsRightStick(ShapeController<? extends Node>
+                                                 shapeController) {
+        Shape shapeModel = shapeController.getShapeModel();
+        if (shapeModel.getState() != ShapeState.FALLING) {
+            return false;
+        }
+        double rightStickIntersectionMaxY = rightStick.getLayoutY() - 0.1 *
+                rightStick.getLayoutBounds().getHeight();
+        double rightStickIntersectionMinY = rightStick.getLayoutY();
+        double rightStickMinX = rightStick.getLayoutX();
+        double rightStickMaxX = rightStick.getLayoutX() + rightStick
+                .getLayoutBounds().getWidth();
+        if (intersects(shapeModel, rightStickMinX,
+                rightStickMaxX, rightStickIntersectionMinY,
+                rightStickIntersectionMaxY)) {
+            shapeController.shapeFellOnTheStack();
+            playerModel.pushPlateRight(shapeModel);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean intersects(Shape shapeModel, double stickMinX, double
+            stickMaxX, double stickMinY, double stickMaxY) {
+        double shapeMinY = shapeModel.getPosition().getY();
+        double shapeMaxY = shapeModel.getPosition().getY() + shapeModel
+                .getHeight().doubleValue();
+        double shapeMinX = shapeModel.getPosition().getX();
+        double shapeMaxX = shapeModel.getPosition().getX() + shapeModel
+                .getWidth().doubleValue();
+        if (shapeMinX >= shapeMaxX || stickMinX >= stickMaxX || stickMinY >=
+                stickMaxY || shapeMinY >= shapeMaxY) {
+            return false;
+        }
+        Bounds shapeBounds = new BoundingBox(shapeMinX, shapeMinY, shapeMaxX
+                - shapeMinX, shapeMaxY - shapeMinY);
+        Bounds stickBounds = new BoundingBox(stickMinX, stickMinY, stickMaxX
+                - stickMinX, stickMaxY - stickMinY);
+        return stickBounds.intersects(shapeBounds);
     }
 }

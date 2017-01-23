@@ -31,6 +31,10 @@ public class ShapeBuilder {
         shapeView.setImage(img);
         shapeView.setFitHeight(shapeModel.getHeight().doubleValue());
         shapeView.setFitWidth(shapeModel.getWidth().doubleValue());
+        shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
+                .add(shapeView.getLayoutX()));
+        shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
+                .add(shapeView.getLayoutY()));
         shapeView.setPickOnBounds(true);
         shapeView.setPreserveRatio(true);
         return shapeView;

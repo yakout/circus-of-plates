@@ -1,5 +1,7 @@
 package models.players;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -22,14 +24,21 @@ public class Player {
     private int score;
     private DoubleProperty speed;
     private InputType inputType;
-    
+    private String playerUrl;
+    private String leftStickUrl;
+    private String rightStickUrl;
+    private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
+    private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
     public Player() {
-        this.playerName = "Player " + ++numOfPlayers;
+        this.playerName = "PlayerController " + numOfPlayers;
         this.score = 0;
         this.position = new Point(0, 0);
         this.leftStick = new Stack<>();
         this.rightStick = new Stack<>();
         this.speed = new SimpleDoubleProperty();
+        this.leftStickUrl = LEFT_STICK_URL;
+        this.rightStickUrl = RIGHT_STICK_URL;
+        this.playerUrl = "";
     }
 
     public Player(String name) {
@@ -123,4 +132,37 @@ public class Player {
         return this.avatar;
     }
 
+    public String getPlayerUrl() {
+        return playerUrl;
+    }
+
+    public void setPlayerUrl(String playerUrl) {
+        this.playerUrl = playerUrl;
+    }
+
+    public String getLeftStickUrl() {
+        return leftStickUrl;
+    }
+
+    public void setLeftStickUrl(String leftStickUrl) {
+        this.leftStickUrl = leftStickUrl;
+    }
+
+    public String getRightStickUrl() {
+        return rightStickUrl;
+    }
+
+    public void setRightStickUrl(String rightStickUrl) {
+        this.rightStickUrl = rightStickUrl;
+    }
+
+    private String urlFromPath(String path) {
+        try {
+            return new File(path).toURI().toURL()
+                    .toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
