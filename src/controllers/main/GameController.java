@@ -12,15 +12,10 @@ import controllers.input.keyboard.KeyboardEvent;
 import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
-import controllers.player.PlayerController;
+import controllers.player.PlayersController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -31,11 +26,15 @@ import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 public class GameController implements Initializable {
     private static GameController instance;
     private MenuController currentMenu;
-    private PlayerController playerController;
+    private PlayersController playersController;
     // TODO: 1/19/17 plate Controller
 
     @FXML
@@ -58,22 +57,23 @@ public class GameController implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or
+     *                  <tt>null</tt> if
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Controllers
         currentMenu = Start.getInstance();
-        playerController = new PlayerController();
+        playersController = new PlayersController(mainGame);
 
+        instance = this;
 
-        instance  = this;
-
-        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
-        Keyboard.getInstance().registerClassForInputAction(getClass(), instance);
+        Joystick.getInstance().registerClassForInputAction(getClass(),
+                instance);
+        Keyboard.getInstance().registerClassForInputAction(getClass(),
+                instance);
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -96,18 +96,20 @@ public class GameController implements Initializable {
 //            case LEFT:
 //                if (mainGame.isVisible()) {
 //                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY);
+//                            .getPlayerNameWithController(InputType
+// .KEYBOARD_PRIMARY);
 //                    if (playerName != null) {
-//                        playerController.moveLeft(playerName);
+//                        playersController.moveLeft(playerName);
 //                    }
 //                }
 //                break;
 //            case RIGHT:
 //                if (mainGame.isVisible()) {
 //                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY);
+//                            .getPlayerNameWithController(InputType
+// .KEYBOARD_PRIMARY);
 //                    if (playerName != null) {
-//                        playerController.moveRight(playerName);
+//                        playersController.moveRight(playerName);
 //                    }
 //                }
 //                break;
@@ -129,18 +131,20 @@ public class GameController implements Initializable {
 //            case A:
 //                if (mainGame.isVisible()) {
 //                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
+//                            .getPlayerNameWithController(InputType
+// .KEYBOARD_SECONDARY);
 //                    if (playerName != null) {
-//                        playerController.moveLeft(playerName);
+//                        playersController.moveLeft(playerName);
 //                    }
 //                }
 //                break;
 //            case D:
 //                if (mainGame.isVisible()) {
 //                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY);
+//                            .getPlayerNameWithController(InputType
+// .KEYBOARD_SECONDARY);
 //                    if (playerName != null) {
-//                        playerController.moveRight(playerName);
+//                        playersController.moveRight(playerName);
 //                    }
 //                }
 //                break;
@@ -150,69 +154,80 @@ public class GameController implements Initializable {
     }
 
 
-//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_PRIMARY)
+//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
+// .KEYBOARD_PRIMARY)
 //    public void primaryKeyboardHandler(KeyboardEvent keyboardEvent) {
 //        Platform.runLater(() -> {
 //            switch (keyboardEvent.getKeyboardCode()) {
 //                case LEFT:
-//                    playerController.moveLeft(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//                    playersController.moveLeft(PlayerFactory
+//                            .getFactory().getPlayerNameWithController
+// (InputType.KEYBOARD_PRIMARY));
 //                    break;
 //                case RIGHT:
-//                    playerController.moveRight(PlayerFactory
-//                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+//                    playersController.moveRight(PlayerFactory
+//                            .getFactory().getPlayerNameWithController
+// (InputType.KEYBOARD_PRIMARY));
 //            }
 //        });
 //    }
 
-    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.KEYBOARD_SECONDARY)
+    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
+            .KEYBOARD_SECONDARY)
     public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
         Platform.runLater(() -> {
             switch (keyboardEvent.getKeyboardCode()) {
                 case A:
-                    playerController.moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                    playersController.moveLeft(PlayerFactory
+                            .getFactory().getPlayerNameWithController
+                                    (InputType.KEYBOARD_SECONDARY));
                     break;
                 case D:
-                    playerController.moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                    playersController.moveRight(PlayerFactory
+                            .getFactory().getPlayerNameWithController
+                                    (InputType.KEYBOARD_SECONDARY));
                     break;
                 case LEFT:
-                    playerController.moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+                    playersController.moveLeft(PlayerFactory
+                            .getFactory().getPlayerNameWithController
+                                    (InputType.KEYBOARD_PRIMARY));
                     break;
                 case RIGHT:
-                    playerController.moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+                    playersController.moveRight(PlayerFactory
+                            .getFactory().getPlayerNameWithController
+                                    (InputType.KEYBOARD_PRIMARY));
             }
         });
     }
 
 
-    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
+    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
+            .JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
-        String playerName2 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_SECONDARY);
-        String playerName1 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_PRIMARY);
+        String playerName2 = PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.JOYSTICK_SECONDARY);
+        String playerName1 = PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.JOYSTICK_PRIMARY);
 
         Platform.runLater(() -> {
             if (event.getJoystickType() == JoystickType.PRIMARY) {
                 if (event.getJoystickCode() == JoystickCode.LEFT) {
                     if (playerName1 != null) {
-                        playerController.moveLeft(playerName1);
+                        playersController.moveLeft(playerName1);
                     }
                 } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
                     if (playerName1 != null) {
-                        playerController.moveRight(playerName1);
+                        playersController.moveRight(playerName1);
                     }
                 }
             } else {
                 if (event.getJoystickCode() == JoystickCode.LEFT) {
                     if (playerName2 != null) {
-                        playerController.moveLeft(playerName2);
+                        playersController.moveLeft(playerName2);
                     }
                 } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
                     if (playerName2 != null) {
-                        playerController.moveRight(playerName2);
+                        playersController.moveRight(playerName2);
                     }
                 }
             }
@@ -239,20 +254,15 @@ public class GameController implements Initializable {
     }
 
     private void startNormalGame() {
-        String path_0 = "src/views/clowns/clown_5/clown.fxml";
-        String path_1_ = "src/views/clowns/clown_6/clown.fxml";
-        String path_2 = "src/views/sticks/stick.fxml";
-
+        String player1Path = "src/views/clowns/clown_5/clown.fxml";
+        String player2Path = "src/views/clowns/clown_6/clown.fxml";
         try {
-            Node player1 = playerController.createPlayer(path_0, "player1", InputType.JOYSTICK_PRIMARY);
-            Node player2 = playerController.createPlayer(path_1_, "player2", InputType.JOYSTICK_SECONDARY);
-            Node stick = playerController.createStick(path_2);
-
-            mainGame.getChildren().add(player2);
-            mainGame.getChildren().add(player1);
-            mainGame.getChildren().add(stick);
-
-            playerController.bindStickWithPlayer(player1, stick);
+            playersController.createPlayer(player1Path,
+                    "player1",
+                    InputType.KEYBOARD_PRIMARY);
+            playersController.createPlayer(player2Path,
+                    "player2",
+                    InputType.KEYBOARD_SECONDARY);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,15 +294,18 @@ public class GameController implements Initializable {
 
     // TODO: Mouse handler
     private Double currentX;
+
     @FXML
     public void mouseHandler(MouseEvent event) {
         if (currentX == null) {
             currentX = event.getX();
         } else {
             if (currentX > event.getX()) {
-                // rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED, -350 + rect.getWidth() / 2.0));
+                // rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED,
+                // -350 + rect.getWidth() / 2.0));
             } else {
-                // rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED, 350 - rect.getWidth() / 2.0));
+                // rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED,
+                // 350 - rect.getWidth() / 2.0));
             }
         }
     }

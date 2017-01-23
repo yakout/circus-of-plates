@@ -23,9 +23,5 @@ public class ViewExposer {
         }
         imgView.setLayoutY(platform.getCenter().getY() - platform.getHeight
                 ().doubleValue() / 2.0 - imgView.getLayoutBounds().getHeight());
-        shapeModel.getPosition().xProperty().bind(imgView.translateXProperty()
-                .add(imgView.getLayoutX()));
-        shapeModel.getPosition().yProperty().bind(imgView.translateYProperty()
-                .add(imgView.getLayoutY()));
     }
 }
