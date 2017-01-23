@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameMode extends MenuController {
+    public class GameMode extends MenuController {
     private VBox menu;
     private static GameMode instance;
 
@@ -57,7 +57,8 @@ public class GameMode extends MenuController {
 //                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "choosePlayer":
-                //TODO
+//                 TODO: disables the current menu and shows my clown chooser.
+                ChoosePlayer.getInstance().attachClowns();
                 break;
             default:
                 break;
