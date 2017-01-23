@@ -152,7 +152,7 @@ public class Joystick extends Input {
 //                    prevComponent = components[i];
                 }
 
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
