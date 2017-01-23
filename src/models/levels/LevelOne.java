@@ -16,7 +16,7 @@ public class LevelOne extends Level {
 
     private final double PLATE_SPEED_RATIO = 1.0;
     private final double CLOWN_SPEED_RATIO = 1.0;
-    private static final int PLATFORMS = 2;
+    private static final int PLATFORMS = 10;
     private static final int LEVEL = 1;
     private static List<String> supportedShapes
             = new ArrayList<>();
