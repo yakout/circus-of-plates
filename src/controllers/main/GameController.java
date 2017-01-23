@@ -190,7 +190,7 @@ public class GameController implements Initializable {
 
 
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType.JOYSTICK)
-    private void performJoystickAction(JoystickEvent event) {
+    public void performJoystickAction(JoystickEvent event) {
         String playerName2 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_SECONDARY);
         String playerName1 = PlayerFactory.getFactory().getPlayerNameWithController(InputType.JOYSTICK_PRIMARY);
 
@@ -239,13 +239,13 @@ public class GameController implements Initializable {
     }
 
     private void startNormalGame() {
-
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
         String path_1_ = "src/views/clowns/clown_6/clown.fxml";
         String path_2 = "src/views/sticks/stick.fxml";
+
         try {
-            Node player1 = playerController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
-            Node player2 = playerController.createPlayer(path_1_, "player2", InputType.KEYBOARD_SECONDARY);
+            Node player1 = playerController.createPlayer(path_0, "player1", InputType.JOYSTICK_PRIMARY);
+            Node player2 = playerController.createPlayer(path_1_, "player2", InputType.JOYSTICK_SECONDARY);
             Node stick = playerController.createStick(path_2);
 
             mainGame.getChildren().add(player2);

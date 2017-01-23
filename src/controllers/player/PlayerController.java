@@ -27,7 +27,7 @@ public class PlayerController {
         Node player = FXMLLoader.load(url);
         players.put(playerName, player);
         PlayerFactory.getFactory().registerPlayer(playerName).setInputType(inputType);
-        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(0.1); // 5 for primary joystick as it's too fast
+        PlayerFactory.getFactory().getPlayer(playerName).setSpeed(1); // 5 for primary joystick as it's too fast
                                                                         // 20 is default
         return player;
     }
