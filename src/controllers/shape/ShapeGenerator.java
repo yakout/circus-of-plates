@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ShapeGenerator {
 
-    private final long THREAD_SLEEP_TIME = 2000;
+    private final long THREAD_SLEEP_TIME = 10000;
     private Level level;
     private final Thread shapeGeneratorThread;
     private boolean generationThreadIsNotStopped;

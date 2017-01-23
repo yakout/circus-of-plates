@@ -1,9 +1,5 @@
 package models.levels;
 
-import models.Platform;
-import models.Point;
-import models.shapes.PlateShape;
-import models.states.Orientation;
 import models.states.Color;
 
 import java.util.ArrayList;
@@ -16,7 +12,7 @@ public class LevelOne extends Level {
 
     private final double PLATE_SPEED_RATIO = 1.0;
     private final double CLOWN_SPEED_RATIO = 1.0;
-    private static final int PLATFORMS = 2;
+    private static final int PLATFORMS = 10;
     private static final int LEVEL = 1;
     private static List<String> supportedShapes
             = new ArrayList<>();
@@ -58,7 +54,7 @@ public class LevelOne extends Level {
     private void addSupportedColors() {
         supportedColors.add(Color.GREEN);
         supportedColors.add(Color.YELLOW);
-        supportedColors.add(Color.LIGHT_BLUE);
+        supportedColors.add(Color.CYAN);
         supportedColors.add(Color.ORANGE);
     }
 }

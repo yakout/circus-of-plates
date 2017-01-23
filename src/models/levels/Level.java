@@ -22,7 +22,7 @@ public abstract class Level {
     protected List<Platform> platforms;
     protected List<Color> supportedColors;
     protected double minX, minY, maxX, maxY;
-    protected static final double PLATFORM_BASE_WIDTH = 120;
+    protected static final double PLATFORM_BASE_WIDTH = 500;
     protected static final double PLATFORM_BASE_Y_Factor = 0.1;
     protected static final double PLATFORM_HEIGHT = 5;
 
@@ -66,8 +66,9 @@ public abstract class Level {
         double stageHeight = maxY - minY;
         //TODO: Make the ratios more dependent on the stage's dimensions
         for (int i = 0 ; i < getNumPlatforms() ; i++) {
-            double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.1 * i);
-            double platformNewY = stageHeight * (0.1 + 0.05 * i);
+            int level = i / 2;
+            double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.2 * level);
+            double platformNewY = stageHeight * (0.1 + 0.05 * level);
             if(isEven(i)) {
                 newPlatform = new Platform(new Point(minX
                         + platformNewWidth / 2.0,

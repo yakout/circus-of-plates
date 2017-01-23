@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		ShapeMovingObserver {
-	static Logger logger = LogManager.getLogger(ShapeController.class);
+	private static Logger logger = LogManager.getLogger(ShapeController.class);
 	private final T shape;
 	private final Shape shapeModel;
 	private final Platform platform;
@@ -72,5 +72,25 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		}
 		shapeModel.setState(ShapeState.ON_THE_STACK);
 		currentController.stopMoving();
+	}
+
+	public void gamePaused() {
+		currentController.pauseMovement();
+	}
+
+	public void gameResumed() {
+		currentController.resumeMovement();
+	}
+
+	public Shape getShapeModel() {
+		return shapeModel;
+	}
+
+	public T getShape() {
+		return shape;
+	}
+
+	public Platform getPlatform() {
+		return platform;
 	}
 }

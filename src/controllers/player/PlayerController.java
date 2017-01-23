@@ -5,6 +5,7 @@ import controllers.main.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import models.players.Player;
 import models.players.PlayerFactory;
 
 import java.io.File;
@@ -28,9 +29,6 @@ public class PlayerController {
         PlayerFactory.getFactory().registerPlayer(playerName).setInputType(inputType);
         PlayerFactory.getFactory().getPlayer(playerName).setSpeed(0.5); // 5 for primary joystick as it's too fast
                                                                         // 20 is default
-
-        player.setLayoutX(player.getLayoutX() + 500); // TODO add location point to mehtod parameters
-
         return player;
     }
 
@@ -38,9 +36,9 @@ public class PlayerController {
         double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
         double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
 
-        double transsition = players.get(playerName).getLayoutX()
+        double transition = players.get(playerName).getLayoutX()
                 - PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
-        double newX = Math.max(0, Math.min(transsition, maxDistance));
+        double newX = Math.max(0, Math.min(transition, maxDistance));
         players.get(playerName).setLayoutX(newX);
     }
 
@@ -48,10 +46,10 @@ public class PlayerController {
         double playerWidth = ((AnchorPane) players.get(playerName)).getWidth();
         double maxDistance = GameController.getInstance().getStageWidth() - playerWidth;
 
-        double transsition = players.get(playerName).getLayoutX()
+        double transition = players.get(playerName).getLayoutX()
                 + PlayerFactory.getFactory().getPlayer(playerName).getSpeed();
         double newX = Math.max(0,
-                Math.min(transsition, maxDistance));
+                Math.min(transition, maxDistance));
         players.get(playerName).setLayoutX(newX);
     }
 

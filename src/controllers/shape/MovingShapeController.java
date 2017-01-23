@@ -21,6 +21,15 @@ public class MovingShapeController<T extends Node> extends
         @Override
         public synchronized void run() {
             while (threadRunning) {
+                while (threadPaused) {
+                    try {
+                        logger.debug("Generation Thread Paused");
+                        Thread.currentThread().sleep(Long.MAX_VALUE);
+                    } catch (InterruptedException e) {
+                        logger.info("Generation Thread Resumed");
+                        break;
+                    }
+                }
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {

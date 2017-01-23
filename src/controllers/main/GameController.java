@@ -271,11 +271,11 @@ public class GameController implements Initializable {
                 + rootPane.getHeight());
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : level.getPlatforms()) {
-            rootPane.getChildren().add(builder.build(platform));
+            mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
         ShapeGenerator generator
-                = new ShapeGenerator(level, rootPane);
+                = new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
