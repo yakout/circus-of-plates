@@ -74,6 +74,14 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		currentController.stopMoving();
 	}
 
+	public void gamePaused() {
+		currentController.pauseMovement();
+	}
+
+	public void gameResumed() {
+		currentController.resumeMovement();
+	}
+
 	public Shape getShapeModel() {
 		return shapeModel;
 	}

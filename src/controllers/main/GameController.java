@@ -1,7 +1,6 @@
 package controllers.main;
 
 import controllers.input.ActionType;
-import controllers.input.Input;
 import controllers.input.InputAction;
 import controllers.input.InputType;
 import controllers.input.joystick.Joystick;
@@ -14,30 +13,23 @@ import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayerController;
-import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import models.GameMode;
-import models.Point;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
-import models.shapes.PlateShape;
-import models.shapes.Shape;
-import models.states.Orientation;
 
 
 public class GameController implements Initializable {
@@ -247,17 +239,20 @@ public class GameController implements Initializable {
     }
 
     private void startNormalGame() {
+
+        String path_0 = "src/views/clowns/clown_5/clown.fxml";
+        String path_1_ = "src/views/clowns/clown_6/clown.fxml";
+        String path_2 = "src/views/sticks/stick.fxml";
         try {
-            URL url = new File("src/views/clown.fxml").toURI().toURL();
-            PlayerFactory.getFactory().registerPlayer("player1").setInputType(InputType.KEYBOARD_PRIMARY);
-            PlayerFactory.getFactory().registerPlayer("player2").setInputType(InputType.KEYBOARD_SECONDARY);
+            Node player1 = playerController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
+            Node player2 = playerController.createPlayer(path_1_, "player2", InputType.KEYBOARD_SECONDARY);
+            Node stick = playerController.createStick(path_2);
 
-            Node node1 = playerController.createPlayer("player1", url);
-            Node node2 = playerController.createPlayer("player2", url);
-            node2.setLayoutX(node2.getLayoutX() + 500);
-            mainGame.getChildren().add(node1);
-            mainGame.getChildren().add(node2);
+            mainGame.getChildren().add(player2);
+            mainGame.getChildren().add(player1);
+            mainGame.getChildren().add(stick);
 
+            playerController.bindStickWithPlayer(player1, stick);
         } catch (IOException e) {
             e.printStackTrace();
         }
