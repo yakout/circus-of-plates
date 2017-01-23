@@ -43,7 +43,7 @@ public class KeyboardTest {
             firstController.poll();
             Component[] components = firstController.getComponents();
             for (int i = 0; i < components.length; i++) {
-                System.out.println(components[i]);
+                // System.out.println(components[i]);
                 if (components[i].getName().equals("A") || components[i].getName().equals("D")) {
                     if (components[i].getPollData() == 1.0f) {
                         System.out.println(components[i].getName());
