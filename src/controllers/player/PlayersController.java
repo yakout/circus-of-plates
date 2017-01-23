@@ -77,26 +77,6 @@ public class PlayersController {
                 + sign * players.get(playerName).getPlayerModel().getSpeed();
     }
 
-    public void bindLeftStickWithPlayer(Node player, Node stick) {
-        System.out.println("Stick Layout X Before Binding " + stick.getLayoutX
-                ());
-        System.out.println("Player Layout X Before Binding " + player.getLayoutX
-                ());
-        stick.setLayoutX(player.getLayoutX());
-        stick.setLayoutY(player.getLayoutY());
-        System.out.println("Stick Layout X After Binding " + stick.getLayoutX
-                ());
-        System.out.println("Player Layout X After Binding " + player.getLayoutX
-                ());
-        stick.translateXProperty().bind(player.translateXProperty());
-    }
-
-    public void bindRightStickWithPlayer(Node player, Node stick) {
-        stick.setLayoutX(player.getLayoutX() + player.getLayoutBounds().getWidth());
-        stick.setLayoutY(player.getLayoutY());
-        stick.translateXProperty().bind(player.translateXProperty());
-    }
-
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         for (String name : players.keySet()) {

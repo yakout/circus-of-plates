@@ -1,7 +1,6 @@
 package controllers.shape;
 
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.ShapePool;
@@ -10,7 +9,6 @@ import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.text.View;
 import java.util.List;
 
 /**
@@ -44,6 +42,7 @@ public class ShapeGenerator {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
                             Shape shapeModel = ShapePool.getShape(level);
+                            PositionInitializer.normalize(platform, shapeModel);
                             ImageView imgView = (ImageView) ShapeBuilder.getInstance().
                                     build(shapeModel);
                             if (imgView == null) {
@@ -81,7 +80,8 @@ public class ShapeGenerator {
     }
 
     private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
-        ViewExposer.normalize(imgView, platform, shapeModel);
+        imgView.setLayoutY(imgView.getLayoutY()
+                - shapeModel.getHeight().doubleValue());
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
