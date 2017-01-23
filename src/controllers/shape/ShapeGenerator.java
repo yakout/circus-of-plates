@@ -2,9 +2,11 @@ package controllers.shape;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.ShapePool;
 import models.levels.Level;
+import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,8 +42,13 @@ public class ShapeGenerator {
                     public void run() {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
-                            ShapeBuilder.getInstance().createShape(platform,
-                                    ShapePool.getShape(level), parent);
+                            Shape shapeModel = ShapePool.getShape(level);
+                            ImageView imgView = (ImageView) ShapeBuilder.getInstance().createShape(platform,
+                                    shapeModel);
+                            if (imgView == null) {
+                                continue;
+                            }
+                            generateShape(imgView, platform, shapeModel);
                         }
                     }
                 });
@@ -59,6 +66,7 @@ public class ShapeGenerator {
         }
     };
 
+
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
@@ -71,6 +79,21 @@ public class ShapeGenerator {
         logger.debug("Shape Generation Thread Started Running");
     }
 
+    private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
+        parent.getChildren().add(imgView);
+        imgView.setLayoutY(platform.getCenter().getY() - platform.getHeight
+                ().doubleValue() / 2.0 - imgView.getLayoutBounds().getHeight());
+        //shapeModel.getWidth().bind(shapeView.fitWidthProperty());
+        //shapeModel.getHeight().bind(shapeView.fitHeightProperty());//can't
+        // bind it, image views :(
+        shapeModel.getPosition().xProperty().bind(imgView.translateXProperty()
+                .add(imgView.getLayoutX()));
+        shapeModel.getPosition().yProperty().bind(imgView.translateYProperty()
+                .add(imgView.getLayoutY()));
+        ShapeController<ImageView> shapeController = new ShapeController<>
+                (imgView, shapeModel, platform);
+        shapeController.startMoving();
+    }
     /**
      * Pauses the thread-generator.
      */

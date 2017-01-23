@@ -1,11 +1,5 @@
 package models.levels;
 
-import javafx.scene.paint.Color;
-import models.Platform;
-import models.Point;
-import models.shapes.PlateShape;
-import models.states.Orientation;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +53,7 @@ public class LevelTwo extends Level {
     private void addSupportedColors() {
         supportedColors.add(models.states.Color.GREEN);
         supportedColors.add(models.states.Color.YELLOW);
-        supportedColors.add(models.states.Color.LIGHT_BLUE);
+        supportedColors.add(models.states.Color.CYAN);
         supportedColors.add(models.states.Color.ORANGE);
     }
 }

@@ -1,7 +1,7 @@
 package controllers.shape;
 
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import models.Platform;
 import models.shapes.Shape;
 
@@ -21,8 +21,11 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Platform platform, final Shape
-            shapeModel, Pane parent) {
+    public synchronized Node createShape(final Platform platform, final Shape
+            shapeModel) {
+        if (shapeModel == null) {
+            return null;
+        }
         final ImageView shapeView = ViewConverter.convertToImageView
                 (shapeModel);
         switch (platform.getOrientation()) {
@@ -37,18 +40,6 @@ public class ShapeBuilder {
             default:
                 break;
         }
-        parent.getChildren().add(shapeView);
-        shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight
-                ().doubleValue() / 2.0 - shapeView.getLayoutBounds().getHeight());
-        //shapeModel.getWidth().bind(shapeView.fitWidthProperty());
-        //shapeModel.getHeight().bind(shapeView.fitHeightProperty());//can't
-        // bind it, image views :(
-        shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
-        .add(shapeView.getLayoutX()));
-        shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
-                .add(shapeView.getLayoutY()));
-        ShapeController<ImageView> shapeController = new ShapeController<>
-                (shapeView, shapeModel, platform);
-        shapeController.startMoving();
+        return shapeView;
     }
 }
