@@ -1,9 +1,4 @@
 package models.levels;
-
-import models.Platform;
-import models.Point;
-import models.shapes.PlateShape;
-import models.states.Orientation;
 import models.states.Color;
 
 import java.util.ArrayList;
