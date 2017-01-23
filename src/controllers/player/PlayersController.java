@@ -5,7 +5,6 @@ import controllers.main.GameController;
 import controllers.shape.ShapeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import models.players.Player;
 import models.players.PlayerFactory;
@@ -41,15 +40,8 @@ public class PlayersController {
         playerModel.setSpeed(1); // 5
         // for primary joystick as it's too fast
         // 20 is default
-        Node leftStick = createStick(playerModel.getLeftStickUrl());
-        Node rightStick = createStick(playerModel.getRightStickUrl());
         gamePane.getChildren().add(player);
-        gamePane.getChildren().add(leftStick);
-        gamePane.getChildren().add(rightStick);
-        bindLeftStickWithPlayer(player, leftStick);
-        bindRightStickWithPlayer(player, rightStick);
-        PlayerController playerController = new PlayerController(rightStick, leftStick,
-                player, playerModel);
+        PlayerController playerController = new PlayerController(playerName, player, playerModel);
         players.put(playerName, playerController);
         return player;
     }
@@ -83,12 +75,6 @@ public class PlayersController {
     private double getTransition(String playerName, double sign) {
         return players.get(playerName).getPlayerView().getLayoutX()
                 + sign * players.get(playerName).getPlayerModel().getSpeed();
-    }
-
-    public Node createStick(String path) throws IOException {
-        URL url = new File(path).toURI().toURL();
-        Node stick = FXMLLoader.load(url);
-        return stick;
     }
 
     public void bindLeftStickWithPlayer(Node player, Node stick) {

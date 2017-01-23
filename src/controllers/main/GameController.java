@@ -256,15 +256,11 @@ public class GameController implements Initializable {
 
     private void startNormalGame() {
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
-        String path_1_ = "src/views/clowns/clown_6/clown.fxml";
+        String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
         try {
-            Node player1 = playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
-            Node player2 = playersController.createPlayer(path_1_, "player2", InputType.KEYBOARD_SECONDARY);
-
-            mainGame.getChildren().add(player2);
-            mainGame.getChildren().add(player1);
-
+            playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
+            playersController.createPlayer(path_1, "player2", InputType.KEYBOARD_SECONDARY);
         } catch (IOException e) {
             e.printStackTrace();
         }

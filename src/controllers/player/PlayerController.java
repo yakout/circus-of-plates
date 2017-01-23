@@ -5,6 +5,7 @@ import controllers.shape.ShapeController;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import models.shapes.Shape;
 import models.states.ShapeState;
 
@@ -18,16 +19,25 @@ public class PlayerController {
     private Node playerPane;
     private models.players.Player playerModel;
 
-    PlayerController(Node rightStick, Node leftStick, Node playerPane, models
+    PlayerController(String name, Node playerPane, models
             .players.Player playerModel) {
+        this.name = name;
         this.playerModel = playerModel;
-        this.leftStick = leftStick;
-        this.rightStick = rightStick;
         this.playerPane = playerPane;
+        this.leftStick = getStickWithId("leftstick");
+        this.rightStick = getStickWithId("leftstick");
+    }
+
+    public Node getStickWithId(String id) {
+        return playerPane.getScene().lookup("#" + id);
     }
 
     public Node getLeftStick() {
         return leftStick;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Node getRightStick() {
