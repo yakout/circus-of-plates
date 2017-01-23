@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import controllers.input.joystick.Joystick;
+import controllers.input.keyboard.Keyboard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +46,7 @@ public class GameMain extends Application {
 		// root.requestFocus(); // the root don't have the focus when the stage is shown it goes to the first node.
 
 		// TODO: 1/17/17
-		Joystick.getInstance().start();
+		Keyboard.getInstance().start();
 	}
 
 	public static void main(final String[] args) {
