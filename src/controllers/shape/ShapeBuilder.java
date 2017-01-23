@@ -22,7 +22,7 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized Node createShape(final Shape shapeModel) {
+    public synchronized Node build(final Shape shapeModel) {
         if (shapeModel == null) {
             return null;
         }

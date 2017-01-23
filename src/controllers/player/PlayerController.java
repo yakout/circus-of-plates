@@ -43,7 +43,7 @@ public class PlayerController {
     }
 
     public boolean intersectsLeftStick(ShapeController<? extends Node>
-                                                shapeController) {
+                                               shapeController) {
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
             return false;

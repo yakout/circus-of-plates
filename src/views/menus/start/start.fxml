@@ -17,7 +17,7 @@
         <Button id="continue" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
             <font>
                 <Font size="18.0" />
-            </font>
+            </font>2
         </Button>
         <Button id="loadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD GAME">
             <font>
