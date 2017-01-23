@@ -10,6 +10,7 @@ import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.text.View;
 import java.util.List;
 
 /**
@@ -80,25 +81,8 @@ public class ShapeGenerator {
     }
 
     private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
-        switch (platform.getOrientation()) {
-            case LEFT:
-                imgView.setLayoutX(platform.getCenter().getX() - platform
-                        .getWidth().doubleValue());
-                break;
-            case RIGHT:
-                imgView.setLayoutX(platform.getCenter().getX() + platform
-                        .getWidth().doubleValue());
-                break;
-            default:
-                break;
-        }
+        ViewExposer.normalize(imgView, platform, shapeModel);
         parent.getChildren().add(imgView);
-        imgView.setLayoutY(platform.getCenter().getY() - platform.getHeight
-                ().doubleValue() / 2.0 - imgView.getLayoutBounds().getHeight());
-        shapeModel.getPosition().xProperty().bind(imgView.translateXProperty()
-                .add(imgView.getLayoutX()));
-        shapeModel.getPosition().yProperty().bind(imgView.translateYProperty()
-                .add(imgView.getLayoutY()));
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
         shapeController.startMoving();
