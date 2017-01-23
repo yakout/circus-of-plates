@@ -13,12 +13,17 @@ import java.awt.event.MouseEvent;
 public class ChoosePlayer {
     private static ChoosePlayer instance;
     private static final String CLOWN_DIR = "assets/images/clowns/clown_";
+    private String chosenClownID;
+
+    @FXML
+    AnchorPane anchor;
     @FXML
     VBox imagesHolder;
     @FXML
     HBox firstRow;
     @FXML
     HBox secondRow;
+
     private ChoosePlayer() {
     }
 
@@ -27,6 +32,10 @@ public class ChoosePlayer {
             instance = new ChoosePlayer();
         }
         return instance;
+    }
+
+    public void showScene() {
+        ////////////////////////////////////////
     }
 
     /**
@@ -52,13 +61,12 @@ public class ChoosePlayer {
     }
 
     @FXML
-    public void mouseHandler(MouseEvent event) {
-        String id = ((Node)event.getSource()).getId().toString();
-
+    public void mouseHandler() {
+        chosenClownID = ((Node)event.getSource()).getId().toString();
     }
 
     @FXML
     public void selectClown() {
-
+        // TODO: here goes inter action with player controller.
     }
 }
