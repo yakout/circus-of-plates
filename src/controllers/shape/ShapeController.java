@@ -93,4 +93,5 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	public Platform getPlatform() {
 		return platform;
 	}
+
 }

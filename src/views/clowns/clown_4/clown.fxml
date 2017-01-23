@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane id="clown_5" layoutX="800.0" prefHeight="265.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0"
+<AnchorPane id="clown_4" layoutX="800.0" prefHeight="265.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0"
             xmlns="http://javafx.com/javafx/8.0.65">
    <children>
       <ImageView fitHeight="249.0" fitWidth="126.0" layoutX="59.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../assets/images/clowns/clown_5.png" />
+            <Image url="@../../../assets/images/clowns/clown_4.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="166.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">

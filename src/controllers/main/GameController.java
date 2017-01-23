@@ -13,6 +13,7 @@ import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayersController;
+import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -268,7 +269,6 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
 
-
         // ===========================
         try {
             Class.forName("models.shapes.PlateShape");
@@ -295,6 +295,11 @@ public class GameController implements Initializable {
 
     // TODO: Mouse handler
     private Double currentX;
+
+    public boolean checkIntersection(
+            ShapeController<? extends Node> shapeController) {
+        return playersController.checkIntersection(shapeController);
+    }
 
     @FXML
     public void mouseHandler(MouseEvent event) {

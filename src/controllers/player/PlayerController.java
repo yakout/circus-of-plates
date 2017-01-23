@@ -64,7 +64,7 @@ public class PlayerController {
         return false;
     }
 
-    private boolean intersectsRightStick(ShapeController<? extends Node>
+    public boolean intersectsRightStick(ShapeController<? extends Node>
                                                  shapeController) {
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
