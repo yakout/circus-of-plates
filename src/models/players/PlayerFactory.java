@@ -25,6 +25,10 @@ public class PlayerFactory {
         return players.get(name);
     }
 
+    public void removePlayer(String name) {
+        players.remove(name);
+    }
+
     public Player getPlayer(String name) {
         return players.get(name);
     }

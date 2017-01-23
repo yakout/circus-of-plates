@@ -61,6 +61,6 @@ public class PlayerController {
     }
 
     public void bindStickWithPlayer(Node player, Node stick) {
-        stick.layoutXProperty().bind(player.layoutXProperty());
+        stick.layoutXProperty().bindBidirectional(player.layoutXProperty());
     }
 }
