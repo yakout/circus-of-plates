@@ -1,6 +1,7 @@
 package controllers.shape;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.Platform;
 import models.shapes.Shape;
@@ -25,8 +26,13 @@ public class ShapeBuilder {
         if (shapeModel == null) {
             return null;
         }
-        final ImageView shapeView = ViewConverter.convertToImageView
-                (shapeModel);
+        final Image img = new Image(shapeModel.getShapeURL());
+        final ImageView shapeView = new ImageView();
+        shapeView.setImage(img);
+        shapeView.setFitHeight(shapeModel.getHeight().doubleValue());
+        shapeView.setFitWidth(shapeModel.getWidth().doubleValue());
+        shapeView.setPickOnBounds(true);
+        shapeView.setPreserveRatio(true);
         return shapeView;
     }
 }
