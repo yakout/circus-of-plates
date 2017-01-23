@@ -1,5 +1,4 @@
 package models.levels;
-
 import models.states.Color;
 
 import java.util.ArrayList;

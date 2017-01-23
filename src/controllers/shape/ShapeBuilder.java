@@ -1,7 +1,8 @@
 package controllers.shape;
 
+import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import models.Platform;
 import models.shapes.Shape;
 
@@ -21,34 +22,17 @@ public class ShapeBuilder {
         return creatorInstance;
     }
 
-    public synchronized void createShape(final Platform platform, final Shape
-            shapeModel, Pane parent) {
-        final ImageView shapeView = ViewConverter.convertToImageView
-                (shapeModel);
-        switch (platform.getOrientation()) {
-            case LEFT:
-                shapeView.setLayoutX(platform.getCenter().getX() - platform
-                        .getWidth().doubleValue());
-                break;
-            case RIGHT:
-                shapeView.setLayoutX(platform.getCenter().getX() + platform
-                        .getWidth().doubleValue());
-                break;
-            default:
-                break;
+    public synchronized Node createShape(final Shape shapeModel) {
+        if (shapeModel == null) {
+            return null;
         }
-        parent.getChildren().add(shapeView);
-        shapeView.setLayoutY(platform.getCenter().getY() - platform.getHeight
-                ().doubleValue() / 2.0 - shapeView.getLayoutBounds().getHeight());
-        //shapeModel.getWidth().bind(shapeView.fitWidthProperty());
-        //shapeModel.getHeight().bind(shapeView.fitHeightProperty());//can't
-        // bind it, image views :(
-        shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
-        .add(shapeView.getLayoutX()));
-        shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
-                .add(shapeView.getLayoutY()));
-        ShapeController<ImageView> shapeController = new ShapeController<>
-                (shapeView, shapeModel, platform);
-        shapeController.startMoving();
+        final Image img = new Image(shapeModel.getShapeURL());
+        final ImageView shapeView = new ImageView();
+        shapeView.setImage(img);
+        shapeView.setFitHeight(shapeModel.getHeight().doubleValue());
+        shapeView.setFitWidth(shapeModel.getWidth().doubleValue());
+        shapeView.setPickOnBounds(true);
+        shapeView.setPreserveRatio(true);
+        return shapeView;
     }
 }
