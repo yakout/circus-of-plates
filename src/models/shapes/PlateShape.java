@@ -3,10 +3,10 @@ package models.shapes;
 import models.ShapeFactory;
 import models.levels.LevelOne;
 import models.levels.LevelTwo;
+import models.shapes.util.ColorNameAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.print.DocFlavor;
 import java.io.File;
 import java.net.MalformedURLException;
 
@@ -15,7 +15,8 @@ import java.net.MalformedURLException;
  */
 public class PlateShape extends Shape {
     private static final String URL = "src/assets"
-            + "/images/plates/bluePlateWithoutBase.png";
+            + "/images/plates/";
+    private static final String FILE_NAME = "PlateWithoutBase.png";
     private static final double HORIZONTAL_VELOCITY = 1.0;
     private static final double VERTICAL_VELOCITY = 1.2;
     public static final String KEY = PlateShape.class.getName();
@@ -35,8 +36,10 @@ public class PlateShape extends Shape {
     @Override
     public String getShapeURL() {
         System.out.println(new File(URL).getAbsolutePath());
+        String colorString = new ColorNameAdapter().getColorName(color);
         try {
-            return new File(URL).toURI().toURL().toString();
+            return new File(URL + colorString + FILE_NAME).toURI().toURL()
+                    .toString();
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;

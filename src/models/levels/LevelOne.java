@@ -1,9 +1,5 @@
 package models.levels;
 
-import models.Platform;
-import models.Point;
-import models.shapes.PlateShape;
-import models.states.Orientation;
 import models.states.Color;
 
 import java.util.ArrayList;
@@ -58,7 +54,7 @@ public class LevelOne extends Level {
     private void addSupportedColors() {
         supportedColors.add(Color.GREEN);
         supportedColors.add(Color.YELLOW);
-        supportedColors.add(Color.LIGHT_BLUE);
+        supportedColors.add(Color.CYAN);
         supportedColors.add(Color.ORANGE);
     }
 }
