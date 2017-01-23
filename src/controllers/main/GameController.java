@@ -71,7 +71,6 @@ public class GameController implements Initializable {
 
 
         instance  = this;
-
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(), instance);
     }
