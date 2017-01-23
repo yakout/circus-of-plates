@@ -2,12 +2,15 @@ package controllers.player;
 
 import controllers.input.InputType;
 import controllers.main.GameController;
+import controllers.shape.ShapeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import models.players.Player;
 import models.players.PlayerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +18,12 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class PlayersController {
     private Map<String, PlayerController> players;
     private Pane gamePane;
+    private static Logger logger = LogManager.getLogger(PlayersController
+            .class);
     public PlayersController(Pane gamePane) {
         players = new HashMap<>();
         this.gamePane = gamePane;
@@ -103,5 +109,22 @@ public class PlayersController {
         stick.setLayoutX(player.getLayoutX() + player.getLayoutBounds().getWidth());
         stick.setLayoutY(player.getLayoutY());
         stick.translateXProperty().bind(player.translateXProperty());
+    }
+
+    public boolean checkIntersection(
+            ShapeController<? extends Node> shapeController) {
+        for (String name : players.keySet()) {
+            if (players.get(name).intersectsLeftStick(shapeController)) {
+                logger.debug("A Shape Intersected With the Left Stick of "
+                        + "Player: " + name);
+                return true;
+            }
+            if (players.get(name).intersectsRightStick(shapeController)) {
+                logger.debug("A Shape Intersected With the Right Stick of "
+                        + "Player: " + name);
+                return true;
+            }
+        }
+        return false;
     }
 }
