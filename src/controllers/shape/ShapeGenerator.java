@@ -45,7 +45,7 @@ public class ShapeGenerator {
                         for (models.Platform platform : platforms) {
                             Shape shapeModel = ShapePool.getShape(level);
                             ImageView imgView = (ImageView) ShapeBuilder.getInstance().
-                                    createShape(shapeModel);
+                                    build(shapeModel);
                             if (imgView == null) {
                                 continue;
                             }
