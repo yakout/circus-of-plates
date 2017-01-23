@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <!-- game mode menu -->
-<VBox fx:id="gameModeMenu" alignment="CENTER" visible="false" 
-      fx:controller="controllers.menus.GameMode" xmlns:fx="http://javafx.com/fxml/1"
-      onKeyReleased="#keyHandler">
+
+<VBox fx:id="gameModeMenu" alignment="CENTER" onKeyReleased="#keyHandler" visible="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.menus.GameMode">
     <children>
         <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="normal" maxWidth="1.7976931348623157E308" mnemonicParsing="false"  onMouseClicked="#mouseHandler" text="NORMAL">
+        <Button id="normal" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NORMAL">
             <font>
                 <Font size="18.0" />
             </font>
@@ -26,6 +25,11 @@
                 <Font size="18.0" />
             </font>
         </Button>
+      <Button id="choosePlayer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE PLAYER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
         <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
             <font>
                 <Font size="18.0" />
