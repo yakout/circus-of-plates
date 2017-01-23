@@ -102,8 +102,7 @@ public class GameController implements Initializable {
 //                }
 //                break;
 //            case RIGHT:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
+//                if (mainGame.isVisible()) {//                    String playerName = PlayerFactory.getFactory()
 //                            .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY);
 //                    if (playerName != null) {
 //                        playerController.moveRight(playerName);

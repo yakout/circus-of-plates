@@ -72,7 +72,7 @@ public abstract class Level {
             if(isEven(i)) {
                 newPlatform = new Platform(new Point(minX
                         + platformNewWidth / 2.0,
-                        platformNewY -PLATFORM_HEIGHT / 2.0),
+                        platformNewY - PLATFORM_HEIGHT / 2.0),
                         Orientation.LEFT);
             } else {
                 newPlatform = new Platform(new Point(maxX
@@ -98,7 +98,7 @@ public abstract class Level {
         return noOfPlatforms;
     }
 
-    public void setNumberOfPlatforms(int size) {
+    protected void setNumberOfPlatforms(int size) {
         this.noOfPlatforms = size;
     }
 }
