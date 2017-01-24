@@ -1,6 +1,8 @@
 package models.levels;
 
 import models.levels.util.LevelFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,10 @@ public class LevelThree extends Level{
     private static final int LEVEL = 3;
     private static List<String> supportedShapes
             = new ArrayList<>();
+    private static Logger logger = LogManager.getLogger(LevelThree.class);
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelThree.class);
+        logger.debug("Class " + LevelThree.class.getName() + " Initialized");
     }
     public LevelThree(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
