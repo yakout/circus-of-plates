@@ -16,7 +16,12 @@
         <Button id="continue" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
             <font>
                 <Font size="18.0" />
-            </font>2
+            </font>
+        </Button>
+        <Button id="saveGame" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="SAVE GAME">
+            <font>
+                <Font size="18.0" />
+            </font>
         </Button>
         <Button id="loadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD GAME">
             <font>
