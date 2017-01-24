@@ -42,7 +42,7 @@ public class GameMode extends MenuController {
         gameModeMenu.setVisible(false);
         switch (id) {
             case "back":
-                Start.getInstance().getMenu().setVisible(true);
+                Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
                 break;
             case "sandBox":

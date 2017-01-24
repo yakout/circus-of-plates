@@ -69,8 +69,7 @@ public class Start extends MenuController {
                 startMenu.setVisible(true);
                 menu.setVisible(false);
                 saveGamePane.setVisible(true);
-
-                // TODO: 1/24/17
+                //
                 break;
             case "options":
                 Options.getInstance().setMenuVisible(true);
@@ -97,7 +96,8 @@ public class Start extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
-        menu.setVisible(true);
+        menu.setVisible(visible);
+        saveGamePane.setVisible(false);
     }
 
     public void activeDisabledButtons() {
