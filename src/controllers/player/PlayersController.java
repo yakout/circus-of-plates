@@ -46,7 +46,7 @@ public class PlayersController {
         return player;
     }
 
-    public void moveLeft(String playerName) {
+    public synchronized void moveLeft(String playerName) {
         double playerWidth = players.get(playerName).getPlayerView()
                 .getLayoutBounds().getWidth();
         double maxDistance = GameController.getInstance().getStageWidth() -
@@ -57,7 +57,7 @@ public class PlayersController {
         players.get(playerName).getPlayerView().setLayoutX(newX);
     }
 
-    public void moveRight(String playerName) {
+    public synchronized void moveRight(String playerName) {
         double playerWidth = getPlayerWidth(playerName);
         double maxDistance = GameController.getInstance().getStageWidth() -
                 playerWidth;
