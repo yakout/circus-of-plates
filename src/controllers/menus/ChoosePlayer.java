@@ -21,14 +21,16 @@ import java.util.ResourceBundle;
  * Created by Ahmed Khaled on 23/01/2017.
  */
 public class ChoosePlayer implements Initializable {
-    private static ChoosePlayer instance;
+
     private static final String CLOWN_DIR = "assets/images/clowns/clown_";
-    private String chosenClownID;
-    private int currPlayer;
     private static final String PLAYER = "PLAYER_";
     private static final String CHOOSE = ": Choose";
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
+    private static final String MOUSE = "mouse";
+    private static ChoosePlayer instance;
+    private String chosenClownID;
+    private int currPlayer;
     private InputType inputType;
     private boolean isPlayer1;
     @FXML
@@ -42,7 +44,7 @@ public class ChoosePlayer implements Initializable {
     @FXML
     Button choose;
     @FXML
-    RadioButton keyboard, joystick;
+    RadioButton keyboard, joystick, mouse;
 
     public ChoosePlayer() {
 
@@ -64,10 +66,6 @@ public class ChoosePlayer implements Initializable {
         anchor.setVisible(visible);
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currPlayer = currentPlayer;
-    }
-
     @FXML
     private void mouseHandler(MouseEvent event){
         chosenClownID = ((Node)event.getSource()).getId().toString();
@@ -82,6 +80,7 @@ public class ChoosePlayer implements Initializable {
             setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
+            mouse.setSelected(false);
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
@@ -92,6 +91,7 @@ public class ChoosePlayer implements Initializable {
             isPlayer1 = true;
             keyboard.setSelected(true);
             joystick.setSelected(false);
+            mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
             //TODO: here you send signal to game controller
@@ -110,12 +110,20 @@ public class ChoosePlayer implements Initializable {
             case KEYBOARD:
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
+                mouse.setSelected(false);
                 handleInputType(KEYBOARD);
                 break;
             case JOYSTICK:
                 joystick.setSelected(true);
                 keyboard.setSelected(false);
+                mouse.setSelected(false);
                 handleInputType(JOYSTICK);
+                break;
+            case MOUSE:
+                mouse.setSelected(true);
+                keyboard.setSelected(false);
+                joystick.setSelected(false);
+                handleInputType(MOUSE);
                 break;
             default:
                 break;
@@ -143,6 +151,9 @@ public class ChoosePlayer implements Initializable {
                 } else {
                     inputType = InputType.JOYSTICK_SECONDARY;
                 }
+                break;
+            case MOUSE:
+                inputType = InputType.MOUSE;
                 break;
             default:
                 break;
