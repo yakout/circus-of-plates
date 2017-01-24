@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.AudioPlayer;
 import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
@@ -18,6 +19,8 @@ import controllers.player.ScoreObserver;
 import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -30,7 +33,6 @@ import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.players.Stick;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +43,8 @@ public class GameController implements Initializable, ScoreObserver {
     private MenuController currentMenu;
     private PlayersController playersController;
     private GameBoard gameBoard;
+    private ShapeGenerator shapeGenerator;
+    private BooleanProperty newGameStarted;
 
     // TODO: 1/19/17 plate Controller
 
@@ -54,13 +58,9 @@ public class GameController implements Initializable, ScoreObserver {
     private AnchorPane mainGame;
     private ModelDataHolder modelDataHolder;
 
-    public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
+    public synchronized static GameController getInstance() {
         return instance;
     }
-
 
     /**
      * Called to initialize a controller after its root element has been
@@ -72,13 +72,16 @@ public class GameController implements Initializable, ScoreObserver {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+
         // Controllers
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
 
-        instance = this;
+        newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
+
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(),
@@ -127,15 +130,12 @@ public class GameController implements Initializable, ScoreObserver {
 //                break;
             case ESCAPE:
                 Platform.runLater(() -> {
-                    if (currentMenu.isVisible()) {
-                        currentMenu.setMenuVisible(false);
-                        mainGame.requestFocus();
-                        mainGame.setVisible(true);
-                    } else {
-                        currentMenu = Start.getInstance();
-                        currentMenu.setMenuVisible(true);
-                        currentMenu.requestFocus(0);
-                        mainGame.setVisible(false);
+                    if (newGameStarted.get()) {
+                        if (currentMenu.isVisible()) {
+                            continueGame();
+                        } else {
+                            pauseGame();
+                        }
                     }
                 });
                 break;
@@ -253,6 +253,8 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
+        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
+        newGameStarted.set(true);
         switch (gameMode) {
             case NORMAL:
                 startNormalGame();
@@ -298,8 +300,7 @@ public class GameController implements Initializable, ScoreObserver {
             mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
-        ShapeGenerator generator
-                = new ShapeGenerator(level, mainGame);
+        shapeGenerator= new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -333,6 +334,28 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    private void pauseGame() {
+        currentMenu = Start.getInstance();
+        currentMenu.setMenuVisible(true);
+        currentMenu.requestFocus(0);
+        mainGame.setVisible(false);
+
+        gameBoard.pause();
+        playersController.pause();
+        shapeGenerator.pauseGenerator();
+        AudioPlayer.backgroundMediaPlayer.pause();
+    }
+
+    private void continueGame() {
+        currentMenu.setMenuVisible(false);
+        mainGame.requestFocus();
+        mainGame.setVisible(true);
+
+        gameBoard.resume();
+        playersController.resume();
+        shapeGenerator.resumeGenerator();
+        AudioPlayer.backgroundMediaPlayer.play();
+    }
 
     @Override
     public void update(int score, String playerName, Stick stick) {
