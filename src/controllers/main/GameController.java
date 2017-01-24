@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
 import controllers.input.InputType;
@@ -38,6 +39,8 @@ public class GameController implements Initializable, ScoreObserver {
     private static GameController instance;
     private MenuController currentMenu;
     private PlayersController playersController;
+    private GameBoard gameBoard;
+
     // TODO: 1/19/17 plate Controller
 
     @FXML
@@ -69,6 +72,7 @@ public class GameController implements Initializable, ScoreObserver {
     public void initialize(URL location, ResourceBundle resources) {
         // Controllers
         currentMenu = Start.getInstance();
+        gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
 
         instance = this;
@@ -264,6 +268,10 @@ public class GameController implements Initializable, ScoreObserver {
         try {
             playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
             playersController.createPlayer(path_1, "player2", InputType.KEYBOARD_SECONDARY);
+
+            gameBoard.addPlayerPanel("player1");
+            gameBoard.addPlayerPanel("player2");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -319,10 +327,12 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+
     @Override
     public void update(int score, String playerName, Stick stick) {
         //TODO:- UPDATE THE SCORING LABEL.
-        
+
         playersController.removeShapes(playerName, stick);
+        gameBoard.updateScore(score, playerName);
     }
 }

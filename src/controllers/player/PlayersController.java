@@ -102,6 +102,9 @@ public class PlayersController {
 
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);
+
+
+        // TODO move this to audio player
         new Thread(() -> {
             new MediaPlayer(AudioPlayer.newScoreMedia).play();
         });

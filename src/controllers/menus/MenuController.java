@@ -58,9 +58,7 @@ public abstract class MenuController implements Initializable {
     abstract void handle(String id);
 
     private void handleEvent(Direction direction) {
-        System.out.println("prev " + currentIndex);
         getCurrentIndex();
-        System.out.println(" curr " + currentIndex);
         switch (direction) {
             case UP:
                 if (currentIndex > 0) {
