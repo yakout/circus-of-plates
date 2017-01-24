@@ -16,7 +16,8 @@ import models.shapes.Shape;
 
 public class Player {
     private static int numOfPlayers = 0;
-    private List<ScoreObserver> observers;
+
+    private transient List<ScoreObserver> observers;
     private Stack<Shape> leftStick;
     private Stack<Shape> rightStick;
     private String playerName;

@@ -56,7 +56,7 @@ public class ShapeFactory {
     public static Shape getShape(Color color, String shapeIdentifier) {
         Shape newShape = null;
         try {
-            newShape = (Shape) registeredShapes.get(shapeIdentifier)
+            newShape = registeredShapes.get(shapeIdentifier)
                     .getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException |
                 IllegalArgumentException | InvocationTargetException
