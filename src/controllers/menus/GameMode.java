@@ -58,7 +58,7 @@ import java.util.ResourceBundle;
                 break;
             case "choosePlayer":
 //                 TODO: disables the current menu and shows my clown chooser.
-
+                ChoosePlayer.getInstance().setVisible(true);
                 ChoosePlayer.getInstance().attachClowns();
                 break;
             default:
