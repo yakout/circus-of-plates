@@ -35,6 +35,15 @@ public class ShapeGenerator {
                         Thread.currentThread().sleep(Long.MAX_VALUE);
                     } catch (InterruptedException e) {
                         logger.info("Generation Thread Resumed");
+                        System.out.println("HI1");
+                        try {
+                            System.out.println("HI2");
+                            Thread.currentThread().sleep(5000);
+                            System.out.println("HI3");
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                            continue;
+                        }
                         break;
                     }
                 }

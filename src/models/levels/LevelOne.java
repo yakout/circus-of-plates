@@ -1,4 +1,5 @@
 package models.levels;
+import models.levels.util.LevelFactory;
 import models.states.Color;
 
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ public class LevelOne extends Level {
     private final double CLOWN_SPEED_RATIO = 1.0;
     private static final int PLATFORMS = 10;
     private static final int LEVEL = 1;
+    static {
+        LevelFactory.getInstance().registerLevel(LEVEL, LevelOne.class);
+    }
     private static List<String> supportedShapes
             = new ArrayList<>();
     public LevelOne(double minX, double minY, double maxX, double maxY) {
