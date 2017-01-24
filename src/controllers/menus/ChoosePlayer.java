@@ -2,19 +2,12 @@ package controllers.menus;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import models.players.Player;
 import models.players.PlayerFactory;
-
-import java.awt.event.MouseEvent;
-import java.net.InterfaceAddress;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 
 /**
  * Created by Ahmed Khaled on 23/01/2017.
@@ -59,7 +52,7 @@ public class ChoosePlayer implements Initializable {
     }
 
     @FXML
-    private void mouseHandler(){
+    private void mouseHandler(MouseEvent event){
 //        chosenClownID = ((Node)event.getSource()).getId().toString();
     }
 

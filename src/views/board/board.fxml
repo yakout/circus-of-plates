@@ -1,22 +1,33 @@
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Label?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.HBox?>
 <?import java.net.URL?>
-<HBox fx:id="board" prefHeight="100.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.board.GameBoard">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="board" prefHeight="100.0" prefWidth="202.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.board.GameBoard">
     <children>
+      <VBox fx:id="leftPanel" alignment="CENTER" prefHeight="100.0" prefWidth="70.0">
+         <children>
 
-        <Label fx:id="playerOneScore" prefHeight="17.0" prefWidth="58.0" text="Player 1" />
+             <!-- here you load player panel -->
 
-        <Label fx:id="counter" alignment="CENTER" prefHeight="60.0" prefWidth="131.0"
-               text="0:01" textAlignment="CENTER">
+         </children>
+      </VBox>
+
+        <Label fx:id="counter" alignment="CENTER" prefHeight="100.0" prefWidth="77.0" text="0:01" textAlignment="CENTER">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Label>
+      <VBox fx:id="rightPanel" prefHeight="200.0" prefWidth="70.0">
+         <children>
 
-        <Label fx:id="playerTwoScore" prefHeight="17.0" prefWidth="58.0" text="Player 2"/>
+             <!-- here you load player panel -->
+
+         </children>
+      </VBox>
 
     </children>
 

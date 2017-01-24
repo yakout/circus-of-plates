@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.AudioPlayer;
 import controllers.input.InputAction;
 import controllers.input.joystick.JoystickEvent;
 import javafx.application.Platform;
@@ -11,7 +12,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import controllers.main.GameController;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 
 
 public abstract class MenuController implements Initializable {
@@ -58,9 +58,7 @@ public abstract class MenuController implements Initializable {
     abstract void handle(String id);
 
     private void handleEvent(Direction direction) {
-        System.out.println("prev " + currentIndex);
         getCurrentIndex();
-        System.out.println(" curr " + currentIndex);
         switch (direction) {
             case UP:
                 if (currentIndex > 0) {
@@ -88,19 +86,19 @@ public abstract class MenuController implements Initializable {
         switch (event.getJoystickCode()) {
             case DOWN:
                 Platform.runLater(() -> {
-                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
                     handleEvent(Direction.DOWN);
                 });
                 break;
             case UP:
                 Platform.runLater(() -> {
-                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
                     handleEvent(Direction.UP);
                 });
                 break;
             case PRESS:
                 Platform.runLater(() -> {
-                    new MediaPlayer(Utils.menuSelectionMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuSelectionMedia).play();
                     handleEvent(Direction.PRESS);
                 });
             default:
@@ -114,7 +112,7 @@ public abstract class MenuController implements Initializable {
         switch (event.getCode()) {
             case ENTER:
                 new Thread(() -> {
-                    new MediaPlayer(Utils.menuSelectionMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuSelectionMedia).play();
                 }).start();
                 handle(getButton(getCurrentIndex()).getId());
                 break;
@@ -123,12 +121,12 @@ public abstract class MenuController implements Initializable {
                 break;
             case DOWN:
                 new Thread(() -> {
-                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
                 }).start();
                 break;
             case UP:
                 new Thread(() -> {
-                    new MediaPlayer(Utils.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
                 }).start();
                 break;
             default:
