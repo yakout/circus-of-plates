@@ -26,6 +26,8 @@ public class PositionInitializer {
         }
         shapeModel.getPosition().setY(platform.getCenter().getY() - platform.getHeight
                 ().doubleValue() / 2.0);
+        shapeModel.getInitialPosition().setX(shapeModel.getPosition().getX());
+        shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY());
 //        logger.info("Shape object is positioned on the platform.");
     }
 }

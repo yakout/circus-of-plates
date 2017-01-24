@@ -13,19 +13,36 @@ import java.util.Set;
  */
 public class ModelDataHolder {
     private Level activeLevel;
+
     private Set<Shape> shapes;
+
     private Set<Player> players;
     public ModelDataHolder() {
         shapes = new HashSet<>();
         players = new HashSet<>();
     }
-
     public Level getActiveLevel() {
         return activeLevel;
     }
 
     public void setActiveLevel(Level activeLevel) {
         this.activeLevel = activeLevel;
+    }
+
+    public Set<Shape> getShapes() {
+        return shapes;
+    }
+
+    public void setShapes(Set<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 
     public boolean addShape(Shape shape) {
