@@ -1,20 +1,19 @@
 package controllers.shape;
 
 import controllers.shape.util.ShapeMovingObserver;
-import controllers.shape.util.ShapeState;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MovingShapeController<T extends Node> extends
+public class MovingShapeStateController<T extends Node> extends
         ShapeMovementController<T> {
     private final models.Platform platform;
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
     private final ShapeMovingObserver shapeMovingObserver;
-    private static Logger logger = LogManager.getLogger(MovingShapeController
+    private static Logger logger = LogManager.getLogger(MovingShapeStateController
             .class);
     private double offset;
     private final Runnable shapeMover = new Runnable() {
@@ -67,8 +66,8 @@ public class MovingShapeController<T extends Node> extends
         }
     };
 
-    public MovingShapeController(final T shape, final Shape model,
-                                 final models.Platform platform, final
+    public MovingShapeStateController(final T shape, final Shape model,
+                                      final models.Platform platform, final
                                  ShapeMovingObserver shapeMovingObserver) {
         super(shape, model);
         this.shapeMovingObserver = shapeMovingObserver;

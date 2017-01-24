@@ -25,6 +25,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		this.shapeModel = model;
 		this.platform = platform;
 		currentState = null;
+		GameController.getInstance().addShapeController(this);
 	}
 
 	public void startMoving() {
@@ -32,13 +33,13 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		switch (shapeModel.getState()) {
 			case MOVING_HORIZONTALLY:
 				currentState
-						= new MovingShapeController<>(
+						= new MovingShapeStateController<>(
 								shape, shapeModel,
 						platform, this);
 				break;
 			case FALLING:
 				currentState
-						= new FallingShapeController<>(shape,
+						= new FallingShapeStateController<>(shape,
 						shapeModel, this);
 				break;
 			default:
@@ -55,7 +56,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		currentState.nextState();
 		shapeModel.setState(ShapeState.FALLING);
 		currentState
-				= new FallingShapeController<>(shape, shapeModel, this);
+				= new FallingShapeStateController<>(shape, shapeModel, this);
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		}
 		currentState.nextState();
 		shapeModel.setState(ShapeState.ON_THE_GROUND);
-		currentState = new OnTheGroundShapeController<>(this);
+		currentState = new OnTheGroundShapeStateController<>(this);
 		//TODO:- Ask the main controller to add the plate to the pool.
 	}
 
@@ -107,6 +108,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		ShapeControllerPool.getInstance().storeShapeController(this);
 		shape.setVisible(false);
 		shapeModel.setState(ShapeState.INACTIVE);
+		GameController.getInstance().removeShapeController(this);
 	}
 
 	public void resetShape() {

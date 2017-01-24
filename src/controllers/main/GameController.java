@@ -33,8 +33,12 @@ import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.players.Stick;
+
+import services.file.FileHandler;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 
@@ -45,6 +49,7 @@ public class GameController implements Initializable, ScoreObserver {
     private GameBoard gameBoard;
     private ShapeGenerator shapeGenerator;
     private BooleanProperty newGameStarted;
+    private Collection<ShapeController<? extends Node>> shapeControllers;
 
     // TODO: 1/19/17 plate Controller
 
@@ -57,7 +62,7 @@ public class GameController implements Initializable, ScoreObserver {
     @FXML
     private AnchorPane mainGame;
     private ModelDataHolder modelDataHolder;
-
+    private FileHandler handler;
     public synchronized static GameController getInstance() {
         return instance;
     }
@@ -78,14 +83,27 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
-
+        handler = new FileHandler();
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
-
+        shapeControllers = new ArrayList<>();
+        registerLevels();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(),
                 instance);
+    }
+
+    public void registerLevels() {
+        try {
+            Class.forName("models.levels.LevelOne");
+            Class.forName("models.levels.LevelTwo");
+            Class.forName("models.levels.LevelThree");
+            Class.forName("models.levels.LevelFour");
+            Class.forName("models.levels.LevelFive");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -102,6 +120,16 @@ public class GameController implements Initializable, ScoreObserver {
 
     public ModelDataHolder getModelDataHolder() {
         return modelDataHolder;
+    }
+
+    public void addShapeController(ShapeController<? extends Node>
+                                           shapeController) {
+        shapeControllers.add(shapeController);
+    }
+
+    public void removeShapeController(ShapeController<? extends Node>
+                                              shapeController) {
+        shapeControllers.remove(shapeController);
     }
 
     @FXML
@@ -334,24 +362,30 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-    public void pauseGame() {
+    private synchronized void pauseGame() {
         currentMenu = Start.getInstance();
         currentMenu.setMenuVisible(true);
         currentMenu.requestFocus(0);
         mainGame.setVisible(false);
-
+        for (ShapeController<? extends Node> shapeController :
+                shapeControllers) {
+            shapeController.gamePaused();
+        }
         gameBoard.pause();
         playersController.pause();
         shapeGenerator.pauseGenerator();
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
-    public void continueGame() {
+    private synchronized void continueGame() {
 //        if (!newGameStarted.get()) return;
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
         mainGame.setVisible(true);
-
+        for (ShapeController<? extends Node> shapeController :
+                shapeControllers) {
+            shapeController.gameResumed();
+        }
         gameBoard.resume();
         playersController.resume();
         shapeGenerator.resumeGenerator();

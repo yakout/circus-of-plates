@@ -1,5 +1,8 @@
 package models.levels;
+import models.levels.util.LevelFactory;
 import models.states.Color;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,11 @@ public class LevelOne extends Level {
     private final double CLOWN_SPEED_RATIO = 1.0;
     private static final int PLATFORMS = 10;
     private static final int LEVEL = 1;
+    private static Logger logger = LogManager.getLogger(LevelOne.class);
+    static {
+        LevelFactory.getInstance().registerLevel(LEVEL, LevelOne.class);
+        logger.debug("Class " + LevelOne.class.getName() + " Initialized");
+    }
     private static List<String> supportedShapes
             = new ArrayList<>();
     public LevelOne(double minX, double minY, double maxX, double maxY) {

@@ -1,18 +1,16 @@
 package controllers.shape;
 
-import controllers.main.GameController;
 import controllers.shape.util.ShapeFallingObserver;
-import controllers.shape.util.ShapeState;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FallingShapeController<T extends Node> extends
+public class FallingShapeStateController<T extends Node> extends
 		ShapeMovementController<T> {
 	private static Logger logger = LogManager.getLogger
-			(FallingShapeController.class);
+			(FallingShapeStateController.class);
 	private static final Long THREAD_SLEEP_TIME = 10L;
 	private final ShapeFallingObserver shapeFallingObserver;
 	private final Runnable shapeMover = new Runnable() {
@@ -63,8 +61,8 @@ public class FallingShapeController<T extends Node> extends
 					+ "Stopped");
 		}
 	};
-	public FallingShapeController(final T shape, final Shape model
-			,final ShapeFallingObserver shapeFallingObserver) {
+	public FallingShapeStateController(final T shape, final Shape model
+			, final ShapeFallingObserver shapeFallingObserver) {
 		super(shape, model);
 		this.shapeFallingObserver = shapeFallingObserver;
 		shapeMovementThread = new Thread(shapeMover,
