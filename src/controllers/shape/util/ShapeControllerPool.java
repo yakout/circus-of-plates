@@ -32,10 +32,12 @@ public class ShapeControllerPool {
             (Platform platform) {
         Iterator<ShapeController<? extends Node>> iterator = shapeControllers
                 .iterator();
+        System.out.println(shapeControllers.size());
         while (iterator.hasNext()) {
             ShapeController<? extends Node> shapeController = iterator.next();
             if (shapeController.getPlatform().equals(platform)) {
                 iterator.remove();
+                System.out.println(shapeControllers.size());
                 return shapeController;
             }
         }

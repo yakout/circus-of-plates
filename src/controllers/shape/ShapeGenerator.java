@@ -44,8 +44,9 @@ public class ShapeGenerator {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
                             ShapeController<? extends Node> shapeController =
-                                    ShapeControllerPool.getInstance()
-                                            .getShapeController(platform);
+                                    null;
+//                                    ShapeControllerPool.getInstance()
+//                                            .getShapeController(platform);
                             if (shapeController != null) {
                                 shapeController.resetShape();
                                 shapeController.startMoving();
