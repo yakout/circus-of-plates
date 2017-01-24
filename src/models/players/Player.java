@@ -3,8 +3,11 @@ package models.players;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.EmptyStackException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
+import com.sun.jmx.remote.internal.ArrayQueue;
 import controllers.input.InputType;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -46,6 +49,14 @@ public class Player {
         this.playerName = name;
     }
 
+    public Stack<Shape> getLeftStack() {
+        return leftStick;
+    }
+
+    public Stack<Shape> getRightStack() {
+        return rightStick;
+    }
+
     public boolean pushPlateLeft(Shape shape) {
         return pushPlate(this.leftStick, shape);
     }
@@ -54,25 +65,31 @@ public class Player {
         return pushPlate(this.rightStick, shape);
     }
     
-    private void popPlate(Stack<Shape> stick) throws EmptyStackException {
-        stick.pop();
+    private void popPlate(Stack<Shape> stack) throws EmptyStackException {
+        stack.pop();
     }
     
     // returns true if got consecutive plates and the score increased
-    private boolean pushPlate(Stack<Shape> stick, Shape shape) {
-        stick.add(shape);
-        if (stick.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
-            for (int i = 1; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
-                if (!stick.peek().equals(shape.getColor())) {
-                    return false;
+    private boolean pushPlate(Stack<Shape> stack, Shape shape) {
+        stack.add(shape);
+        if (stack.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
+            Queue<Shape> queue = new LinkedList<>();
+            for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
+                if (stack.peek().getColor() == shape.getColor()) {
+                    queue.add(stack.pop());
                 }
             }
-            for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
-                this.popPlate(stick);
+            if (queue.size() < GameRules.NUM_OF_CONSECUTIVE_PLATES) {
+                while (!queue.isEmpty()) {
+                    stack.push(queue.poll());
+                }
+            } else {
+                this.addScore(GameRules.CONSECUTIVE_PLATES_ADDED_SCORE);
+                return true;
             }
-            this.addScore(GameRules.CONSECUTIVE_PLATES_ADDED_SCORE);
-            return true;
+            return false;
         }
+        stack.push(shape);
         return false;
     }
     

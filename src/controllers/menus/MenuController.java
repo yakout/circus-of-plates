@@ -16,7 +16,7 @@ import javafx.scene.media.MediaPlayer;
 
 public abstract class MenuController implements Initializable {
     private int currentIndex = 0;
-    
+
     enum Direction {
         UP,
         DOWN,
@@ -36,7 +36,7 @@ public abstract class MenuController implements Initializable {
 
     protected int getCurrentIndex() {
         int index = 0;
-        for(Node button : getMenu().getChildren()) {
+        for (Node button : getMenu().getChildren()) {
             if (button.isFocused()) {
                 break;
             }

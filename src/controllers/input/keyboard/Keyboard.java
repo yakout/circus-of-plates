@@ -78,6 +78,7 @@ public class Keyboard extends Input {
             }
         });
         thread.start();
+        // thread.setDaemon(true);
     }
 
     public void stop() {

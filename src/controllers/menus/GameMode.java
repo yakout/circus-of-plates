@@ -2,9 +2,11 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,6 +54,7 @@ import java.util.ResourceBundle;
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
                 GameController.getInstance().getMainGame().setVisible(true);
+                Utils.backgroundMediaPlayer.play();
                 break;
             case "chooseLevel":
 //                 TODO: 12/25/16 save the current mode and go to player menu
