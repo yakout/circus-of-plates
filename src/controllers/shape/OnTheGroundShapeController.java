@@ -20,15 +20,15 @@ public class OnTheGroundShapeController<T extends Node> implements ShapeState {
     Runnable onTheGroundIdleRunnable = new Runnable() {
         @Override
         public void run() {
+            try {
+                Thread.currentThread().sleep(THREAD_SLEEP_TIME);
+            } catch (InterruptedException e) {
+                logger.info("On The Ground Sleep Thread is "
+                        + "Interrupted");
+            }
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        Thread.currentThread().sleep(THREAD_SLEEP_TIME);
-                    } catch (InterruptedException e) {
-                        logger.info("On The Ground Sleep Thread is "
-                                + "Interrupted");
-                    }
                     observer.shapeShouldEnterThePool();
                 }
             });

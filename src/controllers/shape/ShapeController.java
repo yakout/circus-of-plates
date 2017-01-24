@@ -111,11 +111,6 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
 	public void resetShape() {
 		shapeModel.setState(ShapeState.MOVING_HORIZONTALLY);
-		try {
-			shapeModel.setPosition(shapeModel.getInitialPosition().clone());
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
 		shape.setLayoutX(shapeModel.getInitialPosition().getX());
 		shape.setLayoutY(shapeModel.getInitialPosition().getY());
 		shape.setTranslateX(0);
