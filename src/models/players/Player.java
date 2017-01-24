@@ -58,11 +58,11 @@ public class Player {
     }
 
     public boolean pushPlateLeft(Shape shape) {
-        return pushPlate(this.leftStick, shape);
+        return pushPlate(this.leftStick, shape, Stick.LEFT);
     }
     
     public boolean pushPlateRight(Shape shape) {
-        return pushPlate(this.rightStick, shape);
+        return pushPlate(this.rightStick, shape, Stick.RIGHT);
     }
     
     private void popPlate(Stack<Shape> stack) throws EmptyStackException {
@@ -70,8 +70,8 @@ public class Player {
     }
     
     // returns true if got consecutive plates and the score increased
-    private boolean pushPlate(Stack<Shape> stack, Shape shape) {
-        stack.add(shape);
+    private boolean pushPlate(Stack<Shape> stack, Shape shape, Stick stick) {
+        stack.push(shape);
         if (stack.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
             Queue<Shape> queue = new LinkedList<>();
             for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
@@ -85,12 +85,11 @@ public class Player {
                 }
             } else {
                 this.addScore(GameRules.CONSECUTIVE_PLATES_ADDED_SCORE);
-                notifyObservers(queue);
+                notifyObservers(stick);
                 return true;
             }
             return false;
         }
-        stack.push(shape);
         return false;
     }
     
@@ -98,9 +97,9 @@ public class Player {
         this.score += change;
     }
 
-    private void notifyObservers(Collection<Shape> shapesToRemove) {
+    private void notifyObservers(Stick stick) {
          for (ScoreObserver scoreObserver : observers) {
-             scoreObserver.update(this, shapesToRemove);
+             scoreObserver.update(this.score, this.playerName, stick);
          }
     }
 

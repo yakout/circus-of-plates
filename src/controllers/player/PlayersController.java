@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import models.ShapePool;
 import models.players.Player;
 import models.players.PlayerFactory;
+import models.players.Stick;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PlayersController implements ScoreObserver {
+public class PlayersController {
     private Map<String, PlayerController> players;
     private Pane gamePane;
     private static Logger logger = LogManager.getLogger(PlayersController
@@ -45,7 +46,6 @@ public class PlayersController implements ScoreObserver {
         // 20 is default
         gamePane.getChildren().add(player);
         PlayerController playerController = new PlayerController(playerName, player, playerModel);
-        playerModel.registerObserver(this);
         players.put(playerName, playerController);
         return player;
     }
@@ -98,14 +98,8 @@ public class PlayersController implements ScoreObserver {
         return false;
     }
 
-    @Override
-    public void update(Player player, Collection<Shape> shapesToRemove) {
-        for(Map.Entry<String, PlayerController>  entry: players.entrySet()) {
-            if (entry.getKey().equals(player.getName())) {
-                for (Shape shape : shapesToRemove) {
-                    // TODO: 1/24/17  
-                }
-            }
-        }
+    public void removeShapes(String playerName, Stick stick) {
+        players.get(playerName).removeShape(stick);
     }
+
 }

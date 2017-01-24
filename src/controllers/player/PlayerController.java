@@ -1,13 +1,18 @@
 package controllers.player;
 
 
+import controllers.main.GameController;
 import controllers.shape.ShapeController;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import models.GameRules;
 import models.players.Player;
+import models.players.Stick;
 import models.shapes.Shape;
 import models.states.ShapeState;
+
+import java.util.Stack;
 
 /**
  * Created by ahmedyakout on 1/23/17.
@@ -19,6 +24,8 @@ public class PlayerController {
     private Node playerPane;
     private Node clown;
     private Player playerModel;
+    private Stack<ShapeController<? extends Node>> leftStack;
+    private Stack<ShapeController<? extends Node>> rightStack;
     private static final double STICK_BASE_RATIO = 0.275;
     private static final double STACK_Y_RATIO = 0.05;
 
@@ -30,6 +37,9 @@ public class PlayerController {
         this.leftStick = getNodeWithId("leftstick");
         this.rightStick = getNodeWithId("rightstick");
         this.clown = getNodeWithId("clown");
+        leftStack = new Stack<>();
+        rightStack = new Stack<>();
+        playerModel.registerObserver(GameController.getInstance());
     }
 
     public Node getNodeWithId(String id) {
@@ -78,8 +88,9 @@ public class PlayerController {
         if (intersects(shapeModel, leftStickMinX,
                 leftStickMaxX, leftStickIntersectionMinY,
                 leftStickIntersectionMaxY)) {
-            playerModel.pushPlateLeft(shapeModel);
             bindLeftStick(shapeController);
+            leftStack.push(shapeController);
+            playerModel.pushPlateLeft(shapeModel);
             return true;
         }
         return false;
@@ -102,8 +113,9 @@ public class PlayerController {
         if (intersects(shapeModel, rightStickMinX,
                 rightStickMaxX, rightStickIntersectionMinY,
                 rightStickIntersectionMaxY)) {
-            playerModel.pushPlateRight(shapeModel);
             bindRightStick(shapeController);
+            rightStack.push(shapeController);
+            playerModel.pushPlateRight(shapeModel);
             return true;
         }
         return false;
@@ -132,7 +144,8 @@ public class PlayerController {
         return stickBounds.intersects(shapeBounds);
     }
 
-    public void bindLeftStick(ShapeController<? extends Node> shapeController) {
+    public synchronized void bindLeftStick(ShapeController<? extends Node>
+                                       shapeController) {
         Node shape = shapeController.getShape();
         double relativeLeftStickCenter = leftStick.getLayoutX()
                 + STICK_BASE_RATIO * leftStick.getLayoutBounds().getWidth();
@@ -149,7 +162,7 @@ public class PlayerController {
                         / 2.0 - shape.getLayoutX()));
     }
 
-    public void bindRightStick(ShapeController<? extends Node>
+    public synchronized void bindRightStick(ShapeController<? extends Node>
                                        shapeController) {
         Node shape = shapeController.getShape();
         double relativeRightCenter = rightStick
@@ -170,7 +183,29 @@ public class PlayerController {
                         / 2.0 - shape.getLayoutX()));
     }
 
-    private double calculateLeftStackY() {
+    public synchronized void removeShape(Stick stick) {
+        for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
+            ShapeController<? extends Node> shapeController =
+                    null;
+            switch (stick) {
+                case RIGHT:
+                    shapeController = rightStack.pop();
+                    break;
+                case LEFT:
+                    shapeController = leftStack.pop();
+                    break;
+                default:
+                    break;
+            }
+            if (shapeController == null) {
+                return;
+            }
+            shapeController.getShape().setVisible(false);
+        }
+
+    }
+
+    private synchronized double calculateLeftStackY() {
         double y = playerPane.getLayoutY() + leftStick
                 .getLayoutY();
         for (Shape shape : playerModel.getLeftStack()) {
@@ -179,7 +214,7 @@ public class PlayerController {
         return y;
     }
 
-    private double calculateRightStackY() {
+    private synchronized double calculateRightStackY() {
         double y = playerPane.getLayoutY() + rightStick
                 .getLayoutY();
         for (Shape shape : playerModel.getRightStack()) {
@@ -188,7 +223,7 @@ public class PlayerController {
         return y;
     }
 
-    private double calculateLeftStackHeight() {
+    private synchronized double calculateLeftStackHeight() {
         double height = leftStick.getLayoutBounds().getHeight();
         for (Shape shape : playerModel.getLeftStack()) {
             height += shape.getHeight().doubleValue();
@@ -196,7 +231,7 @@ public class PlayerController {
         return height;
     }
 
-    private double calculateRightStackHeight() {
+    private synchronized double calculateRightStackHeight() {
         double height = rightStick.getLayoutBounds().getHeight();
         for (Shape shape : playerModel.getRightStack()) {
             height += shape.getHeight().doubleValue();

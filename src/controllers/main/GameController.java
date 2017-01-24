@@ -13,6 +13,7 @@ import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayersController;
+import controllers.player.ScoreObserver;
 import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
@@ -26,12 +27,14 @@ import models.GameMode;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
+import models.players.Stick;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class GameController implements Initializable {
+public class GameController implements Initializable, ScoreObserver {
     private static GameController instance;
     private MenuController currentMenu;
     private PlayersController playersController;
@@ -314,5 +317,11 @@ public class GameController implements Initializable {
                 // 350 - rect.getWidth() / 2.0));
             }
         }
+    }
+
+    @Override
+    public void update(int score, String playerName, Stick stick) {
+        //TODO:- UPDATE THE SCORING LABEL.
+        playersController.removeShapes(playerName, stick);
     }
 }
