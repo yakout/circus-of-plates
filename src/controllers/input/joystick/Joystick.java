@@ -51,7 +51,7 @@ public class Joystick extends Input {
                 // First controller of the desired type.
                 Controller firstController = searchForController(controllers);
 
-                if(firstController == null) {
+                if (firstController == null) {
                     // Couldn't find a controller
                     System.out.println("Found no desired controller!");
                     return;
@@ -65,6 +65,7 @@ public class Joystick extends Input {
             }
         });
         thread.start();
+        thread.setDaemon(true);
     }
 
     public void stop() {
