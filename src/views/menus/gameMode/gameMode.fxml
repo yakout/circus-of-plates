@@ -8,10 +8,11 @@
 
 <!-- game mode menu -->
 
-<AnchorPane fx:id="gameModeMenu" onKeyReleased="#keyHandler" prefHeight="188.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.GameMode">
+<AnchorPane fx:id="gameModeMenu" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.GameMode">
     <children>
 
-        <VBox fx:id="menu" prefHeight="176.0" prefWidth="830.0" visible="true" AnchorPane.bottomAnchor="574.0"
+        <VBox fx:id="menu" onKeyReleased="#keyHandler" visible="true" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
                 <font>
@@ -40,7 +41,8 @@
             </Button>
         </VBox>
 
-        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
     </children>
     <stylesheets>

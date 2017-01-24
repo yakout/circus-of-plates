@@ -33,6 +33,7 @@ public class ChoosePlayer implements Initializable {
     private int currPlayer;
     private InputType inputType;
     private boolean isPlayer1;
+
     @FXML
     AnchorPane anchor;
     @FXML

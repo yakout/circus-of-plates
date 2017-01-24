@@ -129,15 +129,13 @@ public class GameController implements Initializable, ScoreObserver {
 //                }
 //                break;
             case ESCAPE:
-                Platform.runLater(() -> {
-                    if (newGameStarted.get()) {
-                        if (currentMenu.isVisible()) {
-                            continueGame();
-                        } else {
-                            pauseGame();
-                        }
+                 if (newGameStarted.get()) {
+                    if (currentMenu.isVisible()) {
+                        continueGame();
+                    } else {
+                         pauseGame();
                     }
-                });
+                }
                 break;
 //            // keyboard_two
 //            case A:
@@ -254,6 +252,8 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).setContinueButtonDisabled(false);
+        GameController.getInstance().getMainGame().setVisible(true);
+        AudioPlayer.backgroundMediaPlayer.play();
         newGameStarted.set(true);
         switch (gameMode) {
             case NORMAL:
@@ -347,6 +347,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void continueGame() {
+//        if (!newGameStarted.get()) return;
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
         mainGame.setVisible(true);

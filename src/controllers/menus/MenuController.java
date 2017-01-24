@@ -118,6 +118,7 @@ public abstract class MenuController implements Initializable {
                 break;
             case ESCAPE:
                 System.out.println("escape is pressed and triggered by a menu");
+//                GameController.getInstance().continueGame();
                 break;
             case DOWN:
                 new Thread(() -> {
