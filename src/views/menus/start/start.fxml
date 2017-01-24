@@ -2,16 +2,15 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="startMenu" onKeyReleased="#keyHandler" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Start">
+<AnchorPane fx:id="startMenu" onKeyReleased="#keyHandler" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Start">
     <children>
-        <VBox fx:id="menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+        <VBox fx:id="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Button id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NEW GAME">
                 <font>
                     <Font size="18.0" />
@@ -49,9 +48,12 @@
             </Button>
         </VBox>
 
-        <AnchorPane  fx:id="saveGamePane" visible="false">
-            <TextField fx:id="gameName" />
-            <Button fx:id="done" />
+        <AnchorPane fx:id="saveGamePane" prefHeight="97.0" prefWidth="167.0" visible="false">
+            <Label alignment="CENTER" layoutX="13.0" prefHeight="17.0" prefWidth="104.0" text="Game Name" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TextField fx:id="gameName" layoutX="-1.0" layoutY="23.0" prefHeight="47.0" prefWidth="167.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0" />
+
+            <Button fx:id="done" layoutX="20.0" layoutY="102.0" text="Save" AnchorPane.bottomAnchor="0.0" />
+            <Button layoutX="85.0" layoutY="101.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="0.0"/>
         </AnchorPane>
 
     </children>

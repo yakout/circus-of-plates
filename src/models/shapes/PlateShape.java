@@ -1,9 +1,8 @@
 package models.shapes;
 
 import models.ShapeFactory;
-import models.levels.LevelOne;
-import models.levels.LevelTwo;
-import models.shapes.util.ColorNameAdapter;
+import models.levels.*;
+import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +23,10 @@ public class PlateShape extends Shape {
         ShapeFactory.registerShape(KEY, PlateShape.class);
         LevelOne.registerShape(KEY);
         LevelTwo.registerShape(KEY);
-        logger.debug("Class " + KEY + " Initialized");
+        LevelThree.registerShape(KEY);
+        LevelFour.registerShape(KEY);
+        LevelFive.registerShape(KEY);
+        logger.debug("Class " + KEY + " initialized");
     }
     public PlateShape() {
         super();
@@ -35,7 +37,7 @@ public class PlateShape extends Shape {
     @Override
     public String getShapeURL() {
         System.out.println(new File(URL).getAbsolutePath());
-        String colorString = new ColorNameAdapter().getColorName(color);
+        String colorString = getColorName(color);
         try {
             return new File(URL + colorString + FILE_NAME).toURI().toURL()
                     .toString();
@@ -43,6 +45,10 @@ public class PlateShape extends Shape {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getColorName(Color color) {
+        return color.toString().toLowerCase();
     }
 
 }
