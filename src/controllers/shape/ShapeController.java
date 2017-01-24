@@ -16,26 +16,26 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	private final T shape;
 	private final Shape shapeModel;
 	private final Platform platform;
-	private ShapeMovementController<T> currentController;
+	private controllers.shape.util.ShapeState currentState;
 	public ShapeController(final T shape, final Shape model,
 						   final models.Platform platform) {
 		this.shape = shape;
 		this.shapeModel = model;
 		this.platform = platform;
-		currentController = null;
+		currentState = null;
 	}
 
 	public void startMoving() {
 		logger.debug("Shape " + " Movement Requested");
 		switch (shapeModel.getState()) {
 			case MOVING_HORIZONTALLY:
-				currentController
+				currentState
 						= new MovingShapeController<>(
 								shape, shapeModel,
 						platform, this);
 				break;
 			case FALLING:
-				currentController
+				currentState
 						= new FallingShapeController<>(shape,
 						shapeModel, this);
 				break;
@@ -47,22 +47,23 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	@Override
 	public void shapeShouldStartFalling() {
 	    logger.debug("A Shape Should Start Falling");
-		if (currentController == null) {
+		if (currentState == null) {
 			return;
 		}
-		currentController.stopMoving();
+		currentState.nextState();
 		shapeModel.setState(ShapeState.FALLING);
-		currentController
+		currentState
 				= new FallingShapeController<>(shape, shapeModel, this);
 	}
 
 	@Override
 	public void shapeShouldStopFalling() {
-		if (currentController == null) {
+		if (currentState == null) {
 			return;
 		}
+		currentState.nextState();
 		shapeModel.setState(ShapeState.ON_THE_GROUND);
-		currentController.stopMoving();
+
 		//TODO:- Ask the main controller to add the plate to the pool.
 	}
 
@@ -72,19 +73,19 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	}
 
 	public void shapeFellOnTheStack() {
-		if (currentController == null) {
+		if (currentState == null) {
 			return;
 		}
+		currentState.nextState();
 		shapeModel.setState(ShapeState.ON_THE_STACK);
-		currentController.stopMoving();
 	}
 
 	public void gamePaused() {
-		currentController.pauseMovement();
+		currentState.pauseCurrentState();
 	}
 
 	public void gameResumed() {
-		currentController.resumeMovement();
+		currentState.resumeCurrentState();
 	}
 
 	public Shape getShapeModel() {

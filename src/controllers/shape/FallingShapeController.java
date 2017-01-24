@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class FallingShapeController<T extends Node> extends
-		ShapeMovementController<T> implements ShapeState {
+		ShapeMovementController<T> {
 	private static Logger logger = LogManager.getLogger
 			(FallingShapeController.class);
 	private static final Long THREAD_SLEEP_TIME = 10L;
@@ -76,11 +76,21 @@ public class FallingShapeController<T extends Node> extends
 
 	@Override
 	public void nextState() {
-
+		super.stopMoving();
 	}
 
 	@Override
 	public boolean hasNextState() {
-		return false;
+		return true;
+	}
+
+	@Override
+	public void pauseCurrentState() {
+		super.pauseMovement();
+	}
+
+	@Override
+	public void resumeCurrentState() {
+		super.resumeMovement();
 	}
 }

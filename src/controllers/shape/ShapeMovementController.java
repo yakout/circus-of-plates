@@ -1,11 +1,13 @@
 package controllers.shape;
 
+import controllers.shape.util.ShapeState;
 import javafx.scene.Node;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class ShapeMovementController<T extends Node> {
+public abstract class ShapeMovementController<T extends Node>
+		implements ShapeState {
 	protected T shape;
 	protected final Shape shapeModel;
 	protected Thread shapeMovementThread;

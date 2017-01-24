@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MovingShapeController<T extends Node> extends
-        ShapeMovementController<T> implements ShapeState {
+        ShapeMovementController<T> {
     private final models.Platform platform;
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
@@ -38,7 +38,7 @@ public class MovingShapeController<T extends Node> extends
                                 .getWidth();
                         if (Math.abs(width / 2.0
                                 - (shape.getLayoutX() + shape.getTranslateX()
-                                 + offset))
+                                + offset))
                                 < Math.abs(width / 2.0 -
                                 platform.getWidth().doubleValue())) {
                             logger.info("A Shape Reached the End of The "
@@ -68,7 +68,8 @@ public class MovingShapeController<T extends Node> extends
     };
 
     public MovingShapeController(final T shape, final Shape model,
-                                 final models.Platform platform, final ShapeMovingObserver shapeMovingObserver) {
+                                 final models.Platform platform, final
+                                 ShapeMovingObserver shapeMovingObserver) {
         super(shape, model);
         this.shapeMovingObserver = shapeMovingObserver;
         this.platform = platform;
@@ -95,11 +96,21 @@ public class MovingShapeController<T extends Node> extends
 
     @Override
     public void nextState() {
-
+        super.stopMoving();
     }
 
     @Override
     public boolean hasNextState() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public void pauseCurrentState() {
+        super.pauseMovement();
+    }
+
+    @Override
+    public void resumeCurrentState() {
+        super.resumeMovement();
     }
 }
