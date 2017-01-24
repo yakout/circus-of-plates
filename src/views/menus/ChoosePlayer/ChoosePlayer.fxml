@@ -20,18 +20,18 @@
          <children>
             <HBox fx:id="firstRow" prefHeight="230.0" prefWidth="571.0">
                <children>
-                  <Button id="1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="232.0" prefWidth="207.5" />
+                  <Button id="1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                  <Button id="2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                  <Button id="3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                  <Button id="4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="232.0" prefWidth="207.5" />
                </children>
             </HBox>
             <HBox fx:id="secondRow" prefHeight="230.0" prefWidth="600.0">
                <children>
-                  <Button id="5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                  <Button id="5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                  <Button id="6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                  <Button id="7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                  <Button id="8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
                </children>
             </HBox>
          </children>

@@ -45,8 +45,6 @@ public class ChoosePlayer implements Initializable {
     Button choose;
     @FXML
     RadioButton keyboard, joystick;
-    @FXML
-    ToggleGroup inputs;
 
     public ChoosePlayer() {
 
@@ -64,16 +62,13 @@ public class ChoosePlayer implements Initializable {
         return instance;
     }
 
-    public void setPlayerNumber(int player) {
-        currPlayer = player;
-    }
-
     public void setVisible(final boolean visible) {
         anchor.setVisible(visible);
     }
 
     @FXML
     private void mouseHandler(MouseEvent event){
+
         chosenClownID = ((Node)event.getSource()).getId().toString();
     }
 
@@ -85,6 +80,7 @@ public class ChoosePlayer implements Initializable {
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
             ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(++currPlayer) + CHOOSE);
             keyboard.setSelected(true);
+            joystick.setSelected(false);
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
@@ -93,6 +89,8 @@ public class ChoosePlayer implements Initializable {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
             isPlayer1 = true;
+            keyboard.setSelected(true);
+            joystick.setSelected(false);
             setVisible(false);
             //TODO: here you send signal to game controller
 
