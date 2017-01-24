@@ -1,5 +1,6 @@
 package controllers.menus;
 
+import controllers.AudioPlayer;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.fxml.FXML;
@@ -53,7 +54,7 @@ public class GameMode extends MenuController {
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
                 GameController.getInstance().getMainGame().setVisible(true);
-                Utils.backgroundMediaPlayer.play();
+                AudioPlayer.backgroundMediaPlayer.play();
                 break;
             case "chooseLevel":
 //                 TODO: 12/25/16 save the current mode and go to player menu

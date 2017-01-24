@@ -1,0 +1,9 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane prefHeight="200.0" prefWidth="200.0">
+    <children>
+        <Label id="playerName" alignment="CENTER" prefHeight="17.0" prefWidth="56.0"/>
+        <Label id="playerScore" alignment="CENTER" layoutY="22.0" prefHeight="17.0" prefWidth="56.0"/>
+    </children>
+</AnchorPane>

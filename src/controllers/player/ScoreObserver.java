@@ -1,10 +1,6 @@
 package controllers.player;
 
-import models.players.Player;
 import models.players.Stick;
-import models.shapes.Shape;
-
-import java.util.Collection;
 
 /**
  * Created by ahmedyakout on 1/24/17.

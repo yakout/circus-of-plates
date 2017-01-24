@@ -15,9 +15,7 @@ import models.players.PlayerFactory;
 
 import java.net.InterfaceAddress;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 
 /**
  * Created by Ahmed Khaled on 23/01/2017.
@@ -66,9 +64,12 @@ public class ChoosePlayer implements Initializable {
         anchor.setVisible(visible);
     }
 
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currPlayer = currentPlayer;
+    }
+
     @FXML
     private void mouseHandler(MouseEvent event){
-
         chosenClownID = ((Node)event.getSource()).getId().toString();
     }
 
@@ -78,7 +79,7 @@ public class ChoosePlayer implements Initializable {
         if (isPlayer1) {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
-            ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(++currPlayer) + CHOOSE);
+            setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
             //TODO: here you send signal to game controller
@@ -92,6 +93,7 @@ public class ChoosePlayer implements Initializable {
             keyboard.setSelected(true);
             joystick.setSelected(false);
             setVisible(false);
+            setPlayer1Label();
             //TODO: here you send signal to game controller
 
 
@@ -119,7 +121,13 @@ public class ChoosePlayer implements Initializable {
                 break;
         }
     }
+     private void setPlayer2Label() {
+         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(++currPlayer) + CHOOSE);
+     }
 
+     private void setPlayer1Label() {
+         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(--currPlayer) + CHOOSE);
+     }
     private void handleInputType(String input) {
         switch (input) {
             case KEYBOARD:

@@ -1,6 +1,6 @@
 package controllers.shape;
 
-import controllers.shape.util.ShapeControllerPool;
+import controllers.main.GameController;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -28,7 +28,7 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            while(generationThreadIsNotStopped) {
+            while (generationThreadIsNotStopped) {
                 while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
@@ -52,9 +52,13 @@ public class ShapeGenerator {
                                 shapeController.startMoving();
                             } else {
                                 Shape shapeModel = ShapePool.getShape(level);
-                                PositionInitializer.normalize(platform, shapeModel);
-                                ImageView imgView = (ImageView) ShapeBuilder.getInstance().
-                                        build(shapeModel);
+                                GameController.getInstance()
+                                        .getModelDataHolder().addShape(
+                                        shapeModel);
+                                PositionInitializer.normalize(platform,
+                                        shapeModel);
+                                ImageView imgView = (ImageView) ShapeBuilder
+                                        .getInstance().build(shapeModel);
                                 if (imgView == null) {
                                     continue;
                                 }
@@ -90,7 +94,8 @@ public class ShapeGenerator {
         logger.debug("Shape Generation Thread Started Running");
     }
 
-    private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
+    private void generateShape(ImageView imgView, models.Platform platform,
+                               Shape shapeModel) {
         imgView.setLayoutY(imgView.getLayoutY()
                 - shapeModel.getHeight().doubleValue());
         shapeModel.getInitialPosition().setX(shapeModel.getPosition()
@@ -102,6 +107,7 @@ public class ShapeGenerator {
                 (imgView, shapeModel, platform);
         shapeController.startMoving();
     }
+
     /**
      * Pauses the thread-generator.
      */

@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
 import controllers.input.InputType;
@@ -24,6 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.GameMode;
+import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
@@ -38,6 +40,8 @@ public class GameController implements Initializable, ScoreObserver {
     private static GameController instance;
     private MenuController currentMenu;
     private PlayersController playersController;
+    private GameBoard gameBoard;
+
     // TODO: 1/19/17 plate Controller
 
     @FXML
@@ -48,6 +52,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
+    private ModelDataHolder modelDataHolder;
 
     public static GameController getInstance() {
         if (instance == null) {
@@ -69,10 +74,11 @@ public class GameController implements Initializable, ScoreObserver {
     public void initialize(URL location, ResourceBundle resources) {
         // Controllers
         currentMenu = Start.getInstance();
+        gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
 
         instance = this;
-
+        modelDataHolder = new ModelDataHolder();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(),
@@ -91,6 +97,9 @@ public class GameController implements Initializable, ScoreObserver {
         return mainGame;
     }
 
+    public ModelDataHolder getModelDataHolder() {
+        return modelDataHolder;
+    }
 
     @FXML
     public void keyHandler(KeyEvent event) {
@@ -264,6 +273,10 @@ public class GameController implements Initializable, ScoreObserver {
         try {
             playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
             playersController.createPlayer(path_1, "player2", InputType.KEYBOARD_SECONDARY);
+
+            gameBoard.addPlayerPanel("player1");
+            gameBoard.addPlayerPanel("player2");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -279,6 +292,7 @@ public class GameController implements Initializable, ScoreObserver {
                 rootPane.getLayoutY(), rootPane.getLayoutX()
                 + rootPane.getWidth(), rootPane.getLayoutY()
                 + rootPane.getHeight());
+        modelDataHolder.setActiveLevel(level);
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
@@ -319,9 +333,12 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+
     @Override
     public void update(int score, String playerName, Stick stick) {
         //TODO:- UPDATE THE SCORING LABEL.
+
         playersController.removeShapes(playerName, stick);
+        gameBoard.updateScore(score, playerName);
     }
 }

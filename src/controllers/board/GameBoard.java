@@ -1,21 +1,23 @@
 package controllers.board;
 
-import controllers.main.GameController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,6 +25,9 @@ import java.util.ResourceBundle;
  * Created by ahmedyakout on 1/23/17.
  */
 public class GameBoard implements Initializable {
+    private static GameBoard instance;
+    private final String SCORE_PANEL_PATH = "src/views/board/scorePanel.fxml";
+
     @FXML
     private HBox board;
 
@@ -30,15 +35,19 @@ public class GameBoard implements Initializable {
     private Label counter;
 
     @FXML
-    private Label playerOneScore;
+    private VBox leftPanel;
 
     @FXML
-    private Label playerTwoScore;
+    private VBox rightPanel;
 
 
     private Timeline timeline;
     private IntegerProperty timeSeconds;
     int GAMETIME = 60;
+
+    public static GameBoard getInstance() {
+        return instance;
+    }
 
     /**
      * Called to initialize a controller after its root element has been
@@ -50,10 +59,11 @@ public class GameBoard implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         timeline = new Timeline();
         timeSeconds = new SimpleIntegerProperty();
 
-         initializeGameTimer();
+        initializeGameTimer();
     }
 
     private void initializeGameTimer() {
@@ -68,4 +78,34 @@ public class GameBoard implements Initializable {
         this.timeline.play();
     }
 
+    public void addPlayerPanel(String playerName) throws IOException {
+        URL url = new File(SCORE_PANEL_PATH).toURI().toURL();
+        AnchorPane scorePanel = FXMLLoader.load(url);
+
+        ((Label) scorePanel.getChildren().get(0)).setText(playerName);
+
+        if (leftPanel.getChildren().size() < rightPanel.getChildren().size()) {
+            leftPanel.getChildren().add(scorePanel);
+        } else {
+            rightPanel.getChildren().add(scorePanel);
+        }
+    }
+
+    private void getNodeWithId(String id) {
+        board.getScene().lookup("#" + id);
+    }
+
+    public void updateScore(int score, String playerName) {
+        for (Node node : leftPanel.getChildren()) {
+            if (((Label)((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
+                ((Label)((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            }
+        }
+
+        for (Node node : rightPanel.getChildren()) {
+            if (((Label)((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
+                ((Label)((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            }
+        }
+    }
 }
