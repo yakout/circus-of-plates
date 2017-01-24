@@ -17,7 +17,7 @@ public abstract class Level {
     private double plateSpeedRatio = 1.0;
     private double clownSpeedRatio = 1.0;
     protected int noOfPlatforms;
-    protected transient Image background;
+    protected String backgroundURL;
     protected int currentLevel;
     protected List<Platform> platforms;
     protected List<Color> supportedColors;
@@ -29,7 +29,7 @@ public abstract class Level {
     public Level(int currentLevel, int noOfPlatforms) {
         this.noOfPlatforms = noOfPlatforms;
         this.currentLevel = currentLevel;
-        background = new Image(DIRECTORY + currentLevel + IMG_EXTENSION);
+        backgroundURL = DIRECTORY + String.valueOf(currentLevel) + IMG_EXTENSION;
     }
 
     protected void setPlateSpeed(double speedRatio) {
@@ -44,11 +44,11 @@ public abstract class Level {
     protected void setSupportedColors(List<Color> supportedColors) {
         this.supportedColors = supportedColors;
     }
-    public Image getBackground() {
-        return background;
+    public String getBackgroundURL() {
+        return backgroundURL;
     }
-    public void setBackground(Image background) {
-        this.background = background;
+    public void setBackgroundURL(String backgroundURL) {
+        this.backgroundURL = backgroundURL;
     }
     public List<Color> getSupportedColors() {
         return supportedColors;
