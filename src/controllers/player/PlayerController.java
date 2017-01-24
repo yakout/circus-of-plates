@@ -7,11 +7,14 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import models.GameRules;
+import models.data.ModelDataHolder;
 import models.players.Player;
 import models.players.Stick;
 import models.shapes.Shape;
 import models.states.ShapeState;
+import services.file.FileHandler;
 
+import java.io.File;
 import java.util.Stack;
 
 /**
@@ -206,7 +209,6 @@ public class PlayerController {
             shapeController.getShape().translateXProperty().unbind();
             shapeController.shapeShouldEnterThePool();
         }
-
     }
 
     private synchronized double calculateLeftStackY() {

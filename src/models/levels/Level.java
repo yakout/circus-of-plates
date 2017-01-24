@@ -17,7 +17,7 @@ public abstract class Level {
     private double plateSpeedRatio = 1.0;
     private double clownSpeedRatio = 1.0;
     protected int noOfPlatforms;
-    protected Image background;
+    protected transient Image background;
     protected int currentLevel;
     protected List<Platform> platforms;
     protected List<Color> supportedColors;
