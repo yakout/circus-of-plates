@@ -1,6 +1,8 @@
 package controllers.shape;
 
 import controllers.main.GameController;
+import controllers.shape.util.OnTheGroundShapeObserver;
+import controllers.shape.util.ShapeControllerPool;
 import controllers.shape.util.ShapeFallingObserver;
 import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
@@ -11,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
-		ShapeMovingObserver {
+		ShapeMovingObserver, OnTheGroundShapeObserver {
 	private static Logger logger = LogManager.getLogger(ShapeController.class);
 	private final T shape;
 	private final Shape shapeModel;
@@ -63,7 +65,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		}
 		currentState.nextState();
 		shapeModel.setState(ShapeState.ON_THE_GROUND);
-
+		currentState = new OnTheGroundShapeController<>(this);
 		//TODO:- Ask the main controller to add the plate to the pool.
 	}
 
@@ -100,4 +102,24 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		return platform;
 	}
 
+	@Override
+	public void shapeShouldEnterThePool() {
+		ShapeControllerPool.getInstance().storeShapeController(this);
+		shape.setVisible(false);
+		shapeModel.setState(ShapeState.INACTIVE);
+	}
+
+	public void resetShape() {
+		shapeModel.setState(ShapeState.MOVING_HORIZONTALLY);
+		try {
+			shapeModel.setPosition(shapeModel.getInitialPosition().clone());
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		shape.setLayoutX(shapeModel.getInitialPosition().getX());
+		shape.setLayoutY(shapeModel.getInitialPosition().getY());
+		shape.setTranslateX(0);
+		shape.setTranslateY(0);
+		shape.setVisible(true);
+	}
 }

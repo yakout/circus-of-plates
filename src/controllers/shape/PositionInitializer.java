@@ -12,14 +12,19 @@ public class PositionInitializer {
         switch (platform.getOrientation()) {
             case LEFT:
                 shapeModel.getPosition().setX(platform.getCenter().getX() -
-                        platform.getWidth().doubleValue());
+                        platform.getWidth().doubleValue() / 2.0);
                 break;
             case RIGHT:
                 shapeModel.getPosition().setX(platform.getCenter().getX() +
-                        platform.getWidth().doubleValue());
+                        platform.getWidth().doubleValue() / 2.0);
                 break;
             default:
                 break;
+        }
+        try {
+            shapeModel.setInitialPosition(shapeModel.getPosition().clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
         shapeModel.getPosition().setY(platform.getCenter().getY() - platform.getHeight
                 ().doubleValue() / 2.0);

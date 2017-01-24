@@ -11,6 +11,7 @@ public abstract class Shape {
 
 	protected Color color;
 	protected Point position;
+	protected Point initialPosition;
 	protected double xVelocity;
 	protected double yVelocity;
 	protected ShapeState state;
@@ -35,24 +36,24 @@ public abstract class Shape {
 	public void setState(ShapeState newState) {
 		state = newState;
 	}
-
 	public Color getColor() {
 		return color;
 	}
+
 	public void setColor(Color newColor) {
 		color = newColor;
 	}
-
 	public DoubleProperty getWidth() {
 		return width;
 	}
+
 	public DoubleProperty getHeight() {
 		return height;
 	}
-    public void setWidth (double newWidth) {
+	public void setWidth (double newWidth) {
 	    width.setValue(newWidth);
     }
-    public void setHeight (double newHeight) {
+	public void setHeight (double newHeight) {
         height.setValue(newHeight);
     }
 	public Point getPosition() {
@@ -61,10 +62,10 @@ public abstract class Shape {
 	public void setPosition(Point position) {
 		this.position = position;
 	}
-
 	public double getHorizontalVelocity() {
 		return xVelocity;
 	}
+
 	public double getVerticalVelocity() {
 		return yVelocity;
 	}
@@ -73,6 +74,13 @@ public abstract class Shape {
 	}
 	public void setVerticalVelocity(double yVelocity) {
 		this.yVelocity = yVelocity;
+	}
+	public Point getInitialPosition() {
+		return initialPosition;
+	}
+
+	public void setInitialPosition(Point initialPosition) {
+		this.initialPosition = initialPosition;
 	}
 
 	public abstract String getShapeURL();

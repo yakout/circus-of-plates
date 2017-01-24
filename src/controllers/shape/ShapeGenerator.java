@@ -1,6 +1,8 @@
 package controllers.shape;
 
+import controllers.shape.util.ShapeControllerPool;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.ShapePool;
@@ -39,6 +41,14 @@ public class ShapeGenerator {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        if (!ShapeControllerPool.getInstance().isEmpty()) {
+                            ShapeController<? extends Node> shapeController =
+                                    ShapeControllerPool.getInstance()
+                                            .getShapeController();
+                            shapeController.resetShape();
+                            shapeController.startMoving();
+                            return;
+                        }
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
                             Shape shapeModel = ShapePool.getShape(level);
