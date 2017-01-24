@@ -7,24 +7,26 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+<?import java.net.URL?>
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
       <VBox fx:id="imagesHolder" layoutX="3.0" layoutY="78.0" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="600.0" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
          <children>
             <HBox fx:id="firstRow" prefHeight="112.0" prefWidth="600.0">
                <children>
-                  <Button id="1" fx:id="image1" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown1" />
-                  <Button id="1" fx:id="image2" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown2" />
-                  <Button id="1" fx:id="image3" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown3" />
-                  <Button id="1" fx:id="image4" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown4" />
+                  <Button id="1" fx:id="image1" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown1" />
+                  <Button id="2" fx:id="image2" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown2" />
+                  <Button id="3" fx:id="image3" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown3" />
+                  <Button id="4" fx:id="image4" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown4" />
                </children>
             </HBox>
             <HBox fx:id="secondRow" prefHeight="117.0" prefWidth="600.0">
                <children>
-                  <Button id="1" fx:id="image5" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown5" />
-                  <Button id="1" fx:id="image6" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="149.0" text="clown6" />
-                  <Button id="1" fx:id="image7" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown7" />
-                  <Button id="1" fx:id="image8" stylesheets="choosePlayer.css" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown8" />
+                  <Button id="5" fx:id="image5" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown5" />
+                  <Button id="6" fx:id="image6" mnemonicParsing="false" prefHeight="111.0" prefWidth="149.0" text="clown6" />
+                  <Button id="7" fx:id="image7" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown7" />
+                  <Button id="8" fx:id="image8" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown8" />
                </children>
             </HBox>
          </children>
@@ -40,4 +42,9 @@
          </font>
       </Button>
    </children>
+
+   <stylesheets>
+      <URL value="@choosePlayer.css" />
+   </stylesheets>
+   
 </AnchorPane>

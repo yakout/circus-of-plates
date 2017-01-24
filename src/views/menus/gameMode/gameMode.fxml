@@ -8,35 +8,42 @@
 
 <!-- game mode menu -->
 
-<VBox fx:id="gameModeMenu" alignment="CENTER" onKeyReleased="#keyHandler" visible="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.menus.GameMode">
+<AnchorPane fx:id="gameModeMenu" onKeyReleased="#keyHandler" visible="false" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/8" fx:controller="controllers.menus.GameMode">
     <children>
-        <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
-            <font>
+
+        <VBox fx:id="menu" alignment="CENTER">
+            <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="normal" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NORMAL">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="chooseLevel" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE LEVEL">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+          <Button id="choosePlayer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE PLAYER">
+             <font>
                 <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="normal" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NORMAL">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="chooseLevel" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE LEVEL">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-      <Button id="choosePlayer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CHOOSE PLAYER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-        <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
+             </font>
+          </Button>
+            <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+        </VBox>
+
+        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml"/>
+
     </children>
     <stylesheets>
         <URL value="@gameMode.css" />
     </stylesheets>
-</VBox>
+</AnchorPane>

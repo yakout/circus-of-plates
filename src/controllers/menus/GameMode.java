@@ -2,17 +2,20 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-    public class GameMode extends MenuController {
+public class GameMode extends MenuController {
+    @FXML
     private VBox menu;
+
+    @FXML
+    private AnchorPane gameModeMenu;
+
     private static GameMode instance;
 
     public GameMode() {
@@ -30,12 +33,8 @@ import java.util.ResourceBundle;
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menu = gameModeMenu;
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
-
-    @FXML
-    private VBox gameModeMenu;
 
     @Override
     void handle(String id) {

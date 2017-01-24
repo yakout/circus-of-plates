@@ -31,7 +31,7 @@ public class ChoosePlayer implements Initializable {
     @FXML
     Button image1;
 
-    private ChoosePlayer() {
+    public ChoosePlayer() {
     }
 
     @Override
