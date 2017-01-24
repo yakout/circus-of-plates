@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!-- game mode menu -->
 
-<AnchorPane fx:id="gameModeMenu" onKeyReleased="#keyHandler" visible="false" xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/8" fx:controller="controllers.menus.GameMode">
+<AnchorPane fx:id="gameModeMenu" onKeyReleased="#keyHandler" prefHeight="188.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.GameMode">
     <children>
 
-        <VBox fx:id="menu" visible="true" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox fx:id="menu" prefHeight="176.0" prefWidth="830.0" visible="true" AnchorPane.bottomAnchor="574.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
                 <font>
                     <Font size="18.0" />
@@ -40,8 +40,7 @@
             </Button>
         </VBox>
 
-        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml" AnchorPane.topAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
     </children>
     <stylesheets>

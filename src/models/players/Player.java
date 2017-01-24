@@ -10,15 +10,12 @@ import controllers.input.InputType;
 import controllers.player.ScoreObserver;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.image.Image;
 import models.GameRules;
 import models.Point;
 import models.shapes.Shape;
 
 public class Player {
-
     private static int numOfPlayers = 0;
-
     private List<ScoreObserver> observers;
     private Stack<Shape> leftStick;
     private Stack<Shape> rightStick;

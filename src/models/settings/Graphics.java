@@ -3,7 +3,6 @@ package models.settings;
 import com.sun.javafx.geom.Dimension2D;
 
 final class Graphics {
-
     public enum Quality {
         ULTRA, HIGH, MEDIUM, LOW
     }
