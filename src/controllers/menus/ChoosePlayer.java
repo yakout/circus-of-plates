@@ -1,11 +1,13 @@
 package controllers.menus;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -42,7 +44,7 @@ public class ChoosePlayer implements Initializable {
     @FXML
     Button choose;
     @FXML
-    CheckBox keyboard, joystick;
+    RadioButton keyboard, joystick;
 
     public ChoosePlayer() {
 
@@ -91,7 +93,7 @@ public class ChoosePlayer implements Initializable {
     }
 
     @FXML
-    private void selectCheckBox(MouseEvent event) {
+    private void selectInputType(ActionEvent event) {
         System.out.println(((Node)event.getSource()).getId());
         switch (((Node)event.getSource()).getId()) {
             case KEYBOARD:

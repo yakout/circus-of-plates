@@ -2,8 +2,8 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -43,8 +43,8 @@
       </Button>
       <HBox layoutX="300.0" layoutY="530.0" prefHeight="49.0" prefWidth="200.0">
          <children>
-            <CheckBox id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectCheckBox" prefHeight="49.0" prefWidth="100.0" text="Joystick" />
-            <CheckBox id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectCheckBox" prefHeight="49.0" prefWidth="100.0" selected="true" text="Keyboard" />
+            <RadioButton id="KEYBOARDs" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="100.0" selected="true" text="Keyboard" />
+            <RadioButton id="JOYSTICK" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="105.0" text="Joystick" />
          </children>
       </HBox>
    </children>
