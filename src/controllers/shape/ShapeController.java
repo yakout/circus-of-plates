@@ -115,6 +115,10 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		shape.setLayoutY(shapeModel.getInitialPosition().getY());
 		shape.setTranslateX(0);
 		shape.setTranslateY(0);
+		shapeModel.getPosition().xProperty().bind(shape.translateXProperty()
+				.add(shape.getLayoutX()));
+		shapeModel.getPosition().yProperty().bind(shape.translateYProperty()
+				.add(shape.getLayoutY()));
 		shape.setVisible(true);
 	}
 }

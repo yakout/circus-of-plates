@@ -2,26 +2,23 @@ package controllers.shape.util;
 
 import controllers.shape.ShapeController;
 import javafx.scene.Node;
-import javafx.scene.shape.Shape;
+import models.Platform;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by Moham on 24-Jan-17.
  */
 public class ShapeControllerPool {
     private static ShapeControllerPool instance;
-    private Queue<ShapeController<? extends Node>> shapeControllerQueue;
+    private List<ShapeController<? extends Node>> shapeControllers;
     private static final int MAX_SIZE = 100;
 
     private ShapeControllerPool() {
-        shapeControllerQueue = new LinkedList<>();
+        shapeControllers = new LinkedList<>();
     }
     public boolean isEmpty() {
-        return shapeControllerQueue.isEmpty();
+        return shapeControllers.isEmpty();
     }
 
     public static synchronized ShapeControllerPool getInstance() {
@@ -31,15 +28,25 @@ public class ShapeControllerPool {
         return instance;
     }
 
-    public synchronized ShapeController<? extends Node> getShapeController() {
-        return shapeControllerQueue.poll();
+    public synchronized ShapeController<? extends Node> getShapeController
+            (Platform platform) {
+        Iterator<ShapeController<? extends Node>> iterator = shapeControllers
+                .iterator();
+        while (iterator.hasNext()) {
+            ShapeController<? extends Node> shapeController = iterator.next();
+            if (shapeController.getPlatform().equals(platform)) {
+                iterator.remove();
+                return shapeController;
+            }
+        }
+        return null;
     }
 
     public synchronized void storeShapeController(ShapeController<? extends
             Node> shapeController) {
-        if (shapeControllerQueue.size() >= MAX_SIZE) {
+        if (this.shapeControllers.size() >= MAX_SIZE) {
             return;
         }
-        shapeControllerQueue.add(shapeController);
+        this.shapeControllers.add(shapeController);
     }
 }

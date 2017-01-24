@@ -21,11 +21,6 @@ public class PositionInitializer {
             default:
                 break;
         }
-        try {
-            shapeModel.setInitialPosition(shapeModel.getPosition().clone());
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
         shapeModel.getPosition().setY(platform.getCenter().getY() - platform.getHeight
                 ().doubleValue() / 2.0);
     }

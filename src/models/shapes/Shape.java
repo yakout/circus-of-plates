@@ -29,6 +29,7 @@ public abstract class Shape {
         this.width = new SimpleDoubleProperty();
         this.state = ShapeState.MOVING_HORIZONTALLY;
 		this.position = new Point();
+		this.initialPosition = new Point();
 	}
 	public ShapeState getState() {
     	return state;

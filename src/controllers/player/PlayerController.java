@@ -200,6 +200,7 @@ public class PlayerController {
             if (shapeController == null) {
                 return;
             }
+            shapeController.getShape().translateXProperty().unbind();
             shapeController.shapeShouldEnterThePool();
         }
 
