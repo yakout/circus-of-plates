@@ -245,6 +245,7 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
+        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
         switch (gameMode) {
             case NORMAL:
                 startNormalGame();
@@ -259,7 +260,6 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     private void startNormalGame() {
-        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 

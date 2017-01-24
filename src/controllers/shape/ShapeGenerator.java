@@ -21,15 +21,15 @@ public class ShapeGenerator {
     private final long THREAD_SLEEP_TIME = 10000;
     private Level level;
     private final Thread shapeGeneratorThread;
-    private boolean generationThreadIsNotStopped;
-    private boolean generationThreadPaused;
+    private volatile boolean generationThreadIsNotStopped;
+    private volatile boolean generationThreadPaused;
     private static Logger logger = LogManager.getLogger(ShapeGenerator.class);
     private Pane parent;
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            while (generationThreadIsNotStopped) {
-                while (generationThreadPaused) {
+            while (isGenerationThreadIsNotStopped()) {
+                while (isGenerationThreadPaused()) {
                     try {
                         logger.debug("Generation Thread Paused");
                         Thread.currentThread().sleep(Long.MAX_VALUE);
@@ -71,7 +71,7 @@ public class ShapeGenerator {
                     Thread.sleep(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
                     logger.info("Plate-generator Thread has been interrupted");
-                    if (generationThreadIsNotStopped) {
+                    if (isGenerationThreadIsNotStopped()) {
                         continue;
                     } else {
                         break;
@@ -86,8 +86,10 @@ public class ShapeGenerator {
         this.level = level;
         this.parent = parent;
         shapeGeneratorThread = new Thread(shapeGenerator);
-        generationThreadIsNotStopped = true;
-        generationThreadPaused = false;
+        setGenerationThreadIsNotStopped(true);
+        //generationThreadIsNotStopped = true;
+        setGenerationThreadPaused(false);
+//        generationThreadPaused = false;
         shapeGeneratorThread.setDaemon(true);
         shapeGeneratorThread.start();
         logger.debug("Shape Generator Created");
@@ -111,22 +113,41 @@ public class ShapeGenerator {
     /**
      * Pauses the thread-generator.
      */
-    public void pauseGenerator() {
+    public synchronized void pauseGenerator() {
         logger.info("Generation Thread Pause Requested");
-        generationThreadPaused = true;
+        setGenerationThreadPaused(true);
+//        generationThreadPaused = true;
     }
 
     /**
      * Resumes the thread-generator.
      */
-    public void resumeGenerator() {
+    public synchronized void resumeGenerator() {
         logger.info("Generation Thread Resume Requested");
-        generationThreadPaused = false;
+        setGenerationThreadPaused(false);
+//        generationThreadPaused = false;
         shapeGeneratorThread.interrupt();
     }
 
-    public void stopGeneration() {
-        generationThreadIsNotStopped = false;
+    public synchronized void stopGeneration() {
+        setGenerationThreadIsNotStopped(false);
+//        generationThreadIsNotStopped = false;
         shapeGeneratorThread.interrupt();
+    }
+
+    private synchronized boolean isGenerationThreadIsNotStopped() {
+        return generationThreadIsNotStopped;
+    }
+
+    private synchronized boolean isGenerationThreadPaused() {
+        return generationThreadPaused;
+    }
+
+    private synchronized void setGenerationThreadIsNotStopped(boolean generationThreadIsNotStopped) {
+        this.generationThreadIsNotStopped = generationThreadIsNotStopped;
+    }
+
+    private synchronized void setGenerationThreadPaused(boolean generationThreadPaused) {
+        this.generationThreadPaused = generationThreadPaused;
     }
 }
