@@ -53,7 +53,6 @@ public class LevelTwo extends Level {
     private void addSupportedColors() {
         supportedColors.add(models.states.Color.GREEN);
         supportedColors.add(models.states.Color.YELLOW);
-        supportedColors.add(models.states.Color.CYAN);
-        supportedColors.add(models.states.Color.ORANGE);
+        supportedColors.add(models.states.Color.RED);
     }
 }
