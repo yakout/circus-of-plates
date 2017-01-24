@@ -1,7 +1,6 @@
 package models.settings;
 
 public class GameSettings {
-    
     private GameSettings() {}
     private static GameSettings instance;
     private Audio audioSettings;

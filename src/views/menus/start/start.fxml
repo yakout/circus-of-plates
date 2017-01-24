@@ -2,45 +2,61 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
 
-<VBox fx:id="startMenu" alignment="CENTER" onKeyReleased="#keyHandler" xmlns="http://javafx.com/javafx/8.0.65"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Start">
+<AnchorPane fx:id="startMenu" onKeyReleased="#keyHandler" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Start">
     <children>
-        <Button id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NEW GAME">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="continue" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
-            <font>
-                <Font size="18.0" />
-            </font>2
-        </Button>
-        <Button id="loadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD GAME">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="options" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="OPTIONS">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="help" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="HELP">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <Button id="exit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="EXIT">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
+        <VBox fx:id="menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+            <Button id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NEW GAME">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="continue" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="saveGame" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="SAVE GAME">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="loadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD GAME">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="options" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="OPTIONS">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="help" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="HELP">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+            <Button id="exit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="EXIT">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+        </VBox>
+
+        <AnchorPane  fx:id="saveGamePane" visible="false">
+            <TextField fx:id="gameName" />
+            <Button fx:id="done" />
+        </AnchorPane>
+
     </children>
 
     <stylesheets>
         <URL value="@start.css" />
     </stylesheets>
-</VBox>
+</AnchorPane>

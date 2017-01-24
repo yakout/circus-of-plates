@@ -39,7 +39,7 @@ public class GameMode extends MenuController {
 
     @Override
     void handle(String id) {
-        menu.setVisible(false);
+        gameModeMenu.setVisible(false);
         switch (id) {
             case "back":
                 Start.getInstance().getMenu().setVisible(true);
@@ -53,8 +53,6 @@ public class GameMode extends MenuController {
                 break;
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
-                GameController.getInstance().getMainGame().setVisible(true);
-                AudioPlayer.backgroundMediaPlayer.play();
                 break;
             case "chooseLevel":
 //                 TODO: 12/25/16 save the current mode and go to player menu

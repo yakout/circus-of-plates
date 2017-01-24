@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -13,7 +14,16 @@ import java.util.ResourceBundle;
 
 public class Start extends MenuController {
     private BooleanProperty continueButtonDisabled;
+
+    @FXML
+    private AnchorPane startMenu;
+
+    @FXML
     private VBox menu;
+
+    @FXML
+    private AnchorPane saveGamePane;
+
     private static Start instance;
 
     public Start() {
@@ -31,7 +41,6 @@ public class Start extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menu = startMenu;
         continueButtonDisabled = new SimpleBooleanProperty(true);
 
         getButton(1).disableProperty().bindBidirectional(continueButtonDisabled);
@@ -39,8 +48,6 @@ public class Start extends MenuController {
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
 
-    @FXML
-    private VBox startMenu;
 
     @Override
     void handle(String id) {
@@ -51,11 +58,15 @@ public class Start extends MenuController {
                 updateCurrentMenu(GameMode.getInstance());
                 break;
             case "continue":
-                GameController.getInstance().getMainGame().setVisible(true);
+                 GameController.getInstance().continueGame();
                 break;
             case "loadGame":
                 LoadGame.getInstance().setMenuVisible(true);
                 updateCurrentMenu(LoadGame.getInstance());
+                break;
+            case "saveGame":
+                saveGamePane.setVisible(true);
+                // TODO: 1/24/17
                 break;
             case "options":
                 Options.getInstance().setMenuVisible(true);

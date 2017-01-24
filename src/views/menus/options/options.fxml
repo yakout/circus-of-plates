@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="optionsMenu" onKeyReleased="#keyHandler" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane fx:id="optionsMenu" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options" >
     <children>
 
-        <VBox fx:id="menu" visible="true" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox fx:id="menu" visible="true" onKeyReleased="#keyHandler" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <Button id="graphics" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="GRAPHICS">
                 <font>
                     <Font size="18.0" />
