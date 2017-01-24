@@ -12,7 +12,7 @@
       xmlns="http://javafx.com/javafx/8" fx:controller="controllers.menus.GameMode">
     <children>
 
-        <VBox fx:id="menu" alignment="CENTER">
+        <VBox fx:id="menu" visible="true" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <Button id="timeAttack" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="TIME ATTACK">
                 <font>
                     <Font size="18.0" />
@@ -40,7 +40,8 @@
             </Button>
         </VBox>
 
-        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml"/>
+        <fx:include source="../ChoosePlayer/ChoosePlayer.fxml" AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
 
     </children>
     <stylesheets>

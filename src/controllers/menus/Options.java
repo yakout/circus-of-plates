@@ -49,8 +49,6 @@ public class Options extends MenuController {
 
     @Override
     void handle(String id) {
-        menu.setVisible(true);
-        audio.setVisible(false);
         optionsMenu.setVisible(false);
         switch (id) {
             case "back":
@@ -82,6 +80,8 @@ public class Options extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         optionsMenu.setVisible(true);
+        menu.setVisible(true);
+        audio.setVisible(false);
     }
 
     @Override

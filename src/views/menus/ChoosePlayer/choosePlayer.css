@@ -1,3 +1,47 @@
 #1 {
     -fx-background-image: url('../../../assets/images/clowns/clown_1.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#2 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_2.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#3 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_3.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#4 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_4.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#5 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_5.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#6 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_6.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#7 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_7.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#8 {
+    -fx-background-image: url('../../../assets/images/clowns/clown_8.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
 }

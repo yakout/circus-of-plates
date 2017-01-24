@@ -32,17 +32,15 @@ public class ChoosePlayer implements Initializable {
     Button image1;
 
     public ChoosePlayer() {
+        //
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        instance = this;
     }
 
     public static ChoosePlayer getInstance() {
-        if (instance == null) {
-            instance = new ChoosePlayer();
-        }
         return instance;
     }
 

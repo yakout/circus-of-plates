@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-
 <?import java.net.URL?>
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="408.0" visible="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
-      <VBox fx:id="imagesHolder" layoutX="3.0" layoutY="78.0" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="600.0" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0">
+      <VBox fx:id="imagesHolder" layoutX="3.0" layoutY="78.0" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="405.0" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="78.0">
          <children>
-            <HBox fx:id="firstRow" prefHeight="112.0" prefWidth="600.0">
+            <HBox fx:id="firstRow" prefHeight="113.0" prefWidth="571.0">
                <children>
-                  <Button id="1" fx:id="image1" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown1" />
-                  <Button id="2" fx:id="image2" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown2" />
-                  <Button id="3" fx:id="image3" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown3" />
-                  <Button id="4" fx:id="image4" mnemonicParsing="false" prefHeight="111.0" prefWidth="148.0" text="clown4" />
+                  <Button id="1" fx:id="image1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="2" fx:id="image2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="3" fx:id="image3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="4" fx:id="image4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
                </children>
             </HBox>
             <HBox fx:id="secondRow" prefHeight="117.0" prefWidth="600.0">
                <children>
-                  <Button id="5" fx:id="image5" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown5" />
-                  <Button id="6" fx:id="image6" mnemonicParsing="false" prefHeight="111.0" prefWidth="149.0" text="clown6" />
-                  <Button id="7" fx:id="image7" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown7" />
-                  <Button id="8" fx:id="image8" mnemonicParsing="false" prefHeight="111.0" prefWidth="150.0" text="clown8" />
+                  <Button id="5" fx:id="image5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="6" fx:id="image6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="7" fx:id="image7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="8" fx:id="image8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <Label layoutX="194.0" prefHeight="49.0" prefWidth="182.0" text="Player1: Choose" textAlignment="CENTER" textFill="#000000b4">
+      <Label layoutX="103.0" layoutY="14.0" prefHeight="49.0" prefWidth="182.0" text="Player1: Choose" textAlignment="CENTER" textFill="#000000b4">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="220.0" layoutY="408.0" mnemonicParsing="false" onAction="#selectClown" prefHeight="39.0" prefWidth="130.0" text="Choose">
+      <Button layoutX="1.0" layoutY="316.0" mnemonicParsing="false" onAction="#selectClown" prefHeight="39.0" prefWidth="400.0" text="Done">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

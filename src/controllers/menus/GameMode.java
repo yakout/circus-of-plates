@@ -76,6 +76,8 @@ public class GameMode extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         gameModeMenu.setVisible(visible);
+        menu.setVisible(visible);
+        ChoosePlayer.getInstance().setVisible(false);
     }
 
     @Override

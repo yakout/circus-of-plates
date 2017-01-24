@@ -175,6 +175,7 @@ public class GameController implements Initializable {
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
             .KEYBOARD_SECONDARY)
     public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
+        if (!mainGame.isVisible()) return;
         Platform.runLater(() -> {
             switch (keyboardEvent.getKeyboardCode()) {
                 case A:
