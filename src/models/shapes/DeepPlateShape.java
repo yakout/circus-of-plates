@@ -1,7 +1,10 @@
 package models.shapes;
 
 import models.ShapeFactory;
-import models.levels.*;
+import models.levels.LevelFive;
+import models.levels.LevelFour;
+import models.levels.LevelThree;
+import models.levels.LevelTwo;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,25 +13,25 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 /**
- * Created by Ahmed Khaled on 19/01/2017.
+ * Created by Ahmed Khaled on 24/01/2017.
  */
-public class PlateShape extends Shape {
+public class DeepPlateShape extends Shape {
+
     private static final String URL = "src/assets/images/plates/";
-    private static final String FILE_NAME = "platewithoutbase.png";
-    private static final double HORIZONTAL_VELOCITY = 1.5;
-    private static final double VERTICAL_VELOCITY = 1.7;
-    public static final String KEY = PlateShape.class.getName();
+    private static final String FILE_NAME = "platewithdeepbase.png";
+    private static final double HORIZONTAL_VELOCITY = 1.7;
+    private static final double VERTICAL_VELOCITY = 1.9;
+    public static final String KEY = DeepPlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
+
     static {
-        ShapeFactory.registerShape(KEY, PlateShape.class);
-        LevelOne.registerShape(KEY);
-        LevelTwo.registerShape(KEY);
+        ShapeFactory.registerShape(KEY, DeepPlateShape.class);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
     }
-    public PlateShape() {
+    public DeepPlateShape() {
         super();
         setKey(KEY);
         setHorizontalVelocity(HORIZONTAL_VELOCITY);
@@ -38,8 +41,8 @@ public class PlateShape extends Shape {
     public String getShapeURL() {
         String colorString = getColorName(color);
         try {
-            return new File(URL + colorString + FILE_NAME).toURI().toURL()
-                    .toString();
+            return new File(URL + colorString + FILE_NAME)
+                    .toURI().toURL().toString();
         } catch (MalformedURLException e) {
             logger.error("Couldn't find " + KEY + " with this color");
             e.printStackTrace();
@@ -50,5 +53,4 @@ public class PlateShape extends Shape {
     public String getColorName(Color color) {
         return color.toString().toLowerCase();
     }
-
 }

@@ -38,7 +38,7 @@ public class Help extends MenuController {
         menu.setVisible(false);
         switch (id) {
             case "back":
-                Start.getInstance().getMenu().setVisible(true);
+                Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
                 break;
         }

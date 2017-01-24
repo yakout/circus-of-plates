@@ -277,6 +277,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void saveGame(String name) {
+        System.err.println(name);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date date = new Date();
         String currentDate = dateFormat.format(date);
@@ -290,7 +291,8 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
-        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
+        ((Start) Start.getInstance()).activeDisabledButtons();
+
         GameController.getInstance().getMainGame().setVisible(true);
         AudioPlayer.backgroundMediaPlayer.play();
         newGameStarted.set(true);
@@ -410,5 +412,4 @@ public class GameController implements Initializable, ScoreObserver {
         playersController.removeShapes(playerName, stick);
         gameBoard.updateScore(score, playerName);
     }
-
 }
