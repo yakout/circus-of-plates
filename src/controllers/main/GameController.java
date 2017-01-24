@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.AudioPlayer;
 import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
@@ -18,6 +19,8 @@ import controllers.player.ScoreObserver;
 import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -40,7 +43,8 @@ public class GameController implements Initializable, ScoreObserver {
     private MenuController currentMenu;
     private PlayersController playersController;
     private GameBoard gameBoard;
-    private ShapeGenerator generator;
+    private ShapeGenerator shapeGenerator;
+    private BooleanProperty newGameStarted;
 
     // TODO: 1/19/17 plate Controller
 
@@ -54,10 +58,9 @@ public class GameController implements Initializable, ScoreObserver {
     private AnchorPane mainGame;
     private ModelDataHolder modelDataHolder;
 
-    public static GameController getInstance() {
+    public synchronized static GameController getInstance() {
         return instance;
     }
-
 
     /**
      * Called to initialize a controller after its root element has been
@@ -69,13 +72,16 @@ public class GameController implements Initializable, ScoreObserver {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+
         // Controllers
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
 
-        instance = this;
+        newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
+
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(),
@@ -124,10 +130,12 @@ public class GameController implements Initializable, ScoreObserver {
 //                break;
             case ESCAPE:
                 Platform.runLater(() -> {
-                    if (currentMenu.isVisible()) {
-                        continueGame();
-                    } else {
-                        pauseGame();
+                    if (newGameStarted.get()) {
+                        if (currentMenu.isVisible()) {
+                            continueGame();
+                        } else {
+                            pauseGame();
+                        }
                     }
                 });
                 break;
@@ -245,6 +253,8 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
+        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
+        newGameStarted.set(true);
         switch (gameMode) {
             case NORMAL:
                 startNormalGame();
@@ -290,7 +300,7 @@ public class GameController implements Initializable, ScoreObserver {
             mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
-        generator = new ShapeGenerator(level, mainGame);
+        shapeGenerator= new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -332,7 +342,8 @@ public class GameController implements Initializable, ScoreObserver {
 
         gameBoard.pause();
         playersController.pause();
-        generator.pauseGenerator();
+        shapeGenerator.pauseGenerator();
+        AudioPlayer.backgroundMediaPlayer.pause();
     }
 
     private void continueGame() {
@@ -342,7 +353,8 @@ public class GameController implements Initializable, ScoreObserver {
 
         gameBoard.resume();
         playersController.resume();
-        generator.resumeGenerator();
+        shapeGenerator.resumeGenerator();
+        AudioPlayer.backgroundMediaPlayer.play();
     }
 
     @Override

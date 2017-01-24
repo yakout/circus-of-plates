@@ -3,6 +3,8 @@ package controllers.menus;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -10,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Start extends MenuController {
+    private BooleanProperty continueButtonDisabled;
     private VBox menu;
     private static Start instance;
 
@@ -29,6 +32,9 @@ public class Start extends MenuController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         menu = startMenu;
+        continueButtonDisabled = new SimpleBooleanProperty(true);
+
+        getButton(1).disableProperty().bindBidirectional(continueButtonDisabled);
         requestFocus(0);
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
@@ -76,6 +82,10 @@ public class Start extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
+    }
+
+    public void setContinueButtonDisabled(boolean disabled) {
+        this.continueButtonDisabled.set(disabled);
     }
 
     @Override
