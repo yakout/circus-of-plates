@@ -35,8 +35,6 @@ import models.levels.LevelOne;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
-
-import models.shapes.Shape;
 import models.shapes.util.ShapePlatformPair;
 import services.file.FileHandler;
 
@@ -72,6 +70,7 @@ public class GameController implements Initializable, ScoreObserver {
     private AnchorPane mainGame;
     private ModelDataHolder modelDataHolder;
     private FileHandler handler;
+
     public synchronized static GameController getInstance() {
         return instance;
     }
@@ -170,11 +169,11 @@ public class GameController implements Initializable, ScoreObserver {
 //                }
 //                break;
             case ESCAPE:
-                 if (newGameStarted.get()) {
+                if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
                     } else {
-                         pauseGame();
+                        pauseGame();
                     }
                 }
                 break;
@@ -226,7 +225,9 @@ public class GameController implements Initializable, ScoreObserver {
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
             .KEYBOARD_SECONDARY)
     public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-        if (!mainGame.isVisible()) return;
+        if (!mainGame.isVisible()) {
+            return;
+        }
         Platform.runLater(() -> {
             switch (keyboardEvent.getKeyboardCode()) {
                 case A:
@@ -325,8 +326,10 @@ public class GameController implements Initializable, ScoreObserver {
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
         try {
-            playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
-            playersController.createPlayer(path_1, "player2", InputType.KEYBOARD_SECONDARY);
+            playersController.createPlayer(path_0, "player1", InputType
+                    .KEYBOARD_PRIMARY);
+            playersController.createPlayer(path_1, "player2", InputType
+                    .KEYBOARD_SECONDARY);
 
             gameBoard.addPlayerPanel("player1");
             gameBoard.addPlayerPanel("player2");
@@ -355,7 +358,7 @@ public class GameController implements Initializable, ScoreObserver {
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
         }
-        shapeGenerator= new ShapeGenerator(level, mainGame);
+        shapeGenerator = new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -367,20 +370,23 @@ public class GameController implements Initializable, ScoreObserver {
         try {
             for (Player player : modelDataHolder.getPlayers()) {
                 playersController.createPlayer(player.getPlayerUrl(), player
-                                .getName(), player.getInputType());
+                        .getName(), player.getInputType());
                 gameBoard.addPlayerPanel(player.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes()) {
+        for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes
+                ()) {
             switch (shapePlatformPair.getShape().getState()) {
                 case MOVING_HORIZONTALLY:
                 case FALLING:
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
-                    new ShapeController<>(shapeView, shapePlatformPair.getShape(),
-                            shapePlatformPair.getPlatform()).startMoving();
+                    new ShapeController<>(shapeView, shapePlatformPair
+                            .getShape(), shapePlatformPair.getPlatform())
+                            .startMoving();
+                    mainGame.getChildren().add(shapeView);
                     break;
                 case ON_THE_STACK:
                     System.out.println("ERRROROOROROROR");//TODO: LOG.
