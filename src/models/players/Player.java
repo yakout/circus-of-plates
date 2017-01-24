@@ -2,6 +2,7 @@ package models.players;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import com.sun.jmx.remote.internal.ArrayQueue;
@@ -9,6 +10,7 @@ import controllers.input.InputType;
 import controllers.player.ScoreObserver;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.image.Image;
 import models.GameRules;
 import models.Point;
 import models.shapes.Shape;
@@ -17,7 +19,6 @@ public class Player {
 
     private static int numOfPlayers = 0;
 
-    private Object avatar; // TODO
     private List<ScoreObserver> observers;
     private Stack<Shape> leftStick;
     private Stack<Shape> rightStick;
@@ -149,14 +150,6 @@ public class Player {
 
     public InputType getInputType() {
         return inputType;
-    }
-
-    public void setAvatar(Object avatar) {
-        this.avatar = avatar;
-    }
-    
-    public Object getAvatar() {
-        return this.avatar;
     }
 
     public String getPlayerUrl() {
