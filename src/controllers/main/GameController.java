@@ -37,8 +37,11 @@ import models.players.Stick;
 import services.file.FileHandler;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 
@@ -271,6 +274,14 @@ public class GameController implements Initializable, ScoreObserver {
                 }
             }
         });
+    }
+
+    public void saveGame(String name) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Date date = new Date();
+        String currentDate = dateFormat.format(date);
+        String fileName = name + " - " + currentDate;
+        this.handler.write(modelDataHolder, ".", fileName);
     }
 
     public double getStageWidth() {
