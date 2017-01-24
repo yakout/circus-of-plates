@@ -91,6 +91,8 @@ public class PlayerController {
             bindLeftStick(shapeController);
             leftStack.push(shapeController);
             playerModel.pushPlateLeft(shapeModel);
+            GameController.getInstance().getModelDataHolder().removeShape
+                    (shapeModel);
             return true;
         }
         return false;
@@ -116,6 +118,8 @@ public class PlayerController {
             bindRightStick(shapeController);
             rightStack.push(shapeController);
             playerModel.pushPlateRight(shapeModel);
+            GameController.getInstance().getModelDataHolder().removeShape
+                    (shapeModel);
             return true;
         }
         return false;

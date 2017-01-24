@@ -284,6 +284,7 @@ public class GameController implements Initializable, ScoreObserver {
                 rootPane.getLayoutY(), rootPane.getLayoutX()
                 + rootPane.getWidth(), rootPane.getLayoutY()
                 + rootPane.getHeight());
+        modelDataHolder.setActiveLevel(level);
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
