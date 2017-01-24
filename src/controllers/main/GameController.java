@@ -39,6 +39,8 @@ import models.players.Stick;
 import models.shapes.Shape;
 import models.shapes.util.ShapePlatformPair;
 import services.file.FileHandler;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -286,7 +288,8 @@ public class GameController implements Initializable, ScoreObserver {
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;
-        this.handler.write(modelDataHolder, ".", fileName);
+        this.handler.write(modelDataHolder, "." + File.separator + "save",
+                fileName);
     }
 
     public double getStageWidth() {

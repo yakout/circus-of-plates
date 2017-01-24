@@ -4,3 +4,4 @@ out/
 .checkstyle
 logs/
 *Thumbs.db
+save/
