@@ -1,20 +1,27 @@
 package controllers.menus;
 
-import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoadGame extends MenuController {
-    private VBox menu;
+public class LoadGame implements Initializable {
     private static LoadGame instance;
 
+    @FXML
+    private AnchorPane savedGames;
+
+    @FXML
+    private AnchorPane loadGamePane; // // TODO: 12/29/16 package access
+
     public LoadGame() {
-        super();
-        instance = this;
+    }
+
+    public static LoadGame getInstance() {
+        return instance;
     }
 
     /**
@@ -27,41 +34,26 @@ public class LoadGame extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        menu = loadGameMenu;
-        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
-
+        instance = this;
     }
 
     @FXML
-    private VBox loadGameMenu; // // TODO: 12/29/16 package access
-
-    @Override
-    void handle(String id) {
-        menu.setVisible(false);
-        switch (id) {
-            case "back":
+    private void mouseHandler(MouseEvent event) {
+        // menu.setVisible(false);
+        switch (((Node)event.getSource()).getId()) {
+            case "load":
                 Start.getInstance().setMenuVisible(true);
-                updateCurrentMenu(Start.getInstance());
+//                 updateCurrentMenu(Start.getInstance());
+
+                break;
+            case "cancel":
+                Start.getInstance().setMenuVisible(true);
+                loadGamePane.setVisible(false);
                 break;
         }
     }
 
-    @Override
-    protected VBox getMenu() {
-        return menu;
-    }
-
-    @Override
-    public void setMenuVisible(boolean visible) {
-        loadGameMenu.setVisible(visible);
-    }
-
-    @Override
-    public boolean isVisible() {
-        return loadGameMenu.isVisible();
-    }
-
-    public static MenuController getInstance() {
-        return instance;
+    public AnchorPane getLoadGamePane() {
+        return loadGamePane;
     }
 }

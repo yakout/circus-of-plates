@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,5 +69,11 @@ public class Audio implements Initializable {
 
     public SplitPane getAudioSettings() {
         return audioSettings;
+    }
+
+    @FXML
+    private void mouseHandler(MouseEvent event) {
+        // // TODO: 1/25/17  
+        this.audioSettings.setVisible(true);
     }
 }

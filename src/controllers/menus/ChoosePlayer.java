@@ -1,6 +1,8 @@
 package controllers.menus;
 
 import controllers.input.InputType;
+import controllers.main.GameController;
+import controllers.player.PlayersController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,8 +27,9 @@ import java.util.ResourceBundle;
 public class ChoosePlayer implements Initializable {
 
     private static Logger logger = LogManager.getLogger(ChoosePlayer.class);
-    private static final String CLOWN_DIR = "assets/images/clowns/clown_";
-    private static final String PLAYER = "PLAYER_";
+    private static final String CLOWN_DIR = "src/views/clowns/clown_";
+    private static final String FILE_NAME = "/clown.fxml";
+    private static final String PLAYER = "PLAYER ";
     private static final String CHOOSE = ": Choose";
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
@@ -35,6 +38,7 @@ public class ChoosePlayer implements Initializable {
     private String chosenClownID;
     private int currPlayer;
     private InputType inputType;
+    private String playerName;
     private boolean isPlayer1;
 
     @FXML
@@ -73,7 +77,7 @@ public class ChoosePlayer implements Initializable {
 
     @FXML
     private void mouseHandler(MouseEvent event){
-        chosenClownID = ((Node)event.getSource()).getId().toString();
+        chosenClownID = ((Node) event.getSource()).getId();
     }
 
     @FXML

@@ -100,6 +100,11 @@ public class GameBoard implements Initializable {
         timeline.play();
     }
 
+    public void reset() {
+        leftPanel.getChildren().clear();
+        rightPanel.getChildren().clear();
+    }
+
     public void updateScore(int score, String playerName) {
         for (Node node : leftPanel.getChildren()) {
             if (((Label)((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {

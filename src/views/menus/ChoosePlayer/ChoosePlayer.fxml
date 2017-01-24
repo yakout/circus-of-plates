@@ -4,21 +4,22 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="619.0" prefWidth="852.0" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
+            prefHeight="666.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.65"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
-      <Label alignment="CENTER" text="PLAYER_1: Choose" textAlignment="CENTER" textFill="#0b7075b5" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+      <Label alignment="CENTER" prefHeight="45.0" prefWidth="452.0" text="PLAYER 1: Choose" textAlignment="CENTER" textFill="#000000b5" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="852.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="467.0" prefWidth="852.0" AnchorPane.bottomAnchor="143.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
             <HBox fx:id="firstRow">
                <children>
@@ -39,7 +40,7 @@
          </children>
       </VBox>
 
-      <HBox AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="232.0">
+      <HBox layoutX="233.0" layoutY="571.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="232.0">
          <children>
             <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard" />
             <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="128.6" text="Joystick" />
@@ -47,11 +48,14 @@
          </children>
       </HBox>
 
-       <Button fx:id="choose" mnemonicParsing="false" onAction="#selectClown" text="Done" textFill="#2e5faeb2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0">
+       <Button fx:id="choose" mnemonicParsing="false" onAction="#selectClown" text="Done" textFill="#2e5faeb2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
            <font>
                <Font name="System Bold Italic" size="24.0" />
            </font>
        </Button>
+      <TextField layoutX="343.0" layoutY="544.0" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="342.0" />
+      <Label layoutX="260.0" layoutY="549.0" prefHeight="17.0" prefWidth="80.0" text="Player Name" />
+      <Label layoutX="140.0" layoutY="588.0" prefHeight="17.0" prefWidth="80.0" text="Controller" />
 
    </children>
 
