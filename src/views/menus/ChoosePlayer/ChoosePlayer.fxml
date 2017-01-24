@@ -43,8 +43,8 @@
       </Button>
       <HBox layoutX="300.0" layoutY="530.0" prefHeight="49.0" prefWidth="200.0">
          <children>
-            <RadioButton id="KEYBOARDs" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="100.0" selected="true" text="Keyboard" />
-            <RadioButton id="JOYSTICK" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="105.0" text="Joystick" />
+            <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="100.0" selected="true" text="Keyboard" />
+            <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="105.0" text="Joystick" />
          </children>
       </HBox>
    </children>
