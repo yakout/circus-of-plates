@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class Start extends MenuController {
     private BooleanProperty newGameIsDisabled;
+    private String fileNameRegex; // TODO: 1/24/17
 
     @FXML
     private AnchorPane startMenu;
@@ -102,6 +103,7 @@ public class Start extends MenuController {
     private void hideSaveGamePanel() {
         saveGamePane.setVisible(false);
         menu.setVisible(true);
+        this.requestFocus(0);
         startMenu.setVisible(true);
     }
 

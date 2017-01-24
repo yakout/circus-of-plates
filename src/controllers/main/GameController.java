@@ -121,6 +121,10 @@ public class GameController implements Initializable, ScoreObserver {
         return mainGame;
     }
 
+    public AnchorPane getRootPane() {
+        return rootPane;
+    }
+
     public ModelDataHolder getModelDataHolder() {
         return modelDataHolder;
     }
