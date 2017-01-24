@@ -56,11 +56,10 @@
       <TextField layoutX="343.0" layoutY="544.0" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="342.0" />
       <Label layoutX="260.0" layoutY="549.0" prefHeight="17.0" prefWidth="80.0" text="Player Name" />
       <Label layoutX="140.0" layoutY="588.0" prefHeight="17.0" prefWidth="80.0" text="Controller" />
+    </children>
 
-   </children>
+    <stylesheets>
+        <URL value="@ChoosePlayer.css" />
+    </stylesheets>
 
-   <stylesheets>
-      <URL value="@ChoosePlayer.css" />
-   </stylesheets>
-   
 </AnchorPane>

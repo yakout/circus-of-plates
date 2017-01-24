@@ -83,19 +83,22 @@ public class ChoosePlayer implements Initializable {
     @FXML
     public void selectClown() {
         if (isPlayer1) {
-            PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
+            PlayerFactory.getFactory().registerPlayer(PLAYER + String.
+                    valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
             setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
-            logger.info("First player has chosen clown_" + chosenClownID + ".");
+            logger.info("First player has chosen clown_" + chosenClownID
+                    + ".");
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
         } else {
-            PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
+            PlayerFactory.getFactory().registerPlayer(PLAYER + String
+                    .valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
             isPlayer1 = true;
             keyboard.setSelected(true);
@@ -103,13 +106,15 @@ public class ChoosePlayer implements Initializable {
             mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
-            logger.info("First player has chosen clown_" + chosenClownID + ".");
+            logger.info("First player has chosen clown_" + chosenClownID +
+                    ".");
             //TODO: here you send signal to game controller
 
 
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
             inputType = InputType.KEYBOARD_PRIMARY;
+            logger.info("Game mode menu is shown after choosing clown.");
         }
     }
 
@@ -143,11 +148,13 @@ public class ChoosePlayer implements Initializable {
         }
     }
      private void setPlayer2Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(++currPlayer) + CHOOSE);
+         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
+                 .valueOf(++currPlayer) + CHOOSE);
      }
 
      private void setPlayer1Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(--currPlayer) + CHOOSE);
+         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
+                 .valueOf(--currPlayer) + CHOOSE);
      }
 
     private void handleInputType(String input) {

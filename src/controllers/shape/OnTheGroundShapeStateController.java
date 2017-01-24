@@ -10,7 +10,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by Moham on 24-Jan-17.
  */
-public class OnTheGroundShapeStateController<T extends Node> implements ShapeState {
+public class OnTheGroundShapeStateController<T extends Node> implements
+        ShapeState {
     private static Logger logger = LogManager.getLogger
             (OnTheGroundShapeStateController.class);
     private static final int THREAD_SLEEP_TIME = 5000;

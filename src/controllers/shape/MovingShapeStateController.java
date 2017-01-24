@@ -13,7 +13,8 @@ public class MovingShapeStateController<T extends Node> extends
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
     private final ShapeMovingObserver shapeMovingObserver;
-    private static Logger logger = LogManager.getLogger(MovingShapeStateController
+    private static Logger logger = LogManager.getLogger
+            (MovingShapeStateController
             .class);
     private double offset;
     private final Runnable shapeMover = new Runnable() {

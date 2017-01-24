@@ -33,13 +33,16 @@ public class GameMode extends MenuController {
      * Called to initialize a controller after its root element has been
      * completely processed.
      *
-     * @param location  The location used to resolve relative paths for the root object, or
+     * @param location  The location used to resolve relative paths for the
+     *                  root object, or
      *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param resources The resources used to localize the root object, or
+     *                  <tt>null</tt> if
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
+        Joystick.getInstance().registerClassForInputAction(getClass(),
+                instance);
     }
 
     @Override
@@ -87,6 +90,16 @@ public class GameMode extends MenuController {
             double width = GameController.getInstance().getStageWidth();
             AnchorPane.setLeftAnchor(playerChooser, width / 2 - playerChooser.getPrefWidth() / 2);
             AnchorPane.setTopAnchor(playerChooser, 50.0);
+//=======
+//            Node playerChooser = FXMLLoader.load(url);
+//            GameController.getInstance().getRootPane().getChildren().add
+//                    (playerChooser);
+//            AnchorPane.setBottomAnchor(playerChooser, 0.0);
+//            AnchorPane.setLeftAnchor(playerChooser, GameController
+//                    .getInstance().getRootPane().getWidth() / 4.0);
+//            AnchorPane.setRightAnchor(playerChooser, 0.0);
+//            AnchorPane.setTopAnchor(playerChooser, 0.0);
+//>>>>>>> 601ed58eb293636bbc1f947648b08c4676107659
         } catch (IOException e) {
             e.printStackTrace();
         }

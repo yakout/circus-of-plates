@@ -13,7 +13,8 @@ public abstract class ShapeMovementController<T extends Node>
 	protected Thread shapeMovementThread;
 	protected boolean threadRunning;
 	protected boolean threadPaused;
-	private static Logger logger = LogManager.getLogger(ShapeMovementController.class);
+	private static Logger logger = LogManager.getLogger(
+			ShapeMovementController.class);
 	public ShapeMovementController(final T shape, final Shape model) {
 		this.shape = shape;
 		this.shapeModel = model;

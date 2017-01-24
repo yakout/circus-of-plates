@@ -47,12 +47,11 @@ public class ShapeGenerator {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            List<models.Platform> platforms = level.getPlatforms();
+                            List<models.Platform> platforms = level
+                                    .getPlatforms();
                             for (models.Platform platform : platforms) {
-                                ShapeController<? extends Node> shapeController =
-                                        null;
-//                                    ShapeControllerPool.getInstance()
-//                                            .getShapeController(platform);
+                                ShapeController<? extends Node> shapeController
+                                        = null;
                                 if (shapeController != null) {
                                     shapeController.resetShape();
                                     shapeController.startMoving();
@@ -67,10 +66,12 @@ public class ShapeGenerator {
                                     ImageView imgView = (ImageView) ShapeBuilder
                                             .getInstance().build(shapeModel);
                                     if (imgView == null) {
-                                        logger.debug("Couldn't find shapes in the pool.");
+                                        logger.debug("Couldn't find shapes " +
+                                                "in the pool.");
                                         continue;
                                     }
-//                                    logger.debug("Shape object is built successfully.");
+//                                    logger.debug("Shape object is built
+// successfully.");
                                     generateShape(imgView, platform, shapeModel);
                                 }
                             }
@@ -153,11 +154,13 @@ public class ShapeGenerator {
         return generationThreadPaused;
     }
 
-    private synchronized void setGenerationThreadIsNotStopped(boolean generationThreadIsNotStopped) {
+    private synchronized void setGenerationThreadIsNotStopped(
+            boolean generationThreadIsNotStopped) {
         this.generationThreadIsNotStopped = generationThreadIsNotStopped;
     }
 
-    private synchronized void setGenerationThreadPaused(boolean generationThreadPaused) {
+    private synchronized void setGenerationThreadPaused(
+            boolean generationThreadPaused) {
         this.generationThreadPaused = generationThreadPaused;
     }
 }

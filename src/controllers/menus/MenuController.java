@@ -86,19 +86,22 @@ public abstract class MenuController implements Initializable {
         switch (event.getJoystickCode()) {
             case DOWN:
                 Platform.runLater(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuChoiceMedia).play();
                     handleEvent(Direction.DOWN);
                 });
                 break;
             case UP:
                 Platform.runLater(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuChoiceMedia).play();
                     handleEvent(Direction.UP);
                 });
                 break;
             case PRESS:
                 Platform.runLater(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuSelectionMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuSelectionMedia).play();
                     handleEvent(Direction.PRESS);
                 });
             default:
@@ -112,7 +115,8 @@ public abstract class MenuController implements Initializable {
         switch (event.getCode()) {
             case ENTER:
                 new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuSelectionMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuSelectionMedia).play();
                 }).start();
                 handle(getButton(getCurrentIndex()).getId());
                 break;
@@ -122,12 +126,14 @@ public abstract class MenuController implements Initializable {
                 break;
             case DOWN:
                 new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuChoiceMedia).play();
                 }).start();
                 break;
             case UP:
                 new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer.menuChoiceMedia).play();
+                    new javafx.scene.media.MediaPlayer(AudioPlayer
+                            .menuChoiceMedia).play();
                 }).start();
                 break;
             default:

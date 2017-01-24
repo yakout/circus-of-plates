@@ -44,10 +44,12 @@ public class PlayersController {
         // for primary joystick as it's too fast
         // 20 is default
         gamePane.getChildren().add(player);
-        PlayerController playerController = new PlayerController(playerName, player, playerModel);
+        PlayerController playerController = new PlayerController(playerName,
+                player, playerModel);
         players.put(playerName, playerController);
         GameController.getInstance().getModelDataHolder().addPlayer
                 (playerModel);
+        playerController.addShapes();
         return player;
     }
 

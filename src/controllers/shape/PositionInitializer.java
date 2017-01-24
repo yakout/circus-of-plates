@@ -24,7 +24,8 @@ public class PositionInitializer {
             default:
                 break;
         }
-        shapeModel.getPosition().setY(platform.getCenter().getY() - platform.getHeight
+        shapeModel.getPosition().setY(platform.getCenter().getY() - platform
+                .getHeight
                 ().doubleValue() / 2.0);
         shapeModel.getInitialPosition().setX(shapeModel.getPosition().getX());
         shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY());
