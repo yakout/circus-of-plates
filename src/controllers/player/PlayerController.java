@@ -2,6 +2,7 @@ package controllers.player;
 
 
 import controllers.main.GameController;
+import controllers.shape.ShapeBuilder;
 import controllers.shape.ShapeController;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -11,6 +12,7 @@ import models.data.ModelDataHolder;
 import models.players.Player;
 import models.players.Stick;
 import models.shapes.Shape;
+import models.shapes.util.ShapePlatformPair;
 import models.states.ShapeState;
 import services.file.FileHandler;
 
@@ -94,7 +96,8 @@ public class PlayerController {
             leftStack.push(shapeController);
             playerModel.pushPlateLeft(shapeModel);
             GameController.getInstance().getModelDataHolder().removeShape
-                    (shapeModel);
+                    (new ShapePlatformPair(shapeModel, shapeController
+                            .getPlatform()));
             return true;
         }
         return false;
@@ -121,7 +124,8 @@ public class PlayerController {
             rightStack.push(shapeController);
             playerModel.pushPlateRight(shapeModel);
             GameController.getInstance().getModelDataHolder().removeShape
-                    (shapeModel);
+                    (new ShapePlatformPair(shapeModel, shapeController
+                            .getPlatform()));
             return true;
         }
         return false;
@@ -243,5 +247,46 @@ public class PlayerController {
             height += shape.getHeight().doubleValue();
         }
         return height;
+    }
+
+    public void addShapes() {
+        Stack<Shape> leftShapes = new Stack<>();
+        Stack<Shape> rightShapes = new Stack<>();
+        while (!playerModel.getLeftStack().isEmpty()) {
+            leftShapes.push(playerModel.getLeftStack().pop());
+        }
+        while (!playerModel.getRightStack().isEmpty()) {
+            rightShapes.push(playerModel.getRightStack().pop());
+        }
+        while (!leftShapes.isEmpty()) {
+            ShapeController<? extends Node> shapeController = new
+                    ShapeController<Node>(ShapeBuilder
+                    .getInstance().build(leftShapes.peek()), leftShapes
+                    .peek(),  null);
+            leftShapes.pop();
+            bindLeftStick(shapeController);
+            leftStack.push(shapeController);
+            playerModel.pushPlateLeft(shapeController.getShapeModel());
+            GameController.getInstance().getModelDataHolder().removeShape
+                    (new ShapePlatformPair(shapeController.getShapeModel(), shapeController
+                            .getPlatform()));
+            GameController.getInstance().getMainGame().getChildren().add
+                    (shapeController.getShape());
+        }
+        while (!rightShapes.isEmpty()) {
+            ShapeController<? extends Node> shapeController = new
+                    ShapeController<Node>(ShapeBuilder
+                    .getInstance().build(rightShapes.peek()), rightShapes
+                    .peek(),  null);
+            rightShapes.pop();
+            bindRightStick(shapeController);
+            rightStack.push(shapeController);
+            playerModel.pushPlateRight(shapeController.getShapeModel());
+            GameController.getInstance().getModelDataHolder().removeShape
+                    (new ShapePlatformPair(shapeController.getShapeModel(), shapeController
+                            .getPlatform()));
+            GameController.getInstance().getMainGame().getChildren().add
+                    (shapeController.getShape());
+        }
     }
 }

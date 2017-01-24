@@ -49,6 +49,7 @@ public class PlayersController {
         players.put(playerName, playerController);
         GameController.getInstance().getModelDataHolder().addPlayer
                 (playerModel);
+        playerController.addShapes();
         return player;
     }
 

@@ -1,6 +1,6 @@
 package models.shapes;
 
-import models.ShapeFactory;
+import models.shapes.util.ShapeFactory;
 import models.levels.*;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;

@@ -5,7 +5,8 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import models.ShapePool;
+import models.shapes.util.ShapePlatformPair;
+import models.shapes.util.ShapePool;
 import models.levels.Level;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
@@ -58,7 +59,8 @@ public class ShapeGenerator {
                                     Shape shapeModel = ShapePool.getShape(level);
                                     GameController.getInstance()
                                             .getModelDataHolder().addShape(
-                                            shapeModel);
+                                            new ShapePlatformPair(shapeModel,
+                                                    platform));
                                     PositionInitializer.normalize(platform,
                                             shapeModel);
                                     ImageView imgView = (ImageView) ShapeBuilder

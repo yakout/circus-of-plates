@@ -33,8 +33,12 @@ public class ShapeBuilder {
         shapeView.setImage(img);
         shapeView.setFitHeight(shapeModel.getHeight().doubleValue());
         shapeView.setFitWidth(shapeModel.getWidth().doubleValue());
-        shapeView.setLayoutX(shapeModel.getPosition().getX());
-        shapeView.setLayoutY(shapeModel.getPosition().getY());
+        shapeView.setLayoutX(shapeModel.getInitialPosition().getX());
+        shapeView.setLayoutY(shapeModel.getInitialPosition().getY());
+        shapeView.setTranslateX(shapeModel.getPosition().getX() - shapeModel
+                .getInitialPosition().getX());
+        shapeView.setTranslateX(shapeModel.getPosition().getY() - shapeModel
+                .getInitialPosition().getY());
         shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
                 .add(shapeView.getLayoutX()));
         shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
