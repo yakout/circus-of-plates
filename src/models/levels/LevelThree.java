@@ -1,5 +1,7 @@
 package models.levels;
 
+import models.levels.util.LevelFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,9 @@ public class LevelThree extends Level{
     private static final int LEVEL = 3;
     private static List<String> supportedShapes
             = new ArrayList<>();
-
+    static {
+        LevelFactory.getInstance().registerLevel(LEVEL, LevelThree.class);
+    }
     public LevelThree(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
         supportedColors = new ArrayList<>();
