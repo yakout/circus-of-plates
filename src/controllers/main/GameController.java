@@ -30,7 +30,6 @@ import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.players.Stick;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +40,7 @@ public class GameController implements Initializable, ScoreObserver {
     private MenuController currentMenu;
     private PlayersController playersController;
     private GameBoard gameBoard;
+    private ShapeGenerator generator;
 
     // TODO: 1/19/17 plate Controller
 
@@ -55,9 +55,6 @@ public class GameController implements Initializable, ScoreObserver {
     private ModelDataHolder modelDataHolder;
 
     public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
         return instance;
     }
 
@@ -293,8 +290,7 @@ public class GameController implements Initializable, ScoreObserver {
             mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
-        ShapeGenerator generator
-                = new ShapeGenerator(level, mainGame);
+        generator = new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -334,7 +330,9 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu.requestFocus(0);
         mainGame.setVisible(false);
 
-        //
+        gameBoard.pause();
+        playersController.pause();
+        generator.pauseGenerator();
     }
 
     private void continueGame() {
@@ -342,7 +340,9 @@ public class GameController implements Initializable, ScoreObserver {
         mainGame.requestFocus();
         mainGame.setVisible(true);
 
-        //
+        gameBoard.resume();
+        playersController.resume();
+        generator.resumeGenerator();
     }
 
     @Override

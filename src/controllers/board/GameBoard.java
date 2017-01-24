@@ -91,8 +91,13 @@ public class GameBoard implements Initializable {
         }
     }
 
-    private void getNodeWithId(String id) {
-        board.getScene().lookup("#" + id);
+
+    public void pause() {
+        timeline.pause();
+    }
+
+    public void resume() {
+        timeline.play();
     }
 
     public void updateScore(int score, String playerName) {
