@@ -18,7 +18,8 @@ import java.util.List;
  */
 public class ShapeGenerator {
 
-    private final long THREAD_SLEEP_TIME = 10000;
+    private final long THREAD_SLEEP_TIME = 50;
+    private final long THREAD_PULSE_RATE = 150;
     private Level level;
     private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
@@ -28,61 +29,57 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            while (isGenerationThreadIsNotStopped()) {
-                while (isGenerationThreadPaused()) {
+            long counter = THREAD_PULSE_RATE;
+            while (generationThreadIsNotStopped) {
+                counter++;
+                while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
                         Thread.currentThread().sleep(Long.MAX_VALUE);
                     } catch (InterruptedException e) {
                         logger.info("Generation Thread Resumed");
-                        System.out.println("HI1");
-                        try {
-                            System.out.println("HI2");
-                            Thread.currentThread().sleep(5000);
-                            System.out.println("HI3");
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
-                            continue;
-                        }
                         break;
                     }
                 }
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        List<models.Platform> platforms = level.getPlatforms();
-                        for (models.Platform platform : platforms) {
-                            ShapeController<? extends Node> shapeController =
-                                    null;
+                if (counter >= THREAD_PULSE_RATE) {
+                    counter = 0;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            List<models.Platform> platforms = level.getPlatforms();
+                            for (models.Platform platform : platforms) {
+                                ShapeController<? extends Node> shapeController =
+                                        null;
 //                                    ShapeControllerPool.getInstance()
 //                                            .getShapeController(platform);
-                            if (shapeController != null) {
-                                shapeController.resetShape();
-                                shapeController.startMoving();
-                            } else {
-                                Shape shapeModel = ShapePool.getShape(level);
-                                GameController.getInstance()
-                                        .getModelDataHolder().addShape(
-                                        shapeModel);
-                                PositionInitializer.normalize(platform,
-                                        shapeModel);
-                                ImageView imgView = (ImageView) ShapeBuilder
-                                        .getInstance().build(shapeModel);
-                                if (imgView == null) {
-                                    logger.debug("Couldn't find shapes in the pool.");
-                                    continue;
+                                if (shapeController != null) {
+                                    shapeController.resetShape();
+                                    shapeController.startMoving();
+                                } else {
+                                    Shape shapeModel = ShapePool.getShape(level);
+                                    GameController.getInstance()
+                                            .getModelDataHolder().addShape(
+                                            shapeModel);
+                                    PositionInitializer.normalize(platform,
+                                            shapeModel);
+                                    ImageView imgView = (ImageView) ShapeBuilder
+                                            .getInstance().build(shapeModel);
+                                    if (imgView == null) {
+                                        logger.debug("Couldn't find shapes in the pool.");
+                                        continue;
+                                    }
+                                    logger.debug("Shape object is built successfully.");
+                                    generateShape(imgView, platform, shapeModel);
                                 }
-                                logger.debug("Shape object is built successfully.");
-                                generateShape(imgView, platform, shapeModel);
                             }
                         }
-                    }
-                });
+                    });
+                }
                 try {
                     Thread.sleep(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
                     logger.info("Plate-generator Thread has been interrupted");
-                    if (isGenerationThreadIsNotStopped()) {
+                    if (generationThreadIsNotStopped) {
                         continue;
                     } else {
                         break;
@@ -126,8 +123,8 @@ public class ShapeGenerator {
      */
     public synchronized void pauseGenerator() {
         logger.info("Generation Thread Pause Requested");
-        setGenerationThreadPaused(true);
-//        generationThreadPaused = true;
+//        setGenerationThreadPaused(true);
+        generationThreadPaused = true;
     }
 
     /**
@@ -135,14 +132,14 @@ public class ShapeGenerator {
      */
     public synchronized void resumeGenerator() {
         logger.info("Generation Thread Resume Requested");
-        setGenerationThreadPaused(false);
-//        generationThreadPaused = false;
+//        setGenerationThreadPaused(false);
+        generationThreadPaused = false;
         shapeGeneratorThread.interrupt();
     }
 
     public synchronized void stopGeneration() {
-        setGenerationThreadIsNotStopped(false);
-//        generationThreadIsNotStopped = false;
+/*        setGenerationThreadIsNotStopped(false);*/
+        generationThreadIsNotStopped = false;
         shapeGeneratorThread.interrupt();
     }
 
