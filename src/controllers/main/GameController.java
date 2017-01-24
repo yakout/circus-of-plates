@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.AudioPlayer;
 import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
@@ -342,6 +343,7 @@ public class GameController implements Initializable, ScoreObserver {
         gameBoard.pause();
         playersController.pause();
         shapeGenerator.pauseGenerator();
+        AudioPlayer.backgroundMediaPlayer.pause();
     }
 
     private void continueGame() {
@@ -352,6 +354,7 @@ public class GameController implements Initializable, ScoreObserver {
         gameBoard.resume();
         playersController.resume();
         shapeGenerator.resumeGenerator();
+        AudioPlayer.backgroundMediaPlayer.play();
     }
 
     @Override
