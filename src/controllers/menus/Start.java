@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -23,6 +24,9 @@ public class Start extends MenuController {
 
     @FXML
     private AnchorPane saveGamePane;
+
+    @FXML
+    private TextField gameName;
 
     private static Start instance;
 
@@ -83,9 +87,22 @@ public class Start extends MenuController {
                 Platform.exit();
                 System.exit(0);
                 break;
+            case "save":
+                GameController.getInstance().saveGame(gameName.getText());
+                hideSaveGamePanel();
+                break;
+            case "cancelSave":
+                hideSaveGamePanel();
+                break;
             default:
                 break;
         }
+    }
+
+    private void hideSaveGamePanel() {
+        saveGamePane.setVisible(false);
+        menu.setVisible(true);
+        startMenu.setVisible(true);
     }
 
     @Override

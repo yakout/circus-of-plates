@@ -27,9 +27,9 @@ public class FileHandler implements FileWriter, FileReader {
 
     @Override
     public void write(ModelDataHolder dataHolder, String path, String fileName) {
-        this.setupSaveDirectory(path);
+//        this.setupSaveDirectory(path);
         writer.write(dataHolder, path, fileName);
-        this.addSaveEntry(path, fileName);
+//        this.addSaveEntry(path, fileName);
     }
 
     @Override

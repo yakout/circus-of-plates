@@ -277,6 +277,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void saveGame(String name) {
+        System.err.println(name);
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date date = new Date();
         String currentDate = dateFormat.format(date);
