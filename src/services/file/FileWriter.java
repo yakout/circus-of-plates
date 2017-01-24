@@ -9,5 +9,5 @@ interface FileWriter {
 
     public void write(ModelDataHolder dataHolder, String path, String
             fileName);
-
+    public String getExtension();
 }

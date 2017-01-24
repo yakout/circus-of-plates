@@ -51,6 +51,11 @@ class JsonReader implements FileReader {
         return gson.fromJson(json.toString(), ModelDataHolder.class);
     }
 
+    @Override
+    public String getExtension() {
+        return ".json";
+    }
+
     private class DoublePropertyDeserializer
             implements JsonDeserializer<DoubleProperty> {
 
