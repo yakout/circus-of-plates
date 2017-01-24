@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.board.GameBoard;
 import controllers.input.ActionType;
 import controllers.input.InputAction;
 import controllers.input.InputType;
@@ -29,7 +30,6 @@ import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
 import models.players.Stick;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,6 +39,9 @@ public class GameController implements Initializable, ScoreObserver {
     private static GameController instance;
     private MenuController currentMenu;
     private PlayersController playersController;
+    private GameBoard gameBoard;
+    private ShapeGenerator shapeGenerator;
+
     // TODO: 1/19/17 plate Controller
 
     @FXML
@@ -52,9 +55,6 @@ public class GameController implements Initializable, ScoreObserver {
     private ModelDataHolder modelDataHolder;
 
     public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
         return instance;
     }
 
@@ -71,6 +71,7 @@ public class GameController implements Initializable, ScoreObserver {
     public void initialize(URL location, ResourceBundle resources) {
         // Controllers
         currentMenu = Start.getInstance();
+        gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
 
         instance = this;
@@ -124,14 +125,9 @@ public class GameController implements Initializable, ScoreObserver {
             case ESCAPE:
                 Platform.runLater(() -> {
                     if (currentMenu.isVisible()) {
-                        currentMenu.setMenuVisible(false);
-                        mainGame.requestFocus();
-                        mainGame.setVisible(true);
+                        continueGame();
                     } else {
-                        currentMenu = Start.getInstance();
-                        currentMenu.setMenuVisible(true);
-                        currentMenu.requestFocus(0);
-                        mainGame.setVisible(false);
+                        pauseGame();
                     }
                 });
                 break;
@@ -249,6 +245,7 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
+        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
         switch (gameMode) {
             case NORMAL:
                 startNormalGame();
@@ -269,6 +266,10 @@ public class GameController implements Initializable, ScoreObserver {
         try {
             playersController.createPlayer(path_0, "player1", InputType.KEYBOARD_PRIMARY);
             playersController.createPlayer(path_1, "player2", InputType.KEYBOARD_SECONDARY);
+
+            gameBoard.addPlayerPanel("player1");
+            gameBoard.addPlayerPanel("player2");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -290,8 +291,7 @@ public class GameController implements Initializable, ScoreObserver {
             mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
-        ShapeGenerator generator
-                = new ShapeGenerator(level, mainGame);
+        shapeGenerator= new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -325,9 +325,32 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    private void pauseGame() {
+        currentMenu = Start.getInstance();
+        currentMenu.setMenuVisible(true);
+        currentMenu.requestFocus(0);
+        mainGame.setVisible(false);
+
+        gameBoard.pause();
+        playersController.pause();
+        shapeGenerator.pauseGenerator();
+    }
+
+    private void continueGame() {
+        currentMenu.setMenuVisible(false);
+        mainGame.requestFocus();
+        mainGame.setVisible(true);
+
+        gameBoard.resume();
+        playersController.resume();
+        shapeGenerator.resumeGenerator();
+    }
+
     @Override
     public void update(int score, String playerName, Stick stick) {
         //TODO:- UPDATE THE SCORING LABEL.
+
         playersController.removeShapes(playerName, stick);
+        gameBoard.updateScore(score, playerName);
     }
 }

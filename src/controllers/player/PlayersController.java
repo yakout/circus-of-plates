@@ -1,23 +1,22 @@
 package controllers.player;
 
+import controllers.AudioPlayer;
 import controllers.input.InputType;
 import controllers.main.GameController;
 import controllers.shape.ShapeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import models.ShapePool;
+import javafx.scene.media.MediaPlayer;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
-import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,6 +101,19 @@ public class PlayersController {
 
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);
+
+
+        // TODO move this to audio player
+        new Thread(() -> {
+            new MediaPlayer(AudioPlayer.newScoreMedia).play();
+        });
     }
 
+    public void resume() {
+        //
+    }
+
+    public void pause() {
+        //
+    }
 }
