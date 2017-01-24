@@ -1,7 +1,13 @@
 package services.file;
 
+import models.data.ModelDataHolder;
+
 /**
  * Created by Moham on 24-Jan-17.
  */
-public interface FileWriter {
+interface FileWriter {
+
+    public void write(ModelDataHolder dataHolder, String path, String
+            fileName);
+
 }

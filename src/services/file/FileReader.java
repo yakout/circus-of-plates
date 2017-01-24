@@ -1,10 +1,12 @@
 package services.file;
 
+import models.data.ModelDataHolder;
+
 /**
  * Created by Moham on 24-Jan-17.
  */
-public interface FileReader {
+interface FileReader {
 
-
+    ModelDataHolder read(String path, String fileName);
 
 }
