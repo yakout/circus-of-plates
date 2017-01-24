@@ -8,6 +8,7 @@ import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.levels.LevelTwo;
+import models.levels.util.LevelFactory;
 import models.shapes.Shape;
 import models.states.Color;
 import models.states.ShapeState;
@@ -80,18 +81,8 @@ class JsonReader implements FileReader {
             double minY = jsonObject.get("minY").getAsDouble();
             double maxX = jsonObject.get("maxX").getAsDouble();
             double maxY = jsonObject.get("maxY").getAsDouble();
-            Level level = null;
-            switch (levelNumber) {//TEMPORARY SOLUTION, A LEVEL FACTORY WILL
-                // BE MADE
-                case 1:
-                    level = new LevelOne(minX, minY, maxX, maxY);
-                    break;
-                case 2:
-                    level = new LevelTwo(minX, minY, maxX, maxY);
-                    break;
-                default:
-                    break;
-            }
+            Level level = LevelFactory.getInstance().createLevel(levelNumber,
+                    minX, minY, maxX, maxY);
             return level;
         }
     }

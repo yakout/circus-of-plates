@@ -13,7 +13,8 @@ public class MovingShapeStateController<T extends Node> extends
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
     private final ShapeMovingObserver shapeMovingObserver;
-    private static Logger logger = LogManager.getLogger(MovingShapeStateController
+    private static Logger logger = LogManager.getLogger
+            (MovingShapeStateController
             .class);
     private double offset;
     private final Runnable shapeMover = new Runnable() {
@@ -23,10 +24,10 @@ public class MovingShapeStateController<T extends Node> extends
             while (threadRunning) {
                 while (threadPaused) {
                     try {
-                        logger.debug("Generation Thread Paused");
+                        //logger.debug("Horizontal Movement Thread Paused");
                         Thread.currentThread().sleep(Long.MAX_VALUE);
                     } catch (InterruptedException e) {
-                        logger.info("Generation Thread Resumed");
+                        //logger.info("Horizontal Movement Thread Resumed");
                         break;
                     }
                 }
@@ -40,8 +41,8 @@ public class MovingShapeStateController<T extends Node> extends
                                 + offset))
                                 < Math.abs(width / 2.0 -
                                 platform.getWidth().doubleValue())) {
-                            logger.info("A Shape Reached the End of The "
-                                    + "Shelf");
+                          //  logger.info("A Shape Reached the End of The "
+                            //        + "Shelf");
                             shapeMovingObserver.shapeShouldStartFalling();
                         } else {
                             shape.setTranslateX(shape.getTranslateX() + sign *
@@ -52,8 +53,8 @@ public class MovingShapeStateController<T extends Node> extends
                 try {
                     this.wait(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
-                    logger.debug("Thread (" + Thread.currentThread()
-                            .getName() + ") Interrupted");
+                    //logger.debug("Thread (" + Thread.currentThread()
+                            //.getName() + ") Interrupted");
                     if (!threadRunning) {
                         break;
                     } else {
@@ -61,8 +62,8 @@ public class MovingShapeStateController<T extends Node> extends
                     }
                 }
             }
-            logger.debug("Thread: " + Thread.currentThread().getName()
-                    + " Stopped");
+            //logger.debug("Thread: " + Thread.currentThread().getName()
+              //      + " Stopped");
         }
     };
 
@@ -75,11 +76,13 @@ public class MovingShapeStateController<T extends Node> extends
         offset = 0;
         switch (platform.getOrientation()) {
             case LEFT:
-                logger.info("Movement Requested for A Shape in The Left Half");
+                //logger.info("Movement Requested for A Shape in The Left "
+                 //   + "Half");
                 sign = 1;
                 break;
             case RIGHT:
-                logger.info("Movement Requested for A Shape in The Left Half");
+                //logger.info("Movement Requested for A Shape in The Left "
+                  //  + "Half");
                 sign = -1;
                 offset = shape.getLayoutBounds().getWidth();
                 break;
@@ -90,7 +93,7 @@ public class MovingShapeStateController<T extends Node> extends
                 "Horizontal Movement Thread " + shape.getId());
         shapeMovementThread.setDaemon(true);
         shapeMovementThread.start();
-        logger.debug("A Shape Started Moving");
+        //logger.debug("A Shape Started Moving");
     }
 
     @Override

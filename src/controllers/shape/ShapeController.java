@@ -26,10 +26,11 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		this.platform = platform;
 		currentState = null;
 		GameController.getInstance().addShapeController(this);
+//		logger.info("Shape Controller Created");
 	}
 
 	public void startMoving() {
-		logger.debug("Shape " + " Movement Requested");
+		//logger.debug("Shape " + " Movement Requested");
 		switch (shapeModel.getState()) {
 			case MOVING_HORIZONTALLY:
 				currentState
@@ -49,7 +50,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
 	@Override
 	public void shapeShouldStartFalling() {
-	    logger.debug("A Shape Should Start Falling");
+	    //logger.debug("A Shape Should Start Falling");
 		if (currentState == null) {
 			return;
 		}
@@ -67,7 +68,6 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 		currentState.nextState();
 		shapeModel.setState(ShapeState.ON_THE_GROUND);
 		currentState = new OnTheGroundShapeStateController<>(this);
-		//TODO:- Ask the main controller to add the plate to the pool.
 	}
 
 	@Override

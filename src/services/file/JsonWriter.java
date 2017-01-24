@@ -23,20 +23,21 @@ class JsonWriter implements FileWriter {
         String json = gson.toJson(dataHolder);
         File jsonFile = new File(path + File.separator +
                 fileName + ".json");
-        if (!jsonFile.exists()) {
-            try {
+        try {
+            if (!jsonFile.exists()) {
+                System.out.println(jsonFile.getAbsolutePath());
                 jsonFile.createNewFile();
-                FileOutputStream outputStream = null;
-                try {
-                    outputStream = new FileOutputStream(jsonFile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                outputStream.write(json.getBytes());
-                outputStream.close();
-            } catch (IOException e) {
+            }
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = new FileOutputStream(jsonFile);
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            outputStream.write(json.getBytes());
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

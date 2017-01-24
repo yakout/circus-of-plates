@@ -121,6 +121,10 @@ public class GameController implements Initializable, ScoreObserver {
         return mainGame;
     }
 
+    public AnchorPane getRootPane() {
+        return rootPane;
+    }
+
     public ModelDataHolder getModelDataHolder() {
         return modelDataHolder;
     }
@@ -278,7 +282,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void saveGame(String name) {
         System.err.println(name);
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd_MM_yy HH,mm,ss");
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;

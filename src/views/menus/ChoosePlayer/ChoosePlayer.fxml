@@ -10,60 +10,51 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" visible="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
-   <children>
-      <Label alignment="CENTER" prefHeight="78.0" prefWidth="350.0" text="PLAYER_1: Choose" textAlignment="CENTER" textFill="#0b7075b5" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="852.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
-         <children>
-            <HBox fx:id="firstRow">
-               <children>
-                  <Button id="1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
-                  <Button id="4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="232.0" prefWidth="207.5" />
-               </children>
-            </HBox>
-            <HBox fx:id="secondRow">
-               <children>
-                  <Button id="5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-                  <Button id="8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+    <children>
+        <Label alignment="CENTER" text="PLAYER_1: Choose" textAlignment="CENTER" textFill="#0b7075b5" AnchorPane.bottomAnchor="584.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="852.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+            <children>
+                <HBox fx:id="firstRow">
+                    <children>
+                        <Button id="1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                        <Button id="2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                        <Button id="3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="207.5" />
+                        <Button id="4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="232.0" prefWidth="207.5" />
+                    </children>
+                </HBox>
+                <HBox fx:id="secondRow">
+                    <children>
+                        <Button id="5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                        <Button id="6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                        <Button id="7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                        <Button id="8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="231.0" prefWidth="207.5" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
 
-      <HBox AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="232.0">
-         <children>
-            <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard" textFill="#0080ff">
-               <font>
-                  <Font size="18.0" />
-               </font></RadioButton>
-            <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="128.6" text="Joystick" textFill="#0080ff">
-               <font>
-                  <Font size="18.0" />
-               </font></RadioButton>
-            <RadioButton id="mouse" fx:id="mouse" mnemonicParsing="false" onAction="#selectInputType" prefHeight="50.0" prefWidth="129.0" text="mouse" textFill="#0080ff">
-               <font>
-                  <Font size="18.0" />
-               </font></RadioButton>
-         </children>
-      </HBox>
+        <HBox AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="524.0">
+            <children>
+                <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard" />
+                <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="128.6" text="Joystick" />
+                <RadioButton id="mouse" fx:id="mouse" mnemonicParsing="false" onAction="#selectInputType" prefHeight="50.0" prefWidth="129.0" text="mouse" />
+            </children>
+        </HBox>
 
-       <Button fx:id="choose" mnemonicParsing="false" onAction="#selectClown" text="Done" textFill="#2e5faeb2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0">
-           <font>
-               <Font name="System Bold Italic" size="24.0" />
-           </font>
-       </Button>
+        <Button fx:id="choose" mnemonicParsing="false" onAction="#selectClown" text="Done" textFill="#2e5faeb2" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="568.0">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+        </Button>
 
-   </children>
+    </children>
 
-   <stylesheets>
-      <URL value="@ChoosePlayer.css" />
-   </stylesheets>
-   
+    <stylesheets>
+        <URL value="@ChoosePlayer.css" />
+    </stylesheets>
+
 </AnchorPane>

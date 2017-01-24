@@ -10,7 +10,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by Moham on 24-Jan-17.
  */
-public class OnTheGroundShapeStateController<T extends Node> implements ShapeState {
+public class OnTheGroundShapeStateController<T extends Node> implements
+        ShapeState {
     private static Logger logger = LogManager.getLogger
             (OnTheGroundShapeStateController.class);
     private static final int THREAD_SLEEP_TIME = 5000;
@@ -22,8 +23,8 @@ public class OnTheGroundShapeStateController<T extends Node> implements ShapeSta
             try {
                 Thread.currentThread().sleep(THREAD_SLEEP_TIME);
             } catch (InterruptedException e) {
-                logger.info("On The Ground Sleep Thread is "
-                        + "Interrupted");
+                /*logger.info("On The Ground Sleep Thread is "
+                        + "Interrupted");*/
             }
             Platform.runLater(new Runnable() {
                 @Override
