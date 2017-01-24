@@ -49,6 +49,8 @@ public class PlayersController {
         gamePane.getChildren().add(player);
         PlayerController playerController = new PlayerController(playerName, player, playerModel);
         players.put(playerName, playerController);
+        GameController.getInstance().getModelDataHolder().addPlayer
+                (playerModel);
         return player;
     }
 
