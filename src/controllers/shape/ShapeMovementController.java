@@ -25,17 +25,17 @@ public abstract class ShapeMovementController<T extends Node>
 		this.shapeMovementThread = shapeMovementThread;
 	}
 	public void stopMoving() {
-        logger.info("A Shape Should Stop Moving");
+//        logger.info("A Shape Should Stop Moving");
 		threadRunning = false;
 		shapeMovementThread.interrupt();
 	}
 	public void pauseMovement() {
-		logger.info("A Shape Should Pause Movement");
+//		logger.info("A Shape Should Pause Movement");
 		threadPaused = true;
 		shapeMovementThread.interrupt();
 	}
 	public void resumeMovement() {
-		logger.info("A Shape Should Resume Movement");
+//		logger.info("A Shape Should Resume Movement");
 		threadPaused = false;
 		shapeMovementThread.interrupt();
 	}

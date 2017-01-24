@@ -20,10 +20,10 @@ public class FallingShapeStateController<T extends Node> extends
 			while (threadRunning) {
 				while (threadPaused) {
 					try {
-						logger.debug("Generation Thread Paused");
+//						logger.debug("Falling Shape Thread Paused");
 						Thread.currentThread().sleep(Long.MAX_VALUE);
 					} catch (InterruptedException e) {
-						logger.info("Generation Thread Resumed");
+//						logger.info("Falling Shape Thread Resumed");
 						break;
 					}
 				}
@@ -35,7 +35,7 @@ public class FallingShapeStateController<T extends Node> extends
 								+ shape.getLayoutBounds().getHeight()
 								>= shape.getParent()
 								.getLayoutBounds().getHeight()) {
-							logger.info("A Shape Hit the Ground");
+//							logger.info("A Shape Hit the Ground");
 							shapeFallingObserver.shapeShouldStopFalling();
 						} else {
 							shape.setTranslateY(shape.getTranslateY() +
@@ -47,8 +47,8 @@ public class FallingShapeStateController<T extends Node> extends
 				try {
 					this.wait(THREAD_SLEEP_TIME);
 				} catch (final InterruptedException e) {
-					logger.debug("Thread (" + Thread.currentThread()
-					.getName() + ") Interrupted");
+//					logger.debug("Thread (" + Thread.currentThread()
+//					.getName() + ") Interrupted");
                     if (!threadRunning) {
                         break;
                     } else {
@@ -56,9 +56,9 @@ public class FallingShapeStateController<T extends Node> extends
                     }
 				}
 			}
-			logger.debug("Thread: \"" + Thread.currentThread().getName()
-                    + "\" "
-					+ "Stopped");
+//			logger.debug("Thread: \"" + Thread.currentThread().getName()
+//                    + "\" "
+//					+ "Stopped");
 		}
 	};
 	public FallingShapeStateController(final T shape, final Shape model
@@ -69,7 +69,7 @@ public class FallingShapeStateController<T extends Node> extends
 				"Vertical Movement Thread:" + shape.getId());
 		shapeMovementThread.setDaemon(true);
 		shapeMovementThread.start();
-		logger.debug("A Shape Started Falling");
+//		logger.debug("A Shape Started Falling");
 	}
 
 	@Override
