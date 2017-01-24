@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Start extends MenuController {
-    private BooleanProperty continueButtonDisabled;
+    private BooleanProperty newGameIsDisabled;
 
     @FXML
     private AnchorPane startMenu;
@@ -23,6 +24,9 @@ public class Start extends MenuController {
 
     @FXML
     private AnchorPane saveGamePane;
+
+    @FXML
+    private TextField gameName;
 
     private static Start instance;
 
@@ -41,9 +45,10 @@ public class Start extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        continueButtonDisabled = new SimpleBooleanProperty(true);
+        newGameIsDisabled = new SimpleBooleanProperty(true);
+        getButton(1).disableProperty().bindBidirectional(newGameIsDisabled);
+        getButton(2).disableProperty().bindBidirectional(newGameIsDisabled);
 
-        getButton(1).disableProperty().bindBidirectional(continueButtonDisabled);
         requestFocus(0);
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
@@ -65,8 +70,10 @@ public class Start extends MenuController {
                 updateCurrentMenu(LoadGame.getInstance());
                 break;
             case "saveGame":
+                startMenu.setVisible(true);
+                menu.setVisible(false);
                 saveGamePane.setVisible(true);
-                // TODO: 1/24/17
+                //
                 break;
             case "options":
                 Options.getInstance().setMenuVisible(true);
@@ -80,9 +87,22 @@ public class Start extends MenuController {
                 Platform.exit();
                 System.exit(0);
                 break;
+            case "save":
+                GameController.getInstance().saveGame(gameName.getText());
+                hideSaveGamePanel();
+                break;
+            case "cancelSave":
+                hideSaveGamePanel();
+                break;
             default:
                 break;
         }
+    }
+
+    private void hideSaveGamePanel() {
+        saveGamePane.setVisible(false);
+        menu.setVisible(true);
+        startMenu.setVisible(true);
     }
 
     @Override
@@ -93,10 +113,13 @@ public class Start extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
+        menu.setVisible(visible);
+        saveGamePane.setVisible(false);
     }
 
-    public void setContinueButtonDisabled(boolean disabled) {
-        this.continueButtonDisabled.set(disabled);
+    public void activeDisabledButtons() {
+        this.newGameIsDisabled.set(false);
+        this.newGameIsDisabled.set(false);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class GameMode extends MenuController {
         gameModeMenu.setVisible(false);
         switch (id) {
             case "back":
-                Start.getInstance().getMenu().setVisible(true);
+                Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
                 break;
             case "sandBox":
@@ -55,10 +55,12 @@ public class GameMode extends MenuController {
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
                 break;
             case "chooseLevel":
-//                 TODO: 12/25/16 save the current mode and go to player menu
+                gameModeMenu.setVisible(true);
+                menu.setVisible(false);
                 break;
             case "choosePlayer":
-//                 TODO: disables the current menu and shows my clown chooser.
+                gameModeMenu.setVisible(true);
+                menu.setVisible(false);
                 ChoosePlayer.getInstance().setVisible(true);
                 break;
             default:
