@@ -377,8 +377,8 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
+
     public void continueGame() {
-//        if (!newGameStarted.get()) return;
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
         mainGame.setVisible(true);
