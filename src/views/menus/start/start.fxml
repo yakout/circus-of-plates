@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="startMenu" alignment="CENTER" onKeyReleased="#keyHandler"
-      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="controllers.menus.Start">
+<VBox fx:id="startMenu" alignment="CENTER" onKeyReleased="#keyHandler" xmlns="http://javafx.com/javafx/8.0.65"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Start">
     <children>
         <Button id="newGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="NEW GAME">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button id="continue" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
+        <Button id="continue" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CONTINUE">
             <font>
                 <Font size="18.0" />
             </font>2

@@ -1,0 +1,26 @@
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
+<HBox fx:id="board" prefHeight="100.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.board.GameBoard">
+    <children>
+
+        <Label fx:id="playerOneScore" prefHeight="17.0" prefWidth="58.0" text="Player 1" />
+
+        <Label fx:id="counter" alignment="CENTER" prefHeight="60.0" prefWidth="131.0"
+               text="0:01" textAlignment="CENTER">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="playerTwoScore" prefHeight="17.0" prefWidth="58.0" text="Player 2"/>
+
+    </children>
+
+    <stylesheets>
+        <URL value="@board.css" />
+    </stylesheets>
+</HBox>
