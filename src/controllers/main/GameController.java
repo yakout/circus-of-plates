@@ -37,6 +37,7 @@ import models.players.PlayerFactory;
 import models.players.Stick;
 
 import models.shapes.Shape;
+import models.shapes.util.ShapePlatformPair;
 import services.file.FileHandler;
 import java.io.IOException;
 import java.net.URL;
@@ -365,8 +366,21 @@ public class GameController implements Initializable, ScoreObserver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Shape shape : modelDataHolder.getShapes()) {
-            Node shapeView = ShapeBuilder.getInstance().build(shape);
+        for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes()) {
+            switch (shapePlatformPair.getShape().getState()) {
+                case MOVING_HORIZONTALLY:
+                case FALLING:
+                    Node shapeView = ShapeBuilder.getInstance().build
+                            (shapePlatformPair.getShape());
+                    new ShapeController<>(shapeView, shapePlatformPair.getShape(),
+                            shapePlatformPair.getPlatform()).startMoving();
+                    break;
+                case ON_THE_STACK:
+                    System.out.println("ERRROROOROROROR");//TODO: LOG.
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

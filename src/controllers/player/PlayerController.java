@@ -11,6 +11,7 @@ import models.data.ModelDataHolder;
 import models.players.Player;
 import models.players.Stick;
 import models.shapes.Shape;
+import models.shapes.util.ShapePlatformPair;
 import models.states.ShapeState;
 import services.file.FileHandler;
 
@@ -94,7 +95,8 @@ public class PlayerController {
             leftStack.push(shapeController);
             playerModel.pushPlateLeft(shapeModel);
             GameController.getInstance().getModelDataHolder().removeShape
-                    (shapeModel);
+                    (new ShapePlatformPair(shapeModel, shapeController
+                            .getPlatform()));
             return true;
         }
         return false;
@@ -121,7 +123,8 @@ public class PlayerController {
             rightStack.push(shapeController);
             playerModel.pushPlateRight(shapeModel);
             GameController.getInstance().getModelDataHolder().removeShape
-                    (shapeModel);
+                    (new ShapePlatformPair(shapeModel, shapeController
+                            .getPlatform()));
             return true;
         }
         return false;

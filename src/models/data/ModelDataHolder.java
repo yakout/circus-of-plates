@@ -3,6 +3,7 @@ package models.data;
 import models.levels.Level;
 import models.players.Player;
 import models.shapes.Shape;
+import models.shapes.util.ShapePlatformPair;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class ModelDataHolder {
     private Level activeLevel;
 
-    private Set<Shape> shapes;
+    private Set<ShapePlatformPair> shapes;
 
     private Set<Player> players;
     public ModelDataHolder() {
@@ -29,11 +30,11 @@ public class ModelDataHolder {
         this.activeLevel = activeLevel;
     }
 
-    public Set<Shape> getShapes() {
+    public Set<ShapePlatformPair> getShapes() {
         return shapes;
     }
 
-    public void setShapes(Set<Shape> shapes) {
+    public void setShapes(Set<ShapePlatformPair> shapes) {
         this.shapes = shapes;
     }
 
@@ -45,11 +46,11 @@ public class ModelDataHolder {
         this.players = players;
     }
 
-    public boolean addShape(Shape shape) {
+    public boolean addShape(ShapePlatformPair shape) {
         return shapes.add(shape);
     }
 
-    public boolean removeShape(Shape shape) {
+    public boolean removeShape(ShapePlatformPair shape) {
         return shapes.remove(shape);
     }
 
