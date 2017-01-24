@@ -362,7 +362,7 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-    private synchronized void pauseGame() {
+    public void pauseGame() {
         currentMenu = Start.getInstance();
         currentMenu.setMenuVisible(true);
         currentMenu.requestFocus(0);
@@ -377,7 +377,7 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
-    private synchronized void continueGame() {
+    public void continueGame() {
 //        if (!newGameStarted.get()) return;
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
