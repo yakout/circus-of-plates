@@ -31,10 +31,14 @@ public class ShapeBuilder {
         shapeView.setImage(img);
         shapeView.setFitHeight(shapeModel.getHeight().doubleValue());
         shapeView.setFitWidth(shapeModel.getWidth().doubleValue());
+        shapeView.setLayoutX(shapeModel.getPosition().getX());
+        shapeView.setLayoutY(shapeModel.getPosition().getY());
         shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
                 .add(shapeView.getLayoutX()));
         shapeModel.getPosition().yProperty().bind(shapeView.translateYProperty()
                 .add(shapeView.getLayoutY()));
+        shapeModel.setHeight(shapeView.getLayoutBounds().getHeight());
+        shapeModel.setWidth(shapeView.getLayoutBounds().getWidth());
         shapeView.setPickOnBounds(true);
         shapeView.setPreserveRatio(true);
         return shapeView;
