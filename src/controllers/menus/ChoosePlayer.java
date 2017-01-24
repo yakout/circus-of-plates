@@ -35,8 +35,6 @@ public class ChoosePlayer implements Initializable {
     @FXML
     HBox secondRow;
     @FXML
-    Button image1;
-    @FXML
     Button choose;
 
     public ChoosePlayer() {
@@ -57,13 +55,12 @@ public class ChoosePlayer implements Initializable {
     }
 
     public void setVisible(final boolean visible) {
-        System.out.println(anchor);
         anchor.setVisible(visible);
     }
 
     @FXML
-    private void mouseHandler(MouseEvent event) {
-        chosenClownID = ((Node)event.getSource()).getId().toString();
+    private void mouseHandler(){
+//        chosenClownID = ((Node)event.getSource()).getId().toString();
     }
 
     @FXML
@@ -73,6 +70,4 @@ public class ChoosePlayer implements Initializable {
                 .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
 
     }
-
-
 }
