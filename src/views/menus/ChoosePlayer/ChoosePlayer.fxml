@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="408.0" visible="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
-      <VBox fx:id="imagesHolder" layoutX="3.0" layoutY="78.0" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="405.0" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="78.0">
+      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox fx:id="firstRow" prefHeight="113.0" prefWidth="571.0">
                <children>

@@ -2,13 +2,11 @@ package models.players;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.EmptyStackException;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 import com.sun.jmx.remote.internal.ArrayQueue;
 import controllers.input.InputType;
+import controllers.player.ScoreObserver;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import models.GameRules;
@@ -20,6 +18,7 @@ public class Player {
     private static int numOfPlayers = 0;
 
     private Object avatar; // TODO
+    private List<ScoreObserver> observers;
     private Stack<Shape> leftStick;
     private Stack<Shape> rightStick;
     private String playerName;
@@ -42,6 +41,7 @@ public class Player {
         this.leftStickUrl = LEFT_STICK_URL;
         this.rightStickUrl = RIGHT_STICK_URL;
         this.playerUrl = "";
+        this.observers = new ArrayList<>();
     }
 
     public Player(String name) {
@@ -85,6 +85,7 @@ public class Player {
                 }
             } else {
                 this.addScore(GameRules.CONSECUTIVE_PLATES_ADDED_SCORE);
+                notifyObservers(queue);
                 return true;
             }
             return false;
@@ -95,6 +96,16 @@ public class Player {
     
     public void addScore(int change) {
         this.score += change;
+    }
+
+    private void notifyObservers(Collection<Shape> shapesToRemove) {
+         for (ScoreObserver scoreObserver : observers) {
+             scoreObserver.update(this, shapesToRemove);
+         }
+    }
+
+    public void registerObserver(ScoreObserver scoreObserver) {
+        observers.add(scoreObserver);
     }
 
     public int getNumOfLeftPlates() {
