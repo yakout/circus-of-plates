@@ -81,12 +81,12 @@ public class GameMode extends MenuController {
         URL url;
         try {
             url = new File(path).toURI().toURL();
-            Node playerChooser = FXMLLoader.load(url);
+            AnchorPane playerChooser = FXMLLoader.load(url);
             GameController.getInstance().getRootPane().getChildren().add(playerChooser);
-            AnchorPane.setBottomAnchor(playerChooser, 0.0);
-            AnchorPane.setLeftAnchor(playerChooser, 0.0);
-            AnchorPane.setRightAnchor(playerChooser, 0.0);
-            AnchorPane.setTopAnchor(playerChooser, 0.0);
+
+            double width = GameController.getInstance().getStageWidth();
+            AnchorPane.setLeftAnchor(playerChooser, width / 2 - playerChooser.getPrefWidth() / 2);
+            AnchorPane.setTopAnchor(playerChooser, 50.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
