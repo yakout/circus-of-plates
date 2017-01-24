@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +27,9 @@ public class ChoosePlayer implements Initializable {
     private String chosenClownID;
     private int currPlayer;
     private static final String PLAYER = "PLAYER_";
+    private static final String CHOOSE = ": Choose";
+    private static final String JOYSTICK = "joystick";
+    private static final String KEYBOARD = "keyboard";
     private boolean isPlayer1;
     @FXML
     AnchorPane anchor;
@@ -37,6 +41,8 @@ public class ChoosePlayer implements Initializable {
     HBox secondRow;
     @FXML
     Button choose;
+    @FXML
+    CheckBox keyboard, joystick;
 
     public ChoosePlayer() {
 
@@ -46,6 +52,7 @@ public class ChoosePlayer implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         isPlayer1 = true;
+        currPlayer = 1;
     }
 
     public static ChoosePlayer getInstance() {
@@ -71,7 +78,7 @@ public class ChoosePlayer implements Initializable {
         if (isPlayer1) {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
-            ((Label)anchor.getChildren().get(1)).setText(PLAYER + String.valueOf(++currPlayer));;
+            ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(++currPlayer) + CHOOSE);
             isPlayer1 = false;
         } else {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
@@ -80,6 +87,21 @@ public class ChoosePlayer implements Initializable {
             setVisible(false);
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
+        }
+    }
+
+    @FXML
+    private void selectCheckBox(MouseEvent event) {
+        System.out.println(((Node)event.getSource()).getId());
+        switch (((Node)event.getSource()).getId()) {
+            case KEYBOARD:
+                joystick.setSelected(false);
+                break;
+            case JOYSTICK:
+                keyboard.setSelected(false);
+                break;
+            default:
+                break;
         }
     }
 }
