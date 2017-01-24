@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Start extends MenuController {
-    private BooleanProperty continueButtonDisabled;
+    private BooleanProperty newGameIsDisabled;
 
     @FXML
     private AnchorPane startMenu;
@@ -41,9 +41,10 @@ public class Start extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        continueButtonDisabled = new SimpleBooleanProperty(true);
+        newGameIsDisabled = new SimpleBooleanProperty(true);
+        getButton(1).disableProperty().bindBidirectional(newGameIsDisabled);
+        getButton(2).disableProperty().bindBidirectional(newGameIsDisabled);
 
-        getButton(1).disableProperty().bindBidirectional(continueButtonDisabled);
         requestFocus(0);
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
@@ -65,7 +66,10 @@ public class Start extends MenuController {
                 updateCurrentMenu(LoadGame.getInstance());
                 break;
             case "saveGame":
+                startMenu.setVisible(true);
+                menu.setVisible(false);
                 saveGamePane.setVisible(true);
+
                 // TODO: 1/24/17
                 break;
             case "options":
@@ -93,10 +97,12 @@ public class Start extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
+        menu.setVisible(true);
     }
 
-    public void setContinueButtonDisabled(boolean disabled) {
-        this.continueButtonDisabled.set(disabled);
+    public void activeDisabledButtons() {
+        this.newGameIsDisabled.set(false);
+        this.newGameIsDisabled.set(false);
     }
 
     @Override

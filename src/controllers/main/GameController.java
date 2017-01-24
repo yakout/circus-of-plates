@@ -279,7 +279,8 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     public void startGame(GameMode gameMode) {
-        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
+        ((Start) Start.getInstance()).activeDisabledButtons();
+
         GameController.getInstance().getMainGame().setVisible(true);
         AudioPlayer.backgroundMediaPlayer.play();
         newGameStarted.set(true);
