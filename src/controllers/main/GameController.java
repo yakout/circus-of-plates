@@ -40,7 +40,7 @@ public class GameController implements Initializable, ScoreObserver {
     private MenuController currentMenu;
     private PlayersController playersController;
     private GameBoard gameBoard;
-    private ShapeGenerator generator;
+    private ShapeGenerator shapeGenerator;
 
     // TODO: 1/19/17 plate Controller
 
@@ -259,6 +259,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     private void startNormalGame() {
+        ((Start) Start.getInstance()).setContinueButtonDisabled(false);
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
@@ -290,7 +291,7 @@ public class GameController implements Initializable, ScoreObserver {
             mainGame.getChildren().add(builder.build(platform));
         }
         System.out.println(level.getSupportedShapes().size());
-        generator = new ShapeGenerator(level, mainGame);
+        shapeGenerator= new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
@@ -332,7 +333,7 @@ public class GameController implements Initializable, ScoreObserver {
 
         gameBoard.pause();
         playersController.pause();
-        generator.pauseGenerator();
+        shapeGenerator.pauseGenerator();
     }
 
     private void continueGame() {
@@ -342,7 +343,7 @@ public class GameController implements Initializable, ScoreObserver {
 
         gameBoard.resume();
         playersController.resume();
-        generator.resumeGenerator();
+        shapeGenerator.resumeGenerator();
     }
 
     @Override
