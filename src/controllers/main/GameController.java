@@ -386,4 +386,5 @@ public class GameController implements Initializable, ScoreObserver {
         playersController.removeShapes(playerName, stick);
         gameBoard.updateScore(score, playerName);
     }
+
 }

@@ -5,13 +5,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.Platform;
 import models.shapes.Shape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class ShapeBuilder {
     private static ShapeBuilder creatorInstance = null;
-
+    private static Logger logger = LogManager.getLogger(ShapeBuilder.class);
     private ShapeBuilder() {
     }
 

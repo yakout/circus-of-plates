@@ -12,6 +12,8 @@ import javafx.scene.layout.*;
 import jdk.nashorn.internal.scripts.JO;
 import models.players.Player;
 import models.players.PlayerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.InterfaceAddress;
 import java.net.URL;
@@ -22,6 +24,7 @@ import java.util.ResourceBundle;
  */
 public class ChoosePlayer implements Initializable {
 
+    private static Logger logger = LogManager.getLogger(ChoosePlayer.class);
     private static final String CLOWN_DIR = "assets/images/clowns/clown_";
     private static final String PLAYER = "PLAYER_";
     private static final String CHOOSE = ": Choose";
@@ -55,6 +58,7 @@ public class ChoosePlayer implements Initializable {
         instance = this;
         isPlayer1 = true;
         inputType = InputType.KEYBOARD_PRIMARY;
+        chosenClownID = "5";
         currPlayer = 1;
     }
 
@@ -73,7 +77,6 @@ public class ChoosePlayer implements Initializable {
 
     @FXML
     public void selectClown() {
-        // TODO: here goes inter action with player controller.
         if (isPlayer1) {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
@@ -81,6 +84,7 @@ public class ChoosePlayer implements Initializable {
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
+            logger.info("First player has chosen clown_" + chosenClownID + ".");
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
@@ -94,6 +98,7 @@ public class ChoosePlayer implements Initializable {
             mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
+            logger.info("First player has chosen clown_" + chosenClownID + ".");
             //TODO: here you send signal to game controller
 
 
@@ -108,18 +113,21 @@ public class ChoosePlayer implements Initializable {
         System.out.println(((Node)event.getSource()).getId());
         switch (((Node)event.getSource()).getId()) {
             case KEYBOARD:
+                logger.debug("Player selected keyboard input type.");
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
                 mouse.setSelected(false);
                 handleInputType(KEYBOARD);
                 break;
             case JOYSTICK:
+                logger.debug("Player selected joystick input type.");
                 joystick.setSelected(true);
                 keyboard.setSelected(false);
                 mouse.setSelected(false);
                 handleInputType(JOYSTICK);
                 break;
             case MOUSE:
+                logger.debug("Player selected mouse input type.");
                 mouse.setSelected(true);
                 keyboard.setSelected(false);
                 joystick.setSelected(false);
@@ -136,6 +144,7 @@ public class ChoosePlayer implements Initializable {
      private void setPlayer1Label() {
          ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(--currPlayer) + CHOOSE);
      }
+
     private void handleInputType(String input) {
         switch (input) {
             case KEYBOARD:
