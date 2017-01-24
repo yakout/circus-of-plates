@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import models.ShapePool;
+import models.shapes.util.ShapePool;
 import models.levels.Level;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;

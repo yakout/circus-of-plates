@@ -3,15 +3,12 @@ package services.file;
 import com.google.gson.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import models.ShapeFactory;
+import models.shapes.util.ShapeFactory;
 import models.data.ModelDataHolder;
 import models.levels.Level;
-import models.levels.LevelOne;
-import models.levels.LevelTwo;
 import models.levels.util.LevelFactory;
 import models.shapes.Shape;
 import models.states.Color;
-import models.states.ShapeState;
 
 import java.io.BufferedReader;
 import java.io.File;
