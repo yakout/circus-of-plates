@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
  */
 public class PlateShape extends Shape {
     private static final String URL = "src/assets/images/plates/";
-    private static final String FILE_NAME = "PlateWithoutBase.png";
+    private static final String FILE_NAME = "platewithoutbase.png";
     private static final double HORIZONTAL_VELOCITY = 1.5;
     private static final double VERTICAL_VELOCITY = 1.7;
     public static final String KEY = PlateShape.class.getName();

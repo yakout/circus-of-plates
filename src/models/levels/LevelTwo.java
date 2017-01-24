@@ -1,6 +1,7 @@
 package models.levels;
 
 import models.levels.util.LevelFactory;
+import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,8 +60,9 @@ public class LevelTwo extends Level {
     }
 
     private void addSupportedColors() {
-        supportedColors.add(models.states.Color.GREEN);
-        supportedColors.add(models.states.Color.YELLOW);
-        supportedColors.add(models.states.Color.RED);
+        supportedColors.add(Color.CYAN);
+        supportedColors.add(Color.YELLOW);
+        supportedColors.add(Color.RED);
+        supportedColors.add(Color.BLACK);
     }
 }
