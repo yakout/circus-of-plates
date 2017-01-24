@@ -1,6 +1,7 @@
 package controllers.shape;
 
 import controllers.shape.util.ShapeMovingObserver;
+import controllers.shape.util.ShapeState;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
@@ -8,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MovingShapeController<T extends Node> extends
-        ShapeMovementController<T> {
+        ShapeMovementController<T> implements ShapeState {
     private final models.Platform platform;
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
@@ -92,4 +93,13 @@ public class MovingShapeController<T extends Node> extends
         logger.debug("A Shape Started Moving");
     }
 
+    @Override
+    public void nextState() {
+
+    }
+
+    @Override
+    public boolean hasNextState() {
+        return false;
+    }
 }
