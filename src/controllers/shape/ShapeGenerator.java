@@ -60,8 +60,10 @@ public class ShapeGenerator {
                                 ImageView imgView = (ImageView) ShapeBuilder
                                         .getInstance().build(shapeModel);
                                 if (imgView == null) {
+                                    logger.debug("Couldn't find shapes in the pool.");
                                     continue;
                                 }
+                                logger.debug("Shape object is built successfully.");
                                 generateShape(imgView, platform, shapeModel);
                             }
                         }
@@ -92,7 +94,7 @@ public class ShapeGenerator {
 //        generationThreadPaused = false;
         shapeGeneratorThread.setDaemon(true);
         shapeGeneratorThread.start();
-        logger.debug("Shape Generator Created");
+        logger.debug("Shape Generator is Created");
         logger.debug("Shape Generation Thread Started Running");
     }
 

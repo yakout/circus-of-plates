@@ -58,6 +58,7 @@ public class ChoosePlayer implements Initializable {
         instance = this;
         isPlayer1 = true;
         inputType = InputType.KEYBOARD_PRIMARY;
+        chosenClownID = "5";
         currPlayer = 1;
     }
 
@@ -76,7 +77,6 @@ public class ChoosePlayer implements Initializable {
 
     @FXML
     public void selectClown() {
-        // TODO: here goes inter action with player controller.
         if (isPlayer1) {
             PlayerFactory.getFactory().registerPlayer(PLAYER + String.valueOf(currPlayer))
                     .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
@@ -84,7 +84,7 @@ public class ChoosePlayer implements Initializable {
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
-            logger.debug("First player has chosen clown_" + chosenClownID + ".");
+            logger.info("First player has chosen clown_" + chosenClownID + ".");
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
@@ -98,7 +98,7 @@ public class ChoosePlayer implements Initializable {
             mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
-            logger.debug("First player has chosen clown_" + chosenClownID + ".");
+            logger.info("First player has chosen clown_" + chosenClownID + ".");
             //TODO: here you send signal to game controller
 
 
@@ -144,6 +144,7 @@ public class ChoosePlayer implements Initializable {
      private void setPlayer1Label() {
          ((Label)anchor.getChildren().get(0)).setText(PLAYER + String.valueOf(--currPlayer) + CHOOSE);
      }
+
     private void handleInputType(String input) {
         switch (input) {
             case KEYBOARD:
