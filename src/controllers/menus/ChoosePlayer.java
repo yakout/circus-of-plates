@@ -61,6 +61,11 @@ public class ChoosePlayer implements Initializable {
         inputType = InputType.KEYBOARD_PRIMARY;
         chosenClownID = "5";
         currPlayer = 1;
+
+        System.out.println(anchor.getPrefWidth());
+        System.out.println(anchor.getPrefHeight());
+        System.out.println(anchor.getLayoutX());
+        System.out.println(anchor.getLayoutY());
     }
 
     public static ChoosePlayer getInstance() {

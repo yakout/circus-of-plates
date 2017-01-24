@@ -4,9 +4,14 @@ import controllers.AudioPlayer;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,12 +64,31 @@ public class GameMode extends MenuController {
                 menu.setVisible(false);
                 break;
             case "choosePlayer":
+                if (ChoosePlayer.getInstance() == null) {
+                    loadPlayerChooser();
+                }
                 gameModeMenu.setVisible(true);
                 menu.setVisible(false);
                 ChoosePlayer.getInstance().setVisible(true);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void loadPlayerChooser() {
+        String path = "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
+        URL url;
+        try {
+            url = new File(path).toURI().toURL();
+            Node playerChooser = FXMLLoader.load(url);
+            GameController.getInstance().getRootPane().getChildren().add(playerChooser);
+            AnchorPane.setBottomAnchor(playerChooser, 0.0);
+            AnchorPane.setLeftAnchor(playerChooser, 0.0);
+            AnchorPane.setRightAnchor(playerChooser, 0.0);
+            AnchorPane.setTopAnchor(playerChooser, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -77,7 +101,6 @@ public class GameMode extends MenuController {
     public void setMenuVisible(boolean visible) {
         gameModeMenu.setVisible(visible);
         menu.setVisible(visible);
-        ChoosePlayer.getInstance().setVisible(false);
     }
 
     @Override

@@ -17,7 +17,6 @@
             <fx:include source="menus/loadGame/loadGame.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
         </AnchorPane>
 
-   
         <AnchorPane fx:id="mainGame" visible="false"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
