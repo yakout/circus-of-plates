@@ -8,24 +8,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="408.0" visible="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="408.0" visible="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
       <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox fx:id="firstRow" prefHeight="113.0" prefWidth="571.0">
                <children>
-                  <Button id="1" fx:id="image1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="2" fx:id="image2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="3" fx:id="image3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="4" fx:id="image4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="1" fx:id="image1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="2" fx:id="image2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="3" fx:id="image3" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="4" fx:id="image4" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
                </children>
             </HBox>
             <HBox fx:id="secondRow" prefHeight="117.0" prefWidth="600.0">
                <children>
-                  <Button id="5" fx:id="image5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="6" fx:id="image6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="7" fx:id="image7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
-                  <Button id="8" fx:id="image8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="5" fx:id="image5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="6" fx:id="image6" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="7" fx:id="image7" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
+                  <Button id="8" fx:id="image8" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="111.0" prefWidth="100.0" />
                </children>
             </HBox>
          </children>
@@ -35,7 +35,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="1.0" layoutY="316.0" mnemonicParsing="false" onAction="#selectClown" prefHeight="39.0" prefWidth="400.0" text="Done">
+      <Button fx:id="choose" layoutX="1.0" layoutY="316.0" mnemonicParsing="false" onAction="#selectClown" prefHeight="39.0" prefWidth="400.0" text="Done">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
