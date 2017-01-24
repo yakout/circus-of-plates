@@ -199,7 +199,8 @@ public class PlayerController {
             if (shapeController == null) {
                 return;
             }
-            shapeController.getShape().setVisible(false);
+            shapeController.getShape().translateXProperty().unbind();
+            shapeController.shapeShouldEnterThePool();
         }
 
     }

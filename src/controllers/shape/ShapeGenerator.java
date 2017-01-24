@@ -1,6 +1,8 @@
 package controllers.shape;
 
+import controllers.shape.util.ShapeControllerPool;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.ShapePool;
@@ -41,14 +43,23 @@ public class ShapeGenerator {
                     public void run() {
                         List<models.Platform> platforms = level.getPlatforms();
                         for (models.Platform platform : platforms) {
-                            Shape shapeModel = ShapePool.getShape(level);
-                            PositionInitializer.normalize(platform, shapeModel);
-                            ImageView imgView = (ImageView) ShapeBuilder.getInstance().
-                                    build(shapeModel);
-                            if (imgView == null) {
-                                continue;
+                            ShapeController<? extends Node> shapeController =
+                                    null;
+//                                    ShapeControllerPool.getInstance()
+//                                            .getShapeController(platform);
+                            if (shapeController != null) {
+                                shapeController.resetShape();
+                                shapeController.startMoving();
+                            } else {
+                                Shape shapeModel = ShapePool.getShape(level);
+                                PositionInitializer.normalize(platform, shapeModel);
+                                ImageView imgView = (ImageView) ShapeBuilder.getInstance().
+                                        build(shapeModel);
+                                if (imgView == null) {
+                                    continue;
+                                }
+                                generateShape(imgView, platform, shapeModel);
                             }
-                            generateShape(imgView, platform, shapeModel);
                         }
                     }
                 });
@@ -81,6 +92,10 @@ public class ShapeGenerator {
 
     private void generateShape(ImageView imgView, models.Platform platform, Shape shapeModel) {
         imgView.setLayoutY(imgView.getLayoutY()
+                - shapeModel.getHeight().doubleValue());
+        shapeModel.getInitialPosition().setX(shapeModel.getPosition()
+                .getX());
+        shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY()
                 - shapeModel.getHeight().doubleValue());
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>

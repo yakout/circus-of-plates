@@ -12,11 +12,11 @@ public class PositionInitializer {
         switch (platform.getOrientation()) {
             case LEFT:
                 shapeModel.getPosition().setX(platform.getCenter().getX() -
-                        platform.getWidth().doubleValue());
+                        platform.getWidth().doubleValue() / 2.0);
                 break;
             case RIGHT:
                 shapeModel.getPosition().setX(platform.getCenter().getX() +
-                        platform.getWidth().doubleValue());
+                        platform.getWidth().doubleValue() / 2.0);
                 break;
             default:
                 break;
