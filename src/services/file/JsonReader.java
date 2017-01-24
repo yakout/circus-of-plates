@@ -29,7 +29,7 @@ class JsonReader implements FileReader {
                 (Level.class, new LevelDeserializer()).registerTypeAdapter
                 (Shape.class, new ShapeDeserializer())
                 .create();
-        File jsonFile = new File(path
+        File jsonFile   = new File(path
                 + File.separator + fileName + ".json");
         BufferedReader reader = null;
         try {

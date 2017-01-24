@@ -106,6 +106,7 @@ public class ChoosePlayer implements Initializable {
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
             inputType = InputType.KEYBOARD_PRIMARY;
+            logger.info("Game mode menu is shown after choosing clown.");
         }
     }
 

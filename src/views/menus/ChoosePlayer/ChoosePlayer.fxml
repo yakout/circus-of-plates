@@ -9,16 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" visible="false" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
-      <Label alignment="CENTER" text="PLAYER_1: Choose" textAlignment="CENTER" textFill="#0b7075b5" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+      <Label alignment="CENTER" prefHeight="78.0" prefWidth="350.0" text="PLAYER_1: Choose" textAlignment="CENTER" textFill="#0b7075b5" AnchorPane.bottomAnchor="531.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
          <font>
-            <Font name="System Bold" size="24.0"/>
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+      <VBox fx:id="imagesHolder" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="852.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
             <HBox fx:id="firstRow">
                <children>
@@ -41,9 +39,18 @@
 
       <HBox AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="232.0">
          <children>
-            <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard" />
-            <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="128.6" text="Joystick" />
-            <RadioButton id="mouse" fx:id="mouse" mnemonicParsing="false" onAction="#selectInputType" prefHeight="50.0" prefWidth="129.0" text="mouse" />
+            <RadioButton id="keyboard" fx:id="keyboard" mnemonicParsing="false" onAction="#selectInputType" prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard" textFill="#0080ff">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType" prefHeight="55.0" prefWidth="128.6" text="Joystick" textFill="#0080ff">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
+            <RadioButton id="mouse" fx:id="mouse" mnemonicParsing="false" onAction="#selectInputType" prefHeight="50.0" prefWidth="129.0" text="mouse" textFill="#0080ff">
+               <font>
+                  <Font size="18.0" />
+               </font></RadioButton>
          </children>
       </HBox>
 
