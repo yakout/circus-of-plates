@@ -56,7 +56,6 @@ public class ChoosePlayer implements Initializable {
      */
     public void attachClowns() {
         System.out.println(anchor);
-        image1.setStyle("-fx-background-image: url('assets/images/clowns/clown_1')");
         /*List<Node> nodeList = firstRow.getChildren();
         for (Node node : nodeList) {
             Pane currPane = (Pane)node;
