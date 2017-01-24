@@ -18,13 +18,6 @@ public class GameMain extends Application {
 	public void start(final Stage primaryStage) throws IOException {
 		Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
 
-		// load needed classes
-		final URL resource = getClass().getResource("/assets/sounds/Circus Dilemma.mp3");
-		//        final Media media = new Media(resource.toString());
-		//        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-		//        mediaPlayer.play();
-
-
 		final Pane root = FXMLLoader.load(getClass().getResource("views/game.fxml"));
 
 		primaryStage.setTitle("Circus Of plates");
