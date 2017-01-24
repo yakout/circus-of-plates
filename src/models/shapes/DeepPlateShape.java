@@ -44,6 +44,7 @@ public class DeepPlateShape extends Shape {
             return new File(URL + colorString + FILE_NAME)
                     .toURI().toURL().toString();
         } catch (MalformedURLException e) {
+            logger.error("Couldn't find " + KEY + " with this color");
             e.printStackTrace();
             return null;
         }
