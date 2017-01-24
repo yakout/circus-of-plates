@@ -1,4 +1,4 @@
-package models;
+package models.shapes.util;
 
 import models.levels.Level;
 import models.shapes.Shape;

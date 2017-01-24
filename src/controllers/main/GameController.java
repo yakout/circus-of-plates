@@ -16,6 +16,7 @@ import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.PlayersController;
 import controllers.player.ScoreObserver;
+import controllers.shape.ShapeBuilder;
 import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
@@ -31,10 +32,15 @@ import models.GameMode;
 import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
+import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
 
+import models.shapes.Shape;
+import models.shapes.util.ShapePlatformPair;
 import services.file.FileHandler;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -286,7 +292,8 @@ public class GameController implements Initializable, ScoreObserver {
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;
-        this.handler.write(modelDataHolder, ".", fileName);
+        this.handler.write(modelDataHolder, "." + File.separator + "save",
+                fileName);
     }
 
     public double getStageWidth() {
@@ -302,7 +309,7 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted.set(true);
         switch (gameMode) {
             case NORMAL:
-                startNormalGame();
+                resetGame();
                 break;
             case TIME_ATTACK:
                 break;
@@ -313,7 +320,7 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-    private void startNormalGame() {
+    public void resetGame() {
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
@@ -340,17 +347,49 @@ public class GameController implements Initializable, ScoreObserver {
                 + rootPane.getWidth(), rootPane.getLayoutY()
                 + rootPane.getHeight());
         modelDataHolder.setActiveLevel(level);
+        startNormalGame(level);
+    }
+
+    private void startNormalGame(Level level) {
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
         }
-        System.out.println(level.getSupportedShapes().size());
         shapeGenerator= new ShapeGenerator(level, mainGame);
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
     }
 
+    private void startNewLoadGame(ModelDataHolder modelDataHolder) {
+        shapeControllers = new ArrayList<>();
+        this.modelDataHolder = modelDataHolder;
+        try {
+            for (Player player : modelDataHolder.getPlayers()) {
+                playersController.createPlayer(player.getPlayerUrl(), player
+                                .getName(), player.getInputType());
+                gameBoard.addPlayerPanel(player.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes()) {
+            switch (shapePlatformPair.getShape().getState()) {
+                case MOVING_HORIZONTALLY:
+                case FALLING:
+                    Node shapeView = ShapeBuilder.getInstance().build
+                            (shapePlatformPair.getShape());
+                    new ShapeController<>(shapeView, shapePlatformPair.getShape(),
+                            shapePlatformPair.getPlatform()).startMoving();
+                    break;
+                case ON_THE_STACK:
+                    System.out.println("ERRROROOROROROR");//TODO: LOG.
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     // TODO: Mouse handler
     private Double currentX;
