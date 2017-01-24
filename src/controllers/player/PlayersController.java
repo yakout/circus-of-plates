@@ -1,11 +1,13 @@
 package controllers.player;
 
+import controllers.AudioPlayer;
 import controllers.input.InputType;
 import controllers.main.GameController;
 import controllers.shape.ShapeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
 import models.ShapePool;
 import models.players.Player;
 import models.players.PlayerFactory;
@@ -100,6 +102,8 @@ public class PlayersController {
 
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);
+        new Thread(() -> {
+            new MediaPlayer(AudioPlayer.newScoreMedia).play();
+        });
     }
-
 }
