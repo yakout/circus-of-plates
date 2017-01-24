@@ -24,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.GameMode;
+import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
 import models.players.PlayerFactory;
@@ -48,6 +49,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
+    private ModelDataHolder modelDataHolder;
 
     public static GameController getInstance() {
         if (instance == null) {
@@ -72,7 +74,7 @@ public class GameController implements Initializable, ScoreObserver {
         playersController = new PlayersController(mainGame);
 
         instance = this;
-
+        modelDataHolder = new ModelDataHolder();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         Keyboard.getInstance().registerClassForInputAction(getClass(),
@@ -91,6 +93,9 @@ public class GameController implements Initializable, ScoreObserver {
         return mainGame;
     }
 
+    public ModelDataHolder getModelDataHolder() {
+        return modelDataHolder;
+    }
 
     @FXML
     public void keyHandler(KeyEvent event) {
