@@ -5,8 +5,6 @@ import controllers.shape.ShapeController;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.Pane;
 import models.players.Player;
 import models.shapes.Shape;
 import models.states.ShapeState;
@@ -21,7 +19,9 @@ public class PlayerController {
     private Node playerPane;
     private Node clown;
     private Player playerModel;
-    private static final double STICK_BASE_RATIO = 0.55;
+    private static final double STICK_BASE_RATIO = 0.275;
+    private static final double STACK_Y_RATIO = 0.05;
+
     PlayerController(String name, Node playerPane, models
             .players.Player playerModel) {
         this.name = name;
@@ -68,11 +68,9 @@ public class PlayerController {
             return false;
         }
         //System.out.println(leftStick.getBoundsInParent().getMinX());
-        double leftStickIntersectionMaxY = playerPane.getLayoutY() + leftStick
-                .getLayoutY() + 0.1 *
-                leftStick.getLayoutBounds().getHeight();
-        double leftStickIntersectionMinY = playerPane.getLayoutY() + leftStick
-                .getLayoutY();
+        double leftStickIntersectionMinY = calculateLeftStackY();
+        double leftStickIntersectionMaxY = leftStickIntersectionMinY +
+                STACK_Y_RATIO * calculateLeftStackHeight();
         double leftStickMinX = playerPane.getLayoutX() + leftStick.getLayoutX();
         double leftStickMaxX = playerPane.getLayoutX() + leftStick.getLayoutX
                 () + leftStick
@@ -94,11 +92,9 @@ public class PlayerController {
             return false;
         }
         //System.out.println(rightStick.getBoundsInParent().getMinX());
-        double rightStickIntersectionMaxY = playerPane.getLayoutY() +
-                rightStick.getLayoutY() + 0.1 *
-                        rightStick.getLayoutBounds().getHeight();
-        double rightStickIntersectionMinY = playerPane.getLayoutY() + rightStick
-                .getLayoutY();
+        double rightStickIntersectionMinY = calculateRightStackY();
+        double rightStickIntersectionMaxY = rightStickIntersectionMinY +
+                STACK_Y_RATIO * calculateRightStackHeight();
         double rightStickMaxX = playerPane.getLayoutX() + rightStick
                 .getLayoutX() + rightStick.getLayoutBounds().getWidth();
         double rightStickMinX = rightStickMaxX - STICK_BASE_RATIO * rightStick
@@ -114,8 +110,7 @@ public class PlayerController {
     }
 
     private synchronized boolean intersects(Shape shapeModel, double
-            stickMinX, double
-            stickMaxX, double stickMinY, double stickMaxY) {
+            stickMinX, double stickMaxX, double stickMinY, double stickMaxY) {
         double shapeMinY = shapeModel.getPosition().getY();
         double shapeMaxY = shapeModel.getPosition().getY() + shapeModel
                 .getHeight().doubleValue();
@@ -140,42 +135,72 @@ public class PlayerController {
     public void bindLeftStick(ShapeController<? extends Node> shapeController) {
         Node shape = shapeController.getShape();
         double relativeLeftStickCenter = leftStick.getLayoutX()
-                + STICK_BASE_RATIO * leftStick.getLayoutBounds()
-                .getWidth() / 2.0;
+                + STICK_BASE_RATIO * leftStick.getLayoutBounds().getWidth();
         double leftStickCenter = playerPane.getLayoutX() +
                 relativeLeftStickCenter;
         shape.setLayoutX(leftStickCenter - shape.getLayoutBounds().getWidth()
                 / 2.0);
-        double leftStickY = playerPane.getLayoutY() + leftStick
-                .getLayoutY();
+        double leftStickY = calculateLeftStackY();
         shape.setLayoutY(leftStickY - shape.getLayoutBounds().getHeight());
         shape.setTranslateX(0);
         shape.setTranslateY(0);
-        shape.translateXProperty().bind(playerPane.layoutXProperty().add
-                (relativeLeftStickCenter - shape.getLayoutBounds().getWidth()
-                / 2.0 - shape.getLayoutX()));
+        shape.translateXProperty().bind(playerPane.layoutXProperty().add(
+                relativeLeftStickCenter - shape.getLayoutBounds().getWidth()
+                        / 2.0 - shape.getLayoutX()));
     }
 
-    public void bindRightStick(ShapeController<? extends Node> shapeController) {
+    public void bindRightStick(ShapeController<? extends Node>
+                                       shapeController) {
         Node shape = shapeController.getShape();
-        double rightStickCenter = playerPane.getLayoutX() + rightStick
+        double relativeRightCenter = rightStick
                 .getLayoutX() + (1 - STICK_BASE_RATIO) * rightStick
-                .getLayoutBounds()
-                .getWidth();
+                .getLayoutBounds().getWidth();
+        System.out.println(rightStick.getLayoutX());
+        double rightStickCenter = playerPane.getLayoutX() + relativeRightCenter;
         System.out.println("rsc: " + rightStickCenter);
         shape.setLayoutX(rightStickCenter - shape.getLayoutBounds().getWidth()
                 / 2.0);
-        double rightStickY = playerPane.getLayoutY() + rightStick
-                .getLayoutY();
+        double rightStickY = calculateRightStackY();
         System.out.println("rsy: " + rightStickY);
         shape.setLayoutY(rightStickY - shape.getLayoutBounds().getHeight());
-        shape.translateXProperty().bind(playerPane.layoutXProperty().subtract
-                (shape.getLayoutX()));
+        shape.setTranslateX(0);
+        shape.setTranslateY(0);
+        shape.translateXProperty().bind(playerPane.layoutXProperty().add(
+                relativeRightCenter - shape.getLayoutBounds().getWidth()
+                        / 2.0 - shape.getLayoutX()));
     }
 
     private double calculateLeftStackY() {
-        double initialY = playerPane.getLayoutY() + rightStick
+        double y = playerPane.getLayoutY() + leftStick
                 .getLayoutY();
-        for (Shape shape : playerModel.)
+        for (Shape shape : playerModel.getLeftStack()) {
+            y -= shape.getHeight().doubleValue();
+        }
+        return y;
+    }
+
+    private double calculateRightStackY() {
+        double y = playerPane.getLayoutY() + rightStick
+                .getLayoutY();
+        for (Shape shape : playerModel.getRightStack()) {
+            y -= shape.getHeight().doubleValue();
+        }
+        return y;
+    }
+
+    private double calculateLeftStackHeight() {
+        double height = leftStick.getLayoutBounds().getHeight();
+        for (Shape shape : playerModel.getLeftStack()) {
+            height += shape.getHeight().doubleValue();
+        }
+        return height;
+    }
+
+    private double calculateRightStackHeight() {
+        double height = rightStick.getLayoutBounds().getHeight();
+        for (Shape shape : playerModel.getRightStack()) {
+            height += shape.getHeight().doubleValue();
+        }
+        return height;
     }
 }
