@@ -4,6 +4,7 @@ import models.levels.Level;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public class LevelFactory {
     Map<Integer, Class<? extends Level>> registeredLevels;
 
     private LevelFactory() {
-
+        registeredLevels = new HashMap<>();
     }
 
     public static synchronized LevelFactory getInstance() {
