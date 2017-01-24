@@ -128,14 +128,9 @@ public class GameController implements Initializable, ScoreObserver {
             case ESCAPE:
                 Platform.runLater(() -> {
                     if (currentMenu.isVisible()) {
-                        currentMenu.setMenuVisible(false);
-                        mainGame.requestFocus();
-                        mainGame.setVisible(true);
+                        continueGame();
                     } else {
-                        currentMenu = Start.getInstance();
-                        currentMenu.setMenuVisible(true);
-                        currentMenu.requestFocus(0);
-                        mainGame.setVisible(false);
+                        pauseGame();
                     }
                 });
                 break;
@@ -333,6 +328,22 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    private void pauseGame() {
+        currentMenu = Start.getInstance();
+        currentMenu.setMenuVisible(true);
+        currentMenu.requestFocus(0);
+        mainGame.setVisible(false);
+
+        //
+    }
+
+    private void continueGame() {
+        currentMenu.setMenuVisible(false);
+        mainGame.requestFocus();
+        mainGame.setVisible(true);
+
+        //
+    }
 
     @Override
     public void update(int score, String playerName, Stick stick) {
