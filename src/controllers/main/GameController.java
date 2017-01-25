@@ -35,7 +35,11 @@ import models.levels.LevelOne;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
+import models.settings.FileConstants;
+import models.shapes.util.ShapeLoader;
 import models.shapes.util.ShapePlatformPair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
 
 import java.io.File;
@@ -68,6 +72,7 @@ public class GameController implements Initializable, ScoreObserver {
     @FXML
     private AnchorPane mainGame;
 
+    private static Logger logger = LogManager.getLogger(GameController.class);
     public synchronized static GameController getInstance() {
         return instance;
     }
@@ -120,14 +125,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void registerShapes() {
         //TODO replace this with dynamic class loading
-        try {
-            Class.forName("models.shapes.PlateShape");
-            Class.forName("models.shapes.BasedPlateShape");
-            Class.forName("models.shapes.DeepPlateShape");
-            Class.forName("models.shapes.PotShape");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -341,7 +339,8 @@ public class GameController implements Initializable, ScoreObserver {
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;
-        this.handler.write(modelDataHolder, "." + File.separator + "save",
+        this.handler.write(modelDataHolder, "." + File.separator +
+                        FileConstants.SAVE_PATH,
                 fileName);
     }
 
