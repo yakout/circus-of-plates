@@ -151,4 +151,11 @@ public class PlayersController {
     public Collection<String> getPlayersNames() {
         return players.keySet();
     }
+
+    public Player getPlayerModel(String playerName) {
+        if (players.containsKey(playerName)) {
+            return players.get(playerName).getPlayerModel();
+        }
+        return null;
+    }
 }

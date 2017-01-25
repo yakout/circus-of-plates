@@ -247,6 +247,11 @@ public class GameController implements Initializable, ScoreObserver {
             modelData.addShape(new ShapePlatformPair(shapeController
                     .getShapeModel(), shapeController.getPlatform()));
         }
+        for (String player : currentGame.getPlayersController()
+                .getPlayersNames()) {
+            modelData.addPlayer(currentGame.getPlayersController()
+                    .getPlayerModel(player));
+        }
         this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
