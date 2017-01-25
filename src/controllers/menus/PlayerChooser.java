@@ -114,7 +114,7 @@ public class PlayerChooser implements Initializable {
 //                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
 
         GameController.getInstance().getCurrentGame().createPlayer(CLOWN_DIR
-                + String.valueOf(currPlayer), playerName, inputType);
+                + chosenClownID + FILE_NAME, playerName, inputType);
     }
 
     @FXML

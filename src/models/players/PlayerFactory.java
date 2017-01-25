@@ -1,6 +1,8 @@
 package models.players;
 
 import controllers.input.InputType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
 public class PlayerFactory {
     private static PlayerFactory factory;
     private Map<String, Player> players;
-
+    private static Logger logger = LogManager.getLogger(PlayerFactory.class);
     private PlayerFactory() {
         players = new HashMap<>();
     }
@@ -22,6 +24,7 @@ public class PlayerFactory {
 
     public Player registerPlayer(String name) {
         players.put(name, new Player(name));
+        logger.info("Player: " + name + " Registered to the Factory");
         return players.get(name);
     }
 
