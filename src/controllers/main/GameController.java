@@ -32,6 +32,8 @@ import models.GameMode;
 import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
+import models.levels.LevelTwo;
+import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -63,7 +65,7 @@ public class GameController implements Initializable, ScoreObserver {
     private ModelDataHolder modelDataHolder;
     private FileHandler handler;
     private Double currentX;
-
+    private int currentLevel;
     @FXML
     private AnchorPane rootPane;
 
@@ -92,6 +94,7 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         // Controllers
+        currentLevel = 1;
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
@@ -389,11 +392,15 @@ public class GameController implements Initializable, ScoreObserver {
         // ===========================
         //TODO: Replace Level with level from level chooser with default
         // value set to 1
-        Level level = new
-                LevelOne(rootPane.getLayoutX(),
-                rootPane.getLayoutY(), rootPane.getLayoutX()
-                + rootPane.getWidth(), rootPane.getLayoutY()
-                + rootPane.getHeight());
+        Level level = LevelFactory.getInstance().createLevel(currentLevel, rootPane
+                                .getLayoutX(),
+                        rootPane.getLayoutY(), rootPane.getLayoutX()
+                                + rootPane.getWidth(), rootPane.getLayoutY()
+                                + rootPane.getHeight());
+        if (level == null) {
+            logger.fatal("Couldn't Create Level " + currentLevel);
+            return;
+        }
         modelDataHolder.setActiveLevel(level);
         startNormalGame(level);
     }
@@ -511,7 +518,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void startLevel(String level) {
-        //
+        currentLevel = Integer.parseInt(level);
     }
 
     public synchronized void playerLost(String playerName) {

@@ -29,6 +29,7 @@ public abstract class Level {
     public Level(int currentLevel, int noOfPlatforms) {
         this.noOfPlatforms = noOfPlatforms;
         this.currentLevel = currentLevel;
+        platforms = new ArrayList<>();
         backgroundURL = DIRECTORY + String.valueOf(currentLevel) + IMG_EXTENSION;
     }
 

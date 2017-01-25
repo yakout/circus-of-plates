@@ -40,7 +40,9 @@ public class LevelFactory {
             Constructor<? extends Level> levelConstructor =
                     levelClass.getConstructor(double.class, double.class,
                             double.class, double.class);
+            System.out.println(levelNumber);
             Level level = levelConstructor.newInstance(minX, minY, maxX, maxY);
+            System.out.println(level.getNumPlatforms());
             return level;
         } catch (NoSuchMethodException | SecurityException
                 | InstantiationException
