@@ -431,6 +431,10 @@ public class GameController implements Initializable, ScoreObserver {
                 case FALLING:
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
+                    System.out.println("Shape Initial Position: " +
+                            shapePlatformPair.getShape().getInitialPosition());
+                    System.out.println("Shape Actual Position: " +
+                            shapePlatformPair.getShape().getPosition());
                     mainGame.getChildren().add(shapeView);
                     new ShapeController<>(shapeView, shapePlatformPair
                             .getShape(), shapePlatformPair.getPlatform())
@@ -447,6 +451,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu.setMenuVisible(false);
         startNormalGame(modelDataHolder.getActiveLevel());
         continueGame();
+        System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
     // TODO: Mouse handler

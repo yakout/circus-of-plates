@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import models.data.ModelDataHolder;
 import models.shapes.util.ShapePlatformPair;
 import models.shapes.util.ShapePool;
 import models.levels.Level;
@@ -34,6 +35,8 @@ public class ShapeGenerator {
             long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
+                GameController.getInstance().getModelDataHolder()
+                        .setGeneratorCounter(counter);
                 while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
@@ -97,22 +100,14 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
-        beginCounter = THREAD_PULSE_RATE;
-        shapeGeneratorThread = new Thread(shapeGenerator);
-//        setGenerationThreadIsNotStopped(true);
-        generationThreadIsNotStopped = true;
-//        setGenerationThreadPaused(false);
-        generationThreadPaused = false;
-        shapeGeneratorThread.setDaemon(true);
-        shapeGeneratorThread.start();
-        logger.debug("Shape Generator is Created");
-        logger.debug("Shape Generation Thread Started Running");
-    }
-
-    public ShapeGenerator(Level level, Pane parent, Long beginCounter) {
-        this.level = level;
-        this.parent = parent;
-        this.beginCounter = beginCounter;
+        if (GameController.getInstance().getModelDataHolder()
+                .getGeneratorCounter() == ModelDataHolder
+                .INVALID_COUNTER_VALUE) {
+            beginCounter = THREAD_PULSE_RATE;
+        } else {
+            beginCounter = GameController.getInstance().getModelDataHolder()
+                    .getGeneratorCounter();
+        }
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;

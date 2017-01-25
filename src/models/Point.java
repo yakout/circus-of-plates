@@ -124,4 +124,11 @@ public class Point implements Cloneable {
 	public Point clone() throws CloneNotSupportedException {
 		return new Point(propX.doubleValue(), propY.doubleValue());
 	}
+
+	@Override
+	public String toString() {
+		return "Point = (" +
+				 propX.doubleValue() + ", " +
+				propY.doubleValue() + ')';
+	}
 }
