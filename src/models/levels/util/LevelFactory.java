@@ -46,7 +46,7 @@ public class LevelFactory {
             logger.debug("Requested Creating Level " + levelNumber);
             Level level = levelConstructor.newInstance(minX, minY, maxX, maxY);
             if (level != null) {
-                logger.debug("Requested Creating Level " + levelNumber);
+                logger.debug("Successfully Created Level " + levelNumber);
             } else {
                 logger.error("Failed to Create Level " + levelNumber);
             }
