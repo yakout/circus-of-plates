@@ -3,12 +3,14 @@ package services.file;
 import com.google.gson.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import models.Point;
 import models.shapes.util.ShapeFactory;
 import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.util.LevelFactory;
 import models.shapes.Shape;
 import models.states.Color;
+import models.states.ShapeState;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,10 +24,11 @@ import java.lang.reflect.Type;
 class JsonReader implements FileReader {
     @Override
     public ModelDataHolder read(String path, String fileName) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(DoubleProperty
-                .class, new DoublePropertyDeserializer()).registerTypeAdapter
+        Gson gson = new GsonBuilder().registerTypeAdapter(Point.class,
+                new PointDeserializer()).registerTypeAdapter
                 (Level.class, new LevelDeserializer()).registerTypeAdapter
-                (Shape.class, new ShapeDeserializer())
+                (Shape.class, new ShapeDeserializer()).registerTypeAdapter
+                (DoubleProperty.class, new DoublePropertyDeserializer())
                 .create();
         File jsonFile   = new File(path
                 + File.separator + fileName + ".json");
@@ -64,7 +67,27 @@ class JsonReader implements FileReader {
                 throws JsonParseException {
             final double value
                     = json.getAsDouble();
-            return new SimpleDoubleProperty(value);
+            DoubleProperty doubleProperty = new SimpleDoubleProperty(0);
+            doubleProperty.set(value);
+            System.out.println(doubleProperty);
+            return doubleProperty;
+        }
+    }
+
+    private class PointDeserializer
+            implements JsonDeserializer<Point> {
+
+        @Override
+        public Point deserialize(final JsonElement json,
+                                          final Type type,
+                                          final JsonDeserializationContext
+                                                  jsonDeserializationContext)
+                throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+            double x = jsonObject.get("propX").getAsDouble();
+            double y = jsonObject.get("propY").getAsDouble();
+//            System.out.println(new Point(x, y));
+            return new Point(x, y);
         }
     }
 
@@ -102,7 +125,18 @@ class JsonReader implements FileReader {
             final String shapeKey = jsonObject.get("key").getAsString();
             final Color color = Color.valueOf(jsonObject.get("color")
                     .getAsString());
-            return ShapeFactory.getShape(color, shapeKey);
+            Shape shape = ShapeFactory.getShape(color, shapeKey);
+            Point position = new PointDeserializer().deserialize(jsonObject
+                    .get("position"), type, jsonDeserializationContext);
+            Point initialPosition = new PointDeserializer().deserialize
+                    (jsonObject.get("initialPosition"), type,
+                            jsonDeserializationContext);
+            final ShapeState state = ShapeState.valueOf(jsonObject.get("state")
+                    .getAsString());
+            shape.setPosition(position);
+            shape.setInitialPosition(initialPosition);
+            shape.setState(state);
+            return shape;
         }
     }
 }

@@ -18,14 +18,19 @@ public class ModelDataHolder {
     private Set<ShapePlatformPair> shapes;
 
     private Set<Player> players;
+
+    private long generatorCounter;
+
+    public static final long INVALID_COUNTER_VALUE = -1;
+
     public ModelDataHolder() {
         shapes = new HashSet<>();
         players = new HashSet<>();
+        generatorCounter = INVALID_COUNTER_VALUE;
     }
     public Level getActiveLevel() {
         return activeLevel;
     }
-
     public void setActiveLevel(Level activeLevel) {
         this.activeLevel = activeLevel;
     }
@@ -60,5 +65,13 @@ public class ModelDataHolder {
 
     public boolean removePlayer(Player player) {
         return players.remove(player);
+    }
+
+    public long getGeneratorCounter() {
+        return generatorCounter;
+    }
+
+    public void setGeneratorCounter(long generatorCounter) {
+        this.generatorCounter = generatorCounter;
     }
 }

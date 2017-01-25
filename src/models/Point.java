@@ -90,6 +90,14 @@ public class Point implements Cloneable {
 		return propY;
 	}
 
+	public void setPropX(double propX) {
+		this.propX.set(propX);
+	}
+
+	public void setPropY(double propY) {
+		this.propY.set(propY);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,5 +131,12 @@ public class Point implements Cloneable {
 	@Override
 	public Point clone() throws CloneNotSupportedException {
 		return new Point(propX.doubleValue(), propY.doubleValue());
+	}
+
+	@Override
+	public String toString() {
+		return "Point = (" +
+				 propX.doubleValue() + ", " +
+				propY.doubleValue() + ')';
 	}
 }
