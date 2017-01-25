@@ -9,7 +9,6 @@ import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
-import controllers.input.keyboard.Keyboard;
 import controllers.input.keyboard.KeyboardEvent;
 import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
@@ -56,8 +55,9 @@ public class GameController implements Initializable, ScoreObserver {
     private BooleanProperty newGameStarted;
     private Collection<ShapeController<? extends Node>> shapeControllers;
     private Map<KeyCode, Boolean> keyMap;
-
-    // TODO: 1/19/17 plate Controller
+    private volatile boolean gamePaused = false;
+    private ModelDataHolder modelDataHolder;
+    private FileHandler handler;
 
     @FXML
     private AnchorPane rootPane;
@@ -67,8 +67,6 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
-    private ModelDataHolder modelDataHolder;
-    private FileHandler handler;
 
     public synchronized static GameController getInstance() {
         return instance;
@@ -104,8 +102,6 @@ public class GameController implements Initializable, ScoreObserver {
         registerLevels();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
-//        Keyboard.getInstance().registerClassForInputAction(getClass(),
-//                instance);
     }
 
     public void registerLevels() {
@@ -398,13 +394,15 @@ public class GameController implements Initializable, ScoreObserver {
         }
         shapeGenerator = new ShapeGenerator(level, mainGame);
 
+        startKeyboardListener();
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
+    }
 
-
+    public synchronized void startKeyboardListener() {
         new Thread(() -> {
-            while (true) {
-                updatePlayers();
+            while (!gamePaused) {
+                Platform.runLater(this::updatePlayers);
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
@@ -475,6 +473,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void pauseGame() {
+        gamePaused = true;
         currentMenu = Start.getInstance();
         currentMenu.setMenuVisible(true);
         currentMenu.requestFocus(0);
@@ -484,13 +483,13 @@ public class GameController implements Initializable, ScoreObserver {
             shapeController.gamePaused();
         }
         gameBoard.pause();
-        playersController.pause();
         shapeGenerator.pauseGenerator();
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
 
     public void continueGame() {
+        gamePaused = false;
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
         mainGame.setVisible(true);
@@ -499,8 +498,8 @@ public class GameController implements Initializable, ScoreObserver {
             shapeController.gameResumed();
         }
         gameBoard.resume();
-        playersController.resume();
         shapeGenerator.resumeGenerator();
+        startKeyboardListener();
         AudioPlayer.backgroundMediaPlayer.play();
     }
 

@@ -111,11 +111,4 @@ public class PlayersController {
         });
     }
 
-    public void resume() {
-
-    }
-
-    public void pause() {
-
-    }
 }

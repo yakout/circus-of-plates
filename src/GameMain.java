@@ -17,33 +17,19 @@ public class GameMain extends Application {
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
 		Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-
 		final Pane root = FXMLLoader.load(getClass().getResource("views/game.fxml"));
-
 		primaryStage.setTitle("Circus Of plates");
-		//        primaryStage.setMinHeight(500);
-		//        primaryStage.setMinWidth(700);
-		primaryStage.setScene(new Scene(root,  visualBounds.getWidth(),  visualBounds.getHeight()));
-		//primaryStage.setMaximized(true);
-
-
-		// =========================== FULL SCREEN =================================
+		primaryStage.setScene(new Scene(root, visualBounds.getWidth(),
+                visualBounds.getHeight()));
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit full screen."
 		primaryStage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("Ctrl+F"));
-		// =========================== EXIT ON WINDOW CLOSE =================================
-		// primaryStage.setAlwaysOnTop(true);
 		primaryStage.setOnCloseRequest(event -> {
 			Platform.exit();
 			System.exit(0);
 		});
-
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		// root.requestFocus(); // the root don't have the focus when the stage is shown it goes to the first node.
-
-		// TODO: 1/17/17
-		Keyboard.getInstance().start();
 	}
 
 	public static void main(final String[] args) {
