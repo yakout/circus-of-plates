@@ -12,6 +12,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import controllers.main.GameController;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import static controllers.AudioPlayer.menuChoiceMediaPlayer;
+import static controllers.AudioPlayer.menuSelectionMediaPlayer;
 
 
 public abstract class MenuController implements Initializable {
@@ -85,11 +89,9 @@ public abstract class MenuController implements Initializable {
         }
         switch (event.getJoystickCode()) {
             case DOWN:
-                Platform.runLater(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer
-                            .menuChoiceMedia).play();
-                    handleEvent(Direction.DOWN);
-                });
+                menuChoiceMediaPlayer.play();
+                menuChoiceMediaPlayer.setStartTime(Duration.ZERO);
+                handleEvent(Direction.DOWN);
                 break;
             case UP:
                 Platform.runLater(() -> {
@@ -114,27 +116,20 @@ public abstract class MenuController implements Initializable {
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
             case ENTER:
-                new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer
-                            .menuSelectionMedia).play();
-                }).start();
+                menuSelectionMediaPlayer.play();
+                menuSelectionMediaPlayer.seek(Duration.ZERO);
                 handle(getButton(getCurrentIndex()).getId());
                 break;
             case ESCAPE:
-                System.out.println("escape is pressed and triggered by a menu");
 //                GameController.getInstance().continueGame();
                 break;
             case DOWN:
-                new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer
-                            .menuChoiceMedia).play();
-                }).start();
+                menuChoiceMediaPlayer.play();
+                menuChoiceMediaPlayer.seek(Duration.ZERO);
                 break;
             case UP:
-                new Thread(() -> {
-                    new javafx.scene.media.MediaPlayer(AudioPlayer
-                            .menuChoiceMedia).play();
-                }).start();
+                menuChoiceMediaPlayer.play();
+                menuChoiceMediaPlayer.seek(Duration.ZERO);
                 break;
             default:
                 break;

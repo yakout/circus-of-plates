@@ -120,6 +120,7 @@ public class Start extends MenuController {
         startMenu.setVisible(visible);
         menu.setVisible(visible);
         saveGamePane.setVisible(false);
+        this.requestFocus(0);
     }
 
     public void activeDisabledButtons() {
