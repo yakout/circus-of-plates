@@ -1,10 +1,14 @@
 package models.shapes.util;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLClassLoader;
 
 public class ShapeLoader {
@@ -13,7 +17,7 @@ public class ShapeLoader {
     // ShapeLoader s = new ShapeLoader();
     // s.loadShapes(new File("----------"));
     // }
-
+    private static Logger logger = LogManager.getLogger(ShapeLoader.class);
     public static void loadShapes(File source) {
 
         String path = new File("").getAbsolutePath()
@@ -33,7 +37,7 @@ public class ShapeLoader {
             return;
         }
 
-        java.net.URL url;
+        URL url;
         try {
             url = new File(new File("").getAbsolutePath()).toURI().toURL();
         } catch (MalformedURLException e) {
@@ -41,7 +45,7 @@ public class ShapeLoader {
             e.printStackTrace();
             return;
         }
-        java.net.URL[] urls = new java.net.URL[]{url};
+        URL[] urls = new URL[]{url};
 
         // load this folder into Class loader
         ClassLoader cl = new URLClassLoader(urls);
@@ -53,9 +57,17 @@ public class ShapeLoader {
                 try {
                     cls = cl.loadClass("models.shapes." + file.getName()
                             .substring(0, file.getName().indexOf('.')));
-                    cls.getName();
+                    Field keyField = cls.getDeclaredField("KEY");
+                    keyField.setAccessible(true);
+                    logger.info("Loaded Class: \"" + cls.getName() + "\" "
+                            + "Which has the KEY: \"" + keyField.get(null) +
+                            "\"");
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
 

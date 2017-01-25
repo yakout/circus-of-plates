@@ -4,6 +4,7 @@ import models.levels.Level;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,5 +48,8 @@ public class LevelFactory {
                 | InvocationTargetException e) {
             return null;
         }
+    }
+    public Collection<Integer> getRegisteredLevels() {
+        return registeredLevels.keySet();
     }
 }
