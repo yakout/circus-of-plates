@@ -115,6 +115,7 @@ public class Game {
     void startNormalGame() {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
+            logger.info("Players has created");
         }
 
         PlatformBuilder builder = new PlatformBuilder();
@@ -140,6 +141,7 @@ public class Game {
         if (shapeGenerator != null) {
             shapeGenerator.stopGeneration();
         }
+        PlayerFactory.getFactory().reset();
         for (ShapeController shapeController : shapeControllers) {
             shapeController.stop();
         }

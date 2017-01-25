@@ -45,4 +45,8 @@ public class PlayerFactory {
         }
         return null;
     }
+
+    public void reset() {
+        players.clear();
+    }
 }
