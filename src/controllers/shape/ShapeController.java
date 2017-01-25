@@ -115,7 +115,6 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shape.setVisible(false);
         shapeModel.setState(ShapeState.INACTIVE);
         GameController.getInstance().getCurrentGame().removeShapeController(this);
-        ShapePool.destroyShape(shapeModel);
     }
 
     public void resetShape() {
