@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameMode extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
     private final int LEVEL_INDEX = 6;
     @FXML
@@ -77,6 +81,7 @@ public class GameMode extends MenuController {
                 gameModeMenu.setVisible(true);
                 chooseLevel.setVisible(true);
                 menu.setVisible(false);
+                logger.info("Level is set successfully");
                 break;
             case "choosePlayer":
                 if (ChoosePlayer.getInstance() == null) {
