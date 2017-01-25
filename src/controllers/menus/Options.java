@@ -6,11 +6,15 @@ import controllers.menus.options.Input;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Options extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(Options.class);
     private static Options instance;
 
     @FXML
@@ -53,17 +57,21 @@ public class Options extends MenuController {
                 Audio.getInstance().setVisible(true);
                 menu.setVisible(false);
                 optionsMenu.setVisible(true);
+                logger.info("Setting audio in settings.");
                 break;
             case "graphics":
                 // TODO: 1/25/17
+                logger.info("Setting graphics resolutions in settings.");
                 break;
             case "input":
                 Input.getInstance().setVisible(true);
                 menu.setVisible(false);
                 optionsMenu.setVisible(true);
+                logger.info("Setting input player controllers.");
                 break;
             case "credits":
                 // TODO: 1/25/17
+                logger.info("Game credits is triggerd.");
                 break;
         }
     }

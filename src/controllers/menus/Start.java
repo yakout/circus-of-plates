@@ -9,11 +9,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Start extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(Start.class);
     private BooleanProperty newGameIsDisabled;
     private String fileNameRegex; // TODO: 1/24/17
 
@@ -34,6 +38,7 @@ public class Start extends MenuController {
     public Start() {
         super();
         instance = this;
+//        logger.debug("Start menu is loaded successfully.");
     }
 
     /**
@@ -64,36 +69,43 @@ public class Start extends MenuController {
             case "newGame":
                 GameMode.getInstance().setMenuVisible(true);
                 updateCurrentMenu(GameMode.getInstance());
+                logger.debug("New game menu is loaded.");
                 break;
             case "continue":
                 GameController.getInstance().continueGame();
+                logger.debug("Loaded game is started.");
                 break;
             case "loadGame":
                 startMenu.setVisible(true);
                 menu.setVisible(false);
                 LoadGame.getInstance().setVisible(true);
+                logger.debug("Loaded game menu is loaded.");
                 break;
             case "saveGame":
                 startMenu.setVisible(true);
                 menu.setVisible(false);
                 saveGamePane.setVisible(true);
-                //
+                logger.debug("Save menu is loaded");
                 break;
             case "options":
                 Options.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Options.getInstance());
+                logger.debug("Options menus is loaded.");
                 break;
             case "help":
                 Help.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Help.getInstance());
+                logger.debug("Help menu is loaded.");
                 break;
             case "exit":
                 Platform.exit();
                 System.exit(0);
+                logger.debug("Game is exited.");
                 break;
             case "save":
                 GameController.getInstance().saveGame(gameName.getText());
                 hideSaveGamePanel();
+                logger.info("Game is saved successfully.");
                 break;
             case "cancelSave":
                 hideSaveGamePanel();
