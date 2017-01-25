@@ -5,6 +5,8 @@ import controllers.main.GameController;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -56,7 +58,18 @@ public class Start extends MenuController {
         newGameIsDisabled = new SimpleBooleanProperty(true);
         getButton(1).disableProperty().bindBidirectional(newGameIsDisabled);
         getButton(2).disableProperty().bindBidirectional(newGameIsDisabled);
+        gameName.textProperty().addListener(
+                new ChangeListener<String>() {
 
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                        String newValue) {
+                        if (!newValue.matches("[a-zA-Z\\d ]*")) {
+                            gameName.setText(newValue.replaceAll("[^a-zA-Z\\d "
+                                    + "]", ""));
+                        }
+                    }
+                });
         requestFocus(0);
         Joystick.getInstance().registerClassForInputAction(getClass(), instance);
     }
