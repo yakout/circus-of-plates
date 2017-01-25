@@ -28,6 +28,8 @@ public class Player {
     private String playerUrl;
     private String leftStickUrl;
     private String rightStickUrl;
+    private boolean leftStackFull;
+    private boolean rightStackFull;
     private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
     private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
 
@@ -42,6 +44,8 @@ public class Player {
         this.rightStickUrl = RIGHT_STICK_URL;
         this.playerUrl = "";
         this.observers = new ArrayList<>();
+        leftStackFull = false;
+        rightStackFull = false;
     }
 
     public Player(String name) {
@@ -207,5 +211,21 @@ public class Player {
 
     public DoubleProperty speedProperty() {
         return speed;
+    }
+
+    public synchronized boolean isLeftStackFull() {
+        return leftStackFull;
+    }
+
+    public synchronized void setLeftStackFull(boolean leftStackFull) {
+        this.leftStackFull = leftStackFull;
+    }
+
+    public synchronized boolean isRightStackFull() {
+        return rightStackFull;
+    }
+
+    public synchronized void setRightStackFull(boolean rightStackFull) {
+        this.rightStackFull = rightStackFull;
     }
 }

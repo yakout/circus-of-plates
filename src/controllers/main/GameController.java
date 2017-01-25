@@ -32,6 +32,8 @@ import models.GameMode;
 import models.data.ModelDataHolder;
 import models.levels.Level;
 import models.levels.LevelOne;
+import models.levels.LevelTwo;
+import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -63,7 +65,7 @@ public class GameController implements Initializable, ScoreObserver {
     private ModelDataHolder modelDataHolder;
     private FileHandler handler;
     private Double currentX;
-
+    private int currentLevel;
     @FXML
     private AnchorPane rootPane;
 
@@ -72,7 +74,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
-
+    private double highestPlatformY;
     private static Logger logger = LogManager.getLogger(GameController.class);
 
     public synchronized static GameController getInstance() {
@@ -93,6 +95,7 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         // Controllers
+        currentLevel = 1;
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
@@ -100,15 +103,12 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
-
+        highestPlatformY = 0;
         keyMap = new HashMap<>();
         keyMap.put(KeyCode.A, false);
         keyMap.put(KeyCode.D, false);
         keyMap.put(KeyCode.LEFT, false);
         keyMap.put(KeyCode.RIGHT, false);
-
-        registerLevels();
-        registerShapes();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
@@ -129,6 +129,7 @@ public class GameController implements Initializable, ScoreObserver {
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
         logger.info("Shapes are dynamically loaded.");
     }
+
 
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
@@ -414,10 +415,15 @@ public class GameController implements Initializable, ScoreObserver {
         // ===========================
         //TODO: Replace Level with level from level chooser with default
         // value set to 1
-        Level level = new LevelOne(rootPane.getLayoutX(), rootPane.getLayoutY(),
-                rootPane.getLayoutX()
-                + rootPane.getWidth(), rootPane.getLayoutY()
-                + rootPane.getHeight());
+        Level level = LevelFactory.getInstance().createLevel(currentLevel, rootPane
+                                .getLayoutX(),
+                        rootPane.getLayoutY(), rootPane.getLayoutX()
+                                + rootPane.getWidth(), rootPane.getLayoutY()
+                                + rootPane.getHeight());
+        if (level == null) {
+            logger.fatal("Couldn't Create Level " + currentLevel);
+            return;
+        }
         modelDataHolder.setActiveLevel(level);
         startNormalGame(level);
         logger.info("Normal game is started.");
@@ -425,10 +431,14 @@ public class GameController implements Initializable, ScoreObserver {
 
     private void startNormalGame(Level level) {
         PlatformBuilder builder = new PlatformBuilder();
+        double minY = Double.MAX_VALUE;
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
+            minY = Math.min(minY, platform.getCenter().getY() - platform
+                    .getHeight().doubleValue() / 2.0);
         }
         logger.info("Platforms are built.");
+        highestPlatformY = minY;
         shapeGenerator = new ShapeGenerator(level, mainGame);
 
         startKeyboardListener();
@@ -450,6 +460,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
+        this.modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
         try {
             for (Player player : modelDataHolder.getPlayers()) {
@@ -483,7 +494,6 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
-        this.modelDataHolder = modelDataHolder;
         currentMenu.setMenuVisible(false);
         startNormalGame(modelDataHolder.getActiveLevel());
         continueGame();
@@ -494,7 +504,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (playersController.checkIntersection(shapeController)) {
+        if (playersController.checkIntersection(shapeController, highestPlatformY)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
@@ -533,7 +543,11 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void startLevel(String level) {
-        //
+        currentLevel = Integer.parseInt(level);
+    }
+
+    public synchronized void playerLost(String playerName) {
+        System.out.printf("Player %s has lost the game\n", playerName);
     }
 
     @Override

@@ -80,7 +80,10 @@ public class PlayerController {
     }
 
     public synchronized boolean intersectsLeftStick(ShapeController<? extends
-            Node> shapeController) {
+            Node> shapeController, double highestPlatformY) {
+        if (playerModel.isLeftStackFull()) {
+            return false;
+        }
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
             return false;
@@ -101,13 +104,22 @@ public class PlayerController {
             GameController.getInstance().getModelDataHolder().removeShape
                     (new ShapePlatformPair(shapeModel, shapeController
                             .getPlatform()));
+            if (calculateLeftStackY() < highestPlatformY) {
+                playerModel.setLeftStackFull(true);
+                if (playerModel.isRightStackFull()) {
+                    GameController.getInstance().playerLost(playerModel.getName());
+                }
+            }
             return true;
         }
         return false;
     }
 
     public synchronized boolean intersectsRightStick(ShapeController<?
-            extends Node> shapeController) {
+            extends Node> shapeController, double highestPlatformY) {
+        if (playerModel.isRightStackFull()) {
+            return false;
+        }
         Shape shapeModel = shapeController.getShapeModel();
         if (shapeModel.getState() != ShapeState.FALLING) {
             return false;
@@ -129,6 +141,12 @@ public class PlayerController {
             GameController.getInstance().getModelDataHolder().removeShape
                     (new ShapePlatformPair(shapeModel, shapeController
                             .getPlatform()));
+            if (calculateRightStackY() < highestPlatformY) {
+                playerModel.setRightStackFull(true);
+                if (playerModel.isLeftStackFull()) {
+                    GameController.getInstance().playerLost(playerModel.getName());
+                }
+            }
             return true;
         }
         return false;

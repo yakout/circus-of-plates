@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -12,6 +13,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import models.settings.FileConstants;
+import models.shapes.util.ShapeLoader;
 
 public class GameMain extends Application {
     @Override
@@ -32,7 +35,26 @@ public class GameMain extends Application {
         primaryStage.show();
     }
 
+    private static void registerLevels() {
+        try {
+            Class.forName("models.levels.LevelOne");
+            Class.forName("models.levels.LevelTwo");
+            Class.forName("models.levels.LevelThree");
+            Class.forName("models.levels.LevelFour");
+            Class.forName("models.levels.LevelFive");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void registerShapes() {
+        ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
+    }
+
+
     public static void main(final String[] args) {
+        registerLevels();
+        registerShapes();
         launch(args);
     }
 }
