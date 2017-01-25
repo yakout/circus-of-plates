@@ -1,28 +1,32 @@
 package controllers.menus;
 
-import controllers.AudioPlayer;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameMode extends MenuController {
+    private static GameMode instance;
+    private final int LEVEL_INDEX = 6;
     @FXML
     private VBox menu;
 
     @FXML
     private AnchorPane gameModeMenu;
 
-    private static GameMode instance;
+    @FXML
+    private AnchorPane chooseLevel;
+    private ChoiceBox<String> choiceBox;
+
 
     public GameMode() {
         super();
@@ -43,6 +47,13 @@ public class GameMode extends MenuController {
     public void initialize(URL location, ResourceBundle resources) {
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
+        choiceBox = (ChoiceBox<String>) chooseLevel.getChildren().get(0);
+
+        // // TODO: 1/25/17 get the levels from model
+        choiceBox.setItems(FXCollections.observableArrayList(
+                "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"));
+
+        choiceBox.setValue("Level 1");
     }
 
     @Override
@@ -64,6 +75,7 @@ public class GameMode extends MenuController {
                 break;
             case "chooseLevel":
                 gameModeMenu.setVisible(true);
+                chooseLevel.setVisible(true);
                 menu.setVisible(false);
                 break;
             case "choosePlayer":
@@ -73,6 +85,11 @@ public class GameMode extends MenuController {
                 gameModeMenu.setVisible(true);
                 menu.setVisible(false);
                 ChoosePlayer.getInstance().setVisible(true);
+                break;
+            case "doneChoosingLevel":
+                GameController.getInstance().startLevel(
+                        choiceBox.getValue().substring(LEVEL_INDEX));
+                setMenuVisible(true);
                 break;
             default:
                 break;
@@ -88,7 +105,8 @@ public class GameMode extends MenuController {
             GameController.getInstance().getRootPane().getChildren().add(playerChooser);
 
             double width = GameController.getInstance().getStageWidth();
-            AnchorPane.setLeftAnchor(playerChooser, width / 2 - playerChooser.getPrefWidth() / 2);
+            AnchorPane.setLeftAnchor(playerChooser,
+                    width / 2 - playerChooser.getPrefWidth() / 2);
             AnchorPane.setTopAnchor(playerChooser, 50.0);
 //=======
 //            Node playerChooser = FXMLLoader.load(url);
@@ -114,6 +132,8 @@ public class GameMode extends MenuController {
     public void setMenuVisible(boolean visible) {
         gameModeMenu.setVisible(visible);
         menu.setVisible(visible);
+        requestFocus(0);
+        chooseLevel.setVisible(false);
     }
 
     @Override

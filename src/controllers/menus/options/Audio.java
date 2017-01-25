@@ -1,7 +1,6 @@
 package controllers.menus.options;
 
 import controllers.AudioPlayer;
-import controllers.main.GameController;
 import controllers.menus.Options;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -10,15 +9,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,10 +60,10 @@ public class Audio implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+
         muteOption.selectedProperty().bindBidirectional(mute);
         volumeSlider.valueProperty().bindBidirectional(volume);
-
-        instance = this;
     }
 
     @FXML
