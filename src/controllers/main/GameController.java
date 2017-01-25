@@ -41,6 +41,9 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class GameController implements Initializable, ScoreObserver {
@@ -289,25 +292,22 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame = new Game();
     }
 
-    public synchronized void startKeyboardListener() {
-        Thread thread;
-        thread = new Thread(() -> {
+    void startKeyboardListener() {
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        exec.execute(() -> {
             while (!gamePaused) {
-                Platform.runLater(this::updatePlayers);
+                Platform.runLater(() -> updatePlayers());
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
                     logger.info("keyboard listener thread interrupted");
                     if (gamePaused) {
                         break;
-                    } else {
-                        continue;
                     }
                 }
             }
         });
-        thread.setDaemon(true);
-        thread.start();
+        exec.shutdown();
     }
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {

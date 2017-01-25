@@ -1,5 +1,6 @@
 package controllers.main;
 
+import controllers.AudioPlayer;
 import controllers.board.GameBoard;
 import controllers.input.InputType;
 import controllers.level.PlatformBuilder;
@@ -123,7 +124,8 @@ public class Game {
             GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
         }
         shapeGenerator = new ShapeGenerator(currentLevel, GameController.getInstance().getMainGame());
-        GameController.getInstance().startKeyboardListener();
+        AudioPlayer.backgroundMediaPlayer.play();
+        GameController.getInstance().continueGame();
     }
 
     private void addDefaultPlayers() {
@@ -145,6 +147,7 @@ public class Game {
         for (ShapeController shapeController : shapeControllers) {
             shapeController.stop();
         }
+        AudioPlayer.backgroundMediaPlayer.stop();
         ShapePool.clearPool();
     }
 
