@@ -460,8 +460,6 @@ public class GameController implements Initializable, ScoreObserver {
 
     @Override
     public void update(int score, String playerName, Stick stick) {
-        //TODO:- UPDATE THE SCORING LABEL.
-
         playersController.removeShapes(playerName, stick);
         gameBoard.updateScore(score, playerName);
     }

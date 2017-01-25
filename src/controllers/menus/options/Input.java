@@ -1,15 +1,11 @@
 package controllers.menus.options;
 
-import controllers.AudioPlayer;
 import controllers.menus.Options;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,29 +15,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class Audio implements Initializable {
-    private static Audio instance;
-
-    @FXML
-    private AnchorPane audioSettings;
-
-    @FXML
-    private Slider volumeSlider;
+/**
+ * Created by Ahmed Yakout on 1/25/17.
+ */
+public class Input implements Initializable {
+    private static Input instance;
 
     @FXML
-    private RadioButton muteOption;
+    private AnchorPane inputSettings;
+
+    @FXML
+    private Slider joystickSpeed;
+
+    @FXML
+    private Slider keyboardSpeed;
 
     private IntegerProperty volume = new SimpleIntegerProperty(50);
-    private BooleanProperty mute = new SimpleBooleanProperty(false);
 
-    public Audio() {
+    public Input() {
     }
 
-    public static synchronized Audio getInstance() {
+    public static synchronized Input getInstance() {
         if (instance == null) {
             try {
-                URL url = new File("src/views/menus/options/audio/audio.fxml").toURI().toURL();
+                URL url = new File("src/views/menus/options/input/input.fxml").toURI().toURL();
                 FXMLLoader.load(url);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -62,18 +59,16 @@ public class Audio implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
 
-        muteOption.selectedProperty().bindBidirectional(mute);
-        volumeSlider.valueProperty().bindBidirectional(volume);
+//        volumeSlider.valueProperty().bindBidirectional(volume);
     }
 
     @FXML
     private void mouseHandler(MouseEvent event) {
-        AudioPlayer.setVolume(volumeSlider.getValue() / 100.0);
-        AudioPlayer.mute(muteOption.isSelected());
+        // // TODO: 1/25/17
         Options.getInstance().setMenuVisible(true);
     }
 
     public void setVisible(boolean isVisible) {
-        this.audioSettings.setVisible(isVisible);
+        inputSettings.setVisible(isVisible);
     }
 }
