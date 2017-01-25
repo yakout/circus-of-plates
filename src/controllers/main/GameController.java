@@ -56,7 +56,6 @@ public class GameController implements Initializable, ScoreObserver {
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
-    private int currentLevel;
 
     @FXML
     private AnchorPane rootPane;
@@ -66,7 +65,6 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
-    private double highestPlatformY;
     private static Logger logger = LogManager.getLogger(GameController.class);
 
     public synchronized static GameController getInstance() {
@@ -93,7 +91,6 @@ public class GameController implements Initializable, ScoreObserver {
 //        modelDataHolder = new ModelDataHolder();
         newGameStarted = new SimpleBooleanProperty(false);
         initilizeKeyMaps();
-        highestPlatformY = 0;
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
@@ -364,7 +361,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (currentGame.getPlayersController().checkIntersection(shapeController, highestPlatformY)) {
+        if (currentGame.getPlayersController().checkIntersection(shapeController)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
