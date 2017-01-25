@@ -105,27 +105,8 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(KeyCode.D, false);
         keyMap.put(KeyCode.LEFT, false);
         keyMap.put(KeyCode.RIGHT, false);
-
-        registerLevels();
-        registerShapes();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
-    }
-
-    public void registerLevels() {
-        try {
-            Class.forName("models.levels.LevelOne");
-            Class.forName("models.levels.LevelTwo");
-            Class.forName("models.levels.LevelThree");
-            Class.forName("models.levels.LevelFour");
-            Class.forName("models.levels.LevelFive");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void registerShapes() {
-        ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
     }
 
     public void setCurrentMenu(MenuController currentMenu) {

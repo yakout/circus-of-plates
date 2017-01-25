@@ -1,13 +1,16 @@
 package controllers.menus;
 
+import com.sun.javafx.collections.ImmutableObservableList;
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import models.levels.util.LevelFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,10 +53,13 @@ public class GameMode extends MenuController {
         choiceBox = (ChoiceBox<String>) chooseLevel.getChildren().get(0);
 
         // // TODO: 1/25/17 get the levels from model
-        choiceBox.setItems(FXCollections.observableArrayList(
-                "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"));
-
-        choiceBox.setValue("Level 1");
+        for (Integer levelNumber : LevelFactory.getInstance()
+                .getRegisteredLevels()) {
+            choiceBox.getItems().add("Level " + levelNumber);
+        }
+        if (!choiceBox.getItems().isEmpty()) {
+            choiceBox.setValue(choiceBox.getItems().get(0));
+        }
     }
 
     @Override
