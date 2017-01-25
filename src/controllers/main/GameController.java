@@ -67,6 +67,10 @@ public class GameController implements Initializable, ScoreObserver {
     private AnchorPane mainGame;
     private static Logger logger = LogManager.getLogger(GameController.class);
 
+    /**
+     * Gets the instance of the GameController using Singleton.
+     * @return returns the instance of GameController class.
+     */
     public synchronized static GameController getInstance() {
         return instance;
     }
@@ -103,6 +107,9 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(KeyCode.RIGHT, false);
     }
 
+    /**
+     * Registers the game levels.
+     */
     public void registerLevels() {
         try {
             Class.forName("models.levels.LevelOne");
@@ -115,20 +122,43 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Registers the game shapes dynamically.
+     */
     public void registerShapes() {
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
         logger.info("Shapes are dynamically loaded.");
     }
 
-
+    /**
+     * Sets the current menu that is loaded on screen.
+     * @param currentMenu {@link MenuController} the curren menu that is on
+     * screen.
+     */
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
     }
 
+    /**
+     *
+     * @return {@link MenuController} returns the current on-screen menu.
+     */
+    public MenuController getCurrentMenu() {
+        return currentMenu;
+    }
+
+    /**
+     * Gets the main game Anchor pane.
+     * @return {@link AnchorPane} returns the anchor pane containing the game.
+     */
     public AnchorPane getMainGame() {
         return mainGame;
     }
 
+    /**
+     * Gets the root pane of the game Anchor pane.
+     * @return {@link AnchorPane} returns the anchor pane of thhe game.
+     */
     public AnchorPane getRootPane() {
         return rootPane;
     }
@@ -136,6 +166,7 @@ public class GameController implements Initializable, ScoreObserver {
 //    public ModelDataHolder getModelDataHolder() {
 //        return modelDataHolder;
 //    }
+
 
 
     private synchronized void updatePlayers() {
