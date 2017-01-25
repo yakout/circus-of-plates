@@ -22,7 +22,7 @@ public class ShapeGenerator {
 
     private final long THREAD_SLEEP_TIME = 50;
     private final long THREAD_PULSE_RATE = 150;
-    private long beginCounter;
+    private volatile long counter;
     private Level level;
     private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
@@ -32,7 +32,6 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
                 while (generationThreadPaused) {
@@ -98,7 +97,27 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
-        beginCounter = THREAD_PULSE_RATE;
+        counter = THREAD_PULSE_RATE;
+        shapeGeneratorThread = new Thread(shapeGenerator);
+//        setGenerationThreadIsNotStopped(true);
+        generationThreadIsNotStopped = true;
+//        setGenerationThreadPaused(false);
+        generationThreadPaused = false;
+        shapeGeneratorThread.setDaemon(true);
+        shapeGeneratorThread.start();
+        logger.debug("Shape Generator is Created");
+        logger.debug("Shape Generation Thread Started Running");
+    }
+
+    /**
+     * Constructor of ShapeGenerator class.
+     * @param level Current level for players.
+     * @param parent {@link Pane} the pane of the game board.
+     */
+    public ShapeGenerator(Level level, Pane parent, long counter) {
+        this.level = level;
+        this.parent = parent;
+        this.counter = counter;
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
@@ -168,5 +187,9 @@ public class ShapeGenerator {
     private synchronized void setGenerationThreadPaused(
             boolean generationThreadPaused) {
         this.generationThreadPaused = generationThreadPaused;
+    }
+
+    public long getGenerationThreadCounter() {
+        return counter;
     }
 }

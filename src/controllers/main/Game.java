@@ -125,6 +125,20 @@ public class Game {
         GameController.getInstance().startKeyboardListener();
     }
 
+    void startNormalGame(long counter) {
+        if (PlayerFactory.getFactory().getPlayersSize() == 0) {
+            addDefaultPlayers();
+        }
+
+        PlatformBuilder builder = new PlatformBuilder();
+        for (models.Platform platform : currentLevel.getPlatforms()) {
+            GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
+        }
+        shapeGenerator = new ShapeGenerator(currentLevel, GameController
+                .getInstance().getMainGame(), counter);
+        GameController.getInstance().startKeyboardListener();
+    }
+
     private void addDefaultPlayers() {
         createPlayer(DEFAULT_PLAYER_1, "player1", InputType
                 .KEYBOARD_PRIMARY);
@@ -157,5 +171,9 @@ public class Game {
     public void setShapeControllers(Collection<ShapeController<? extends
             Node>> shapeControllers) {
         this.shapeControllers = shapeControllers;
+    }
+
+    public long getShapeGeneratorCounter() {
+        return shapeGenerator.getGenerationThreadCounter();
     }
 }
