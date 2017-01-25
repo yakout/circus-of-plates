@@ -41,6 +41,7 @@ class JsonWriter implements FileWriter {
                 e.printStackTrace();
             }
             outputStream.write(json.getBytes());
+            logger.debug("Data is parsed to Json and written sucessfully.");
             outputStream.close();
         } catch (IOException e) {
             logger.error("Error IOException", e);

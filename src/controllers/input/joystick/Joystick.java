@@ -35,6 +35,10 @@ public class Joystick extends Input {
         eventType = new EventType<JoystickEvent>("Joystick");
     }
 
+    /**
+     * Gets the instance using Singleton.
+     * @return returns the instance of the current class.
+     */
     public static synchronized Joystick getInstance() {
         if (instance == null) {
             instance = new Joystick();
@@ -42,6 +46,9 @@ public class Joystick extends Input {
         return instance;
     }
 
+    /**
+     * Starts the thread of the input controller.
+     */
     public void start() {
         thread = new Thread(new Runnable() {
             @Override
@@ -68,6 +75,9 @@ public class Joystick extends Input {
         thread.setDaemon(true);
     }
 
+    /**
+     * Stops the thread of input controller.
+     */
     public void stop() {
         thread.interrupt();
     }
