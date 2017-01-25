@@ -1,17 +1,23 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
+import controllers.main.GameController;
 import controllers.menus.options.Audio;
 import controllers.menus.options.Input;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Options extends MenuController {
     private static Options instance;
+    private final String BACKGROUND_CHOOSER_PANE_PATH = "src/views/menus/" +
+            "options/graphics/ChooseBackground/ChooseBackground.fxml";
 
     @FXML
     private AnchorPane optionsMenu;
@@ -55,7 +61,12 @@ public class Options extends MenuController {
                 optionsMenu.setVisible(true);
                 break;
             case "graphics":
-                // TODO: 1/25/17
+                if (BackgroundChooser.getInstance() == null) {
+                    loadBackgroundChooser();
+                }
+                optionsMenu.setVisible(true);
+                menu.setVisible(false);
+                BackgroundChooser.getInstance().setVisible(true);
                 break;
             case "input":
                 Input.getInstance().setVisible(true);
@@ -86,6 +97,32 @@ public class Options extends MenuController {
     @Override
     public boolean isVisible() {
         return optionsMenu.isVisible();
+    }
+
+    private void loadBackgroundChooser() {
+        URL url;
+        try {
+            url = new File(BACKGROUND_CHOOSER_PANE_PATH).toURI().toURL();
+            AnchorPane backgroundChooser = FXMLLoader.load(url);
+            GameController.getInstance().getRootPane().getChildren().add(backgroundChooser);
+
+            double width = GameController.getInstance().getStageWidth();
+            AnchorPane.setLeftAnchor(backgroundChooser,
+                    width / 2 - backgroundChooser.getPrefWidth() / 2);
+            AnchorPane.setTopAnchor(backgroundChooser, 100.0);
+//=======
+//            Node playerChooser = FXMLLoader.load(url);
+//            GameController.getInstance().getRootPane().getChildren().add
+//                    (playerChooser);
+//            AnchorPane.setBottomAnchor(playerChooser, 0.0);
+//            AnchorPane.setLeftAnchor(playerChooser, GameController
+//                    .getInstance().getRootPane().getWidth() / 4.0);
+//            AnchorPane.setRightAnchor(playerChooser, 0.0);
+//            AnchorPane.setTopAnchor(playerChooser, 0.0);
+//>>>>>>> 601ed58eb293636bbc1f947648b08c4676107659
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static MenuController getInstance() {

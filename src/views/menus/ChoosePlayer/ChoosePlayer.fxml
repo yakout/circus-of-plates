@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="666.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.111"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.PlayerChooser">
     <children>
         <Label alignment="CENTER" prefHeight="45.0" prefWidth="452.0" text="PLAYER 1: Choose" textAlignment="CENTER"
                textFill="#000000b5" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"
