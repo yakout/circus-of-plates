@@ -4,6 +4,7 @@ import controllers.AudioPlayer;
 import controllers.input.InputType;
 import controllers.main.GameController;
 import controllers.shape.ShapeController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -49,8 +50,43 @@ public class PlayersController {
         players.put(playerName, playerController);
         GameController.getInstance().getModelDataHolder().addPlayer
                 (playerModel);
-        playerController.addShapes();
         return player;
+    }
+
+    public Node createPlayer(Player playerModel) {
+        try {
+            URL url = new File(playerModel.getPlayerUrl()).toURI().toURL();
+            Node player = FXMLLoader.load(url);
+            String playerName = playerModel.getName();
+            PlayerFactory.getFactory().registerPlayer
+                    (playerName).setInputType(playerModel.getInputType());
+            Player newPlayerModel = PlayerFactory.getFactory().getPlayer
+                    (playerName);
+            newPlayerModel.setInputType(playerModel.getInputType());
+            newPlayerModel.setPlayerUrl(playerModel.getPlayerUrl());
+            newPlayerModel.setSpeed(playerModel.getSpeed());
+            newPlayerModel.setLeftStick(playerModel.getLeftStick());
+            newPlayerModel.setRightStick(playerModel.getRightStick());
+            newPlayerModel.setScore(playerModel.getScore());
+            newPlayerModel.setPosition(playerModel.getPosition());
+            gamePane.getChildren().add(player);
+            GameController.getInstance().getModelDataHolder().addPlayer
+                    (newPlayerModel);
+            PlayerController playerController = new PlayerController
+                    (playerModel.getName(),
+                    player, playerModel);
+            players.put(playerModel.getName(), playerController);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    playerController.addShapes();
+                }
+            });
+            return player;
+        } catch (IOException e) {
+            logger.fatal("Failed to Get Player View", e);
+        }
+        return null;
     }
 
     public synchronized void moveLeft(String playerName) {

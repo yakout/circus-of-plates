@@ -84,10 +84,16 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 	}
 
 	public void gamePaused() {
+		if (currentState == null) {
+			return;
+		}
 		currentState.pauseCurrentState();
 	}
 
 	public void gameResumed() {
+		if(currentState == null) {
+			return;
+		}
 		currentState.resumeCurrentState();
 	}
 
