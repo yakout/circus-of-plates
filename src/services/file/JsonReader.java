@@ -11,6 +11,8 @@ import models.levels.util.LevelFactory;
 import models.shapes.Shape;
 import models.states.Color;
 import models.states.ShapeState;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,8 +24,12 @@ import java.lang.reflect.Type;
  * Created by Moham on 24-Jan-17.
  */
 class JsonReader implements FileReader {
+
+    private static Logger logger = LogManager.getLogger(ModelDataHolder
+            .class);
     @Override
     public ModelDataHolder read(String path, String fileName) {
+
         Gson gson = new GsonBuilder().registerTypeAdapter(Point.class,
                 new PointDeserializer()).registerTypeAdapter
                 (Level.class, new LevelDeserializer()).registerTypeAdapter
@@ -36,6 +42,8 @@ class JsonReader implements FileReader {
         try {
             reader = new BufferedReader(new java.io.FileReader(jsonFile));
         } catch (FileNotFoundException e) {
+            logger.error("File is not found at directory: "
+                    + jsonFile.getAbsolutePath());
             e.printStackTrace();
         }
         final StringBuilder json = new StringBuilder();
@@ -48,6 +56,7 @@ class JsonReader implements FileReader {
         } catch (IOException e) {
             return null;
         }
+        logger.debug("Data is parsed from JSON file successfully.");
         return gson.fromJson(json.toString(), ModelDataHolder.class);
     }
 

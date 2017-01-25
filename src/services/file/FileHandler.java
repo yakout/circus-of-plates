@@ -8,15 +8,16 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 import models.data.ModelDataHolder;
-import models.players.Player;
-import models.shapes.Shape;
-import models.states.Color;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Moham on 24-Jan-17.
  */
 public class FileHandler implements FileWriter, FileReader {
+
+    private static Logger logger = LogManager.getLogger(FileHandler.class);
     private FileWriter writer;
     private FileReader reader;
     private int savedGamesCnt;
@@ -48,11 +49,13 @@ public class FileHandler implements FileWriter, FileReader {
 
     @Override
     public ModelDataHolder read(String path, String fileName) {
+        logger.info("Data is loaded successfully.");
         return reader.read(path, fileName);
     }
 
     private void addSaveEntry(String path, String fileName) {
         this.writeDataFile(path, fileName + writer.getExtension() + "\n");
+        logger.info("Data is saved successfully.");
     }
 
     private void writeDataFile(String path, String data) {
@@ -67,6 +70,7 @@ public class FileHandler implements FileWriter, FileReader {
                         (StandardCharsets
                                 .UTF_8), StandardOpenOption.APPEND);
             } catch (IOException e) {
+                logger.error("Error occurred while writing data to file.");
                 e.printStackTrace();
             }
         }
@@ -74,8 +78,10 @@ public class FileHandler implements FileWriter, FileReader {
             Files.write(saveData.toPath(), data.getBytes(StandardCharsets
                     .UTF_8), StandardOpenOption.APPEND);
         } catch (IOException e) {
+            logger.error("Error occurred while writing data to file.");
             e.printStackTrace();
         }
+        logger.debug("Data is written to the file successfully.");
     }
 
     public List<String> getFileList(String path) {
@@ -83,6 +89,7 @@ public class FileHandler implements FileWriter, FileReader {
             File saveData = new File(path +
                     File.separator + "save.ini");
             if (!saveData.exists()) {
+                logger.debug("File .ini doesn't exist.");
                 return new ArrayList<>();
             }
             String saveFileContents = IOUtils.toString(saveData.toURI(), "UTF-8");
@@ -94,6 +101,7 @@ public class FileHandler implements FileWriter, FileReader {
             }
             return fileList;
         } catch (IOException e) {
+            logger.error("Error file doesn't exist.");
             e.printStackTrace();
         }
         return null;

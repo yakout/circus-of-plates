@@ -2,10 +2,14 @@ package controllers;
 
 import javafx.scene.media.Media;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
 public class AudioPlayer {
+
+    private static Logger logger = LogManager.getLogger(AudioPlayer.class);
     enum AudioType {
         MENU_SELECTION,
         MENU_CHOICE,
@@ -104,5 +108,6 @@ public class AudioPlayer {
         menuSelectionMediaPlayer.setVolume(volume);
         backgroundMediaPlayer.setVolume(volume);
         newScoreMediaPlayer.setVolume(volume);
+        logger.info("Volluse is set successfully.");
     }
 }
