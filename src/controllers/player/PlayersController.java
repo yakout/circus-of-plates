@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -148,4 +149,7 @@ public class PlayersController {
         });
     }
 
+    public Collection<String> getPlayersNames() {
+        return players.keySet();
+    }
 }
