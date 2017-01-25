@@ -9,6 +9,7 @@ import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import models.levels.Level;
 import models.levels.util.LevelFactory;
 import models.players.Player;
@@ -127,7 +128,11 @@ public class Game {
             GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
         }
         shapeGenerator = new ShapeGenerator(currentLevel, GameController.getInstance().getMainGame());
+
+        AudioPlayer.backgroundMediaPlayer.setOnEndOfMedia(() ->
+                AudioPlayer.backgroundMediaPlayer.seek(Duration.ZERO));
         AudioPlayer.backgroundMediaPlayer.play();
+
         GameController.getInstance().continueGame();
     }
 
