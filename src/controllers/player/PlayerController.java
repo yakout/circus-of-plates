@@ -110,6 +110,7 @@ public class PlayerController {
                     GameController.getInstance().playerLost(playerModel.getName());
                 }
             }
+            logger.debug("Shape intersects the stick.");
             return true;
         }
         return false;
@@ -147,6 +148,7 @@ public class PlayerController {
                     GameController.getInstance().playerLost(playerModel.getName());
                 }
             }
+            logger.debug("Shape intersects the stick.");
             return true;
         }
         return false;
@@ -191,6 +193,7 @@ public class PlayerController {
         shape.translateXProperty().bind(playerPane.layoutXProperty().add(
                 relativeLeftStickCenter - shape.getLayoutBounds().getWidth()
                         / 2.0 - shape.getLayoutX()));
+        logger.debug("Shape is bound to the leftStick.");
     }
 
     public synchronized void bindRightStick(ShapeController<? extends Node>
@@ -210,6 +213,7 @@ public class PlayerController {
         shape.translateXProperty().bind(playerPane.layoutXProperty().add(
                 relativeRightCenter - shape.getLayoutBounds().getWidth()
                         / 2.0 - shape.getLayoutX()));
+        logger.debug("Shape is bound to the right stick.");
     }
 
     public synchronized void removeShape(Stick stick) {
@@ -310,5 +314,6 @@ public class PlayerController {
                     (shapeController.getShape());
             shapeController.getShape().setVisible(true);
         }
+        logger.debug("Shapes are added to stacks.");
     }
 }

@@ -143,7 +143,7 @@ public class PlayersController {
 
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);
-
+        logger.debug("Last three shapes are removed from stick.");
 
         // TODO move this to audio player
         new Thread(() -> {
