@@ -147,7 +147,6 @@ public class PlayersController {
         players.get(playerName).removeShape(stick);
         logger.debug("Last three shapes are removed from stick.");
 
-        // TODO move this to audio player
         AudioPlayer.newScoreMediaPlayer.play();
         AudioPlayer.newScoreMediaPlayer.seek(Duration.ZERO);
     }

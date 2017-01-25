@@ -10,7 +10,8 @@ import java.io.File;
 public class AudioPlayer {
 
     private static Logger logger = LogManager.getLogger(AudioPlayer.class);
-    enum AudioType {
+
+    public enum AudioType {
         MENU_SELECTION,
         MENU_CHOICE,
         BACKGROUND,
@@ -101,6 +102,7 @@ public class AudioPlayer {
         menuSelectionMediaPlayer.setMute(isMute);
         backgroundMediaPlayer.setMute(isMute);
         newScoreMediaPlayer.setMute(isMute);
+        logger.info("Sounds is muted.");
     }
 
     public static synchronized void setVolume(double volume) {
@@ -108,6 +110,6 @@ public class AudioPlayer {
         menuSelectionMediaPlayer.setVolume(volume);
         backgroundMediaPlayer.setVolume(volume);
         newScoreMediaPlayer.setVolume(volume);
-        logger.info("Volluse is set successfully.");
+        logger.info("Volume is set successfully.");
     }
 }
