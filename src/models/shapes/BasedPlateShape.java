@@ -23,7 +23,6 @@ public class BasedPlateShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, BasedPlateShape.class);
-        LevelOne.registerShape(KEY);
         LevelTwo.registerShape(KEY);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);

@@ -23,8 +23,6 @@ public class DeepPlateShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, DeepPlateShape.class);
-        LevelOne.registerShape(KEY);
-        LevelTwo.registerShape(KEY);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);

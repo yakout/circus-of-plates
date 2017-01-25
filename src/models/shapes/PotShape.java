@@ -23,9 +23,6 @@ public class PotShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, PotShape.class);
-        LevelOne.registerShape(KEY);
-        LevelTwo.registerShape(KEY);
-        LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
