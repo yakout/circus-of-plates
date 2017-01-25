@@ -27,7 +27,7 @@ public class AudioPlayer {
     private static final String NEW_SCORE_RES =
             "src/assets/sounds/effects/score.mp3";
     private static final String WIN_RES =
-            "src/assets/sounds/effects/score.mp3";
+            "src/assets/sounds/384. Steppin Up_1.mp3";
 
     public static final Media menuSelectionMedia =
             new Media(new File(MENU_SELECTION_RES).toURI().toString());
