@@ -53,6 +53,8 @@ public class ChoosePlayer implements Initializable {
     Button choose;
     @FXML
     RadioButton keyboard, joystick, mouse;
+    @FXML
+    TextField currPlayerName;
 
     public ChoosePlayer() {
 
@@ -90,6 +92,7 @@ public class ChoosePlayer implements Initializable {
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
+            currPlayerName.setText("");
             logger.info("First player has chosen clown_" + chosenClownID
                     + ".");
             //TODO: here you send signal to game controller
@@ -106,6 +109,7 @@ public class ChoosePlayer implements Initializable {
             mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
+            currPlayerName.setText("");
             logger.info("First player has chosen clown_" + chosenClownID +
                     ".");
             //TODO: here you send signal to game controller
@@ -117,6 +121,8 @@ public class ChoosePlayer implements Initializable {
             logger.info("Game mode menu is shown after choosing clown.");
         }
     }
+
+
 
     @FXML
     private void selectInputType(ActionEvent event) {
