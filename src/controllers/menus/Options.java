@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.joystick.Joystick;
+import controllers.menus.options.Audio;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -15,18 +16,6 @@ public class Options extends MenuController {
 
     @FXML
     private VBox menu;
-
-    @FXML
-    private AnchorPane audio;
-
-    @FXML
-    private AnchorPane input;
-
-    @FXML
-    private AnchorPane graphics;
-
-    @FXML
-    private AnchorPane credits;
 
 
     public Options() {
@@ -59,18 +48,15 @@ public class Options extends MenuController {
                 updateCurrentMenu(Start.getInstance());
                 break;
             case "audio":
-                audio.setVisible(true);
+                Audio.getInstance().setVisible(true);
                 menu.setVisible(false);
                 optionsMenu.setVisible(true);
                 break;
             case "graphics":
-                graphics.setVisible(true);
                 break;
             case "input":
-                graphics.setVisible(true);
                 break;
             case "credits":
-                credits.setVisible(true);
                 break;
         }
     }
@@ -82,9 +68,11 @@ public class Options extends MenuController {
 
     @Override
     public void setMenuVisible(boolean visible) {
-        optionsMenu.setVisible(true);
+        optionsMenu.setVisible(visible);
         menu.setVisible(true);
-        audio.setVisible(false);
+        Audio.getInstance().setVisible(false);
+        updateCurrentMenu(this);
+        this.requestFocus(0);
     }
 
     @Override

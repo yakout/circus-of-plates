@@ -118,9 +118,12 @@ public class Start extends MenuController {
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
+
         menu.setVisible(visible);
-        saveGamePane.setVisible(false);
         this.requestFocus(0);
+
+        saveGamePane.setVisible(false);
+        LoadGame.getInstance().setVisible(false);
     }
 
     public void activeDisabledButtons() {

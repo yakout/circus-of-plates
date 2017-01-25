@@ -39,12 +39,9 @@
         </VBox>
 
 
-        <AnchorPane fx:id="audio" visible="false" AnchorPane.topAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <fx:include source="audio/audio.fxml" AnchorPane.topAnchor="0.0"
-                        AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-        </AnchorPane>
 
+    <fx:include source="audio/audio.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"/>
         <!--<AnchorPane fx:id="graphics">-->
             <!--<fx:include source="graphics/graphics.fxml"/>-->
         <!--</AnchorPane>-->

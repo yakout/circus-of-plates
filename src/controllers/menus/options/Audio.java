@@ -1,5 +1,7 @@
 package controllers.menus.options;
 
+import controllers.AudioPlayer;
+import controllers.main.GameController;
 import controllers.menus.Options;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -13,6 +15,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +28,7 @@ public class Audio implements Initializable {
     private static Audio instance;
 
     @FXML
-    private SplitPane audioSettings;
+    private AnchorPane audioSettings;
 
     @FXML
     private Slider volumeSlider;
@@ -67,13 +70,14 @@ public class Audio implements Initializable {
         instance = this;
     }
 
-    public SplitPane getAudioSettings() {
-        return audioSettings;
-    }
-
     @FXML
     private void mouseHandler(MouseEvent event) {
-        // // TODO: 1/25/17  
-        this.audioSettings.setVisible(true);
+        AudioPlayer.setVolume(volumeSlider.getValue() / 100.0);
+        AudioPlayer.mute(muteOption.isSelected());
+        Options.getInstance().setMenuVisible(true);
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.audioSettings.setVisible(isVisible);
     }
 }
