@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.image.Image;
 import models.Point;
 import models.states.Color;
 import models.Platform;
@@ -14,7 +13,7 @@ public abstract class Level {
 
     private final String IMG_EXTENSION = ".png";
     private final String DIRECTORY = "assets/images/backgrounds/background_";
-    private double plateSpeedRatio = 1.0;
+    private double shapeSpeedRatio = 1.0;
     private double clownSpeedRatio = 1.0;
     protected int noOfPlatforms;
     protected String backgroundURL;
@@ -33,8 +32,16 @@ public abstract class Level {
         backgroundURL = DIRECTORY + String.valueOf(currentLevel) + IMG_EXTENSION;
     }
 
+    public double getShapeSpeedRatio() {
+        return shapeSpeedRatio;
+    }
+
+    public double getClownSpeedRatio() {
+        return clownSpeedRatio;
+    }
+
     protected void setPlateSpeed(double speedRatio) {
-        plateSpeedRatio = speedRatio;
+        shapeSpeedRatio = speedRatio;
     }
 
     protected void setClownSpeed(double speedRatio) {
