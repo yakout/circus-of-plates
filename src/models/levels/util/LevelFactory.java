@@ -1,11 +1,14 @@
 package models.levels.util;
 
 import models.levels.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -13,10 +16,10 @@ import java.util.Map;
  */
 public class LevelFactory {
     private static LevelFactory factoryInstance;
-    Map<Integer, Class<? extends Level>> registeredLevels;
-
+    private Map<Integer, Class<? extends Level>> registeredLevels;
+    private static Logger logger = LogManager.getLogger(LevelFactory.class);
     private LevelFactory() {
-        registeredLevels = new HashMap<>();
+        registeredLevels = new LinkedHashMap<>();
     }
 
     public static synchronized LevelFactory getInstance() {
@@ -28,6 +31,7 @@ public class LevelFactory {
 
     public void registerLevel(int levelNumber, Class<? extends Level>
             levelClass) {
+        logger.info("Level " + levelNumber + " Registered in the Factory");
         registeredLevels.put(levelNumber, levelClass);
     }
 
@@ -39,16 +43,24 @@ public class LevelFactory {
             Constructor<? extends Level> levelConstructor =
                     levelClass.getConstructor(double.class, double.class,
                             double.class, double.class);
+            logger.debug("Requested Creating Level " + levelNumber);
             Level level = levelConstructor.newInstance(minX, minY, maxX, maxY);
+            if (level != null) {
+                logger.debug("Successfully Created Level " + levelNumber);
+            } else {
+                logger.error("Failed to Create Level " + levelNumber);
+            }
             return level;
         } catch (NoSuchMethodException | SecurityException
                 | InstantiationException
                 | IllegalAccessException
                 | IllegalArgumentException
                 | InvocationTargetException e) {
+            logger.error("Failed to Create Level " + levelNumber, e);
             return null;
         }
     }
+
     public Collection<Integer> getRegisteredLevels() {
         return registeredLevels.keySet();
     }

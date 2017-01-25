@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +29,8 @@ import java.util.ResourceBundle;
  * Created by ahmedyakout on 1/23/17.
  */
 public class GameBoard implements Initializable {
+
+    private static Logger logger = LogManager.getLogger(GameBoard.class);
     private static GameBoard instance;
     private final String SCORE_PANEL_PATH = "src/views/board/scorePanel.fxml";
 
@@ -47,6 +51,9 @@ public class GameBoard implements Initializable {
     private IntegerProperty timeSeconds;
     int GAMETIME = 60;
 
+    /**
+     * @return returns the instance of this class.
+     */
     public static GameBoard getInstance() {
         return instance;
     }
@@ -66,6 +73,7 @@ public class GameBoard implements Initializable {
         timeline = new Timeline();
     }
 
+
     private void initializeGameTimer() {
         timeline = new Timeline();
         this.counter.textProperty().bind(timeSeconds.asString());
@@ -77,6 +85,7 @@ public class GameBoard implements Initializable {
                 new KeyFrame(Duration.seconds(GAMETIME + 1),
                         new KeyValue(timeSeconds, 0)));
         this.timeline.play();
+        logger.info("Timer started counting");
     }
 
     public void addPlayerPanel(String playerName) throws IOException {
@@ -90,14 +99,17 @@ public class GameBoard implements Initializable {
         } else {
             rightPanel.getChildren().add(scorePanel);
         }
+        logger.info("Scores of players are shown.");
     }
 
     public void pause() {
         timeline.pause();
+        logger.info("Timer is paused.");
     }
 
     public void resume() {
         timeline.play();
+        logger.info("Timer is resumed.");
     }
 
     public void reset() {
@@ -121,5 +133,6 @@ public class GameBoard implements Initializable {
                 ((Label) ((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
             }
         }
+        logger.info("Scores are updated.");
     }
 }

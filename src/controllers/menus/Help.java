@@ -4,11 +4,15 @@ import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Help extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(Help.class);
     private VBox menu;
     private static Help instance;
 
@@ -44,6 +48,7 @@ public class Help extends MenuController {
             case "back":
                 Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
+                logger.info("Menu is triggered to go back.");
                 break;
         }
     }

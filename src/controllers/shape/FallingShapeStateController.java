@@ -20,10 +20,8 @@ public class FallingShapeStateController<T extends Node> extends
             while (threadRunning) {
                 while (threadPaused) {
                     try {
-//						logger.debug("Falling Shape Thread Paused");
                         Thread.currentThread().sleep(Long.MAX_VALUE);
                     } catch (InterruptedException e) {
-//						logger.info("Falling Shape Thread Resumed");
                         break;
                     }
                 }
@@ -47,8 +45,6 @@ public class FallingShapeStateController<T extends Node> extends
                 try {
                     this.wait(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
-//					logger.debug("Thread (" + Thread.currentThread()
-//					.getName() + ") Interrupted");
                     if (!threadRunning) {
                         break;
                     } else {
@@ -56,9 +52,6 @@ public class FallingShapeStateController<T extends Node> extends
                     }
                 }
             }
-//			logger.debug("Thread: \"" + Thread.currentThread().getName()
-//                    + "\" "
-//					+ "Stopped");
         }
     };
 
@@ -70,7 +63,6 @@ public class FallingShapeStateController<T extends Node> extends
                 "Vertical Movement Thread:" + shape.getId());
         shapeMovementThread.setDaemon(true);
         shapeMovementThread.start();
-//		logger.debug("A Shape Started Falling");
     }
 
     @Override

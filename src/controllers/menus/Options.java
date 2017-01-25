@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Options extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(Options.class);
     private static Options instance;
     private final String BACKGROUND_CHOOSER_PANE_PATH = "src/views/menus/" +
             "options/graphics/ChooseBackground/ChooseBackground.fxml";
@@ -59,6 +63,7 @@ public class Options extends MenuController {
                 Audio.getInstance().setVisible(true);
                 menu.setVisible(false);
                 optionsMenu.setVisible(true);
+                logger.info("Setting audio in settings.");
                 break;
             case "graphics":
                 if (BackgroundChooser.getInstance() == null) {
@@ -67,14 +72,17 @@ public class Options extends MenuController {
                 optionsMenu.setVisible(true);
                 menu.setVisible(false);
                 BackgroundChooser.getInstance().setVisible(true);
+                logger.info("Setting graphics resolutions in settings.");
                 break;
             case "input":
                 Input.getInstance().setVisible(true);
                 menu.setVisible(false);
                 optionsMenu.setVisible(true);
+                logger.info("Setting input player controllers.");
                 break;
             case "credits":
                 // TODO: 1/25/17
+                logger.info("Game credits is triggerd.");
                 break;
         }
     }

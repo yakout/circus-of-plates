@@ -18,6 +18,7 @@ public class ShapeLoader {
     // s.loadShapes(new File("----------"));
     // }
     private static Logger logger = LogManager.getLogger(ShapeLoader.class);
+
     public static void loadShapes(File source) {
 
         String path = new File("").getAbsolutePath()

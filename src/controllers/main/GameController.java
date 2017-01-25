@@ -10,11 +10,13 @@ import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
 import controllers.input.keyboard.KeyboardEvent;
+import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.ScoreObserver;
 import controllers.shape.ShapeBuilder;
 import controllers.shape.ShapeController;
+import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -28,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import models.GameMode;
 import models.data.ModelDataHolder;
 import models.levels.Level;
-import models.levels.LevelOne;
+import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -57,6 +59,7 @@ public class GameController implements Initializable, ScoreObserver {
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
+    private int currentLevel;
 
     @FXML
     private AnchorPane rootPane;
@@ -66,8 +69,9 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
-
+    private double highestPlatformY;
     private static Logger logger = LogManager.getLogger(GameController.class);
+
     public synchronized static GameController getInstance() {
         return instance;
     }
@@ -86,16 +90,14 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         // Controllers
+        currentLevel = 1;
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
         modelDataHolder = new ModelDataHolder();
-
         newGameStarted = new SimpleBooleanProperty(false);
         initilizeKeyMaps();
-
-        registerLevels();
-        registerShapes();
+        highestPlatformY = 0;
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
@@ -122,7 +124,9 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void registerShapes() {
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
+        logger.info("Shapes are dynamically loaded.");
     }
+
 
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
@@ -198,8 +202,10 @@ public class GameController implements Initializable, ScoreObserver {
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
+                        logger.info("Game is continued.");
                     } else {
                         pauseGame();
+                        logger.info("Game is paused.");
                     }
                 }
                 break;
@@ -339,6 +345,7 @@ public class GameController implements Initializable, ScoreObserver {
         this.handler.write(modelDataHolder, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
+        logger.info("Game is saved successfully.");
     }
 
 
@@ -352,23 +359,11 @@ public class GameController implements Initializable, ScoreObserver {
         GameController.getInstance().getMainGame().setVisible(true);
         AudioPlayer.backgroundMediaPlayer.play();
         newGameStarted.set(true);
-
         resetGame();
-
-        // ===========================
-        //TODO: Replace Level with level from level chooser with default
-        // value set to 1
-        Level level = new
-                LevelOne(rootPane.getLayoutX(),
-                rootPane.getLayoutY(), rootPane.getLayoutX()
-                + rootPane.getWidth(), rootPane.getLayoutY()
-                + rootPane.getHeight());
-        modelDataHolder.setActiveLevel(level);
-        // ===========================
-
+        logger.info("Game is launched successfully.");
         switch (gameMode) {
             case NORMAL:
-                currentGame.startNormalGame(level);
+                currentGame.startNormalGame();
                 break;
             case TIME_ATTACK:
                 break;
@@ -407,6 +402,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
+        this.modelDataHolder = new ModelDataHolder();
         try {
             for (Player player : modelDataHolder.getPlayers()) {
                 System.out.printf("%s has %d Shapes on his Right Stack\n",
@@ -440,9 +436,9 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
-        this.modelDataHolder = modelDataHolder;
         currentMenu.setMenuVisible(false);
-        currentGame.startNormalGame(modelDataHolder.getActiveLevel());
+        currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
+        currentGame.startNormalGame();
         continueGame();
         newGameStarted.set(true);
         ((Start) Start.getInstance()).activeDisabledButtons();
@@ -451,7 +447,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (currentGame.getPlayersController().checkIntersection(shapeController)) {
+        if (currentGame.getPlayersController().checkIntersection(shapeController, highestPlatformY)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
@@ -482,6 +478,10 @@ public class GameController implements Initializable, ScoreObserver {
 
     public Game getCurrentGame() {
         return currentGame;
+    }
+
+    public synchronized void playerLost(String playerName) {
+        System.out.printf("Player %s has lost the game\n", playerName);
     }
 
     @Override

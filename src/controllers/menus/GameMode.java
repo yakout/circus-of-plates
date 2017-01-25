@@ -2,12 +2,14 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import models.levels.util.LevelFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameMode extends MenuController {
+
+    private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
     private final String LOAD_GAME_PANE_PATH = "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
     private final int LEVEL_INDEX = 6;
@@ -51,10 +55,13 @@ public class GameMode extends MenuController {
         choiceBox = (ChoiceBox<String>) chooseLevel.getChildren().get(0);
 
         // // TODO: 1/25/17 get the levels from model
-        choiceBox.setItems(FXCollections.observableArrayList(
-                "Level 1", "Level 2", "Level 3", "Level 4", "Level 5"));
-
-        choiceBox.setValue("Level 1");
+        for (Integer levelNumber : LevelFactory.getInstance()
+                .getRegisteredLevels()) {
+            choiceBox.getItems().add("Level " + levelNumber);
+        }
+        if (!choiceBox.getItems().isEmpty()) {
+            choiceBox.setValue(choiceBox.getItems().get(0));
+        }
     }
 
     @Override
@@ -78,6 +85,7 @@ public class GameMode extends MenuController {
                 gameModeMenu.setVisible(true);
                 chooseLevel.setVisible(true);
                 menu.setVisible(false);
+                logger.info("Level is set successfully");
                 break;
             case "choosePlayer":
                 if (PlayerChooser.getInstance() == null) {
@@ -108,16 +116,6 @@ public class GameMode extends MenuController {
             AnchorPane.setLeftAnchor(playerChooser,
                     width / 2 - playerChooser.getPrefWidth() / 2);
             AnchorPane.setTopAnchor(playerChooser, 50.0);
-//=======
-//            Node playerChooser = FXMLLoader.load(url);
-//            GameController.getInstance().getRootPane().getChildren().add
-//                    (playerChooser);
-//            AnchorPane.setBottomAnchor(playerChooser, 0.0);
-//            AnchorPane.setLeftAnchor(playerChooser, GameController
-//                    .getInstance().getRootPane().getWidth() / 4.0);
-//            AnchorPane.setRightAnchor(playerChooser, 0.0);
-//            AnchorPane.setTopAnchor(playerChooser, 0.0);
-//>>>>>>> 601ed58eb293636bbc1f947648b08c4676107659
         } catch (IOException e) {
             e.printStackTrace();
         }

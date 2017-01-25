@@ -37,6 +37,7 @@ class JsonWriter implements FileWriter {
             try {
                 outputStream = new FileOutputStream(jsonFile);
             } catch (FileNotFoundException e) {
+                logger.error("File is not found!");
                 e.printStackTrace();
             }
             outputStream.write(json.getBytes());

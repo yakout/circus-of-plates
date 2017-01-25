@@ -13,12 +13,16 @@ import javafx.scene.input.MouseEvent;
 import controllers.main.GameController;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static controllers.AudioPlayer.menuChoiceMediaPlayer;
 import static controllers.AudioPlayer.menuSelectionMediaPlayer;
 
 
 public abstract class MenuController implements Initializable {
+
+    private static Logger logger = LogManager.getLogger(MenuController.class);
     private int currentIndex = 0;
 
     enum Direction {
@@ -134,6 +138,7 @@ public abstract class MenuController implements Initializable {
             default:
                 break;
         }
+        logger.info("Music is played.");
     }
 
     @FXML

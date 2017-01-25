@@ -7,11 +7,14 @@ import controllers.player.PlayersController;
 import controllers.shape.ShapeController;
 import controllers.shape.ShapeGenerator;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import models.levels.Level;
+import models.levels.LevelOne;
+import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.Stick;
-import sun.java2d.pipe.ShapeSpanIterator;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,8 +23,10 @@ import java.util.Collection;
  * Created by Ahmed Yakout on 1/25/17.
  */
 public class Game {
+    private static Logger logger = LogManager.getLogger(Game.class);
     private PlayersController playersController;
     private int level;
+    private Level currentLevel;
     private Collection<ShapeController<? extends Node>> shapeControllers;
     private ShapeGenerator shapeGenerator;
     private GameBoard gameBoard;
@@ -32,14 +37,33 @@ public class Game {
     }
 
     public void setLevel(int level) {
-
+        AnchorPane rootPane = GameController.getInstance().getRootPane();
+        currentLevel = LevelFactory.getInstance().createLevel(level, rootPane
+                        .getLayoutX(),
+                rootPane.getLayoutY(), rootPane.getLayoutX()
+                        + rootPane.getWidth(), rootPane.getLayoutY()
+                        + rootPane.getHeight());
+        if (currentLevel == null) {
+            logger.fatal("Couldn't Create Level " + currentLevel);
+            return;
+        }
     }
 
     public int getLevel() {
         return 0;
     }
 
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
     void initilize() {
+        level = 1;
+        setLevel(level);
         shapeControllers = new ArrayList<>();
         GameController.getInstance().getMainGame().getChildren().clear();
         playersController = new PlayersController(GameController.getInstance().getMainGame());
@@ -74,7 +98,9 @@ public class Game {
     void pause() {
         shapeControllers.forEach(ShapeController::gamePaused);
         gameBoard.pause();
-        shapeGenerator.pauseGenerator();
+        if(shapeGenerator != null) {
+            shapeGenerator.pauseGenerator();
+        }
     }
 
     void resume() {
@@ -83,7 +109,7 @@ public class Game {
         shapeGenerator.resumeGenerator();
     }
 
-    void startNormalGame(Level level) {
+    void startNormalGame() {
         String path_0 = "src/views/clowns/clown_5/clown.fxml";
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
@@ -103,10 +129,10 @@ public class Game {
         }
 
         PlatformBuilder builder = new PlatformBuilder();
-        for (models.Platform platform : level.getPlatforms()) {
+        for (models.Platform platform : currentLevel.getPlatforms()) {
             GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
         }
-        shapeGenerator = new ShapeGenerator(level, GameController.getInstance().getMainGame());
+        shapeGenerator = new ShapeGenerator(currentLevel, GameController.getInstance().getMainGame());
         GameController.getInstance().startKeyboardListener();
     }
 
