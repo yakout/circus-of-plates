@@ -138,9 +138,9 @@ public class Start extends MenuController {
         LoadGame.getInstance().setVisible(false);
     }
 
-    public void activeDisabledButtons() {
-        this.newGameIsDisabled.set(false);
-        this.newGameIsDisabled.set(false);
+    public void activeDisabledButtons(boolean active) {
+        this.newGameIsDisabled.set(!active);
+        this.newGameIsDisabled.set(!active);
     }
 
     @Override

@@ -25,6 +25,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import models.GameMode;
 import models.data.ModelDataHolder;
 import models.players.Player;
@@ -166,6 +167,8 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(event.getCode(), true);
         switch (event.getCode()) {
             case ESCAPE:
+                winPane.setVisible(false);
+                AudioPlayer.winMediaPlayer.stop();
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
@@ -264,7 +267,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void startGame(GameMode gameMode) {
-        ((Start) Start.getInstance()).activeDisabledButtons();
+        ((Start) Start.getInstance()).activeDisabledButtons(true);
         GameController.getInstance().getMainGame().setVisible(true);
 
         resetGame();
@@ -351,7 +354,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
         currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
         newGameStarted.set(true);
-        ((Start) Start.getInstance()).activeDisabledButtons();
+        ((Start) Start.getInstance()).activeDisabledButtons(true);
         System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
@@ -396,6 +399,13 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public synchronized void playerLost(String playerName) {
+        resetGame();
+        AudioPlayer.backgroundMediaPlayer.stop();
+        AudioPlayer.winMediaPlayer.play();
+        AudioPlayer.winMediaPlayer.seek(Duration.ZERO);
+
+        ((Start) Start.getInstance()).activeDisabledButtons(false);
+
         int maxScore = 0;
         String winner = "";
 
@@ -414,9 +424,10 @@ public class GameController implements Initializable, ScoreObserver {
                 }
             }
         }
-        menuPane.setVisible(true);
-        ((Label) winPane.getChildren().get(0)).setText(winner);
-        logger.info("Player: " + winner + " has won");
+        winPane.setVisible(true);
+        ((Label) winPane.getChildren().get(0)).setText("Player: "
+                + winner + " has won with score " + maxScore);
+        logger.info("Player: " + winner + " has won with score " + maxScore);
     }
 
     @Override
