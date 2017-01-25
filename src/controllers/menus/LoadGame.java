@@ -75,21 +75,18 @@ public class LoadGame implements Initializable {
         if (savedGames == null) return;
         for (String gameName : savedGames) {
             addSavedGame(gameName);
-            System.out.println(gameName);
         }
     }
 
     private void addSavedGame(String name) {
+        savedGames.getChildren().clear();
+
         String[] nameComponents = name.split("-");
         String saveName = nameComponents[0].trim();
         String saveDate = transformDate(nameComponents[1].trim());
+
         Button button = new Button(saveDate + " - " + saveName);
         button.setMaxWidth(Double.MAX_VALUE);
-        try {
-            Class.forName("models.shapes.PlateShape");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

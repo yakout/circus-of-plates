@@ -34,7 +34,7 @@ public class PlayerController {
     private Stack<ShapeController<? extends Node>> leftStack;
     private Stack<ShapeController<? extends Node>> rightStack;
     private static final double STICK_BASE_RATIO = 0.275;
-    private static final double STACK_Y_RATIO = 0.05;
+    private static final double STACK_Y_RATIO = 0.01;
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
 
