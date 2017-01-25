@@ -2,12 +2,12 @@ package controllers.shape;
 
 import controllers.main.GameController;
 import controllers.shape.util.OnTheGroundShapeObserver;
-import controllers.shape.util.ShapeControllerPool;
 import controllers.shape.util.ShapeFallingObserver;
 import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
+import models.shapes.util.ShapePool;
 import models.states.ShapeState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -112,10 +112,10 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
     @Override
     public void shapeShouldEnterThePool() {
-        ShapeControllerPool.getInstance().storeShapeController(this);
         shape.setVisible(false);
         shapeModel.setState(ShapeState.INACTIVE);
         GameController.getInstance().getCurrentGame().removeShapeController(this);
+        ShapePool.destroyShape(shapeModel);
     }
 
     public void resetShape() {

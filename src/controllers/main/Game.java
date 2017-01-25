@@ -13,6 +13,7 @@ import models.levels.LevelOne;
 import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.Stick;
+import models.shapes.util.ShapePool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
@@ -147,6 +148,7 @@ public class Game {
         for (ShapeController shapeController : shapeControllers) {
             shapeController.stop();
         }
+        ShapePool.clearPool();
     }
 
     public PlayersController getPlayersController() {

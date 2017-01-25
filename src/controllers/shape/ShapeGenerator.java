@@ -133,6 +133,7 @@ public class ShapeGenerator {
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
+        GameController.getInstance().getCurrentGame().addShapeController(shapeController);
         shapeController.startMoving();
     }
 
