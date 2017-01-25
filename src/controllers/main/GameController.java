@@ -58,6 +58,7 @@ public class GameController implements Initializable, ScoreObserver {
     private volatile boolean gamePaused = false;
     private ModelDataHolder modelDataHolder;
     private FileHandler handler;
+    private Double currentX;
 
     @FXML
     private AnchorPane rootPane;
@@ -321,6 +322,24 @@ public class GameController implements Initializable, ScoreObserver {
         });
     }
 
+    @FXML
+    public void onMousePressedHandler(MouseEvent event) {
+        currentX = event.getSceneX();
+    }
+
+    @FXML
+    public void onMouseDraggedHandler(MouseEvent event) {
+        if (currentX > event.getSceneX()) {
+            playersController.moveLeft(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.MOUSE));
+        } else {
+            playersController.moveLeft(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.MOUSE));
+        }
+    }
+
     public void saveGame(String name) {
         System.err.println(name);
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yy HH,mm,ss");
@@ -331,10 +350,10 @@ public class GameController implements Initializable, ScoreObserver {
                 fileName);
     }
 
+
     public double getStageWidth() {
         return mainGame.getWidth();
     }
-
 
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons();
@@ -445,9 +464,6 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-    // TODO: Mouse handler
-    private Double currentX;
-
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         if (playersController.checkIntersection(shapeController)) {
@@ -455,21 +471,6 @@ public class GameController implements Initializable, ScoreObserver {
             return true;
         }
         return false;
-    }
-
-    @FXML
-    public void mouseHandler(MouseEvent event) {
-        if (currentX == null) {
-            currentX = event.getX();
-        } else {
-            if (currentX > event.getX()) {
-                // rect.setLayoutX(Math.max(rect.getLayoutX() - CLOWNSPEED,
-                // -350 + rect.getWidth() / 2.0));
-            } else {
-                // rect.setLayoutX(Math.min(rect.getLayoutX() + CLOWNSPEED,
-                // 350 - rect.getWidth() / 2.0));
-            }
-        }
     }
 
     public void pauseGame() {

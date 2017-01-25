@@ -66,11 +66,11 @@ public class LoadGame implements Initializable {
         if (savedGames == null) return;
         for(String gameName : savedGames) {
             addSavedGame(gameName);
-            System.out.println(gameName);
         }
     }
 
     private void addSavedGame(String name) {
+        savedGames.getChildren().clear();
         Button button = new Button(name);
         button.setMaxWidth(Double.MAX_VALUE);
         button.setOnMouseClicked(event -> selectedGame = ((Button) event.getSource()).getText());
