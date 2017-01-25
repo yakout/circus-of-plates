@@ -88,7 +88,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
-        handler = new FileHandler();
+        handler = FileHandler.getInstance();
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
@@ -412,14 +412,14 @@ public class GameController implements Initializable, ScoreObserver {
         }).start();
     }
 
-    private void startNewLoadGame(ModelDataHolder modelDataHolder) {
+    public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         shapeControllers = new ArrayList<>();
-        this.modelDataHolder = modelDataHolder;
         try {
             for (Player player : modelDataHolder.getPlayers()) {
                 playersController.createPlayer(player.getPlayerUrl(), player
                         .getName(), player.getInputType());
                 gameBoard.addPlayerPanel(player.getName());
+                gameBoard.updateScore(player.getScore(), player.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -431,10 +431,10 @@ public class GameController implements Initializable, ScoreObserver {
                 case FALLING:
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
+                    mainGame.getChildren().add(shapeView);
                     new ShapeController<>(shapeView, shapePlatformPair
                             .getShape(), shapePlatformPair.getPlatform())
                             .startMoving();
-                    mainGame.getChildren().add(shapeView);
                     break;
                 case ON_THE_STACK:
                     System.out.println("ERRROROOROROROR");//TODO: LOG.
@@ -443,6 +443,10 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
+        this.modelDataHolder = modelDataHolder;
+        currentMenu.setMenuVisible(false);
+        startNormalGame(modelDataHolder.getActiveLevel());
+        continueGame();
     }
 
     // TODO: Mouse handler
