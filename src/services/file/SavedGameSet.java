@@ -1,6 +1,8 @@
 package services.file;
 
 
+import models.settings.FileConstants;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,16 +13,16 @@ import java.util.NoSuchElementException;
  * Created by ahmedyakout on 1/25/17.
  */
 public class SavedGameSet implements Iterable<String> {
-    private final String PATH = "save";
     private final String EXTENSION = ".json";
 
     private List<String> savedGames;
 
     public SavedGameSet() {
-        savedGames = listFiles(PATH, EXTENSION);
+        savedGames = listFiles(FileConstants.SAVE_PATH, EXTENSION);
     }
 
-    private class SavedGameItem implements Iterator<String> {
+    private class SavedGameIterator implements Iterator<String> {
+        int counter = 0;
         /**
          * Returns {@code true} if the iteration has more elements.
          * (In other words, returns {@code true} if {@link #next} would
@@ -30,7 +32,7 @@ public class SavedGameSet implements Iterable<String> {
          */
         @Override
         public boolean hasNext() {
-            return savedGames.iterator().hasNext();
+            return counter < savedGames.size();
         }
 
         /**
@@ -41,7 +43,7 @@ public class SavedGameSet implements Iterable<String> {
          */
         @Override
         public String next() {
-            return savedGames.iterator().next();
+            return savedGames.get(counter++);
         }
     }
 
@@ -79,6 +81,6 @@ public class SavedGameSet implements Iterable<String> {
      */
     @Override
     public Iterator iterator() {
-        return savedGames.iterator();
+        return new SavedGameIterator();
     }
 }
