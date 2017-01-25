@@ -78,7 +78,6 @@ class JsonReader implements FileReader {
                     = json.getAsDouble();
             DoubleProperty doubleProperty = new SimpleDoubleProperty(0);
             doubleProperty.set(value);
-            System.out.println(doubleProperty);
             return doubleProperty;
         }
     }

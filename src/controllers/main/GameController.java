@@ -313,13 +313,13 @@ public class GameController implements Initializable, ScoreObserver {
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
         try {
+            GameBoard.getInstance().reset();
             for (Player player : modelDataHolder.getPlayers()) {
                 System.out.printf("%s has %d Shapes on his Right Stack\n",
                         player.getName(), player.getRightStack().size());
                 System.out.printf("%s has %d Shapes on his Left Stack\n",
                         player.getName(), player.getLeftStack().size());
                 currentGame.createPlayer(player);
-                GameBoard.getInstance().reset();
                 GameBoard.getInstance().addPlayerPanel(player.getName());
                 GameBoard.getInstance().updateScore(player.getScore(), player.getName());
             }
@@ -334,12 +334,16 @@ public class GameController implements Initializable, ScoreObserver {
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
                     mainGame.getChildren().add(shapeView);
-                    new ShapeController<>(shapeView, shapePlatformPair
-                            .getShape(), shapePlatformPair.getPlatform())
-                            .startMoving();
+                    ShapeController<? extends Node> shapeController = new
+                            ShapeController<>
+                    (shapeView, shapePlatformPair
+                            .getShape(), shapePlatformPair.getPlatform());
+                    shapeController.startMoving();
+                    currentGame.getShapeControllers().add(shapeController);
                     break;
                 case ON_THE_STACK:
-                    System.out.println("ERRROROOROROROR");//TODO: LOG.
+                    logger.error("A Shape That is on the Stack Should not be"
+                            + " saved with moving shapes");
                     break;
                 default:
                     break;
