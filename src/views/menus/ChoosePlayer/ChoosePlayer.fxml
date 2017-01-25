@@ -10,9 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="666.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.ChoosePlayer">
    <children>
       <Label alignment="CENTER" prefHeight="45.0" prefWidth="452.0" text="PLAYER 1: Choose" textAlignment="CENTER" textFill="#000000b5" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -53,7 +51,7 @@
                <Font name="System Bold Italic" size="24.0" />
            </font>
        </Button>
-      <TextField layoutX="343.0" layoutY="544.0" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="342.0" />
+      <TextField fx:id="currPlayerName" layoutX="343.0" layoutY="544.0" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="342.0" />
       <Label layoutX="260.0" layoutY="549.0" prefHeight="17.0" prefWidth="80.0" text="Player Name" />
       <Label layoutX="140.0" layoutY="588.0" prefHeight="17.0" prefWidth="80.0" text="Controller" />
     </children>
