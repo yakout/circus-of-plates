@@ -124,7 +124,6 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void registerShapes() {
-        //TODO replace this with dynamic class loading
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
     }
 
