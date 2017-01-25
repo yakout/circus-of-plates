@@ -41,7 +41,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,6 +56,7 @@ public class GameController implements Initializable, ScoreObserver {
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
+    private int currentLevel;
 
     @FXML
     private AnchorPane rootPane;
@@ -270,8 +270,11 @@ public class GameController implements Initializable, ScoreObserver {
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons();
         GameController.getInstance().getMainGame().setVisible(true);
+
+        if (newGameStarted.get()) {
+            resetGame();
+        }
         newGameStarted.set(true);
-        resetGame();
 
         logger.info("Game is launched successfully.");
         switch (gameMode) {
@@ -290,6 +293,8 @@ public class GameController implements Initializable, ScoreObserver {
     public void resetGame() {
         currentGame.destroy();
         currentGame = new Game();
+//        currentLevel = currentGame.getLevel();
+//        currentGame.setLevel(currentLevel);
     }
 
     void startKeyboardListener() {

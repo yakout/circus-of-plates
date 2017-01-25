@@ -37,10 +37,13 @@ public class Game {
 
 
     Game() {
+        Exception e = new Exception();
+        logger.info("new Game Object is created" + e);
         initilize();
     }
 
     public void setLevel(int level) {
+        this.level = level;
         AnchorPane rootPane = GameController.getInstance().getRootPane();
 
         currentLevel = LevelFactory.getInstance().createLevel(level, rootPane
