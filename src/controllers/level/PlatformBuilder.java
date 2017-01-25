@@ -4,16 +4,20 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import models.Platform;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Moham on 22-Jan-17.
  */
 public class PlatformBuilder {
+    private static Logger logger = LogManager.getLogger(PlatformBuilder.class);
     public PlatformBuilder() {
 
     }
 
     public Rectangle build(Platform platformModel) {
+        logger.info("Platform Creation Requested");
         Rectangle platformView = new Rectangle();
         platformView.setHeight(platformModel.getHeight().doubleValue());
         platformModel.getHeight().bind(platformView.heightProperty());
@@ -30,6 +34,9 @@ public class PlatformBuilder {
         Image image = new Image(platformModel.getUrl());
         ImagePattern imagePattern = new ImagePattern(image);
         platformView.setFill(imagePattern);
+        logger.debug("Platform View Created Successfully With Center "
+                + "Position: " + platformModel.getCenter() + " And Width " +
+                platformModel.getWidth().doubleValue());
         return platformView;
     }
 }

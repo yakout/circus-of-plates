@@ -90,12 +90,12 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame = new Game();
 //        modelDataHolder = new ModelDataHolder();
         newGameStarted = new SimpleBooleanProperty(false);
-        initilizeKeyMaps();
+        initializeKeyMaps();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
 
-    private void initilizeKeyMaps() {
+    private void initializeKeyMaps() {
         keyMap = new HashMap<>();
         keyMap.put(KeyCode.A, false);
         keyMap.put(KeyCode.D, false);

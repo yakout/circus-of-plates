@@ -76,8 +76,9 @@ public abstract class Level {
         //TODO: Make the ratios more dependent on the stage's dimensions
         for (int i = 0; i < getNumPlatforms(); i++) {
             int platformLevel = i / 2;
-            double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.2 * platformLevel);
-            double platformNewY = minY + stageHeight * (PLATFORM_BASE_Y_FACTOR
+            double platformNewWidth = minY + PLATFORM_BASE_WIDTH * (1 - 0.2 *
+                    platformLevel);
+            double platformNewY = stageHeight * (PLATFORM_BASE_Y_FACTOR
                     + 0.05 * platformLevel);
             if (isEven(i)) {
                 newPlatform = new Platform(new Point(minX
