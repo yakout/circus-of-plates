@@ -1,5 +1,7 @@
 package controllers.board;
 
+import controllers.main.Game;
+import controllers.main.GameController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -60,13 +62,12 @@ public class GameBoard implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-        timeline = new Timeline();
         timeSeconds = new SimpleIntegerProperty();
-
-        initializeGameTimer();
+        timeline = new Timeline();
     }
 
     private void initializeGameTimer() {
+        timeline = new Timeline();
         this.counter.textProperty().bind(timeSeconds.asString());
         this.counter.setTextFill(Color.RED);
         this.counter.setStyle("-fx-font-size: 4em;");
@@ -91,7 +92,6 @@ public class GameBoard implements Initializable {
         }
     }
 
-
     public void pause() {
         timeline.pause();
     }
@@ -103,6 +103,10 @@ public class GameBoard implements Initializable {
     public void reset() {
         leftPanel.getChildren().clear();
         rightPanel.getChildren().clear();
+        counter.setVisible(false);
+        GameController.getInstance().getMainGame().getChildren().remove(board);
+        GameController.getInstance().getMainGame().getChildren().add(board);
+//        initializeGameTimer();
     }
 
     public void updateScore(int score, String playerName) {

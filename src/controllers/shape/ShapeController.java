@@ -26,7 +26,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         this.shapeModel = model;
         this.platform = platform;
         currentState = null;
-        GameController.getInstance().addShapeController(this);
+        GameController.getInstance().getCurrentGame().addShapeController(this);
 //		logger.info("Shape Controller Created");
     }
 
@@ -115,7 +115,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         ShapeControllerPool.getInstance().storeShapeController(this);
         shape.setVisible(false);
         shapeModel.setState(ShapeState.INACTIVE);
-        GameController.getInstance().removeShapeController(this);
+        GameController.getInstance().getCurrentGame().removeShapeController(this);
     }
 
     public void resetShape() {
@@ -129,5 +129,11 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shapeModel.getPosition().yProperty().bind(shape.translateYProperty()
                 .add(shape.getLayoutY()));
         shape.setVisible(true);
+    }
+
+    public void stop() {
+        if (currentState != null) {
+            currentState.nextState();
+        }
     }
 }

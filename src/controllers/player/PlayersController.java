@@ -54,6 +54,7 @@ public class PlayersController {
         return player;
     }
 
+
     public Node createPlayer(Player playerModel) {
         try {
             URL url = new File(playerModel.getPlayerUrl()).toURI().toURL();
