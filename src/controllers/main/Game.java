@@ -38,6 +38,7 @@ public class Game {
 
 
     Game() {
+        logger.info("new Game Object is created");
         initialize();
     }
 
@@ -67,8 +68,6 @@ public class Game {
     }
 
     void initialize() {
-        level = 1;
-        setLevel(level);
         shapeControllers = new ArrayList<>();
         GameController.getInstance().getMainGame().getChildren().clear();
         playersController = new PlayersController(GameController.getInstance().getMainGame());

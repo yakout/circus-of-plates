@@ -30,7 +30,6 @@ import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
 import models.settings.FileConstants;
-import models.shapes.util.ShapeLoader;
 import models.shapes.util.ShapePlatformPair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,10 +51,10 @@ public class GameController implements Initializable, ScoreObserver {
     private BooleanProperty newGameStarted;
     private Map<KeyCode, Boolean> keyMap;
     private volatile boolean gamePaused = false;
-//    private ModelDataHolder modelDataHolder;
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
+    private int currentLevel;
 
     @FXML
     private AnchorPane rootPane;
@@ -88,11 +87,11 @@ public class GameController implements Initializable, ScoreObserver {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
 
-        // Controllers
+        currentLevel = 1;
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
-//        modelDataHolder = new ModelDataHolder();
+        currentGame.setLevel(currentLevel);
         newGameStarted = new SimpleBooleanProperty(false);
         initializeKeyMaps();
         Joystick.getInstance().registerClassForInputAction(getClass(),
@@ -108,43 +107,12 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     /**
-     * Registers the game levels.
-     */
-    public void registerLevels() {
-        try {
-            Class.forName("models.levels.LevelOne");
-            Class.forName("models.levels.LevelTwo");
-            Class.forName("models.levels.LevelThree");
-            Class.forName("models.levels.LevelFour");
-            Class.forName("models.levels.LevelFive");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Registers the game shapes dynamically.
-     */
-    public void registerShapes() {
-        ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
-        logger.info("Shapes are dynamically loaded.");
-    }
-
-    /**
      * Sets the current menu that is loaded on screen.
      * @param currentMenu {@link MenuController} the curren menu that is on
      * screen.
      */
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
-    }
-
-    /**
-     *
-     * @return {@link MenuController} returns the current on-screen menu.
-     */
-    public MenuController getCurrentMenu() {
-        return currentMenu;
     }
 
     /**
@@ -162,11 +130,6 @@ public class GameController implements Initializable, ScoreObserver {
     public AnchorPane getRootPane() {
         return rootPane;
     }
-
-//    public ModelDataHolder getModelDataHolder() {
-//        return modelDataHolder;
-//    }
-
 
 
     private synchronized void updatePlayers() {
@@ -299,9 +262,7 @@ public class GameController implements Initializable, ScoreObserver {
         ((Start) Start.getInstance()).activeDisabledButtons();
         GameController.getInstance().getMainGame().setVisible(true);
 
-        if (newGameStarted.get()) {
-            resetGame();
-        }
+        resetGame();
         newGameStarted.set(true);
 
         logger.info("Game is launched successfully.");
@@ -321,8 +282,7 @@ public class GameController implements Initializable, ScoreObserver {
     public void resetGame() {
         currentGame.destroy();
         currentGame = new Game();
-//        currentLevel = currentGame.getLevel();
-//        currentGame.setLevel(currentLevel);
+        currentGame.setLevel(currentLevel);
     }
 
     void startKeyboardListener() {
@@ -423,6 +383,11 @@ public class GameController implements Initializable, ScoreObserver {
 
     public Game getCurrentGame() {
         return currentGame;
+    }
+
+    public void setCurrentGameLevel(int level) {
+        currentLevel = level;
+        currentGame.setLevel(level);
     }
 
     public synchronized void playerLost(String playerName) {

@@ -96,7 +96,7 @@ public class GameMode extends MenuController {
                 PlayerChooser.getInstance().setVisible(true);
                 break;
             case "doneChoosingLevel":
-                GameController.getInstance().getCurrentGame().setLevel(
+                GameController.getInstance().setCurrentGameLevel(
                         Integer.parseInt(choiceBox.getValue().substring(LEVEL_INDEX)));
                 setMenuVisible(true);
                 break;

@@ -26,6 +26,8 @@ public class AudioPlayer {
             "src/assets/sounds/Circus Dilemma.mp3";
     private static final String NEW_SCORE_RES =
             "src/assets/sounds/effects/score.mp3";
+    private static final String WIN_RES =
+            "src/assets/sounds/effects/score.mp3";
 
     public static final Media menuSelectionMedia =
             new Media(new File(MENU_SELECTION_RES).toURI().toString());
@@ -35,6 +37,8 @@ public class AudioPlayer {
             new Media(new File(BACKGROUND_RES).toURI().toString());
     public static final Media newScoreMedia =
             new Media(new File(NEW_SCORE_RES).toURI().toString());
+    public static final Media windMedia =
+            new Media(new File(WIN_RES).toURI().toString());
 
     public static final javafx.scene.media.MediaPlayer menuSelectionMediaPlayer =
             new javafx.scene.media.MediaPlayer(menuSelectionMedia);
@@ -44,6 +48,8 @@ public class AudioPlayer {
             new javafx.scene.media.MediaPlayer(backgroundMedia);
     public static final javafx.scene.media.MediaPlayer newScoreMediaPlayer =
             new javafx.scene.media.MediaPlayer(newScoreMedia);
+    public static final javafx.scene.media.MediaPlayer winMediaPlayer =
+            new javafx.scene.media.MediaPlayer(windMedia);
 
     public static synchronized void play(AudioType audioType) {
         switch (audioType) {
@@ -102,6 +108,7 @@ public class AudioPlayer {
         menuSelectionMediaPlayer.setMute(isMute);
         backgroundMediaPlayer.setMute(isMute);
         newScoreMediaPlayer.setMute(isMute);
+        winMediaPlayer.setMute(isMute);
         logger.info("Sounds is muted.");
     }
 
@@ -110,6 +117,7 @@ public class AudioPlayer {
         menuSelectionMediaPlayer.setVolume(volume);
         backgroundMediaPlayer.setVolume(volume);
         newScoreMediaPlayer.setVolume(volume);
+        winMediaPlayer.setVolume(volume);
         logger.info("Volume is set successfully.");
     }
 }
