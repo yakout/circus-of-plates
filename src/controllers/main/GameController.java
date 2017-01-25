@@ -139,6 +139,9 @@ public class GameController implements Initializable, ScoreObserver {
 
 
     private synchronized void updatePlayers() {
+        if (!newGameStarted.get()) {
+            return;
+        }
         if (keyMap.get(KeyCode.A)) {
             currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
                     .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
@@ -400,7 +403,9 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized void playerLost(String playerName) {
         resetGame();
+        gamePaused = true;
         AudioPlayer.backgroundMediaPlayer.stop();
+
         AudioPlayer.winMediaPlayer.play();
         AudioPlayer.winMediaPlayer.seek(Duration.ZERO);
 
