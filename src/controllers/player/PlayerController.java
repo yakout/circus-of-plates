@@ -101,9 +101,8 @@ public class PlayerController {
             bindLeftStick(shapeController);
             leftStack.push(shapeController);
             playerModel.pushPlateLeft(shapeModel);
-            GameController.getInstance().getModelDataHolder().removeShape
-                    (new ShapePlatformPair(shapeModel, shapeController
-                            .getPlatform()));
+            GameController.getInstance().getCurrentGame().getShapeControllers
+                    ().remove(shapeController);
             if (calculateLeftStackY() < highestPlatformY) {
                 playerModel.setLeftStackFull(true);
                 if (playerModel.isRightStackFull()) {
@@ -139,9 +138,8 @@ public class PlayerController {
             bindRightStick(shapeController);
             rightStack.push(shapeController);
             playerModel.pushPlateRight(shapeModel);
-            GameController.getInstance().getModelDataHolder().removeShape
-                    (new ShapePlatformPair(shapeModel, shapeController
-                            .getPlatform()));
+            GameController.getInstance().getCurrentGame().getShapeControllers
+                    ().remove(shapeController);
             if (calculateRightStackY() < highestPlatformY) {
                 playerModel.setRightStackFull(true);
                 if (playerModel.isLeftStackFull()) {
@@ -291,9 +289,8 @@ public class PlayerController {
             bindLeftStick(shapeController);
             leftStack.push(shapeController);
             playerModel.pushPlateLeft(shapeController.getShapeModel());
-            GameController.getInstance().getModelDataHolder().removeShape
-                    (new ShapePlatformPair(shapeController.getShapeModel(), shapeController
-                            .getPlatform()));
+            GameController.getInstance().getCurrentGame().getShapeControllers
+                    ().remove(shapeController);
             GameController.getInstance().getMainGame().getChildren().add
                     (shapeController.getShape());
             shapeController.getShape().setVisible(true);
@@ -307,9 +304,8 @@ public class PlayerController {
             bindRightStick(shapeController);
             rightStack.push(shapeController);
             playerModel.pushPlateRight(shapeController.getShapeModel());
-            GameController.getInstance().getModelDataHolder().removeShape
-                    (new ShapePlatformPair(shapeController.getShapeModel(), shapeController
-                            .getPlatform()));
+            GameController.getInstance().getCurrentGame().getShapeControllers
+                    ().remove(shapeController);
             GameController.getInstance().getMainGame().getChildren().add
                     (shapeController.getShape());
             shapeController.getShape().setVisible(true);

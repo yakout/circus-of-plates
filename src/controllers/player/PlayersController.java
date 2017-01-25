@@ -49,8 +49,6 @@ public class PlayersController {
         PlayerController playerController = new PlayerController(playerName,
                 player, playerModel);
         players.put(playerName, playerController);
-        GameController.getInstance().getModelDataHolder().addPlayer
-                (playerModel);
         return player;
     }
 
@@ -72,8 +70,6 @@ public class PlayersController {
             newPlayerModel.setScore(playerModel.getScore());
             newPlayerModel.setPosition(playerModel.getPosition());
             gamePane.getChildren().add(player);
-            GameController.getInstance().getModelDataHolder().addPlayer
-                    (newPlayerModel);
             PlayerController playerController = new PlayerController
                     (playerModel.getName(),
                             player, playerModel);

@@ -149,4 +149,13 @@ public class Game {
     public PlayersController getPlayersController() {
         return playersController;
     }
+
+    public Collection<ShapeController<? extends Node>> getShapeControllers() {
+        return shapeControllers;
+    }
+
+    public void setShapeControllers(Collection<ShapeController<? extends
+            Node>> shapeControllers) {
+        this.shapeControllers = shapeControllers;
+    }
 }
