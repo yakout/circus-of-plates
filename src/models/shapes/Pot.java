@@ -1,7 +1,8 @@
 package models.shapes;
 
+import models.levels.LevelFive;
+import models.levels.LevelFour;
 import models.shapes.util.ShapeFactory;
-import models.levels.*;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,30 +11,31 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 /**
- * Created by Ahmed Khaled on 19/01/2017.
+ * Created by Ahmed Khaled on 25/01/2017.
  */
-public class PlateShape extends Shape {
+public class Pot extends Shape {
+
     private static final String URL = "src/assets/images/plates/";
-    private static final String FILE_NAME = "platewithoutbase.png";
-    private static final double HORIZONTAL_VELOCITY = 1.5;
-    private static final double VERTICAL_VELOCITY = 1.7;
-    public static final String KEY = PlateShape.class.getName();
+    private static final String FILE_NAME = "Pot.png";
+    private static final double HORIZONTAL_VELOCITY = 1.8;
+    private static final double VERTICAL_VELOCITY = 2.0;
+    private static final String KEY = Pot.class.getName();
     private static Logger logger = LogManager.getLogger();
+
     static {
-        ShapeFactory.registerShape(KEY, PlateShape.class);
-        LevelOne.registerShape(KEY);
-        LevelTwo.registerShape(KEY);
-        LevelThree.registerShape(KEY);
+        ShapeFactory.registerShape(KEY, Pot.class);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
     }
-    public PlateShape() {
+
+    public Pot() {
         super();
         setKey(KEY);
         setHorizontalVelocity(HORIZONTAL_VELOCITY);
         setVerticalVelocity(VERTICAL_VELOCITY);
     }
+
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);
@@ -50,5 +52,4 @@ public class PlateShape extends Shape {
     protected String getColorName(Color color) {
         return color.toString().toLowerCase();
     }
-
 }

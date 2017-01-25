@@ -36,6 +36,7 @@ public class DeepPlateShape extends Shape {
         setHorizontalVelocity(HORIZONTAL_VELOCITY);
         setVerticalVelocity(VERTICAL_VELOCITY);
     }
+
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);
@@ -49,7 +50,7 @@ public class DeepPlateShape extends Shape {
         }
     }
 
-    public String getColorName(Color color) {
+    protected String getColorName(Color color) {
         return color.toString().toLowerCase();
     }
 }
