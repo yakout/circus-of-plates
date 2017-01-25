@@ -255,6 +255,7 @@ public class GameController implements Initializable, ScoreObserver {
             modelData.addPlayer(currentGame.getPlayersController()
                     .getPlayerModel(player));
         }
+        modelData.setGeneratorCounter(currentGame.getShapeGeneratorCounter());
         this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
@@ -350,8 +351,7 @@ public class GameController implements Initializable, ScoreObserver {
         }
         currentMenu.setMenuVisible(false);
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
-        currentGame.startNormalGame();
-        continueGame();
+        currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
         newGameStarted.set(true);
         ((Start) Start.getInstance()).activeDisabledButtons();
         System.out.println(modelDataHolder.getGeneratorCounter());

@@ -1,22 +1,50 @@
 package services.file;
 
 
+import models.settings.FileConstants;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Ahmed Yakout on 1/25/17.
  */
 public class SavedGameSet implements Iterable<String> {
-    private final String PATH = "save";
     private final String EXTENSION = ".json";
 
     private List<String> savedGames;
 
     public SavedGameSet() {
-        savedGames = listFiles(PATH, EXTENSION);
+        savedGames = listFiles(FileConstants.SAVE_PATH, EXTENSION);
+    }
+
+    private class SavedGameIterator implements Iterator<String> {
+        int counter = 0;
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return counter < savedGames.size();
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public String next() {
+            return savedGames.get(counter++);
+        }
     }
 
     /**
@@ -53,6 +81,6 @@ public class SavedGameSet implements Iterable<String> {
      */
     @Override
     public Iterator iterator() {
-        return savedGames.iterator();
+        return new SavedGameIterator();
     }
 }
