@@ -1,9 +1,6 @@
 package models.shapes;
 
-import models.levels.LevelFive;
-import models.levels.LevelFour;
-import models.levels.LevelThree;
-import models.levels.LevelTwo;
+import models.levels.*;
 import models.shapes.util.ShapeFactory;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +15,7 @@ import java.net.MalformedURLException;
 public class PotShape extends Shape {
 
     private static final String URL = "src/assets/images/plates/";
-    private static final String FILE_NAME = "PotShape.png";
+    private static final String FILE_NAME = "Pot.png";
     private static final double HORIZONTAL_VELOCITY = 1.8;
     private static final double VERTICAL_VELOCITY = 2.0;
     private static final String KEY = PotShape.class.getName();
@@ -26,6 +23,7 @@ public class PotShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, PotShape.class);
+        LevelOne.registerShape(KEY);
         LevelTwo.registerShape(KEY);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
