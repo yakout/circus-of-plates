@@ -72,7 +72,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
-
+    private double highestPlatformY;
     private static Logger logger = LogManager.getLogger(GameController.class);
     public synchronized static GameController getInstance() {
         return instance;
@@ -99,7 +99,7 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
-
+        highestPlatformY = 0;
         keyMap = new HashMap<>();
         keyMap.put(KeyCode.A, false);
         keyMap.put(KeyCode.D, false);
@@ -419,9 +419,13 @@ public class GameController implements Initializable, ScoreObserver {
 
     private void startNormalGame(Level level) {
         PlatformBuilder builder = new PlatformBuilder();
+        double minY = Double.MAX_VALUE;
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
+            minY = Math.min(minY, platform.getCenter().getY() - platform
+                    .getHeight().doubleValue() / 2.0);
         }
+        highestPlatformY = minY;
         shapeGenerator = new ShapeGenerator(level, mainGame);
 
         startKeyboardListener();
@@ -443,6 +447,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
+        this.modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
         try {
             for (Player player : modelDataHolder.getPlayers()) {
@@ -476,7 +481,6 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
-        this.modelDataHolder = modelDataHolder;
         currentMenu.setMenuVisible(false);
         startNormalGame(modelDataHolder.getActiveLevel());
         continueGame();
@@ -487,7 +491,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (playersController.checkIntersection(shapeController)) {
+        if (playersController.checkIntersection(shapeController, highestPlatformY)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
@@ -527,6 +531,10 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startLevel(String level) {
         //
+    }
+
+    public synchronized void playerLost(String playerName) {
+        System.out.printf("Player %s has lost the game\n", playerName);
     }
 
     @Override
