@@ -4,7 +4,7 @@ public interface UserAction {
     /**
      * Called once an action has triggered
      */
-     void onActionBegin();
+    void onActionBegin();
 
     /**
      * Called while the action is still triggered at very little time intervals.

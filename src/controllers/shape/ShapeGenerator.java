@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import models.data.ModelDataHolder;
 import models.shapes.util.ShapePlatformPair;
 import models.shapes.util.ShapePool;
 import models.levels.Level;
@@ -21,6 +22,7 @@ public class ShapeGenerator {
 
     private final long THREAD_SLEEP_TIME = 50;
     private final long THREAD_PULSE_RATE = 150;
+    private long beginCounter;
     private Level level;
     private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
@@ -30,9 +32,11 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            long counter = THREAD_PULSE_RATE;
+            long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
+                GameController.getInstance().getModelDataHolder()
+                        .setGeneratorCounter(counter);
                 while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
@@ -96,6 +100,14 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
+        if (GameController.getInstance().getModelDataHolder()
+                .getGeneratorCounter() == ModelDataHolder
+                .INVALID_COUNTER_VALUE) {
+            beginCounter = THREAD_PULSE_RATE;
+        } else {
+            beginCounter = GameController.getInstance().getModelDataHolder()
+                    .getGeneratorCounter();
+        }
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
@@ -109,8 +121,7 @@ public class ShapeGenerator {
 
     private void generateShape(ImageView imgView, models.Platform platform,
                                Shape shapeModel) {
-        imgView.setLayoutY(imgView.getLayoutY()
-                - shapeModel.getHeight().doubleValue());
+        imgView.setTranslateY(-shapeModel.getHeight().doubleValue());
         shapeModel.getInitialPosition().setX(shapeModel.getPosition()
                 .getX());
         shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY()

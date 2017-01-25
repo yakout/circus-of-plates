@@ -86,13 +86,13 @@ public class Joystick extends Input {
         Component prevComponent = null;
         Component currentComponent;
         JoystickEvent joystick = null;
-        while(true) {
+        while (true) {
             try {
                 controller.poll();
                 Component[] components = controller.getComponents();
                 joystick = null;
-                for(int i = 0; i < components.length; i++) {
-                    if(components[i].isAnalog()) {
+                for (int i = 0; i < components.length; i++) {
+                    if (components[i].isAnalog()) {
                         currentComponent = components[i];
                         if (currentComponent.getName().equals("y")) {
                             if (components[i].getPollData() == 1.0f) {
@@ -162,11 +162,11 @@ public class Joystick extends Input {
 
 
     private void invokeOnActionMethods(JoystickEvent joystickEvent)
-        throws InvocationTargetException, IllegalAccessException {
-            for (Map.Entry<Class<?>, Method> entry : onActionMethods.entrySet()) {
-                Object instance = registeredClasses.get(entry.getKey());
-                entry.getValue().invoke(instance, joystickEvent);
-            }
+            throws InvocationTargetException, IllegalAccessException {
+        for (Map.Entry<Class<?>, Method> entry : onActionMethods.entrySet()) {
+            Object instance = registeredClasses.get(entry.getKey());
+            entry.getValue().invoke(instance, joystickEvent);
+        }
     }
 
     private void invokeOnActionBeginMethods(JoystickEvent joystickEvent)
@@ -184,7 +184,6 @@ public class Joystick extends Input {
             entry.getValue().invoke(instance, joystickEvent);
         }
     }
-
 
 
     private void findAnnotatedMethods() {

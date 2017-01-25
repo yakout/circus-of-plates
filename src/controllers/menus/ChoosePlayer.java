@@ -53,6 +53,8 @@ public class ChoosePlayer implements Initializable {
     Button choose;
     @FXML
     RadioButton keyboard, joystick, mouse;
+    @FXML
+    TextField currPlayerName;
 
     public ChoosePlayer() {
 
@@ -76,38 +78,32 @@ public class ChoosePlayer implements Initializable {
     }
 
     @FXML
-    private void mouseHandler(MouseEvent event){
+    private void mouseHandler(MouseEvent event) {
         chosenClownID = ((Node) event.getSource()).getId();
     }
 
     @FXML
     public void selectClown() {
         if (isPlayer1) {
-            PlayerFactory.getFactory().registerPlayer(PLAYER + String.
-                    valueOf(currPlayer))
-                    .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+            updateData();
             setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
-            logger.info("First player has chosen clown_" + chosenClownID
-                    + ".");
+            currPlayerName.setText("");
             //TODO: here you send signal to game controller
 
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
         } else {
-            PlayerFactory.getFactory().registerPlayer(PLAYER + String
-                    .valueOf(currPlayer))
-                    .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+            updateData();
             isPlayer1 = true;
             keyboard.setSelected(true);
             joystick.setSelected(false);
             mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
-            logger.info("First player has chosen clown_" + chosenClownID +
-                    ".");
+            currPlayerName.setText("");
             //TODO: here you send signal to game controller
 
 
@@ -116,28 +112,33 @@ public class ChoosePlayer implements Initializable {
             inputType = InputType.KEYBOARD_PRIMARY;
             logger.info("Game mode menu is shown after choosing clown.");
         }
+        logger.info("First player has chosen clown_" + chosenClownID
+                + ".");
+    }
+
+    private void updateData() {
+        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
+                valueOf(currPlayer))
+                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
     }
 
     @FXML
     private void selectInputType(ActionEvent event) {
-        System.out.println(((Node)event.getSource()).getId());
-        switch (((Node)event.getSource()).getId()) {
+        System.out.println(((Node) event.getSource()).getId());
+        switch (((Node) event.getSource()).getId()) {
             case KEYBOARD:
-                logger.debug("Player selected keyboard input type.");
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
                 mouse.setSelected(false);
                 handleInputType(KEYBOARD);
                 break;
             case JOYSTICK:
-                logger.debug("Player selected joystick input type.");
                 joystick.setSelected(true);
                 keyboard.setSelected(false);
                 mouse.setSelected(false);
                 handleInputType(JOYSTICK);
                 break;
             case MOUSE:
-                logger.debug("Player selected mouse input type.");
                 mouse.setSelected(true);
                 keyboard.setSelected(false);
                 joystick.setSelected(false);
@@ -146,16 +147,20 @@ public class ChoosePlayer implements Initializable {
             default:
                 break;
         }
+        logger.debug("Player selected " + ((Node) event.getSource())
+                .getId().toString() +
+                " input type.");
     }
-     private void setPlayer2Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
-                 .valueOf(++currPlayer) + CHOOSE);
-     }
 
-     private void setPlayer1Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
-                 .valueOf(--currPlayer) + CHOOSE);
-     }
+    private void setPlayer2Label() {
+        ((Label) anchor.getChildren().get(0)).setText(PLAYER + String
+                .valueOf(++currPlayer) + CHOOSE);
+    }
+
+    private void setPlayer1Label() {
+        ((Label) anchor.getChildren().get(0)).setText(PLAYER + String
+                .valueOf(--currPlayer) + CHOOSE);
+    }
 
     private void handleInputType(String input) {
         switch (input) {

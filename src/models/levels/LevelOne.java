@@ -1,4 +1,5 @@
 package models.levels;
+
 import models.levels.util.LevelFactory;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
@@ -17,12 +18,15 @@ public class LevelOne extends Level {
     private static final int PLATFORMS = 10;
     private static final int LEVEL = 1;
     private static Logger logger = LogManager.getLogger(LevelOne.class);
+
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelOne.class);
         logger.debug("Class " + LevelOne.class.getName() + " Initialized");
     }
+
     private static List<String> supportedShapes
             = new ArrayList<>();
+
     public LevelOne(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
         supportedColors = new ArrayList<>();
@@ -41,10 +45,12 @@ public class LevelOne extends Level {
     public static void registerShape(String key) {
         supportedShapes.add(key);
     }
+
     @Override
     public List<String> getSupportedShapes() {
         return supportedShapes;
     }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
@@ -58,6 +64,7 @@ public class LevelOne extends Level {
     protected static void setSupportedShapes(List<String> supportedShapes) {
         LevelOne.supportedShapes = supportedShapes;
     }
+
     private void addSupportedColors() {
         supportedColors.add(Color.GREEN);
         supportedColors.add(Color.YELLOW);

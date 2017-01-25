@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Ahmed Khaled on 24/01/2017.
  */
-public class LevelThree extends Level{
+public class LevelThree extends Level {
 
     private final double PLATE_SPEED_RATIO = 1.4;
     private final double CLOWN_SPEED_RATIO = 1.4;
@@ -20,10 +20,12 @@ public class LevelThree extends Level{
     private static List<String> supportedShapes
             = new ArrayList<>();
     private static Logger logger = LogManager.getLogger(LevelThree.class);
+
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelThree.class);
         logger.debug("Class " + LevelThree.class.getName() + " Initialized");
     }
+
     public LevelThree(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
         supportedColors = new ArrayList<>();
@@ -41,10 +43,12 @@ public class LevelThree extends Level{
     public static void registerShape(String key) {
         supportedShapes.add(key);
     }
+
     @Override
     public List<String> getSupportedShapes() {
         return supportedShapes;
     }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
@@ -60,9 +64,15 @@ public class LevelThree extends Level{
     }
 
     private void addSupportedColors() {
-        supportedColors.add(Color.BLACK);
-        supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.CYAN);
+        supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.RED);
+        supportedColors.add(Color.GREEN);
+        supportedColors.add(Color.BLUE);
+        supportedColors.add(Color.DARKRED);
+        supportedColors.add(Color.GOLD);
+        supportedColors.add(Color.ORANGE);
+        supportedColors.add(Color.PINK);
+        supportedColors.add(Color.PURPLE);
     }
 }

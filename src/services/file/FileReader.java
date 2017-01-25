@@ -8,5 +8,6 @@ import models.data.ModelDataHolder;
 interface FileReader {
 
     public ModelDataHolder read(String path, String fileName);
+
     public String getExtension();
 }

@@ -21,11 +21,19 @@ public class FileHandler implements FileWriter, FileReader {
     private FileWriter writer;
     private FileReader reader;
     private int savedGamesCnt;
+    private static FileHandler instance;
 
-    public FileHandler() {
+    private FileHandler() {
         writer = new JsonWriter();
         reader = new JsonReader();
         savedGamesCnt = 0;
+    }
+
+    public static synchronized FileHandler getInstance() {
+        if (instance == null) {
+            instance = new FileHandler();
+        }
+        return instance;
     }
 
     @Override
@@ -43,11 +51,11 @@ public class FileHandler implements FileWriter, FileReader {
     public ModelDataHolder read(String path, String fileName) {
         return reader.read(path, fileName);
     }
-    
+
     private void addSaveEntry(String path, String fileName) {
-        this.writeDataFile(path,fileName + writer.getExtension() + "\n");
+        this.writeDataFile(path, fileName + writer.getExtension() + "\n");
     }
-    
+
     private void writeDataFile(String path, String data) {
         File saveData = new File(path + File.separatorChar + "save.ini");
         if (!saveData.getParentFile().exists()) {
@@ -63,18 +71,22 @@ public class FileHandler implements FileWriter, FileReader {
                 e.printStackTrace();
             }
         }
-            try {
-                Files.write(saveData.toPath(), data.getBytes(StandardCharsets
-                        .UTF_8), StandardOpenOption.APPEND);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            Files.write(saveData.toPath(), data.getBytes(StandardCharsets
+                    .UTF_8), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<String> getFileList(String path) {
         try {
-            String saveFileContents = IOUtils.toString(new File(path +
-                    File.separator + "save.ini").toURI(), "UTF-8");
+            File saveData = new File(path +
+                    File.separator + "save.ini");
+            if (!saveData.exists()) {
+                return new ArrayList<>();
+            }
+            String saveFileContents = IOUtils.toString(saveData.toURI(), "UTF-8");
             List<String> fileList = new ArrayList<>();
             for (String file : saveFileContents.split("\n")) {
                 if (file.contains(reader.getExtension())) {

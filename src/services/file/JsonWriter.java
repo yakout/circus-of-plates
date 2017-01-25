@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
  */
 class JsonWriter implements FileWriter {
     private static Logger logger = LogManager.getLogger(JsonWriter.class);
+
     @Override
     public void write(ModelDataHolder dataHolder, String path, String
             fileName) {

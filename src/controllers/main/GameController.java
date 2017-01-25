@@ -76,6 +76,7 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
+     *
      * @param location  The location used to resolve relative paths for the root
      *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
@@ -89,7 +90,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu = Start.getInstance();
         gameBoard = GameBoard.getInstance();
         playersController = new PlayersController(mainGame);
-        handler = new FileHandler();
+        handler = FileHandler.getInstance();
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
@@ -101,6 +102,7 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(KeyCode.RIGHT, false);
 
         registerLevels();
+        registerShapes();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
@@ -112,6 +114,18 @@ public class GameController implements Initializable, ScoreObserver {
             Class.forName("models.levels.LevelThree");
             Class.forName("models.levels.LevelFour");
             Class.forName("models.levels.LevelFive");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void registerShapes() {
+        //TODO replace this with dynamic class loading
+        try {
+            Class.forName("models.shapes.PlateShape");
+            Class.forName("models.shapes.BasedPlateShape");
+            Class.forName("models.shapes.DeepPlateShape");
+            Class.forName("models.shapes.PotShape");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -379,6 +393,8 @@ public class GameController implements Initializable, ScoreObserver {
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
         try {
+            //TODO: replace paths, input type and names with path from clown
+            // picker
             playersController.createPlayer(path_0, "player1", InputType
                     .KEYBOARD_PRIMARY);
             playersController.createPlayer(path_1, "player2", InputType
@@ -392,11 +408,8 @@ public class GameController implements Initializable, ScoreObserver {
         }
 
         // ===========================
-        try {
-            Class.forName("models.shapes.PlateShape");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        //TODO: Replace Level with level from level chooser with default
+        // value set to 1
         Level level = new
                 LevelOne(rootPane.getLayoutX(),
                 rootPane.getLayoutY(), rootPane.getLayoutX()
@@ -431,14 +444,17 @@ public class GameController implements Initializable, ScoreObserver {
         }).start();
     }
 
-    private void startNewLoadGame(ModelDataHolder modelDataHolder) {
+    public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         shapeControllers = new ArrayList<>();
-        this.modelDataHolder = modelDataHolder;
         try {
             for (Player player : modelDataHolder.getPlayers()) {
-                playersController.createPlayer(player.getPlayerUrl(), player
-                        .getName(), player.getInputType());
+                System.out.printf("%s has %d Shapes on his Right Stack\n",
+                        player.getName(), player.getRightStack().size());
+                System.out.printf("%s has %d Shapes on his Left Stack\n",
+                        player.getName(), player.getLeftStack().size());
+                playersController.createPlayer(player);
                 gameBoard.addPlayerPanel(player.getName());
+                gameBoard.updateScore(player.getScore(), player.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -450,10 +466,10 @@ public class GameController implements Initializable, ScoreObserver {
                 case FALLING:
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
+                    mainGame.getChildren().add(shapeView);
                     new ShapeController<>(shapeView, shapePlatformPair
                             .getShape(), shapePlatformPair.getPlatform())
                             .startMoving();
-                    mainGame.getChildren().add(shapeView);
                     break;
                 case ON_THE_STACK:
                     System.out.println("ERRROROOROROROR");//TODO: LOG.
@@ -462,6 +478,11 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
+        this.modelDataHolder = modelDataHolder;
+        currentMenu.setMenuVisible(false);
+        startNormalGame(modelDataHolder.getActiveLevel());
+        continueGame();
+        System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
     public synchronized boolean checkIntersection(

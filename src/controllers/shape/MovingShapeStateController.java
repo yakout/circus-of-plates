@@ -15,7 +15,7 @@ public class MovingShapeStateController<T extends Node> extends
     private final ShapeMovingObserver shapeMovingObserver;
     private static Logger logger = LogManager.getLogger
             (MovingShapeStateController
-            .class);
+                    .class);
     private double offset;
     private final Runnable shapeMover = new Runnable() {
 
@@ -41,7 +41,7 @@ public class MovingShapeStateController<T extends Node> extends
                                 + offset))
                                 < Math.abs(width / 2.0 -
                                 platform.getWidth().doubleValue())) {
-                          //  logger.info("A Shape Reached the End of The "
+                            //  logger.info("A Shape Reached the End of The "
                             //        + "Shelf");
                             shapeMovingObserver.shapeShouldStartFalling();
                         } else {
@@ -54,7 +54,7 @@ public class MovingShapeStateController<T extends Node> extends
                     this.wait(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
                     //logger.debug("Thread (" + Thread.currentThread()
-                            //.getName() + ") Interrupted");
+                    //.getName() + ") Interrupted");
                     if (!threadRunning) {
                         break;
                     } else {
@@ -63,13 +63,13 @@ public class MovingShapeStateController<T extends Node> extends
                 }
             }
             //logger.debug("Thread: " + Thread.currentThread().getName()
-              //      + " Stopped");
+            //      + " Stopped");
         }
     };
 
     public MovingShapeStateController(final T shape, final Shape model,
                                       final models.Platform platform, final
-                                 ShapeMovingObserver shapeMovingObserver) {
+                                      ShapeMovingObserver shapeMovingObserver) {
         super(shape, model);
         this.shapeMovingObserver = shapeMovingObserver;
         this.platform = platform;
@@ -77,12 +77,12 @@ public class MovingShapeStateController<T extends Node> extends
         switch (platform.getOrientation()) {
             case LEFT:
                 //logger.info("Movement Requested for A Shape in The Left "
-                 //   + "Half");
+                //   + "Half");
                 sign = 1;
                 break;
             case RIGHT:
                 //logger.info("Movement Requested for A Shape in The Left "
-                  //  + "Half");
+                //  + "Half");
                 sign = -1;
                 offset = shape.getLayoutBounds().getWidth();
                 break;

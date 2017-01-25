@@ -12,6 +12,7 @@ public class PlatformBuilder {
     public PlatformBuilder() {
 
     }
+
     public Rectangle build(Platform platformModel) {
         Rectangle platformView = new Rectangle();
         platformView.setHeight(platformModel.getHeight().doubleValue());

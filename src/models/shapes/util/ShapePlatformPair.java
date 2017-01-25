@@ -9,11 +9,13 @@ import java.util.Objects;
  * Created by Moham on 25-Jan-17.
  */
 public class ShapePlatformPair {
-    Platform platform;
-    Shape shape;
+    private Platform platform;
+    private Shape shape;
+
     public ShapePlatformPair() {
 
     }
+
     public ShapePlatformPair(Shape shape, Platform platform) {
         this.platform = platform;
         this.shape = shape;

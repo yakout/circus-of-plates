@@ -99,12 +99,12 @@ public class Keyboard extends Input {
         Component prevComponent = null;
         Component currentComponent;
         KeyboardEvent keyboard = null;
-        while(true) {
+        while (true) {
             try {
                 controller.poll();
                 Component[] components = controller.getComponents();
                 keyboard = null;
-                for(int i = 0; i < components.length; i++) {
+                for (int i = 0; i < components.length; i++) {
                     currentComponent = components[i];
                     switch (currentComponent.getName()) {
                         case "A":

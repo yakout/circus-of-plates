@@ -6,32 +6,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="board" prefHeight="100.0" prefWidth="202.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.board.GameBoard">
+<HBox fx:id="board" prefHeight="100.0" prefWidth="202.0" xmlns="http://javafx.com/javafx/8.0.65"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.board.GameBoard">
     <children>
-      <VBox fx:id="leftPanel" alignment="CENTER" prefHeight="100.0" prefWidth="70.0">
-         <children>
+        <VBox fx:id="leftPanel" alignment="CENTER" prefHeight="100.0" prefWidth="70.0">
+            <children>
 
-             <!-- here you load player panel -->
+                <!-- here you load player panel -->
 
-         </children>
-      </VBox>
+            </children>
+        </VBox>
 
-        <Label fx:id="counter" alignment="CENTER" prefHeight="100.0" prefWidth="77.0" text="0:01" textAlignment="CENTER">
+        <Label fx:id="counter" alignment="CENTER" prefHeight="100.0" prefWidth="77.0" text="0:01"
+               textAlignment="CENTER">
             <font>
-                <Font size="24.0" />
+                <Font size="24.0"/>
             </font>
         </Label>
-      <VBox fx:id="rightPanel" prefHeight="200.0" prefWidth="70.0">
-         <children>
+        <VBox fx:id="rightPanel" prefHeight="200.0" prefWidth="70.0">
+            <children>
 
-             <!-- here you load player panel -->
+                <!-- here you load player panel -->
 
-         </children>
-      </VBox>
+            </children>
+        </VBox>
 
     </children>
 
     <stylesheets>
-        <URL value="@board.css" />
+        <URL value="@board.css"/>
     </stylesheets>
 </HBox>

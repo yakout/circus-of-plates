@@ -17,6 +17,7 @@ public class ShapeControllerPool {
     private ShapeControllerPool() {
         shapeControllers = new LinkedList<>();
     }
+
     public boolean isEmpty() {
         return shapeControllers.isEmpty();
     }

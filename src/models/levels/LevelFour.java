@@ -19,10 +19,12 @@ public class LevelFour extends Level {
     private static List<String> supportedShapes
             = new ArrayList<>();
     private static Logger logger = LogManager.getLogger(LevelFour.class);
+
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelFour.class);
         logger.debug("Class " + LevelFour.class.getName() + " Initialized");
     }
+
     public LevelFour(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
         supportedColors = new ArrayList<>();
@@ -40,10 +42,12 @@ public class LevelFour extends Level {
     public static void registerShape(String key) {
         supportedShapes.add(key);
     }
+
     @Override
     public List<String> getSupportedShapes() {
         return supportedShapes;
     }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
@@ -59,10 +63,15 @@ public class LevelFour extends Level {
     }
 
     private void addSupportedColors() {
-        supportedColors.add(Color.GREEN);
-        supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.CYAN);
+        supportedColors.add(Color.YELLOW);
+        supportedColors.add(Color.RED);
+        supportedColors.add(Color.GREEN);
+        supportedColors.add(Color.BLUE);
+        supportedColors.add(Color.DARKRED);
+        supportedColors.add(Color.GOLD);
         supportedColors.add(Color.ORANGE);
-        supportedColors.add(Color.BLACK);
+        supportedColors.add(Color.PINK);
+        supportedColors.add(Color.PURPLE);
     }
 }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class PositionInitializer {
 
     private static Logger logger = LogManager.getLogger();
+
     public static void normalize(models.Platform platform, Shape shapeModel) {
         switch (platform.getOrientation()) {
             case LEFT:
@@ -26,7 +27,7 @@ public class PositionInitializer {
         }
         shapeModel.getPosition().setY(platform.getCenter().getY() - platform
                 .getHeight
-                ().doubleValue() / 2.0);
+                        ().doubleValue() / 2.0);
         shapeModel.getInitialPosition().setX(shapeModel.getPosition().getX());
         shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY());
 //        logger.info("Shape object is positioned on the platform.");

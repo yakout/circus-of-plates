@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 /**
  * Created by Ahmed Khaled on 24/01/2017.
  */
-public class BasedPlateShape extends Shape{
+public class BasedPlateShape extends Shape {
 
     private static final String URL = "src/assets/images/plates/";
     private static final String FILE_NAME = "platewithbase.png";
@@ -20,8 +20,10 @@ public class BasedPlateShape extends Shape{
     private static final double VERTICAL_VELOCITY = 1.8;
     public static final String KEY = BasedPlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
+
     static {
         ShapeFactory.registerShape(KEY, BasedPlateShape.class);
+        LevelOne.registerShape(KEY);
         LevelTwo.registerShape(KEY);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);

@@ -35,24 +35,31 @@ public abstract class Level {
     protected void setPlateSpeed(double speedRatio) {
         plateSpeedRatio = speedRatio;
     }
+
     protected void setClownSpeed(double speedRatio) {
         clownSpeedRatio = speedRatio;
     }
 
     public abstract List<String> getSupportedShapes();
+
     public abstract boolean isSupportedShape(String shape);
+
     protected void setSupportedColors(List<Color> supportedColors) {
         this.supportedColors = supportedColors;
     }
+
     public String getBackgroundURL() {
         return backgroundURL;
     }
+
     public void setBackgroundURL(String backgroundURL) {
         this.backgroundURL = backgroundURL;
     }
+
     public List<Color> getSupportedColors() {
         return supportedColors;
     }
+
     public boolean isSupportedColor(Color color) {
         for (Color currColor : supportedColors) {
             if (currColor == color) {
@@ -61,15 +68,16 @@ public abstract class Level {
         }
         return false;
     }
+
     protected void addPlatforms() {
         Platform newPlatform = null;
         double stageHeight = maxY - minY;
         //TODO: Make the ratios more dependent on the stage's dimensions
-        for (int i = 0 ; i < getNumPlatforms() ; i++) {
+        for (int i = 0; i < getNumPlatforms(); i++) {
             int level = i / 2;
             double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.2 * level);
             double platformNewY = stageHeight * (0.1 + 0.05 * level);
-            if(isEven(i)) {
+            if (isEven(i)) {
                 newPlatform = new Platform(new Point(minX
                         + platformNewWidth / 2.0,
                         platformNewY - PLATFORM_HEIGHT / 2.0),
@@ -77,7 +85,7 @@ public abstract class Level {
             } else {
                 newPlatform = new Platform(new Point(maxX
                         - platformNewWidth / 2.0, platformNewY
-                        -PLATFORM_HEIGHT / 2.0),
+                        - PLATFORM_HEIGHT / 2.0),
                         Orientation.RIGHT);
             }
             newPlatform.setHeight(new SimpleDoubleProperty(PLATFORM_HEIGHT));

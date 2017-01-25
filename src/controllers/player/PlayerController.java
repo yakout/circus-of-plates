@@ -14,6 +14,8 @@ import models.players.Stick;
 import models.shapes.Shape;
 import models.shapes.util.ShapePlatformPair;
 import models.states.ShapeState;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
 
 import java.io.File;
@@ -32,7 +34,9 @@ public class PlayerController {
     private Stack<ShapeController<? extends Node>> leftStack;
     private Stack<ShapeController<? extends Node>> rightStack;
     private static final double STICK_BASE_RATIO = 0.275;
-    private static final double STACK_Y_RATIO = 0.05;
+    private static final double STACK_Y_RATIO = 0.01;
+    private static Logger logger = LogManager.getLogger(PlayersController
+            .class);
 
     PlayerController(String name, Node playerPane, models
             .players.Player playerModel) {
@@ -81,7 +85,6 @@ public class PlayerController {
         if (shapeModel.getState() != ShapeState.FALLING) {
             return false;
         }
-        //System.out.println(leftStick.getBoundsInParent().getMinX());
         double leftStickIntersectionMinY = calculateLeftStackY();
         double leftStickIntersectionMaxY = leftStickIntersectionMinY +
                 STACK_Y_RATIO * calculateLeftStackHeight();
@@ -148,14 +151,14 @@ public class PlayerController {
             return false;
         }
         if (shapeBounds.intersects(stickBounds)) {
-            System.out.println("Shape Bounds: " + shapeBounds);
-            System.out.println("Stick Bounds: " + stickBounds);
+            logger.info("Shape Bounds: " + shapeBounds);
+            logger.info("Stick Bounds: " + stickBounds);
         }
         return stickBounds.intersects(shapeBounds);
     }
 
     public synchronized void bindLeftStick(ShapeController<? extends Node>
-                                       shapeController) {
+                                                   shapeController) {
         Node shape = shapeController.getShape();
         double relativeLeftStickCenter = leftStick.getLayoutX()
                 + STICK_BASE_RATIO * leftStick.getLayoutBounds().getWidth();
@@ -173,18 +176,16 @@ public class PlayerController {
     }
 
     public synchronized void bindRightStick(ShapeController<? extends Node>
-                                       shapeController) {
+                                                    shapeController) {
         Node shape = shapeController.getShape();
         double relativeRightCenter = rightStick
                 .getLayoutX() + (1 - STICK_BASE_RATIO) * rightStick
                 .getLayoutBounds().getWidth();
         System.out.println(rightStick.getLayoutX());
         double rightStickCenter = playerPane.getLayoutX() + relativeRightCenter;
-        System.out.println("rsc: " + rightStickCenter);
         shape.setLayoutX(rightStickCenter - shape.getLayoutBounds().getWidth()
                 / 2.0);
         double rightStickY = calculateRightStackY();
-        System.out.println("rsy: " + rightStickY);
         shape.setLayoutY(rightStickY - shape.getLayoutBounds().getHeight());
         shape.setTranslateX(0);
         shape.setTranslateY(0);
@@ -249,9 +250,10 @@ public class PlayerController {
         return height;
     }
 
-    public void addShapes() {
+    public synchronized void addShapes() {
         Stack<Shape> leftShapes = new Stack<>();
         Stack<Shape> rightShapes = new Stack<>();
+        System.out.println(playerModel.getLeftStack().size());
         while (!playerModel.getLeftStack().isEmpty()) {
             leftShapes.push(playerModel.getLeftStack().pop());
         }
@@ -260,9 +262,9 @@ public class PlayerController {
         }
         while (!leftShapes.isEmpty()) {
             ShapeController<? extends Node> shapeController = new
-                    ShapeController<Node>(ShapeBuilder
+                    ShapeController<>(ShapeBuilder
                     .getInstance().build(leftShapes.peek()), leftShapes
-                    .peek(),  null);
+                    .peek(), null);
             leftShapes.pop();
             bindLeftStick(shapeController);
             leftStack.push(shapeController);
@@ -272,12 +274,13 @@ public class PlayerController {
                             .getPlatform()));
             GameController.getInstance().getMainGame().getChildren().add
                     (shapeController.getShape());
+            shapeController.getShape().setVisible(true);
         }
         while (!rightShapes.isEmpty()) {
             ShapeController<? extends Node> shapeController = new
-                    ShapeController<Node>(ShapeBuilder
+                    ShapeController<>(ShapeBuilder
                     .getInstance().build(rightShapes.peek()), rightShapes
-                    .peek(),  null);
+                    .peek(), null);
             rightShapes.pop();
             bindRightStick(shapeController);
             rightStack.push(shapeController);
@@ -287,6 +290,7 @@ public class PlayerController {
                             .getPlatform()));
             GameController.getInstance().getMainGame().getChildren().add
                     (shapeController.getShape());
+            shapeController.getShape().setVisible(true);
         }
     }
 }
