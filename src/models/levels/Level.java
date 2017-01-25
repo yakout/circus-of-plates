@@ -23,7 +23,7 @@ public abstract class Level {
     protected List<Color> supportedColors;
     protected double minX, minY, maxX, maxY;
     protected static final double PLATFORM_BASE_WIDTH = 500;
-    protected static final double PLATFORM_BASE_Y_Factor = 0.1;
+    protected static final double PLATFORM_BASE_Y_FACTOR = 0.1;
     protected static final double PLATFORM_HEIGHT = 5;
 
     public Level(int currentLevel, int noOfPlatforms) {
@@ -75,9 +75,11 @@ public abstract class Level {
         double stageHeight = maxY - minY;
         //TODO: Make the ratios more dependent on the stage's dimensions
         for (int i = 0; i < getNumPlatforms(); i++) {
-            int level = i / 2;
-            double platformNewWidth = PLATFORM_BASE_WIDTH * (1 - 0.2 * level);
-            double platformNewY = stageHeight * (0.1 + 0.05 * level);
+            int platformLevel = i / 2;
+            double platformNewWidth = minY + PLATFORM_BASE_WIDTH * (1 - 0.2 *
+                    platformLevel);
+            double platformNewY = stageHeight * (PLATFORM_BASE_Y_FACTOR
+                    + 0.05 * platformLevel);
             if (isEven(i)) {
                 newPlatform = new Platform(new Point(minX
                         + platformNewWidth / 2.0,
@@ -105,6 +107,15 @@ public abstract class Level {
 
     public int getNumPlatforms() {
         return noOfPlatforms;
+    }
+
+    /**
+     * A function that returns the y coordinate of the highest
+     * platform.
+     * @return The y coordinate of the highest platform.
+     */
+    public double getHighestPlatformY() {
+        return minY + PLATFORM_BASE_Y_FACTOR * (maxY - minY);
     }
 
     protected void setNumberOfPlatforms(int size) {

@@ -80,7 +80,7 @@ public class PlayerController {
     }
 
     public synchronized boolean intersectsLeftStick(ShapeController<? extends
-            Node> shapeController, double highestPlatformY) {
+            Node> shapeController) {
         if (playerModel.isLeftStackFull()) {
             return false;
         }
@@ -103,7 +103,8 @@ public class PlayerController {
             playerModel.pushPlateLeft(shapeModel);
             GameController.getInstance().getCurrentGame().getShapeControllers
                     ().remove(shapeController);
-            if (calculateLeftStackY() < highestPlatformY) {
+            if (calculateLeftStackY() < GameController.getInstance()
+                    .getCurrentGame().getCurrentLevel().getHighestPlatformY()) {
                 playerModel.setLeftStackFull(true);
                 if (playerModel.isRightStackFull()) {
                     GameController.getInstance().playerLost(playerModel.getName());
@@ -116,7 +117,7 @@ public class PlayerController {
     }
 
     public synchronized boolean intersectsRightStick(ShapeController<?
-            extends Node> shapeController, double highestPlatformY) {
+            extends Node> shapeController) {
         if (playerModel.isRightStackFull()) {
             return false;
         }
@@ -140,7 +141,8 @@ public class PlayerController {
             playerModel.pushPlateRight(shapeModel);
             GameController.getInstance().getCurrentGame().getShapeControllers
                     ().remove(shapeController);
-            if (calculateRightStackY() < highestPlatformY) {
+            if (calculateRightStackY() < GameController.getInstance()
+                    .getCurrentGame().getCurrentLevel().getHighestPlatformY()) {
                 playerModel.setRightStackFull(true);
                 if (playerModel.isLeftStackFull()) {
                     GameController.getInstance().playerLost(playerModel.getName());

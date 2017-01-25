@@ -38,15 +38,12 @@ public class Game {
 
 
     Game() {
-        Exception e = new Exception();
-        logger.info("new Game Object is created" + e);
-        initilize();
+        initialize();
     }
 
     public void setLevel(int level) {
         this.level = level;
         AnchorPane rootPane = GameController.getInstance().getRootPane();
-
         currentLevel = LevelFactory.getInstance().createLevel(level, rootPane
                         .getLayoutX(),
                 rootPane.getLayoutY(), rootPane.getLayoutX()
@@ -69,7 +66,7 @@ public class Game {
         this.currentLevel = currentLevel;
     }
 
-    void initilize() {
+    void initialize() {
         level = 1;
         setLevel(level);
         shapeControllers = new ArrayList<>();
@@ -120,7 +117,7 @@ public class Game {
     void startNormalGame() {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
-            logger.info("Players has created");
+            logger.info("Players were created");
         }
 
         PlatformBuilder builder = new PlatformBuilder();
@@ -139,6 +136,7 @@ public class Game {
     void startNormalGame(long counter) {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
+            logger.info("Players were created");
         }
 
         PlatformBuilder builder = new PlatformBuilder();
@@ -147,6 +145,7 @@ public class Game {
         }
         shapeGenerator = new ShapeGenerator(currentLevel, GameController
                 .getInstance().getMainGame(), counter);
+        AudioPlayer.backgroundMediaPlayer.play();
         GameController.getInstance().continueGame();
     }
 
