@@ -119,6 +119,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void registerShapes() {
+        //TODO replace this with dynamic class loading
         try {
             Class.forName("models.shapes.PlateShape");
             Class.forName("models.shapes.BasedPlateShape");
@@ -373,6 +374,8 @@ public class GameController implements Initializable, ScoreObserver {
         String path_1 = "src/views/clowns/clown_6/clown.fxml";
 
         try {
+            //TODO: replace paths, input type and names with path from clown
+            // picker
             playersController.createPlayer(path_0, "player1", InputType
                     .KEYBOARD_PRIMARY);
             playersController.createPlayer(path_1, "player2", InputType
@@ -386,11 +389,8 @@ public class GameController implements Initializable, ScoreObserver {
         }
 
         // ===========================
-        try {
-            Class.forName("models.shapes.PlateShape");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        //TODO: Replace Level with level from level chooser with default
+        // value set to 1
         Level level = new
                 LevelOne(rootPane.getLayoutX(),
                 rootPane.getLayoutY(), rootPane.getLayoutX()
