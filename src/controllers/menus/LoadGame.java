@@ -63,6 +63,7 @@ public class LoadGame implements Initializable {
 
     private void updateSavedGames() {
         List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
+        if (savedGames == null) return;
         for(String gameName : savedGames) {
             addSavedGame(gameName);
             System.out.println(gameName);
