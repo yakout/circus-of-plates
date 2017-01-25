@@ -9,7 +9,6 @@ import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
-import controllers.input.keyboard.KeyboardEvent;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
 import controllers.player.ScoreObserver;
@@ -27,8 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.GameMode;
 import models.data.ModelDataHolder;
-import models.levels.Level;
-import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -57,7 +54,6 @@ public class GameController implements Initializable, ScoreObserver {
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
-    private int currentLevel;
 
     @FXML
     private AnchorPane rootPane;
@@ -88,7 +84,6 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         // Controllers
-        currentLevel = 1;
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
@@ -128,10 +123,6 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
-    }
-
-    public MenuController getCurrentMenu() {
-        return currentMenu;
     }
 
     public AnchorPane getMainGame() {
@@ -175,27 +166,6 @@ public class GameController implements Initializable, ScoreObserver {
     public synchronized void keyHandler(KeyEvent event) {
         keyMap.put(event.getCode(), true);
         switch (event.getCode()) {
-            // KEYBOARD_PRIMARY
-//            case LEFT:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_PRIMARY);
-//                    if (playerName != null) {
-//                        playersController.moveLeft(playerName);
-//                    }
-//                }
-//                break;
-//            case RIGHT:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_PRIMARY);
-//                    if (playerName != null) {
-//                        playersController.moveRight(playerName);
-//                    }
-//                }
-//                break;
             case ESCAPE:
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
@@ -207,79 +177,7 @@ public class GameController implements Initializable, ScoreObserver {
                     }
                 }
                 break;
-//            // keyboard_two
-//            case A:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_SECONDARY);
-//                    if (playerName != null) {
-//                        playersController.moveLeft(playerName);
-//                    }
-//                }
-//                break;
-//            case D:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_SECONDARY);
-//                    if (playerName != null) {
-//                        playersController.moveRight(playerName);
-//                    }
-//                }
-//                break;
-//            default:
-//                break;
         }
-    }
-
-//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
-// .KEYBOARD_PRIMARY)
-//    public void primaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-//        Platform.runLater(() -> {
-//            switch (keyboardEvent.getKeyboardCode()) {
-//                case LEFT:
-//                    playersController.moveLeft(PlayerFactory
-//                            .getFactory().getPlayerNameWithController
-// (InputType.KEYBOARD_PRIMARY));
-//                    break;
-//                case RIGHT:
-//                    playersController.moveRight(PlayerFactory
-//                            .getFactory().getPlayerNameWithController
-// (InputType.KEYBOARD_PRIMARY));
-//            }
-//        });
-//    }
-
-    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
-            .KEYBOARD_SECONDARY)
-    public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-        if (!mainGame.isVisible()) {
-            return;
-        }
-        Platform.runLater(() -> {
-            switch (keyboardEvent.getKeyboardCode()) {
-                case A:
-                    currentGame.getPlayersController().moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_SECONDARY));
-                    break;
-                case D:
-                    currentGame.getPlayersController().moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_SECONDARY));
-                    break;
-                case LEFT:
-                    currentGame.getPlayersController().moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_PRIMARY));
-                    break;
-                case RIGHT:
-                    currentGame.getPlayersController().moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_PRIMARY));
-            }
-        });
     }
 
 

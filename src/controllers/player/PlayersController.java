@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -143,10 +144,8 @@ public class PlayersController {
         players.get(playerName).removeShape(stick);
         logger.debug("Last three shapes are removed from stick.");
 
-        // TODO move this to audio player
-        new Thread(() -> {
-            new MediaPlayer(AudioPlayer.newScoreMedia).play();
-        });
+        AudioPlayer.newScoreMediaPlayer.play();
+        AudioPlayer.newScoreMediaPlayer.seek(Duration.ZERO);
     }
 
     public Collection<String> getPlayersNames() {
