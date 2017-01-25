@@ -12,14 +12,13 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
+import services.file.SavedGameSet;
 
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LoadGame implements Initializable {
 
@@ -83,8 +82,15 @@ public class LoadGame implements Initializable {
     }
 
     private void updateSavedGames() {
-        List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
-        if (savedGames == null || savedGames.isEmpty()) {
+        List<String> savedGames = new ArrayList<>(); //fileHandler.getFileList(SAVED_GAMES_PATH);
+
+        Iterator iterator = new SavedGameSet().iterator();
+
+        while (iterator.hasNext()) {
+            savedGames.add((String) iterator.next());
+        }
+
+        if (savedGames.isEmpty()) {
             return;
         }
         selectedGame = savedGames.get(0); // by default
