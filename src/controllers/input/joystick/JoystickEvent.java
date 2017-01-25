@@ -13,8 +13,9 @@ public class JoystickEvent extends InputEvent {
      *
      * @param eventType Type of the event
      */
-    public JoystickEvent(@NamedArg("eventType") EventType<? extends InputEvent> eventType,
-                         @NamedArg("code") JoystickCode joystickCode, JoystickType joystickType) {
+    public JoystickEvent(@NamedArg("eventType") EventType<? extends
+            InputEvent> eventType, @NamedArg("code") JoystickCode joystickCode,
+            JoystickType joystickType) {
         // // TODO: 1/9/17 add parameter for player type
         super(eventType);
         this.joystickCode = joystickCode;

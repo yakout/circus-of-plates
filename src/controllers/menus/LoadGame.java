@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
 
 import java.net.URL;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoadGame implements Initializable {
+
+    private static Logger logger = LogManager.getLogger(LoadGame.class);
     private static LoadGame instance;
     private static final String SAVED_GAMES_PATH = "save";
     private FileHandler fileHandler;
@@ -62,6 +66,7 @@ public class LoadGame implements Initializable {
                         .read(SAVED_GAMES_PATH, selectedGame));
 //                Start.getInstance().setMenuVisible(true);
 //                loadGamePane.setVisible(false);
+                logger.info("Game is loaded successfully");
                 break;
             case "CANCEL":
                 Start.getInstance().setMenuVisible(true);

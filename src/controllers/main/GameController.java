@@ -127,6 +127,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void registerShapes() {
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
+        logger.info("Shapes are dynamically loaded.");
     }
 
     public void setCurrentMenu(MenuController currentMenu) {
@@ -219,8 +220,10 @@ public class GameController implements Initializable, ScoreObserver {
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
+                        logger.info("Game is continued.");
                     } else {
                         pauseGame();
+                        logger.info("Game is paused.");
                     }
                 }
                 break;
@@ -361,6 +364,7 @@ public class GameController implements Initializable, ScoreObserver {
         this.handler.write(modelDataHolder, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
+        logger.info("Game is saved successfully.");
     }
 
 
@@ -374,6 +378,7 @@ public class GameController implements Initializable, ScoreObserver {
         GameController.getInstance().getMainGame().setVisible(true);
         AudioPlayer.backgroundMediaPlayer.play();
         newGameStarted.set(true);
+        logger.info("Game is launched successfully.");
         switch (gameMode) {
             case NORMAL:
                 resetGame();
@@ -409,13 +414,13 @@ public class GameController implements Initializable, ScoreObserver {
         // ===========================
         //TODO: Replace Level with level from level chooser with default
         // value set to 1
-        Level level = new
-                LevelOne(rootPane.getLayoutX(),
-                rootPane.getLayoutY(), rootPane.getLayoutX()
+        Level level = new LevelOne(rootPane.getLayoutX(), rootPane.getLayoutY(),
+                rootPane.getLayoutX()
                 + rootPane.getWidth(), rootPane.getLayoutY()
                 + rootPane.getHeight());
         modelDataHolder.setActiveLevel(level);
         startNormalGame(level);
+        logger.info("Normal game is started.");
     }
 
     private void startNormalGame(Level level) {
@@ -423,6 +428,7 @@ public class GameController implements Initializable, ScoreObserver {
         for (models.Platform platform : level.getPlatforms()) {
             mainGame.getChildren().add(builder.build(platform));
         }
+        logger.info("Platforms are built.");
         shapeGenerator = new ShapeGenerator(level, mainGame);
 
         startKeyboardListener();
