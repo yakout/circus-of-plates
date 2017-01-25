@@ -18,6 +18,9 @@ public class ModelDataHolder {
     private Set<ShapePlatformPair> shapes;
 
     private Set<Player> players;
+
+    private int generatorCounter;
+
     public ModelDataHolder() {
         shapes = new HashSet<>();
         players = new HashSet<>();
@@ -25,7 +28,6 @@ public class ModelDataHolder {
     public Level getActiveLevel() {
         return activeLevel;
     }
-
     public void setActiveLevel(Level activeLevel) {
         this.activeLevel = activeLevel;
     }
@@ -60,5 +62,13 @@ public class ModelDataHolder {
 
     public boolean removePlayer(Player player) {
         return players.remove(player);
+    }
+
+    public int getGeneratorCounter() {
+        return generatorCounter;
+    }
+
+    public void setGeneratorCounter(int generatorCounter) {
+        this.generatorCounter = generatorCounter;
     }
 }

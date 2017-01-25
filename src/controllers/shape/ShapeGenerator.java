@@ -21,6 +21,7 @@ public class ShapeGenerator {
 
     private final long THREAD_SLEEP_TIME = 50;
     private final long THREAD_PULSE_RATE = 150;
+    private long beginCounter;
     private Level level;
     private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
@@ -30,7 +31,7 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            long counter = THREAD_PULSE_RATE;
+            long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
                 while (generationThreadPaused) {
@@ -96,6 +97,22 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
+        beginCounter = THREAD_PULSE_RATE;
+        shapeGeneratorThread = new Thread(shapeGenerator);
+//        setGenerationThreadIsNotStopped(true);
+        generationThreadIsNotStopped = true;
+//        setGenerationThreadPaused(false);
+        generationThreadPaused = false;
+        shapeGeneratorThread.setDaemon(true);
+        shapeGeneratorThread.start();
+        logger.debug("Shape Generator is Created");
+        logger.debug("Shape Generation Thread Started Running");
+    }
+
+    public ShapeGenerator(Level level, Pane parent, Long beginCounter) {
+        this.level = level;
+        this.parent = parent;
+        this.beginCounter = beginCounter;
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
