@@ -9,9 +9,9 @@ import controllers.shape.ShapeGenerator;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import models.levels.Level;
-import models.levels.LevelOne;
 import models.levels.util.LevelFactory;
 import models.players.Player;
+import models.players.PlayerFactory;
 import models.players.Stick;
 import models.shapes.util.ShapePool;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +25,8 @@ import java.util.Collection;
  */
 public class Game {
     private static Logger logger = LogManager.getLogger(Game.class);
+    private final String DEFAULT_PLAYER_1 = "src/views/clowns/clown_5/clown.fxml";
+    private final String DEFAULT_PLAYER_2 = "src/views/clowns/clown_6/clown.fxml";
     private PlayersController playersController;
     private int level;
     private Level currentLevel;
@@ -39,19 +41,19 @@ public class Game {
 
     public void setLevel(int level) {
         AnchorPane rootPane = GameController.getInstance().getRootPane();
+
         currentLevel = LevelFactory.getInstance().createLevel(level, rootPane
                         .getLayoutX(),
                 rootPane.getLayoutY(), rootPane.getLayoutX()
                         + rootPane.getWidth(), rootPane.getLayoutY()
                         + rootPane.getHeight());
         if (currentLevel == null) {
-            logger.fatal("Couldn't Create Level " + currentLevel);
-            return;
+            logger.fatal("Couldn't Create Level " + level);
         }
     }
 
     public int getLevel() {
-        return 0;
+        return level;
     }
 
     public Level getCurrentLevel() {
@@ -111,22 +113,8 @@ public class Game {
     }
 
     void startNormalGame() {
-        String path_0 = "src/views/clowns/clown_5/clown.fxml";
-        String path_1 = "src/views/clowns/clown_6/clown.fxml";
-
-        try {
-            //TODO: replace paths, input type and names with path from clown
-            // picker
-            playersController.createPlayer(path_0, "player1", InputType
-                    .KEYBOARD_PRIMARY);
-            playersController.createPlayer(path_1, "player2", InputType
-                    .KEYBOARD_SECONDARY);
-
-            gameBoard.addPlayerPanel("player1");
-            gameBoard.addPlayerPanel("player2");
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (PlayerFactory.getFactory().getPlayersSize() == 0) {
+            addDefaultPlayers();
         }
 
         PlatformBuilder builder = new PlatformBuilder();
@@ -135,6 +123,13 @@ public class Game {
         }
         shapeGenerator = new ShapeGenerator(currentLevel, GameController.getInstance().getMainGame());
         GameController.getInstance().startKeyboardListener();
+    }
+
+    private void addDefaultPlayers() {
+        createPlayer(DEFAULT_PLAYER_1, "player1", InputType
+                .KEYBOARD_PRIMARY);
+        createPlayer(DEFAULT_PLAYER_2, "player2", InputType
+                .KEYBOARD_SECONDARY);
     }
 
     void updateScore(int score, String playerName, Stick stick) {

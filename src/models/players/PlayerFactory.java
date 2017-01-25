@@ -33,6 +33,10 @@ public class PlayerFactory {
         return players.get(name);
     }
 
+    public int getPlayersSize() {
+        return players.size();
+    }
+
     public String getPlayerNameWithController(InputType inputType) {
         for (Map.Entry<String, Player> playerEntry : players.entrySet()) {
             if (playerEntry.getValue().getInputType() == inputType) {

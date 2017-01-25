@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.InputType;
+import controllers.main.GameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,8 +86,6 @@ public class PlayerChooser implements Initializable {
             joystick.setSelected(false);
             mouse.setSelected(false);
             currPlayerName.setText("");
-            //TODO: here you send signal to game controller
-
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
         } else {
@@ -98,8 +97,6 @@ public class PlayerChooser implements Initializable {
             setVisible(false);
             setPlayer1Label();
             currPlayerName.setText("");
-            //TODO: here you send signal to game controller
-
 
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
@@ -111,9 +108,13 @@ public class PlayerChooser implements Initializable {
     }
 
     private void updateData() {
-        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
-                valueOf(currPlayer))
-                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+        playerName = currPlayerName.getText();
+//        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
+//                valueOf(currPlayer))
+//                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+
+        GameController.getInstance().getCurrentGame().createPlayer(CLOWN_DIR
+                + String.valueOf(currPlayer), playerName, inputType);
     }
 
     @FXML
