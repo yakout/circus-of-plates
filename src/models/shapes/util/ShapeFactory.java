@@ -72,8 +72,11 @@ public class ShapeFactory {
     }
 
     public static void resetShape(Shape shape) {
-        //shape.setVisible(false);
         shape.setState(ShapeState.MOVING_HORIZONTALLY); // TODO
+        shape.getPosition().xProperty().unbind();
+        shape.getPosition().yProperty().unbind();
+        shape.getInitialPosition().xProperty().unbind();
+        shape.getInitialPosition().yProperty().unbind();
     }
 
 }
