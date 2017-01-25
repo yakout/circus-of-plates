@@ -78,8 +78,7 @@ class JsonReader implements FileReader {
             implements JsonDeserializer<Point> {
 
         @Override
-        public Point deserialize(final JsonElement json,
-                                          final Type type,
+        public Point deserialize(final JsonElement json, final Type type,
                                           final JsonDeserializationContext
                                                   jsonDeserializationContext)
                 throws JsonParseException {

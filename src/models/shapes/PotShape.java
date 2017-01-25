@@ -2,6 +2,8 @@ package models.shapes;
 
 import models.levels.LevelFive;
 import models.levels.LevelFour;
+import models.levels.LevelThree;
+import models.levels.LevelTwo;
 import models.shapes.util.ShapeFactory;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +26,8 @@ public class PotShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, PotShape.class);
+        LevelTwo.registerShape(KEY);
+        LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
@@ -40,8 +44,8 @@ public class PotShape extends Shape {
     public String getShapeURL() {
         String colorString = getColorName(color);
         try {
-            return new File(URL + colorString + FILE_NAME).toURI().toURL()
-                    .toString();
+            return new File(URL + colorString + FILE_NAME)
+                    .toURI().toURL().toString();
         } catch (MalformedURLException e) {
             logger.error("Couldn't find " + KEY + " with this color");
             e.printStackTrace();
