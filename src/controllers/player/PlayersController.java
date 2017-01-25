@@ -40,7 +40,7 @@ public class PlayersController {
         Player playerModel = PlayerFactory.getFactory().getPlayer(playerName);
         playerModel.setInputType(inputType);
         playerModel.setPlayerUrl(path);
-        playerModel.setSpeed(0.2); // 5
+        playerModel.setSpeed(20); // 5
         // for primary joystick as it's too fast
         // 20 is default
         gamePane.getChildren().add(player);

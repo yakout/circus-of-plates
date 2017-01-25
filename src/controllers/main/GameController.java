@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,10 +44,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class GameController implements Initializable, ScoreObserver {
@@ -57,6 +55,7 @@ public class GameController implements Initializable, ScoreObserver {
     private ShapeGenerator shapeGenerator;
     private BooleanProperty newGameStarted;
     private Collection<ShapeController<? extends Node>> shapeControllers;
+    private Map<KeyCode, Boolean> keyMap;
 
     // TODO: 1/19/17 plate Controller
 
@@ -95,11 +94,18 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted = new SimpleBooleanProperty(false);
         modelDataHolder = new ModelDataHolder();
         shapeControllers = new ArrayList<>();
+
+        keyMap = new HashMap<>();
+        keyMap.put(KeyCode.A, false);
+        keyMap.put(KeyCode.D, false);
+        keyMap.put(KeyCode.LEFT, false);
+        keyMap.put(KeyCode.RIGHT, false);
+
         registerLevels();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
-        Keyboard.getInstance().registerClassForInputAction(getClass(),
-                instance);
+//        Keyboard.getInstance().registerClassForInputAction(getClass(),
+//                instance);
     }
 
     public void registerLevels() {
@@ -144,8 +150,40 @@ public class GameController implements Initializable, ScoreObserver {
         shapeControllers.remove(shapeController);
     }
 
+
+    private synchronized void updatePlayers() {
+        if (keyMap.get(KeyCode.A)) {
+            playersController.moveLeft(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.KEYBOARD_SECONDARY));
+        }
+        if (keyMap.get(KeyCode.D)) {
+            playersController.moveRight(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.KEYBOARD_SECONDARY));
+        }
+        if (keyMap.get(KeyCode.LEFT)) {
+            playersController.moveLeft(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.KEYBOARD_PRIMARY));
+        }
+        if (keyMap.get(KeyCode.RIGHT)) {
+            playersController.moveRight(PlayerFactory
+                    .getFactory().getPlayerNameWithController
+                            (InputType.KEYBOARD_PRIMARY));
+        }
+    }
+
     @FXML
-    public void keyHandler(KeyEvent event) {
+    public synchronized void keyHandlerReleased(KeyEvent event) {
+        keyMap.put(event.getCode(), false);
+//        updatePlayers();
+    }
+
+    @FXML
+    public synchronized void keyHandler(KeyEvent event) {
+        keyMap.put(event.getCode(), true);
+//        updatePlayers();
         switch (event.getCode()) {
             // KEYBOARD_PRIMARY
 //            case LEFT:
@@ -362,6 +400,18 @@ public class GameController implements Initializable, ScoreObserver {
 
 //        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
 //                new LevelOne());
+
+
+        new Thread(() -> {
+            while (true) {
+                updatePlayers();
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void startNewLoadGame(ModelDataHolder modelDataHolder) {
