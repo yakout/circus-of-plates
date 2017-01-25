@@ -8,45 +8,45 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class FallingShapeStateController<T extends Node> extends
-		ShapeMovementController<T> {
-	private static Logger logger = LogManager.getLogger
-			(FallingShapeStateController.class);
-	private static final Long THREAD_SLEEP_TIME = 10L;
-	private final ShapeFallingObserver shapeFallingObserver;
-	private final Runnable shapeMover = new Runnable() {
+        ShapeMovementController<T> {
+    private static Logger logger = LogManager.getLogger
+            (FallingShapeStateController.class);
+    private static final Long THREAD_SLEEP_TIME = 10L;
+    private final ShapeFallingObserver shapeFallingObserver;
+    private final Runnable shapeMover = new Runnable() {
 
-		@Override
-		public synchronized void run() {
-			while (threadRunning) {
-				while (threadPaused) {
-					try {
+        @Override
+        public synchronized void run() {
+            while (threadRunning) {
+                while (threadPaused) {
+                    try {
 //						logger.debug("Falling Shape Thread Paused");
-						Thread.currentThread().sleep(Long.MAX_VALUE);
-					} catch (InterruptedException e) {
+                        Thread.currentThread().sleep(Long.MAX_VALUE);
+                    } catch (InterruptedException e) {
 //						logger.info("Falling Shape Thread Resumed");
-						break;
-					}
-				}
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						if (shape.getLayoutY()
-								+ shape.getTranslateY()
-								+ shape.getLayoutBounds().getHeight()
-								>= shape.getParent()
-								.getLayoutBounds().getHeight()) {
+                        break;
+                    }
+                }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (shape.getLayoutY()
+                                + shape.getTranslateY()
+                                + shape.getLayoutBounds().getHeight()
+                                >= shape.getParent()
+                                .getLayoutBounds().getHeight()) {
 //							logger.info("A Shape Hit the Ground");
-							shapeFallingObserver.shapeShouldStopFalling();
-						} else {
-							shape.setTranslateY(shape.getTranslateY() +
-									shapeModel.getVerticalVelocity());
-						}
-						shapeFallingObserver.checkIntersection();
-					}
-				});
-				try {
-					this.wait(THREAD_SLEEP_TIME);
-				} catch (final InterruptedException e) {
+                            shapeFallingObserver.shapeShouldStopFalling();
+                        } else {
+                            shape.setTranslateY(shape.getTranslateY() +
+                                    shapeModel.getVerticalVelocity());
+                        }
+                        shapeFallingObserver.checkIntersection();
+                    }
+                });
+                try {
+                    this.wait(THREAD_SLEEP_TIME);
+                } catch (final InterruptedException e) {
 //					logger.debug("Thread (" + Thread.currentThread()
 //					.getName() + ") Interrupted");
                     if (!threadRunning) {
@@ -54,41 +54,42 @@ public class FallingShapeStateController<T extends Node> extends
                     } else {
                         continue;
                     }
-				}
-			}
+                }
+            }
 //			logger.debug("Thread: \"" + Thread.currentThread().getName()
 //                    + "\" "
 //					+ "Stopped");
-		}
-	};
-	public FallingShapeStateController(final T shape, final Shape model
-			, final ShapeFallingObserver shapeFallingObserver) {
-		super(shape, model);
-		this.shapeFallingObserver = shapeFallingObserver;
-		shapeMovementThread = new Thread(shapeMover,
-				"Vertical Movement Thread:" + shape.getId());
-		shapeMovementThread.setDaemon(true);
-		shapeMovementThread.start();
+        }
+    };
+
+    public FallingShapeStateController(final T shape, final Shape model
+            , final ShapeFallingObserver shapeFallingObserver) {
+        super(shape, model);
+        this.shapeFallingObserver = shapeFallingObserver;
+        shapeMovementThread = new Thread(shapeMover,
+                "Vertical Movement Thread:" + shape.getId());
+        shapeMovementThread.setDaemon(true);
+        shapeMovementThread.start();
 //		logger.debug("A Shape Started Falling");
-	}
+    }
 
-	@Override
-	public void nextState() {
-		super.stopMoving();
-	}
+    @Override
+    public void nextState() {
+        super.stopMoving();
+    }
 
-	@Override
-	public boolean hasNextState() {
-		return true;
-	}
+    @Override
+    public boolean hasNextState() {
+        return true;
+    }
 
-	@Override
-	public void pauseCurrentState() {
-		super.pauseMovement();
-	}
+    @Override
+    public void pauseCurrentState() {
+        super.pauseMovement();
+    }
 
-	@Override
-	public void resumeCurrentState() {
-		super.resumeMovement();
-	}
+    @Override
+    public void resumeCurrentState() {
+        super.resumeMovement();
+    }
 }

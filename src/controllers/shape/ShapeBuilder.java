@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class ShapeBuilder {
     private static ShapeBuilder creatorInstance = null;
     private static Logger logger = LogManager.getLogger(ShapeBuilder.class);
+
     private ShapeBuilder() {
     }
 

@@ -30,6 +30,7 @@ public class Player {
     private String rightStickUrl;
     private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
     private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
+
     public Player() {
         this.playerName = "PlayerController " + numOfPlayers;
         this.score = 0;
@@ -59,15 +60,15 @@ public class Player {
     public boolean pushPlateLeft(Shape shape) {
         return pushPlate(this.leftStick, shape, Stick.LEFT);
     }
-    
+
     public boolean pushPlateRight(Shape shape) {
         return pushPlate(this.rightStick, shape, Stick.RIGHT);
     }
-    
+
     private void popPlate(Stack<Shape> stack) throws EmptyStackException {
         stack.pop();
     }
-    
+
     // returns true if got consecutive plates and the score increased
     private boolean pushPlate(Stack<Shape> stack, Shape shape, Stick stick) {
         stack.push(shape);
@@ -91,15 +92,15 @@ public class Player {
         }
         return false;
     }
-    
+
     public void addScore(int change) {
         this.score += change;
     }
 
     private void notifyObservers(Stick stick) {
-         for (ScoreObserver scoreObserver : observers) {
-             scoreObserver.update(this.score, this.playerName, stick);
-         }
+        for (ScoreObserver scoreObserver : observers) {
+            scoreObserver.update(this.score, this.playerName, stick);
+        }
     }
 
     public void registerObserver(ScoreObserver scoreObserver) {
@@ -109,7 +110,7 @@ public class Player {
     public int getNumOfLeftPlates() {
         return this.leftStick.size();
     }
-    
+
     public int getNumOfRightPlates() {
         return this.rightStick.size();
     }

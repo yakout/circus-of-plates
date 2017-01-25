@@ -75,6 +75,7 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
+     *
      * @param location  The location used to resolve relative paths for the root
      *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
@@ -100,6 +101,7 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(KeyCode.RIGHT, false);
 
         registerLevels();
+        registerShapes();
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
@@ -111,6 +113,17 @@ public class GameController implements Initializable, ScoreObserver {
             Class.forName("models.levels.LevelThree");
             Class.forName("models.levels.LevelFour");
             Class.forName("models.levels.LevelFive");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void registerShapes() {
+        try {
+            Class.forName("models.shapes.PlateShape");
+            Class.forName("models.shapes.BasedPlateShape");
+            Class.forName("models.shapes.DeepPlateShape");
+            Class.forName("models.shapes.PotShape");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

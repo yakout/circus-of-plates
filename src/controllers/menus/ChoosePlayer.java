@@ -78,7 +78,7 @@ public class ChoosePlayer implements Initializable {
     }
 
     @FXML
-    private void mouseHandler(MouseEvent event){
+    private void mouseHandler(MouseEvent event) {
         chosenClownID = ((Node) event.getSource()).getId();
     }
 
@@ -124,8 +124,8 @@ public class ChoosePlayer implements Initializable {
 
     @FXML
     private void selectInputType(ActionEvent event) {
-        System.out.println(((Node)event.getSource()).getId());
-        switch (((Node)event.getSource()).getId()) {
+        System.out.println(((Node) event.getSource()).getId());
+        switch (((Node) event.getSource()).getId()) {
             case KEYBOARD:
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
@@ -147,19 +147,20 @@ public class ChoosePlayer implements Initializable {
             default:
                 break;
         }
-        logger.debug("Player selected " + ((Node)event.getSource())
+        logger.debug("Player selected " + ((Node) event.getSource())
                 .getId().toString() +
                 " input type.");
     }
-     private void setPlayer2Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
-                 .valueOf(++currPlayer) + CHOOSE);
-     }
 
-     private void setPlayer1Label() {
-         ((Label)anchor.getChildren().get(0)).setText(PLAYER + String
-                 .valueOf(--currPlayer) + CHOOSE);
-     }
+    private void setPlayer2Label() {
+        ((Label) anchor.getChildren().get(0)).setText(PLAYER + String
+                .valueOf(++currPlayer) + CHOOSE);
+    }
+
+    private void setPlayer1Label() {
+        ((Label) anchor.getChildren().get(0)).setText(PLAYER + String
+                .valueOf(--currPlayer) + CHOOSE);
+    }
 
     private void handleInputType(String input) {
         switch (input) {

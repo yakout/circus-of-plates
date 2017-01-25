@@ -30,7 +30,7 @@ class JsonReader implements FileReader {
                 (Shape.class, new ShapeDeserializer()).registerTypeAdapter
                 (DoubleProperty.class, new DoublePropertyDeserializer())
                 .create();
-        File jsonFile   = new File(path
+        File jsonFile = new File(path
                 + File.separator + fileName + ".json");
         BufferedReader reader = null;
         try {
@@ -61,9 +61,9 @@ class JsonReader implements FileReader {
 
         @Override
         public DoubleProperty deserialize(final JsonElement json,
-                                       final Type type,
-                                       final JsonDeserializationContext
-                                               jsonDeserializationContext)
+                                          final Type type,
+                                          final JsonDeserializationContext
+                                                  jsonDeserializationContext)
                 throws JsonParseException {
             final double value
                     = json.getAsDouble();
@@ -79,8 +79,8 @@ class JsonReader implements FileReader {
 
         @Override
         public Point deserialize(final JsonElement json, final Type type,
-                                          final JsonDeserializationContext
-                                                  jsonDeserializationContext)
+                                 final JsonDeserializationContext
+                                         jsonDeserializationContext)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             double x = jsonObject.get("propX").getAsDouble();
@@ -95,9 +95,9 @@ class JsonReader implements FileReader {
 
         @Override
         public Level deserialize(final JsonElement json,
-                                          final Type type,
-                                          final JsonDeserializationContext
-                                                  jsonDeserializationContext)
+                                 final Type type,
+                                 final JsonDeserializationContext
+                                         jsonDeserializationContext)
                 throws JsonParseException {
             final JsonObject jsonObject = json.getAsJsonObject();
             final int levelNumber = jsonObject.get("currentLevel").getAsInt();

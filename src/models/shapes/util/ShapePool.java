@@ -29,6 +29,7 @@ public class ShapePool {
 
     /**
      * Get called when plates are lost.
+     *
      * @param shape
      */
     public static void destroyShape(Shape shape) {

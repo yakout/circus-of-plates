@@ -28,9 +28,11 @@ public class ModelDataHolder {
         players = new HashSet<>();
         generatorCounter = INVALID_COUNTER_VALUE;
     }
+
     public Level getActiveLevel() {
         return activeLevel;
     }
+
     public void setActiveLevel(Level activeLevel) {
         this.activeLevel = activeLevel;
     }

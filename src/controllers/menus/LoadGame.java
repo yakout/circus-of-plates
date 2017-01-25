@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import services.file.FileHandler;
+
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,7 +73,7 @@ public class LoadGame implements Initializable {
     private void updateSavedGames() {
         List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
         if (savedGames == null) return;
-        for(String gameName : savedGames) {
+        for (String gameName : savedGames) {
             addSavedGame(gameName);
             System.out.println(gameName);
         }

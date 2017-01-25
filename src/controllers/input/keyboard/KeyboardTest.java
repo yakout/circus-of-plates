@@ -29,7 +29,7 @@ public class KeyboardTest {
 
         }
 
-        if(firstController == null) {
+        if (firstController == null) {
             // Couldn't find a controller
             System.out.println("Found no desired controller!");
             System.exit(0);
@@ -38,7 +38,7 @@ public class KeyboardTest {
         System.out.println("First controller of a desired type is: " + firstController.getName()
                 + firstController.getPortType() + " number " + firstController.getPortNumber());
 
-        while(true) {
+        while (true) {
             System.out.println("STARRRRRRT");
             firstController.poll();
             Component[] components = firstController.getComponents();

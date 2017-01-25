@@ -155,7 +155,7 @@ public class PlayerController {
     }
 
     public synchronized void bindLeftStick(ShapeController<? extends Node>
-                                       shapeController) {
+                                                   shapeController) {
         Node shape = shapeController.getShape();
         double relativeLeftStickCenter = leftStick.getLayoutX()
                 + STICK_BASE_RATIO * leftStick.getLayoutBounds().getWidth();
@@ -173,7 +173,7 @@ public class PlayerController {
     }
 
     public synchronized void bindRightStick(ShapeController<? extends Node>
-                                       shapeController) {
+                                                    shapeController) {
         Node shape = shapeController.getShape();
         double relativeRightCenter = rightStick
                 .getLayoutX() + (1 - STICK_BASE_RATIO) * rightStick
@@ -262,7 +262,7 @@ public class PlayerController {
             ShapeController<? extends Node> shapeController = new
                     ShapeController<Node>(ShapeBuilder
                     .getInstance().build(leftShapes.peek()), leftShapes
-                    .peek(),  null);
+                    .peek(), null);
             leftShapes.pop();
             bindLeftStick(shapeController);
             leftStack.push(shapeController);
@@ -277,7 +277,7 @@ public class PlayerController {
             ShapeController<? extends Node> shapeController = new
                     ShapeController<Node>(ShapeBuilder
                     .getInstance().build(rightShapes.peek()), rightShapes
-                    .peek(),  null);
+                    .peek(), null);
             rightShapes.pop();
             bindRightStick(shapeController);
             rightStack.push(shapeController);

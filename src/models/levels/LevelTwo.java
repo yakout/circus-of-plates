@@ -20,10 +20,12 @@ public class LevelTwo extends Level {
     private static List<String> supportedShapes
             = new ArrayList<>();
     private static Logger logger = LogManager.getLogger(LevelTwo.class);
+
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelTwo.class);
         logger.debug("Class " + LevelTwo.class.getName() + " Initialized");
     }
+
     public LevelTwo(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
         supportedColors = new ArrayList<>();
@@ -41,10 +43,12 @@ public class LevelTwo extends Level {
     public static void registerShape(String key) {
         supportedShapes.add(key);
     }
+
     @Override
     public List<String> getSupportedShapes() {
         return supportedShapes;
     }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {

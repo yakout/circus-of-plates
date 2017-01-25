@@ -22,6 +22,7 @@ public class FileHandler implements FileWriter, FileReader {
     private FileReader reader;
     private int savedGamesCnt;
     private static FileHandler instance;
+
     private FileHandler() {
         writer = new JsonWriter();
         reader = new JsonReader();
@@ -50,11 +51,11 @@ public class FileHandler implements FileWriter, FileReader {
     public ModelDataHolder read(String path, String fileName) {
         return reader.read(path, fileName);
     }
-    
+
     private void addSaveEntry(String path, String fileName) {
-        this.writeDataFile(path,fileName + writer.getExtension() + "\n");
+        this.writeDataFile(path, fileName + writer.getExtension() + "\n");
     }
-    
+
     private void writeDataFile(String path, String data) {
         File saveData = new File(path + File.separatorChar + "save.ini");
         if (!saveData.getParentFile().exists()) {
@@ -70,12 +71,12 @@ public class FileHandler implements FileWriter, FileReader {
                 e.printStackTrace();
             }
         }
-            try {
-                Files.write(saveData.toPath(), data.getBytes(StandardCharsets
-                        .UTF_8), StandardOpenOption.APPEND);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            Files.write(saveData.toPath(), data.getBytes(StandardCharsets
+                    .UTF_8), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<String> getFileList(String path) {

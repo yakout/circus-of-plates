@@ -4,22 +4,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="clown_7" layoutX="800.0" prefHeight="265.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView id="clown" fitHeight="205.0" fitWidth="151.0" layoutX="46.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/images/clowns/clown_7.png" />
-         </image>
-      </ImageView>
-      <ImageView id="rightstick" fitHeight="81.0" fitWidth="68.0" layoutX="153.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../../assets/images/sticks/rightstick_2.png" />
-         </image>
-      </ImageView>
-      <ImageView id="leftstick" fitHeight="81.0" fitWidth="70.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../../assets/images/sticks/leftstick_2.png" />
-         </image>
-      </ImageView>
-   </children>
+<AnchorPane id="clown_7" layoutX="800.0" prefHeight="265.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0"
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView id="clown" fitHeight="205.0" fitWidth="151.0" layoutX="46.0" layoutY="67.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../assets/images/clowns/clown_7.png"/>
+            </image>
+        </ImageView>
+        <ImageView id="rightstick" fitHeight="81.0" fitWidth="68.0" layoutX="153.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../../assets/images/sticks/rightstick_2.png"/>
+            </image>
+        </ImageView>
+        <ImageView id="leftstick" fitHeight="81.0" fitWidth="70.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../../../assets/images/sticks/leftstick_2.png"/>
+            </image>
+        </ImageView>
+    </children>
 </AnchorPane>

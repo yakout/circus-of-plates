@@ -6,19 +6,29 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="inputSettings" visible="false" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.options.Input">
-    <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane fx:id="inputSettings" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.options.Input">
+    <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
         <items>
             <AnchorPane prefHeight="95.0" prefWidth="1000.0">
                 <children>
-                    <Slider fx:id="volumeSlider" layoutX="114.0" layoutY="32.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="139.0" value="50.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="747.0" />
-                    <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="200.0" text="Controller Speed" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
-               <Label layoutX="17.0" layoutY="31.0" prefHeight="17.0" prefWidth="100.0" text="Keyboard:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
-               <Slider fx:id="volumeSlider1" layoutX="114.0" layoutY="65.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="139.0" value="50.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="747.0" />
-               <Label layoutX="17.0" layoutY="64.0" prefHeight="17.0" prefWidth="100.0" text="Joystick:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" />
+                    <Slider fx:id="volumeSlider" layoutX="114.0" layoutY="32.0" maxWidth="1.7976931348623157E308"
+                            minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="139.0" value="50.0"
+                            AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="747.0"/>
+                    <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="200.0" text="Controller Speed"
+                           textAlignment="CENTER" AnchorPane.leftAnchor="20.0"/>
+                    <Label layoutX="17.0" layoutY="31.0" prefHeight="17.0" prefWidth="100.0" text="Keyboard:"
+                           textAlignment="CENTER" AnchorPane.leftAnchor="20.0"/>
+                    <Slider fx:id="volumeSlider1" layoutX="114.0" layoutY="65.0" maxWidth="1.7976931348623157E308"
+                            minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="139.0" value="50.0"
+                            AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="747.0"/>
+                    <Label layoutX="17.0" layoutY="64.0" prefHeight="17.0" prefWidth="100.0" text="Joystick:"
+                           textAlignment="CENTER" AnchorPane.leftAnchor="20.0"/>
                 </children>
             </AnchorPane>
-            <Button mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="27.0" prefWidth="1000.0" text="DONE" />
+            <Button mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="27.0" prefWidth="1000.0"
+                    text="DONE"/>
         </items>
     </SplitPane>
 </AnchorPane>

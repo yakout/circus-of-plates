@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface InputAction {
     ActionType ACTION_TYPE() default ActionType.BEGIN;
+
     InputType INPUT_TYPE() default InputType.JOYSTICK;
 }

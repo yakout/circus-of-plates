@@ -30,6 +30,7 @@ public class DeepPlateShape extends Shape {
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
     }
+
     public DeepPlateShape() {
         super();
         setKey(KEY);

@@ -19,6 +19,7 @@ public class PlateShape extends Shape {
     private static final double VERTICAL_VELOCITY = 1.7;
     public static final String KEY = PlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
+
     static {
         ShapeFactory.registerShape(KEY, PlateShape.class);
         LevelOne.registerShape(KEY);
@@ -28,12 +29,14 @@ public class PlateShape extends Shape {
         LevelFive.registerShape(KEY);
         logger.debug("Class " + KEY + " initialized");
     }
+
     public PlateShape() {
         super();
         setKey(KEY);
         setHorizontalVelocity(HORIZONTAL_VELOCITY);
         setVerticalVelocity(VERTICAL_VELOCITY);
     }
+
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);

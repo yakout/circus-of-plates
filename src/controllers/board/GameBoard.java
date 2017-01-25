@@ -107,14 +107,14 @@ public class GameBoard implements Initializable {
 
     public void updateScore(int score, String playerName) {
         for (Node node : leftPanel.getChildren()) {
-            if (((Label)((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
-                ((Label)((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
+                ((Label) ((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
             }
         }
 
         for (Node node : rightPanel.getChildren()) {
-            if (((Label)((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
-                ((Label)((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
+                ((Label) ((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
             }
         }
     }

@@ -10,7 +10,7 @@ final class Graphics {
     private boolean isFullScreen;
     private Quality quality;
     private Dimension2D dimension;
-    
+
     public Graphics() {
         this.quality = Quality.MEDIUM;
         this.dimension = new Dimension2D(800, 600);

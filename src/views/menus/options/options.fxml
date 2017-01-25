@@ -7,57 +7,62 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane fx:id="optionsMenu" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options" >
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options">
     <children>
 
-        <VBox fx:id="menu" visible="true" onKeyReleased="#keyHandler" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <Button id="graphics" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="GRAPHICS">
+        <VBox fx:id="menu" visible="true" onKeyReleased="#keyHandler" AnchorPane.topAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Button id="graphics" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onMouseClicked="#mouseHandler" text="GRAPHICS">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="audio" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="AUDIO">
+            <Button id="audio" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler"
+                    text="AUDIO">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="input" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="INPUT">
+            <Button id="input" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler"
+                    text="INPUT">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="credits" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CREDITS">
+            <Button id="credits" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onMouseClicked="#mouseHandler" text="CREDITS">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="BACK">
+            <Button id="back" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler"
+                    text="BACK">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
             </Button>
         </VBox>
 
 
-
-    <fx:include source="audio/audio.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                AnchorPane.rightAnchor="0.0"/>
+        <fx:include source="audio/audio.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"/>
         <!--<AnchorPane fx:id="graphics">-->
-            <!--<fx:include source="graphics/graphics.fxml"/>-->
+        <!--<fx:include source="graphics/graphics.fxml"/>-->
         <!--</AnchorPane>-->
 
         <!--<AnchorPane fx:id="input">-->
-            <!--<fx:include source="input/input.fxml"/>-->
+        <!--<fx:include source="input/input.fxml"/>-->
         <!--</AnchorPane>-->
 
         <!--<AnchorPane fx:id="credits">-->
-            <!--<fx:include source="credits/credits.fxml"/>-->
+        <!--<fx:include source="credits/credits.fxml"/>-->
         <!--</AnchorPane>-->
 
     </children>
 
     <stylesheets>
-        <URL value="@options.css" />
+        <URL value="@options.css"/>
     </stylesheets>
 
 </AnchorPane>

@@ -26,6 +26,7 @@ public class PlayersController {
     private Pane gamePane;
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
+
     public PlayersController(Pane gamePane) {
         players = new HashMap<>();
         this.gamePane = gamePane;
