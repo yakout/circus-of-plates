@@ -90,6 +90,14 @@ public class Point implements Cloneable {
 		return propY;
 	}
 
+	public void setPropX(double propX) {
+		this.propX.set(propX);
+	}
+
+	public void setPropY(double propY) {
+		this.propY.set(propY);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

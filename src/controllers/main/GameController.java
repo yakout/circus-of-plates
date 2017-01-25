@@ -429,12 +429,12 @@ public class GameController implements Initializable, ScoreObserver {
             switch (shapePlatformPair.getShape().getState()) {
                 case MOVING_HORIZONTALLY:
                 case FALLING:
-                    Node shapeView = ShapeBuilder.getInstance().build
-                            (shapePlatformPair.getShape());
                     System.out.println("Shape Initial Position: " +
                             shapePlatformPair.getShape().getInitialPosition());
                     System.out.println("Shape Actual Position: " +
                             shapePlatformPair.getShape().getPosition());
+                    Node shapeView = ShapeBuilder.getInstance().build
+                            (shapePlatformPair.getShape());
                     mainGame.getChildren().add(shapeView);
                     new ShapeController<>(shapeView, shapePlatformPair
                             .getShape(), shapePlatformPair.getPlatform())
