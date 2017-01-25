@@ -84,13 +84,19 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shapeModel.setState(ShapeState.ON_THE_STACK);
     }
 
-    public void gamePaused() {
-        currentState.pauseCurrentState();
-    }
+	public void gamePaused() {
+		if (currentState == null) {
+			return;
+		}
+		currentState.pauseCurrentState();
+	}
 
-    public void gameResumed() {
-        currentState.resumeCurrentState();
-    }
+	public void gameResumed() {
+		if(currentState == null) {
+			return;
+		}
+		currentState.resumeCurrentState();
+	}
 
     public Shape getShapeModel() {
         return shapeModel;

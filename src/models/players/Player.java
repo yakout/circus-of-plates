@@ -184,4 +184,28 @@ public class Player {
             return null;
         }
     }
+
+    public Stack<Shape> getLeftStick() {
+        return leftStick;
+    }
+
+    public void setLeftStick(Stack<Shape> leftStick) {
+        this.leftStick = leftStick;
+    }
+
+    public Stack<Shape> getRightStick() {
+        return rightStick;
+    }
+
+    public void setRightStick(Stack<Shape> rightStick) {
+        this.rightStick = rightStick;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public DoubleProperty speedProperty() {
+        return speed;
+    }
 }

@@ -429,8 +429,11 @@ public class GameController implements Initializable, ScoreObserver {
         shapeControllers = new ArrayList<>();
         try {
             for (Player player : modelDataHolder.getPlayers()) {
-                playersController.createPlayer(player.getPlayerUrl(), player
-                        .getName(), player.getInputType());
+                System.out.printf("%s has %d Shapes on his Right Stack\n",
+                        player.getName(), player.getRightStack().size());
+                System.out.printf("%s has %d Shapes on his Left Stack\n",
+                        player.getName(), player.getLeftStack().size());
+                playersController.createPlayer(player);
                 gameBoard.addPlayerPanel(player.getName());
                 gameBoard.updateScore(player.getScore(), player.getName());
             }
@@ -442,10 +445,6 @@ public class GameController implements Initializable, ScoreObserver {
             switch (shapePlatformPair.getShape().getState()) {
                 case MOVING_HORIZONTALLY:
                 case FALLING:
-                    System.out.println("Shape Initial Position: " +
-                            shapePlatformPair.getShape().getInitialPosition());
-                    System.out.println("Shape Actual Position: " +
-                            shapePlatformPair.getShape().getPosition());
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
                     mainGame.getChildren().add(shapeView);

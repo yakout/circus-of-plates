@@ -38,7 +38,7 @@ public class ShapeBuilder {
         shapeView.setLayoutY(shapeModel.getInitialPosition().getY());
         shapeView.setTranslateX(shapeModel.getPosition().getX() - shapeModel
                 .getInitialPosition().getX());
-        shapeView.setTranslateX(shapeModel.getPosition().getY() - shapeModel
+        shapeView.setTranslateY(shapeModel.getPosition().getY() - shapeModel
                 .getInitialPosition().getY());
         shapeModel.getPosition().xProperty().bind(shapeView.translateXProperty()
                 .add(shapeView.getLayoutX()));
