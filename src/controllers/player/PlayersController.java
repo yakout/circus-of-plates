@@ -75,7 +75,7 @@ public class PlayersController {
                     (newPlayerModel);
             PlayerController playerController = new PlayerController
                     (playerModel.getName(),
-                    player, playerModel);
+                            player, playerModel);
             players.put(playerModel.getName(), playerController);
             Platform.runLater(new Runnable() {
                 @Override

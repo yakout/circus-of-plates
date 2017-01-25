@@ -49,6 +49,7 @@ public class LevelFactory {
             return null;
         }
     }
+
     public Collection<Integer> getRegisteredLevels() {
         return registeredLevels.keySet();
     }

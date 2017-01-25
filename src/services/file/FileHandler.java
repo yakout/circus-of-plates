@@ -9,7 +9,6 @@ import java.util.*;
 
 import models.data.ModelDataHolder;
 import models.players.Player;
-import models.shapes.PlateShape;
 import models.shapes.Shape;
 import models.states.Color;
 import org.apache.commons.io.IOUtils;
@@ -104,8 +103,10 @@ public class FileHandler implements FileWriter, FileReader {
      * Finds and returns the names of all
      * the files that end with a given extension in a
      * specific folder.
-     * @param path the folder path
+     *
+     * @param path          the folder path
      * @param fileExtension the extension of the file
+     *
      * @return The names of the files
      */
     private List<String> listFiles(final String path, final String

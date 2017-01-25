@@ -74,6 +74,7 @@ public class GameController implements Initializable, ScoreObserver {
     private AnchorPane mainGame;
 
     private static Logger logger = LogManager.getLogger(GameController.class);
+
     public synchronized static GameController getInstance() {
         return instance;
     }
