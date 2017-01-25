@@ -9,10 +9,19 @@ import models.Platform;
  * Created by Moham on 22-Jan-17.
  */
 public class PlatformBuilder {
+
+    /**
+     * Default Constructor fot Platform builder instance.
+     */
     public PlatformBuilder() {
 
     }
 
+    /**
+     * Converts the upcoming platform model to an image view.
+     * @param platformModel the platform model.
+     * @return {@link Rectangle} rectangle representation for platform in view.
+     */
     public Rectangle build(Platform platformModel) {
         Rectangle platformView = new Rectangle();
         platformView.setHeight(platformModel.getHeight().doubleValue());
