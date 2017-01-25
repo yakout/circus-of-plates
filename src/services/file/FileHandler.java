@@ -73,8 +73,8 @@ public class FileHandler implements FileWriter, FileReader {
 
     public List<String> getFileList(String path) {
         try {
-            String saveFileContents = IOUtils.toString(new File(path + File
-                    .separator + "save.ini").toURI(), "UTF-8");
+            String saveFileContents = IOUtils.toString(new File(path +
+                    File.separator + "save.ini").toURI(), "UTF-8");
             List<String> fileList = new ArrayList<>();
             for (String file : saveFileContents.split("\n")) {
                 if (file.contains(reader.getExtension())) {

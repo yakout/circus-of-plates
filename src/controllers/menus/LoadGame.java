@@ -2,20 +2,25 @@ package controllers.menus;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import services.file.FileHandler;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoadGame implements Initializable {
     private static LoadGame instance;
-
+    private static final String SAVED_GAMES_PATH = "save";
+    private FileHandler fileHandler;
     @FXML
-    private AnchorPane savedGames;
-
+    private VBox savedGames;
     @FXML
-    private AnchorPane loadGamePane; // // TODO: 12/29/16 package access
+    private AnchorPane loadGamePane;
+
+    private String selectedGame;
 
     public LoadGame() {
     }
@@ -37,25 +42,42 @@ public class LoadGame implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
+        fileHandler = new FileHandler();
     }
 
     @FXML
     private void mouseHandler(MouseEvent event) {
-        // menu.setVisible(false);
-        switch (((Node)event.getSource()).getId()) {
-            case "load":
+        String text = ((Button) event.getSource()).getText();
+        switch (text) {
+            case "LOAD":
+                // todo: game controller
                 Start.getInstance().setMenuVisible(true);
-//                 updateCurrentMenu(Start.getInstance());
-
+                loadGamePane.setVisible(false);
                 break;
-            case "cancel":
+            case "CANCEL":
                 Start.getInstance().setMenuVisible(true);
                 loadGamePane.setVisible(false);
                 break;
         }
     }
 
-    public AnchorPane getLoadGamePane() {
-        return loadGamePane;
+    private void updateSavedGames() {
+        List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
+        for(String gameName : savedGames) {
+            addSavedGame(gameName);
+            System.out.println(gameName);
+        }
+    }
+
+    private void addSavedGame(String name) {
+        Button button = new Button(name);
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setOnMouseClicked(event -> selectedGame = ((Button) event.getSource()).getText());
+        savedGames.getChildren().add(button);
+    }
+
+    public void setVisible(boolean isVisible) {
+        loadGamePane.setVisible(isVisible);
+        updateSavedGames();
     }
 }

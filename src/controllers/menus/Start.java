@@ -71,7 +71,7 @@ public class Start extends MenuController {
             case "loadGame":
                 startMenu.setVisible(true);
                 menu.setVisible(false);
-                LoadGame.getInstance().getLoadGamePane().setVisible(true);
+                LoadGame.getInstance().setVisible(true);
                 break;
             case "saveGame":
                 startMenu.setVisible(true);
