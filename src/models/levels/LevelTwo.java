@@ -64,5 +64,11 @@ public class LevelTwo extends Level {
         supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.RED);
         supportedColors.add(Color.GREEN);
+        supportedColors.add(Color.BLUE);
+        supportedColors.add(Color.DARKRED);
+        supportedColors.add(Color.GOLD);
+        supportedColors.add(Color.ORANGE);
+        supportedColors.add(Color.PINK);
+        supportedColors.add(Color.PURPLE);
     }
 }

@@ -59,10 +59,15 @@ public class LevelFour extends Level {
     }
 
     private void addSupportedColors() {
-        supportedColors.add(Color.GREEN);
-        supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.CYAN);
+        supportedColors.add(Color.YELLOW);
+        supportedColors.add(Color.RED);
+        supportedColors.add(Color.GREEN);
+        supportedColors.add(Color.BLUE);
+        supportedColors.add(Color.DARKRED);
+        supportedColors.add(Color.GOLD);
         supportedColors.add(Color.ORANGE);
-        supportedColors.add(Color.BLACK);
+        supportedColors.add(Color.PINK);
+        supportedColors.add(Color.PURPLE);
     }
 }
