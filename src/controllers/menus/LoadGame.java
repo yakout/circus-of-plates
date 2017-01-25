@@ -5,20 +5,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
+import services.file.SavedGameSet;
 
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LoadGame implements Initializable {
 
@@ -27,9 +27,9 @@ public class LoadGame implements Initializable {
     private static final String SAVED_GAMES_PATH = "save";
     private FileHandler fileHandler;
     @FXML
-    private VBox savedGames;
-    @FXML
     private AnchorPane loadGamePane;
+    @FXML
+    private VBox savedGames;
 
     private String selectedGame;
 
@@ -54,6 +54,12 @@ public class LoadGame implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         fileHandler = FileHandler.getInstance();
+
+//        double width = ((AnchorPane) loadGamePane.getParent()).getPrefWidth(); //((ScrollPane) loadGamePane.getChildren().get(0)).getPrefWidth();
+//        System.err.println(width);
+//        ((ScrollPane) loadGamePane.getChildren().get(0)).setPrefWidth(width);
+//        savedGames.setPrefWidth(width);
+//        ((AnchorPane) savedGames.getParent()).setPrefWidth(width);
     }
 
     @FXML
@@ -76,16 +82,23 @@ public class LoadGame implements Initializable {
     }
 
     private void updateSavedGames() {
-        List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
-        if (savedGames == null) return;
-        selectedGame = savedGames.get(0); // by default
-        for (String gameName : savedGames) {
-            addSavedGame(gameName);
+        List<String> savedGames = new ArrayList<>(); //fileHandler.getFileList(SAVED_GAMES_PATH);
+
+        Iterator iterator = new SavedGameSet().iterator();
+
+        while (iterator.hasNext()) {
+            savedGames.add((String) iterator.next());
         }
+
+        if (savedGames.isEmpty()) {
+            return;
+        }
+        selectedGame = savedGames.get(0); // by default
+        this.savedGames.getChildren().clear();
+        savedGames.forEach(this::addSavedGame);
     }
 
     private void addSavedGame(String name) {
-        savedGames.getChildren().clear();
 
         String[] nameComponents = name.split("-");
         String saveName = nameComponents[0].trim();

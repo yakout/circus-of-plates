@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -18,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,10 +51,9 @@ public class PlayersController {
         PlayerController playerController = new PlayerController(playerName,
                 player, playerModel);
         players.put(playerName, playerController);
-        GameController.getInstance().getModelDataHolder().addPlayer
-                (playerModel);
         return player;
     }
+
 
     public Node createPlayer(Player playerModel) {
         try {
@@ -71,8 +72,6 @@ public class PlayersController {
             newPlayerModel.setScore(playerModel.getScore());
             newPlayerModel.setPosition(playerModel.getPosition());
             gamePane.getChildren().add(player);
-            GameController.getInstance().getModelDataHolder().addPlayer
-                    (newPlayerModel);
             PlayerController playerController = new PlayerController
                     (playerModel.getName(),
                             player, playerModel);
@@ -145,10 +144,18 @@ public class PlayersController {
         players.get(playerName).removeShape(stick);
         logger.debug("Last three shapes are removed from stick.");
 
-        // TODO move this to audio player
-        new Thread(() -> {
-            new MediaPlayer(AudioPlayer.newScoreMedia).play();
-        });
+        AudioPlayer.newScoreMediaPlayer.play();
+        AudioPlayer.newScoreMediaPlayer.seek(Duration.ZERO);
     }
 
+    public Collection<String> getPlayersNames() {
+        return players.keySet();
+    }
+
+    public Player getPlayerModel(String playerName) {
+        if (players.containsKey(playerName)) {
+            return players.get(playerName).getPlayerModel();
+        }
+        return null;
+    }
 }

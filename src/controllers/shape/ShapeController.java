@@ -2,12 +2,12 @@ package controllers.shape;
 
 import controllers.main.GameController;
 import controllers.shape.util.OnTheGroundShapeObserver;
-import controllers.shape.util.ShapeControllerPool;
 import controllers.shape.util.ShapeFallingObserver;
 import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
+import models.shapes.util.ShapePool;
 import models.states.ShapeState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +26,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         this.shapeModel = model;
         this.platform = platform;
         currentState = null;
-        GameController.getInstance().addShapeController(this);
+        GameController.getInstance().getCurrentGame().addShapeController(this);
 //		logger.info("Shape Controller Created");
     }
 
@@ -112,10 +112,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
     @Override
     public void shapeShouldEnterThePool() {
-        ShapeControllerPool.getInstance().storeShapeController(this);
         shape.setVisible(false);
         shapeModel.setState(ShapeState.INACTIVE);
-        GameController.getInstance().removeShapeController(this);
+        GameController.getInstance().getCurrentGame().removeShapeController(this);
     }
 
     public void resetShape() {
@@ -129,5 +128,11 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shapeModel.getPosition().yProperty().bind(shape.translateYProperty()
                 .add(shape.getLayoutY()));
         shape.setVisible(true);
+    }
+
+    public void stop() {
+        if (currentState != null) {
+            currentState.nextState();
+        }
     }
 }

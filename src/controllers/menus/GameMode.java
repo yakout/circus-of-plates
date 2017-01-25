@@ -20,6 +20,7 @@ public class GameMode extends MenuController {
 
     private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
+    private final String LOAD_GAME_PANE_PATH = "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
     private final int LEVEL_INDEX = 6;
     @FXML
     private VBox menu;
@@ -87,16 +88,16 @@ public class GameMode extends MenuController {
                 logger.info("Level is set successfully");
                 break;
             case "choosePlayer":
-                if (ChoosePlayer.getInstance() == null) {
+                if (PlayerChooser.getInstance() == null) {
                     loadPlayerChooser();
                 }
                 gameModeMenu.setVisible(true);
                 menu.setVisible(false);
-                ChoosePlayer.getInstance().setVisible(true);
+                PlayerChooser.getInstance().setVisible(true);
                 break;
             case "doneChoosingLevel":
-                GameController.getInstance().startLevel(
-                        choiceBox.getValue().substring(LEVEL_INDEX));
+                GameController.getInstance().getCurrentGame().setLevel(
+                        Integer.parseInt(choiceBox.getValue().substring(LEVEL_INDEX)));
                 setMenuVisible(true);
                 break;
             default:
@@ -105,10 +106,9 @@ public class GameMode extends MenuController {
     }
 
     private void loadPlayerChooser() {
-        String path = "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
         URL url;
         try {
-            url = new File(path).toURI().toURL();
+            url = new File(LOAD_GAME_PANE_PATH).toURI().toURL();
             AnchorPane playerChooser = FXMLLoader.load(url);
             GameController.getInstance().getRootPane().getChildren().add(playerChooser);
 

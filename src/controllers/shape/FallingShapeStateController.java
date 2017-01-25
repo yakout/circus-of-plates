@@ -28,6 +28,12 @@ public class FallingShapeStateController<T extends Node> extends
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        if (shape == null) {
+                            return;
+                        }
+                        if (shape.getParent() == null) {
+                            return;
+                        }
                         if (shape.getLayoutY()
                                 + shape.getTranslateY()
                                 + shape.getLayoutBounds().getHeight()
@@ -42,6 +48,12 @@ public class FallingShapeStateController<T extends Node> extends
                         shapeFallingObserver.checkIntersection();
                     }
                 });
+                if (shape == null) {
+                    return;
+                }
+                if (shape.getParent() == null) {
+                    return;
+                }
                 try {
                     this.wait(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {

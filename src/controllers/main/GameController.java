@@ -9,15 +9,11 @@ import controllers.input.joystick.Joystick;
 import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
-import controllers.input.keyboard.KeyboardEvent;
-import controllers.level.PlatformBuilder;
 import controllers.menus.MenuController;
 import controllers.menus.Start;
-import controllers.player.PlayersController;
 import controllers.player.ScoreObserver;
 import controllers.shape.ShapeBuilder;
 import controllers.shape.ShapeController;
-import controllers.shape.ShapeGenerator;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -30,10 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.GameMode;
 import models.data.ModelDataHolder;
-import models.levels.Level;
-import models.levels.LevelOne;
-import models.levels.LevelTwo;
-import models.levels.util.LevelFactory;
 import models.players.Player;
 import models.players.PlayerFactory;
 import models.players.Stick;
@@ -43,29 +35,29 @@ import models.shapes.util.ShapePlatformPair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class GameController implements Initializable, ScoreObserver {
+
     private static GameController instance;
     private MenuController currentMenu;
-    private PlayersController playersController;
-    private GameBoard gameBoard;
-    private ShapeGenerator shapeGenerator;
     private BooleanProperty newGameStarted;
-    private Collection<ShapeController<? extends Node>> shapeControllers;
     private Map<KeyCode, Boolean> keyMap;
     private volatile boolean gamePaused = false;
-    private ModelDataHolder modelDataHolder;
+//    private ModelDataHolder modelDataHolder;
     private FileHandler handler;
     private Double currentX;
+    private Game currentGame;
     private int currentLevel;
+
     @FXML
     private AnchorPane rootPane;
 
@@ -99,22 +91,23 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         // Controllers
-        currentLevel = 1;
         currentMenu = Start.getInstance();
-        gameBoard = GameBoard.getInstance();
-        playersController = new PlayersController(mainGame);
         handler = FileHandler.getInstance();
+        currentGame = new Game();
+//        modelDataHolder = new ModelDataHolder();
         newGameStarted = new SimpleBooleanProperty(false);
-        modelDataHolder = new ModelDataHolder();
-        shapeControllers = new ArrayList<>();
+        initilizeKeyMaps();
         highestPlatformY = 0;
+        Joystick.getInstance().registerClassForInputAction(getClass(),
+                instance);
+    }
+
+    private void initilizeKeyMaps() {
         keyMap = new HashMap<>();
         keyMap.put(KeyCode.A, false);
         keyMap.put(KeyCode.D, false);
         keyMap.put(KeyCode.LEFT, false);
         keyMap.put(KeyCode.RIGHT, false);
-        Joystick.getInstance().registerClassForInputAction(getClass(),
-                instance);
     }
 
     /**
@@ -173,89 +166,40 @@ public class GameController implements Initializable, ScoreObserver {
         return rootPane;
     }
 
-    /**
-     * Gets the model of game-data.
-     * @return {@link ModelDataHolder} the model of the game-data.
-     */
-    public ModelDataHolder getModelDataHolder() {
-        return modelDataHolder;
-    }
+//    public ModelDataHolder getModelDataHolder() {
+//        return modelDataHolder;
+//    }
 
-    /**
-     * Registers a shape controller to the main controller.
-     * @param shapeController {@link ShapeController} shape
-     * controller.
-     */
-    public void addShapeController(ShapeController<? extends Node>
-                                           shapeController) {
-        shapeControllers.add(shapeController);
-    }
-
-    /**
-     * removes a given shape controller.
-     * @param shapeController {@link ShapeController} shape controller.
-     */
-    public void removeShapeController(ShapeController<? extends Node>
-                                              shapeController) {
-        shapeControllers.remove(shapeController);
-    }
 
 
     private synchronized void updatePlayers() {
         if (keyMap.get(KeyCode.A)) {
-            playersController.moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.KEYBOARD_SECONDARY));
+            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
         }
         if (keyMap.get(KeyCode.D)) {
-            playersController.moveRight(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.KEYBOARD_SECONDARY));
+            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
         }
         if (keyMap.get(KeyCode.LEFT)) {
-            playersController.moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.KEYBOARD_PRIMARY));
+            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
         }
         if (keyMap.get(KeyCode.RIGHT)) {
-            playersController.moveRight(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.KEYBOARD_PRIMARY));
+            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
         }
     }
 
     @FXML
     public synchronized void keyHandlerReleased(KeyEvent event) {
         keyMap.put(event.getCode(), false);
-//        updatePlayers();
     }
 
     @FXML
     public synchronized void keyHandler(KeyEvent event) {
         keyMap.put(event.getCode(), true);
-//        updatePlayers();
         switch (event.getCode()) {
-            // KEYBOARD_PRIMARY
-//            case LEFT:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_PRIMARY);
-//                    if (playerName != null) {
-//                        playersController.moveLeft(playerName);
-//                    }
-//                }
-//                break;
-//            case RIGHT:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_PRIMARY);
-//                    if (playerName != null) {
-//                        playersController.moveRight(playerName);
-//                    }
-//                }
-//                break;
             case ESCAPE:
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
@@ -267,80 +211,7 @@ public class GameController implements Initializable, ScoreObserver {
                     }
                 }
                 break;
-//            // keyboard_two
-//            case A:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_SECONDARY);
-//                    if (playerName != null) {
-//                        playersController.moveLeft(playerName);
-//                    }
-//                }
-//                break;
-//            case D:
-//                if (mainGame.isVisible()) {
-//                    String playerName = PlayerFactory.getFactory()
-//                            .getPlayerNameWithController(InputType
-// .KEYBOARD_SECONDARY);
-//                    if (playerName != null) {
-//                        playersController.moveRight(playerName);
-//                    }
-//                }
-//                break;
-//            default:
-//                break;
         }
-    }
-
-
-//    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
-// .KEYBOARD_PRIMARY)
-//    public void primaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-//        Platform.runLater(() -> {
-//            switch (keyboardEvent.getKeyboardCode()) {
-//                case LEFT:
-//                    playersController.moveLeft(PlayerFactory
-//                            .getFactory().getPlayerNameWithController
-// (InputType.KEYBOARD_PRIMARY));
-//                    break;
-//                case RIGHT:
-//                    playersController.moveRight(PlayerFactory
-//                            .getFactory().getPlayerNameWithController
-// (InputType.KEYBOARD_PRIMARY));
-//            }
-//        });
-//    }
-
-    @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
-            .KEYBOARD_SECONDARY)
-    public void secondaryKeyboardHandler(KeyboardEvent keyboardEvent) {
-        if (!mainGame.isVisible()) {
-            return;
-        }
-        Platform.runLater(() -> {
-            switch (keyboardEvent.getKeyboardCode()) {
-                case A:
-                    playersController.moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_SECONDARY));
-                    break;
-                case D:
-                    playersController.moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_SECONDARY));
-                    break;
-                case LEFT:
-                    playersController.moveLeft(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_PRIMARY));
-                    break;
-                case RIGHT:
-                    playersController.moveRight(PlayerFactory
-                            .getFactory().getPlayerNameWithController
-                                    (InputType.KEYBOARD_PRIMARY));
-            }
-        });
     }
 
 
@@ -356,21 +227,21 @@ public class GameController implements Initializable, ScoreObserver {
             if (event.getJoystickType() == JoystickType.PRIMARY) {
                 if (event.getJoystickCode() == JoystickCode.LEFT) {
                     if (playerName1 != null) {
-                        playersController.moveLeft(playerName1);
+                        currentGame.getPlayersController().moveLeft(playerName1);
                     }
                 } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
                     if (playerName1 != null) {
-                        playersController.moveRight(playerName1);
+                        currentGame.getPlayersController().moveRight(playerName1);
                     }
                 }
             } else {
                 if (event.getJoystickCode() == JoystickCode.LEFT) {
                     if (playerName2 != null) {
-                        playersController.moveLeft(playerName2);
+                        currentGame.getPlayersController().moveLeft(playerName2);
                     }
                 } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
                     if (playerName2 != null) {
-                        playersController.moveRight(playerName2);
+                        currentGame.getPlayersController().moveRight(playerName2);
                     }
                 }
             }
@@ -385,11 +256,11 @@ public class GameController implements Initializable, ScoreObserver {
     @FXML
     public void onMouseDraggedHandler(MouseEvent event) {
         if (currentX > event.getSceneX()) {
-            playersController.moveLeft(PlayerFactory
+            currentGame.getPlayersController().moveLeft(PlayerFactory
                     .getFactory().getPlayerNameWithController
                             (InputType.MOUSE));
         } else {
-            playersController.moveLeft(PlayerFactory
+            currentGame.getPlayersController().moveLeft(PlayerFactory
                     .getFactory().getPlayerNameWithController
                             (InputType.MOUSE));
         }
@@ -401,7 +272,22 @@ public class GameController implements Initializable, ScoreObserver {
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;
-        this.handler.write(modelDataHolder, "." + File.separator +
+        ModelDataHolder modelData = new ModelDataHolder();
+        modelData.setActiveLevel(currentGame.getCurrentLevel());
+        //TODO: add player
+//        modelData.addPlayer(cu)
+        for (ShapeController<? extends Node> shapeController : currentGame
+                .getShapeControllers()) {
+            modelData.addShape(new ShapePlatformPair(shapeController
+                    .getShapeModel(), shapeController.getPlatform()));
+        }
+        for (String player : currentGame.getPlayersController()
+                .getPlayersNames()) {
+            modelData.addPlayer(currentGame.getPlayersController()
+                    .getPlayerModel(player));
+        }
+        modelData.setGeneratorCounter(currentGame.getShapeGeneratorCounter());
+        this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
         logger.info("Game is saved successfully.");
@@ -414,14 +300,17 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons();
-
         GameController.getInstance().getMainGame().setVisible(true);
-        AudioPlayer.backgroundMediaPlayer.play();
+
+        if (newGameStarted.get()) {
+            resetGame();
+        }
         newGameStarted.set(true);
+
         logger.info("Game is launched successfully.");
         switch (gameMode) {
             case NORMAL:
-                resetGame();
+                currentGame.startNormalGame();
                 break;
             case TIME_ATTACK:
                 break;
@@ -433,83 +322,42 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public void resetGame() {
-        String path_0 = "src/views/clowns/clown_5/clown.fxml";
-        String path_1 = "src/views/clowns/clown_6/clown.fxml";
-
-        try {
-            //TODO: replace paths, input type and names with path from clown
-            // picker
-            playersController.createPlayer(path_0, "player1", InputType
-                    .KEYBOARD_PRIMARY);
-            playersController.createPlayer(path_1, "player2", InputType
-                    .KEYBOARD_SECONDARY);
-
-            gameBoard.addPlayerPanel("player1");
-            gameBoard.addPlayerPanel("player2");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // ===========================
-        //TODO: Replace Level with level from level chooser with default
-        // value set to 1
-        Level level = LevelFactory.getInstance().createLevel(currentLevel, rootPane
-                                .getLayoutX(),
-                        rootPane.getLayoutY(), rootPane.getLayoutX()
-                                + rootPane.getWidth(), rootPane.getLayoutY()
-                                + rootPane.getHeight());
-        if (level == null) {
-            logger.fatal("Couldn't Create Level " + currentLevel);
-            return;
-        }
-        modelDataHolder.setActiveLevel(level);
-        startNormalGame(level);
-        logger.info("Normal game is started.");
+        currentGame.destroy();
+        currentGame = new Game();
+//        currentLevel = currentGame.getLevel();
+//        currentGame.setLevel(currentLevel);
     }
 
-    private void startNormalGame(Level level) {
-        PlatformBuilder builder = new PlatformBuilder();
-        double minY = Double.MAX_VALUE;
-        for (models.Platform platform : level.getPlatforms()) {
-            mainGame.getChildren().add(builder.build(platform));
-            minY = Math.min(minY, platform.getCenter().getY() - platform
-                    .getHeight().doubleValue() / 2.0);
-        }
-        logger.info("Platforms are built.");
-        highestPlatformY = minY;
-        shapeGenerator = new ShapeGenerator(level, mainGame);
-
-        startKeyboardListener();
-//        ShapeGenerator<Rectangle> generator = new ShapeGenerator<>(
-//                new LevelOne());
-    }
-
-    public synchronized void startKeyboardListener() {
-        new Thread(() -> {
+    void startKeyboardListener() {
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        exec.execute(() -> {
             while (!gamePaused) {
-                Platform.runLater(this::updatePlayers);
+                Platform.runLater(() -> updatePlayers());
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.info("keyboard listener thread interrupted");
+                    if (gamePaused) {
+                        break;
+                    }
                 }
             }
-        }).start();
+        });
+        exec.shutdown();
     }
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
-        this.modelDataHolder = new ModelDataHolder();
-        shapeControllers = new ArrayList<>();
+        resetGame();
         try {
+            GameBoard.getInstance().reset();
             for (Player player : modelDataHolder.getPlayers()) {
                 System.out.printf("%s has %d Shapes on his Right Stack\n",
                         player.getName(), player.getRightStack().size());
                 System.out.printf("%s has %d Shapes on his Left Stack\n",
                         player.getName(), player.getLeftStack().size());
-                playersController.createPlayer(player);
-                gameBoard.addPlayerPanel(player.getName());
-                gameBoard.updateScore(player.getScore(), player.getName());
+                currentGame.createPlayer(player);
+                GameBoard.getInstance().addPlayerPanel(player.getName());
+                GameBoard.getInstance().updateScore(player.getScore(), player.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -522,20 +370,24 @@ public class GameController implements Initializable, ScoreObserver {
                     Node shapeView = ShapeBuilder.getInstance().build
                             (shapePlatformPair.getShape());
                     mainGame.getChildren().add(shapeView);
-                    new ShapeController<>(shapeView, shapePlatformPair
-                            .getShape(), shapePlatformPair.getPlatform())
-                            .startMoving();
+                    ShapeController<? extends Node> shapeController = new
+                            ShapeController<>
+                    (shapeView, shapePlatformPair
+                            .getShape(), shapePlatformPair.getPlatform());
+                    shapeController.startMoving();
+                    currentGame.getShapeControllers().add(shapeController);
                     break;
                 case ON_THE_STACK:
-                    System.out.println("ERRROROOROROROR");//TODO: LOG.
+                    logger.error("A Shape That is on the Stack Should not be"
+                            + " saved with moving shapes");
                     break;
                 default:
                     break;
             }
         }
         currentMenu.setMenuVisible(false);
-        startNormalGame(modelDataHolder.getActiveLevel());
-        continueGame();
+        currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
+        currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
         newGameStarted.set(true);
         ((Start) Start.getInstance()).activeDisabledButtons();
         System.out.println(modelDataHolder.getGeneratorCounter());
@@ -543,7 +395,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (playersController.checkIntersection(shapeController, highestPlatformY)) {
+        if (currentGame.getPlayersController().checkIntersection(shapeController, highestPlatformY)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
@@ -556,12 +408,8 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu.setMenuVisible(true);
         currentMenu.requestFocus(0);
         mainGame.setVisible(false);
-        for (ShapeController<? extends Node> shapeController :
-                shapeControllers) {
-            shapeController.gamePaused();
-        }
-        gameBoard.pause();
-        shapeGenerator.pauseGenerator();
+
+        currentGame.pause();
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
@@ -571,18 +419,13 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu.setMenuVisible(false);
         mainGame.requestFocus();
         mainGame.setVisible(true);
-        for (ShapeController<? extends Node> shapeController :
-                shapeControllers) {
-            shapeController.gameResumed();
-        }
-        gameBoard.resume();
-        shapeGenerator.resumeGenerator();
+        currentGame.resume();
         startKeyboardListener();
         AudioPlayer.backgroundMediaPlayer.play();
     }
 
-    public void startLevel(String level) {
-        currentLevel = Integer.parseInt(level);
+    public Game getCurrentGame() {
+        return currentGame;
     }
 
     public synchronized void playerLost(String playerName) {
@@ -591,7 +434,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     @Override
     public void update(int score, String playerName, Stick stick) {
-        playersController.removeShapes(playerName, stick);
-        gameBoard.updateScore(score, playerName);
+        currentGame.getPlayersController().removeShapes(playerName, stick);
+        currentGame.updateScore(score, playerName, stick);
     }
 }

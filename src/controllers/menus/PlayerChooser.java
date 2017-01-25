@@ -2,31 +2,26 @@ package controllers.menus;
 
 import controllers.input.InputType;
 import controllers.main.GameController;
-import controllers.player.PlayersController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import jdk.nashorn.internal.scripts.JO;
-import models.players.Player;
 import models.players.PlayerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.InterfaceAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * Created by Ahmed Khaled on 23/01/2017.
  */
-public class ChoosePlayer implements Initializable {
+public class PlayerChooser implements Initializable {
 
-    private static Logger logger = LogManager.getLogger(ChoosePlayer.class);
+    private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static final String CLOWN_DIR = "src/views/clowns/clown_";
     private static final String FILE_NAME = "/clown.fxml";
     private static final String PLAYER = "PLAYER ";
@@ -34,7 +29,7 @@ public class ChoosePlayer implements Initializable {
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
     private static final String MOUSE = "mouse";
-    private static ChoosePlayer instance;
+    private static PlayerChooser instance;
     private String chosenClownID;
     private int currPlayer;
     private InputType inputType;
@@ -56,7 +51,7 @@ public class ChoosePlayer implements Initializable {
     @FXML
     TextField currPlayerName;
 
-    public ChoosePlayer() {
+    public PlayerChooser() {
 
     }
 
@@ -69,7 +64,7 @@ public class ChoosePlayer implements Initializable {
         currPlayer = 1;
     }
 
-    public static ChoosePlayer getInstance() {
+    public static PlayerChooser getInstance() {
         return instance;
     }
 
@@ -91,8 +86,6 @@ public class ChoosePlayer implements Initializable {
             joystick.setSelected(false);
             mouse.setSelected(false);
             currPlayerName.setText("");
-            //TODO: here you send signal to game controller
-
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
         } else {
@@ -104,8 +97,6 @@ public class ChoosePlayer implements Initializable {
             setVisible(false);
             setPlayer1Label();
             currPlayerName.setText("");
-            //TODO: here you send signal to game controller
-
 
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
@@ -117,9 +108,13 @@ public class ChoosePlayer implements Initializable {
     }
 
     private void updateData() {
-        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
-                valueOf(currPlayer))
-                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+        playerName = currPlayerName.getText();
+//        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
+//                valueOf(currPlayer))
+//                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+
+        GameController.getInstance().getCurrentGame().createPlayer(CLOWN_DIR
+                + String.valueOf(currPlayer), playerName, inputType);
     }
 
     @FXML

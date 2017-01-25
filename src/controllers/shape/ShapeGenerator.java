@@ -22,7 +22,7 @@ public class ShapeGenerator {
 
     private final long THREAD_SLEEP_TIME = 50;
     private final long THREAD_PULSE_RATE = 150;
-    private long beginCounter;
+    private volatile long counter;
     private Level level;
     private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
@@ -32,11 +32,8 @@ public class ShapeGenerator {
     private final Runnable shapeGenerator = new Runnable() {
         @Override
         public synchronized void run() {
-            long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
-                GameController.getInstance().getModelDataHolder()
-                        .setGeneratorCounter(counter);
                 while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
@@ -61,10 +58,6 @@ public class ShapeGenerator {
                                     shapeController.startMoving();
                                 } else {
                                     Shape shapeModel = ShapePool.getShape(level);
-                                    GameController.getInstance()
-                                            .getModelDataHolder().addShape(
-                                            new ShapePlatformPair(shapeModel,
-                                                    platform));
                                     PositionInitializer.normalize(platform,
                                             shapeModel);
                                     ImageView imgView = (ImageView) ShapeBuilder
@@ -104,14 +97,28 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
-        if (GameController.getInstance().getModelDataHolder()
-                .getGeneratorCounter() == ModelDataHolder
-                .INVALID_COUNTER_VALUE) {
-            beginCounter = THREAD_PULSE_RATE;
-        } else {
-            beginCounter = GameController.getInstance().getModelDataHolder()
-                    .getGeneratorCounter();
-        }
+        counter = THREAD_PULSE_RATE;
+        shapeGeneratorThread = new Thread(shapeGenerator);
+//        setGenerationThreadIsNotStopped(true);
+        generationThreadIsNotStopped = true;
+//        setGenerationThreadPaused(false);
+        generationThreadPaused = false;
+        shapeGeneratorThread.setDaemon(true);
+        shapeGeneratorThread.start();
+        logger.debug("Shape Generator is Created");
+        logger.debug("Shape Generation Thread Started Running");
+    }
+
+    /**
+     * Constructor of ShapeGenerator class.
+     * @param level Current level for players.
+     * @param parent {@link Pane} the pane of the game board.
+     * @param counter The start value of the generation thread counter.
+     */
+    public ShapeGenerator(Level level, Pane parent, long counter) {
+        this.level = level;
+        this.parent = parent;
+        this.counter = counter;
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
@@ -133,6 +140,7 @@ public class ShapeGenerator {
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
+        GameController.getInstance().getCurrentGame().addShapeController(shapeController);
         shapeController.startMoving();
     }
 
@@ -180,5 +188,9 @@ public class ShapeGenerator {
     private synchronized void setGenerationThreadPaused(
             boolean generationThreadPaused) {
         this.generationThreadPaused = generationThreadPaused;
+    }
+
+    public long getGenerationThreadCounter() {
+        return counter;
     }
 }

@@ -9,14 +9,14 @@
 
 <!-- load game menu -->
 
-<AnchorPane fx:id="loadGamePane" visible="false" prefHeight="269.0" prefWidth="402.0"
+<AnchorPane fx:id="loadGamePane" visible="false" prefHeight="269.0"
             xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.menus.LoadGame">
     <children>
-        <ScrollPane layoutY="5.0" prefHeight="209.0" prefWidth="402.0" AnchorPane.leftAnchor="0.0"
+        <ScrollPane layoutY="5.0" prefHeight="209.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <AnchorPane prefWidth="500.0">
+                <AnchorPane>
                     <children>
                         <VBox fx:id="savedGames" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                               AnchorPane.topAnchor="0.0">

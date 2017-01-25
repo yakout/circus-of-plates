@@ -12,4 +12,5 @@ public interface ShapeState {
     public void pauseCurrentState();
 
     public void resumeCurrentState();
+
 }
