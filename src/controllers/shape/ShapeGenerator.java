@@ -113,6 +113,7 @@ public class ShapeGenerator {
      * Constructor of ShapeGenerator class.
      * @param level Current level for players.
      * @param parent {@link Pane} the pane of the game board.
+     * @param counter The start value of the generation thread counter.
      */
     public ShapeGenerator(Level level, Pane parent, long counter) {
         this.level = level;
