@@ -252,6 +252,7 @@ public class PlayerController {
     public void addShapes() {
         Stack<Shape> leftShapes = new Stack<>();
         Stack<Shape> rightShapes = new Stack<>();
+        System.out.println(playerModel.getLeftStack().size());
         while (!playerModel.getLeftStack().isEmpty()) {
             leftShapes.push(playerModel.getLeftStack().pop());
         }

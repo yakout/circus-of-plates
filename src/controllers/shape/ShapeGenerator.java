@@ -121,8 +121,7 @@ public class ShapeGenerator {
 
     private void generateShape(ImageView imgView, models.Platform platform,
                                Shape shapeModel) {
-        imgView.setLayoutY(imgView.getLayoutY()
-                - shapeModel.getHeight().doubleValue());
+        imgView.setTranslateY(-shapeModel.getHeight().doubleValue());
         shapeModel.getInitialPosition().setX(shapeModel.getPosition()
                 .getX());
         shapeModel.getInitialPosition().setY(shapeModel.getPosition().getY()
