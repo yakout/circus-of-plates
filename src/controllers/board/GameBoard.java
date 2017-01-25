@@ -50,6 +50,7 @@ public class GameBoard implements Initializable {
     int GAMETIME = 60;
 
     /**
+     * Called to show the game view.
      * @return returns the instance of this class.
      */
     public static GameBoard getInstance() {
@@ -87,6 +88,11 @@ public class GameBoard implements Initializable {
         logger.info("Timer started counting");
     }
 
+    /**
+     * Adds the players-score panel.
+     * @param playerName the name of player in order to set his score.
+     * @throws IOException if not found such a file.
+     */
     public void addPlayerPanel(String playerName) throws IOException {
         URL url = new File(SCORE_PANEL_PATH).toURI().toURL();
         AnchorPane scorePanel = FXMLLoader.load(url);
@@ -101,22 +107,35 @@ public class GameBoard implements Initializable {
         logger.info("Scores of players are shown.");
     }
 
-
+    /**
+     * Responsible for pausing the game.
+     */
     public void pause() {
         timeline.pause();
         logger.info("Timer is paused.");
     }
 
+    /**
+     * Responsible for resuming the game.
+     */
     public void resume() {
         timeline.play();
         logger.info("Timer is resumed.");
     }
 
+    /**
+     * Responsible for resetting the game.
+     */
     public void reset() {
         leftPanel.getChildren().clear();
         rightPanel.getChildren().clear();
     }
 
+    /**
+     * Updates scores of players on getting Points.
+     * @param score the value of score to be incremented to the initial score.
+     * @param playerName the name of the current player.
+     */
     public void updateScore(int score, String playerName) {
         for (Node node : leftPanel.getChildren()) {
             if (((Label) ((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
