@@ -60,8 +60,8 @@ public class LoadGame implements Initializable {
                 // todo: game controller
                 GameController.getInstance().startNewLoadGame(fileHandler
                         .read(SAVED_GAMES_PATH, selectedGame));
-                Start.getInstance().setMenuVisible(true);
-                loadGamePane.setVisible(false);
+//                Start.getInstance().setMenuVisible(true);
+//                loadGamePane.setVisible(false);
                 break;
             case "CANCEL":
                 Start.getInstance().setMenuVisible(true);
@@ -73,16 +73,19 @@ public class LoadGame implements Initializable {
     private void updateSavedGames() {
         List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
         if (savedGames == null) return;
+        selectedGame = savedGames.get(0); // by default
         for (String gameName : savedGames) {
             addSavedGame(gameName);
-            System.out.println(gameName);
         }
     }
 
     private void addSavedGame(String name) {
+        savedGames.getChildren().clear();
+
         String[] nameComponents = name.split("-");
         String saveName = nameComponents[0].trim();
         String saveDate = transformDate(nameComponents[1].trim());
+
         Button button = new Button(saveDate + " - " + saveName);
         button.setMaxWidth(Double.MAX_VALUE);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {

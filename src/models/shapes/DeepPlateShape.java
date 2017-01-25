@@ -1,9 +1,7 @@
 package models.shapes;
 
+import models.levels.*;
 import models.shapes.util.ShapeFactory;
-import models.levels.LevelFive;
-import models.levels.LevelFour;
-import models.levels.LevelThree;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +23,8 @@ public class DeepPlateShape extends Shape {
 
     static {
         ShapeFactory.registerShape(KEY, DeepPlateShape.class);
+        LevelOne.registerShape(KEY);
+        LevelTwo.registerShape(KEY);
         LevelThree.registerShape(KEY);
         LevelFour.registerShape(KEY);
         LevelFive.registerShape(KEY);
