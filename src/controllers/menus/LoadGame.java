@@ -60,8 +60,8 @@ public class LoadGame implements Initializable {
                 // todo: game controller
                 GameController.getInstance().startNewLoadGame(fileHandler
                         .read(SAVED_GAMES_PATH, selectedGame));
-                Start.getInstance().setMenuVisible(true);
-                loadGamePane.setVisible(false);
+//                Start.getInstance().setMenuVisible(true);
+//                loadGamePane.setVisible(false);
                 break;
             case "CANCEL":
                 Start.getInstance().setMenuVisible(true);
@@ -73,6 +73,7 @@ public class LoadGame implements Initializable {
     private void updateSavedGames() {
         List<String> savedGames = fileHandler.getFileList(SAVED_GAMES_PATH);
         if (savedGames == null) return;
+        selectedGame = savedGames.get(0); // by default
         for (String gameName : savedGames) {
             addSavedGame(gameName);
         }

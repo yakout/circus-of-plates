@@ -482,6 +482,8 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu.setMenuVisible(false);
         startNormalGame(modelDataHolder.getActiveLevel());
         continueGame();
+        newGameStarted.set(true);
+        ((Start) Start.getInstance()).activeDisabledButtons();
         System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
