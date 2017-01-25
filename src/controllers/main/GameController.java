@@ -454,6 +454,10 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.play();
     }
 
+    public void startLevel(String level) {
+        //
+    }
+
     @Override
     public void update(int score, String playerName, Stick stick) {
         //TODO:- UPDATE THE SCORING LABEL.
