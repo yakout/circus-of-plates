@@ -22,10 +22,17 @@ public class JoystickEvent extends InputEvent {
         this.joystickType = joystickType;
     }
 
+    /**
+     * @return the joystick code.
+     */
     public JoystickCode getJoystickCode() {
         return joystickCode;
     }
 
+    /**
+     *
+     * @return the joystick type.
+     */
     public JoystickType getJoystickType() {
         return joystickType;
     }

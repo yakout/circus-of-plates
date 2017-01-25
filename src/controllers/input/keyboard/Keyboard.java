@@ -38,6 +38,10 @@ public class Keyboard extends Input {
         eventType = new EventType<JoystickEvent>("Keyboard");
     }
 
+    /**
+     * Gets the instance of this class using Singleton.
+     * @return the instance of Keyboard class.
+     */
     public static synchronized Keyboard getInstance() {
         if (instance == null) {
             instance = new Keyboard();
@@ -45,16 +49,28 @@ public class Keyboard extends Input {
         return instance;
     }
 
+    /**
+     *
+     * @param userAction {@link UserAction} responsible for actions of user.
+     */
     @Override
     public void addAction(UserAction userAction) {
         actions.add(userAction);
     }
 
+    /**
+     * Required for registering the given class for Keyboard input controller.
+     * @param clazz {@link Class}class is required to ger registered.
+     * @param instance instance of the upcoming class.
+     */
     @Override
     public void registerClassForInputAction(Class<?> clazz, Object instance) {
         registeredClasses.put(clazz, instance);
     }
 
+    /**
+     * Required for starting the Keyboard-Thread.
+     */
     public void start() {
         thread = new Thread(new Runnable() {
             @Override
@@ -81,6 +97,9 @@ public class Keyboard extends Input {
         // thread.setDaemon(true);
     }
 
+    /**
+     * Required for stopping keyboard thread.
+     */
     public void stop() {
         thread.interrupt();
     }

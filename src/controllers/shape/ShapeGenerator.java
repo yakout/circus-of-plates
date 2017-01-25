@@ -96,7 +96,11 @@ public class ShapeGenerator {
         }
     };
 
-
+    /**
+     * Constructor of ShapeGenerator class.
+     * @param level Current level for players.
+     * @param parent {@link Pane} the pane of the game board.
+     */
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
@@ -151,6 +155,9 @@ public class ShapeGenerator {
         shapeGeneratorThread.interrupt();
     }
 
+    /**
+     * Responsible for stopping the generation of Thread-generator.
+     */
     public synchronized void stopGeneration() {
 /*        setGenerationThreadIsNotStopped(false);*/
         generationThreadIsNotStopped = false;
