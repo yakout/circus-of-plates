@@ -35,8 +35,6 @@ public class ShapeGenerator {
             long counter = beginCounter;
             while (generationThreadIsNotStopped) {
                 counter++;
-                GameController.getInstance().getModelDataHolder()
-                        .setGeneratorCounter(counter);
                 while (generationThreadPaused) {
                     try {
                         logger.debug("Generation Thread Paused");
@@ -61,10 +59,6 @@ public class ShapeGenerator {
                                     shapeController.startMoving();
                                 } else {
                                     Shape shapeModel = ShapePool.getShape(level);
-                                    GameController.getInstance()
-                                            .getModelDataHolder().addShape(
-                                            new ShapePlatformPair(shapeModel,
-                                                    platform));
                                     PositionInitializer.normalize(platform,
                                             shapeModel);
                                     ImageView imgView = (ImageView) ShapeBuilder
@@ -104,14 +98,7 @@ public class ShapeGenerator {
     public ShapeGenerator(Level level, Pane parent) {
         this.level = level;
         this.parent = parent;
-        if (GameController.getInstance().getModelDataHolder()
-                .getGeneratorCounter() == ModelDataHolder
-                .INVALID_COUNTER_VALUE) {
-            beginCounter = THREAD_PULSE_RATE;
-        } else {
-            beginCounter = GameController.getInstance().getModelDataHolder()
-                    .getGeneratorCounter();
-        }
+        beginCounter = THREAD_PULSE_RATE;
         shapeGeneratorThread = new Thread(shapeGenerator);
 //        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
@@ -133,6 +120,7 @@ public class ShapeGenerator {
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
+        GameController.getInstance().getCurrentGame().addShapeController(shapeController);
         shapeController.startMoving();
     }
 

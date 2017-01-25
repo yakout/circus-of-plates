@@ -50,7 +50,7 @@ public class GameController implements Initializable, ScoreObserver {
     private BooleanProperty newGameStarted;
     private Map<KeyCode, Boolean> keyMap;
     private volatile boolean gamePaused = false;
-    private ModelDataHolder modelDataHolder;
+//    private ModelDataHolder modelDataHolder;
     private FileHandler handler;
     private Double currentX;
     private Game currentGame;
@@ -87,7 +87,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
-        modelDataHolder = new ModelDataHolder();
+//        modelDataHolder = new ModelDataHolder();
         newGameStarted = new SimpleBooleanProperty(false);
         initilizeKeyMaps();
         highestPlatformY = 0;
@@ -133,9 +133,9 @@ public class GameController implements Initializable, ScoreObserver {
         return rootPane;
     }
 
-    public ModelDataHolder getModelDataHolder() {
-        return modelDataHolder;
-    }
+//    public ModelDataHolder getModelDataHolder() {
+//        return modelDataHolder;
+//    }
 
 
     private synchronized void updatePlayers() {
@@ -238,7 +238,16 @@ public class GameController implements Initializable, ScoreObserver {
         Date date = new Date();
         String currentDate = dateFormat.format(date);
         String fileName = name + " - " + currentDate;
-        this.handler.write(modelDataHolder, "." + File.separator +
+        ModelDataHolder modelData = new ModelDataHolder();
+        modelData.setActiveLevel(currentGame.getCurrentLevel());
+        //TODO: add player
+//        modelData.addPlayer(cu)
+        for (ShapeController<? extends Node> shapeController : currentGame
+                .getShapeControllers()) {
+            modelData.addShape(new ShapePlatformPair(shapeController
+                    .getShapeModel(), shapeController.getPlatform()));
+        }
+        this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
         logger.info("Game is saved successfully.");
@@ -298,7 +307,6 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
-        this.modelDataHolder = new ModelDataHolder();
         try {
             for (Player player : modelDataHolder.getPlayers()) {
                 System.out.printf("%s has %d Shapes on his Right Stack\n",

@@ -10,11 +10,10 @@ import java.util.List;
 public class ShapePool {
 
     private static List<Shape> pool;
-
+    static {
+        pool = new ArrayList<>();
+    }
     public static Shape getShape(Level curLevel) {
-        if (pool == null) {
-            pool = new ArrayList<>();
-        }
         Color color = ShapeFactory.getRandomColor(curLevel);
         String shapeIdentifier = ShapeFactory.getRandomShapeIdentifier
                 (curLevel);

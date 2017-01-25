@@ -34,6 +34,12 @@ public class MovingShapeStateController<T extends Node> extends
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        if (shape == null) {
+                            return;
+                        }
+                        if (shape.getParent() == null) {
+                            return;
+                        }
                         final double width = shape.getParent().getLayoutBounds()
                                 .getWidth();
                         if (Math.abs(width / 2.0
@@ -50,6 +56,12 @@ public class MovingShapeStateController<T extends Node> extends
                         }
                     }
                 });
+                if (shape == null) {
+                    return;
+                }
+                if (shape.getParent() == null) {
+                    return;
+                }
                 try {
                     this.wait(THREAD_SLEEP_TIME);
                 } catch (final InterruptedException e) {
