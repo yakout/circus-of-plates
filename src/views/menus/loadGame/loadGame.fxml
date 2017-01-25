@@ -9,31 +9,29 @@
 
 <!-- load game menu -->
 
-<AnchorPane fx:id="loadGamePane" visible="false" prefHeight="252.0" prefWidth="228.0"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65"
-            fx:controller="controllers.menus.LoadGame">
+<AnchorPane fx:id="loadGamePane" visible="false" prefHeight="269.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.LoadGame">
     <children>
-        <ScrollPane prefHeight="193.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <ScrollPane layoutY="5.0" prefHeight="209.0" prefWidth="402.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <AnchorPane fx:id="savedGames" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                <AnchorPane fx:id="savedGames" prefWidth="500.0">
                     <children>
-                        <VBox AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                        <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                <Button mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="1-12-2012 gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                             </children>
                         </VBox>
                     </children>
@@ -44,8 +42,8 @@
             </effect>
         </ScrollPane>
 
-        <Button id="load" mnemonicParsing="false" onMouseClicked="#mouseHandler" prefHeight="0.0" prefWidth="228.0" text="LOAD" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-        <Button id="cancel" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CANCEL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Button id="load" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="LOAD" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Button id="cancel" layoutY="444.0" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CANCEL" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     </children>
 
     <stylesheets>

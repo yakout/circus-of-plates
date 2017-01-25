@@ -59,6 +59,8 @@
             <Button id="cancelSave" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CANCEL" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
         </AnchorPane>
 
+        <fx:include source="../loadGame/loadGame.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+
     </children>
 
     <stylesheets>

@@ -14,7 +14,6 @@
             <fx:include source="menus/gameMode/gameMode.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
             <fx:include source="menus/help/help.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
             <fx:include source="menus/options/options.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
-            <fx:include source="menus/loadGame/loadGame.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
         </AnchorPane>
 
         <AnchorPane fx:id="mainGame" visible="false"
