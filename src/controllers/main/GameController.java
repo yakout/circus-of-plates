@@ -20,6 +20,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +65,10 @@ public class GameController implements Initializable, ScoreObserver {
 
     @FXML
     private AnchorPane mainGame;
+
+    @FXML
+    private AnchorPane winPane;
+
     private static Logger logger = LogManager.getLogger(GameController.class);
 
     /**
@@ -391,7 +396,27 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public synchronized void playerLost(String playerName) {
-        System.out.printf("Player %s has lost the game\n", playerName);
+        int maxScore = 0;
+        String winner = "";
+
+        Collection<String> playerNames = currentGame.getPlayersController().getPlayersNames();
+        for (String name : playerNames) {
+            Player playerModel = currentGame.getPlayersController().getPlayerModel(name);
+            if (name.equals(playerName)) {
+                if (maxScore < playerModel.getScore() / 2) {
+                    maxScore = playerModel.getScore() / 2;
+                    winner = name;
+                }
+            } else {
+                if (maxScore < playerModel.getScore()) {
+                    maxScore = playerModel.getScore();
+                    winner = name;
+                }
+            }
+        }
+        menuPane.setVisible(true);
+        ((Label) winPane.getChildren().get(0)).setText(winner);
+        logger.info("Player: " + winner + " has won");
     }
 
     @Override

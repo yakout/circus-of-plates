@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/8.0.65" onKeyPressed="#keyHandler" onKeyReleased="#keyHandlerReleased"
-            onMouseDragged="#onMouseDraggedHandler" onMousePressed="#onMousePressedHandler"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.GameController">
+<AnchorPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" onKeyReleased="#keyHandlerReleased" onMouseDragged="#onMouseDraggedHandler" onMousePressed="#onMousePressedHandler" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.main.GameController">
     <children>
 
-        <AnchorPane fx:id="menuPane" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="menuPane" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <!--load menus-->
-            <fx:include source="menus/start/start.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0"
-                        AnchorPane.topAnchor="300.0"/>
-            <fx:include source="menus/gameMode/gameMode.fxml" AnchorPane.leftAnchor="400.0"
-                        AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0"/>
-            <fx:include source="menus/help/help.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0"
-                        AnchorPane.topAnchor="300.0"/>
-            <fx:include source="menus/options/options.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0"
-                        AnchorPane.topAnchor="300.0"/>
-
+            <fx:include source="menus/start/start.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
+            <fx:include source="menus/gameMode/gameMode.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
+            <fx:include source="menus/help/help.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
+            <fx:include source="menus/options/options.fxml" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="300.0" />
         </AnchorPane>
 
-        <AnchorPane fx:id="mainGame" visible="false"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-            <fx:include source="board/board.fxml" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0"
-                        AnchorPane.leftAnchor="500.0"/>
-
+        <AnchorPane fx:id="mainGame" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <fx:include source="board/board.fxml" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0" />
         </AnchorPane>
+
+      <AnchorPane fx:id="winPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="66.0" prefHeight="92.0" prefWidth="370.0" text="PLAYER [] WINS" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
 
     </children>
 
     <stylesheets>
-        <URL value="@game.css"/>
+        <URL value="@game.css" />
     </stylesheets>
 </AnchorPane>
