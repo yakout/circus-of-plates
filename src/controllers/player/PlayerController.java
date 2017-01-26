@@ -34,7 +34,9 @@ public class PlayerController {
     private Stack<ShapeController<? extends Node>> leftStack;
     private Stack<ShapeController<? extends Node>> rightStack;
     private static final double STICK_BASE_RATIO = 0.275;
-    private static final double STACK_Y_RATIO = 0.01;
+    private static final double STACK_Y_RATIO = 0.05;
+    private double leftStickYConstant;
+    private double rightStickYConstant;
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
 
@@ -49,6 +51,10 @@ public class PlayerController {
         leftStack = new Stack<>();
         rightStack = new Stack<>();
         playerModel.registerObserver(GameController.getInstance());
+        leftStickYConstant = STACK_Y_RATIO * leftStick.getLayoutBounds()
+                .getHeight();
+        rightStickYConstant = STACK_Y_RATIO * leftStick.getLayoutBounds()
+                .getHeight();
     }
 
     /**
@@ -100,8 +106,10 @@ public class PlayerController {
             return false;
         }
         double leftStickIntersectionMinY = calculateLeftStackY();
+//        double leftStickIntersectionMaxY = leftStickIntersectionMinY +
+//                STACK_Y_RATIO * calculateLeftStackHeight();
         double leftStickIntersectionMaxY = leftStickIntersectionMinY +
-                STACK_Y_RATIO * calculateLeftStackHeight();
+                leftStickYConstant;
         double leftStickMinX = playerPane.getLayoutX() + leftStick.getLayoutX();
         double leftStickMaxX = playerPane.getLayoutX() + leftStick.getLayoutX
                 () + leftStick
@@ -144,8 +152,10 @@ public class PlayerController {
         }
         //System.out.println(rightStick.getBoundsInParent().getMinX());
         double rightStickIntersectionMinY = calculateRightStackY();
+//        double rightStickIntersectionMaxY = rightStickIntersectionMinY +
+//                STACK_Y_RATIO * calculateRightStackHeight();
         double rightStickIntersectionMaxY = rightStickIntersectionMinY +
-                STACK_Y_RATIO * calculateRightStackHeight();
+                rightStickYConstant;
         double rightStickMaxX = playerPane.getLayoutX() + rightStick
                 .getLayoutX() + rightStick.getLayoutBounds().getWidth();
         double rightStickMinX = rightStickMaxX - STICK_BASE_RATIO * rightStick
