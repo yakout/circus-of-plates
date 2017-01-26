@@ -36,12 +36,18 @@ public class Game {
     private ShapeGenerator shapeGenerator;
     private GameBoard gameBoard;
 
-
+    /**
+     * Game constructor and sets default values.
+     */
     Game() {
         logger.info("new Game Object is created");
         initialize();
     }
 
+    /**
+     * Sets the current level that the user is in.
+     * @param level the current level of the game.
+     */
     public void setLevel(int level) {
         this.level = level;
         AnchorPane rootPane = GameController.getInstance().getRootPane();
@@ -55,18 +61,34 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the current level of the game as an integer.
+     * @return the level of the game.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Gets the current level of the game.
+     * @return {@link Level} the level of the game.
+     */
     public Level getCurrentLevel() {
         return currentLevel;
     }
 
+    /**
+     * Sets the current level of the game.
+     * @param currentLevel {@link Level} the current level of the game.
+     */
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
     }
 
+    /**
+     * Initialized used data structures used in this class.
+     * Got called in the constructor.
+     */
     void initialize() {
         shapeControllers = new ArrayList<>();
         GameController.getInstance().getMainGame().getChildren().clear();
@@ -75,6 +97,15 @@ public class Game {
         gameBoard.reset();
     }
 
+    /**
+     * Creates player with the given data.
+     * Delegates it to the player controller.
+     * This is called after loading a saved game.
+     * @param path the path of the player clown.
+     * @param playerName the name of the player.
+     * @param inputType {@link InputType} input type controller for the
+     * current player.
+     */
     public void createPlayer(String path, String playerName, InputType inputType) {
         try {
             playersController.createPlayer(path, playerName, inputType);
@@ -84,11 +115,19 @@ public class Game {
         }
     }
 
+    /**
+     * Creates player with the given data.
+     * @param player {@link Player} Player model.
+     */
     void createPlayer(Player player) {
         playersController.createPlayer(player);
     }
 
-
+    /**
+     * Removes the given shape controller from the list.
+     * @param shapeController {@link ShapeController} shape controller of the
+     * given shape.
+     */
     public void removeShapeController(ShapeController<? extends Node>
                                               shapeController) {
         shapeControllers.remove(shapeController);
