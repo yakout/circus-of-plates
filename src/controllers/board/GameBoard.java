@@ -74,6 +74,7 @@ public class GameBoard implements Initializable {
         timeSeconds = new SimpleIntegerProperty();
         timeline = new Timeline();
         gameTime = GAME_TIME;
+        counter.setWrapText(true);
     }
 
 
