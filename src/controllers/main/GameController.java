@@ -58,7 +58,7 @@ public class GameController implements Initializable, ScoreObserver {
     private Game currentGame;
     private int currentLevel;
     private List<Player> players;
-
+    private GameMode gameMode;
     @FXML
     private AnchorPane rootPane;
 
@@ -283,6 +283,9 @@ public class GameController implements Initializable, ScoreObserver {
                     .getPlayerModel(player));
         }
         modelData.setGeneratorCounter(currentGame.getShapeGeneratorCounter());
+        if (this.gameMode == GameMode.TIME_ATTACK) {
+            modelData.setRemainingTimeAttack(GameBoard.getInstance().getRemainingTime());
+        }
         this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
@@ -309,6 +312,7 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted.set(true);
 
         logger.info("Game is launched successfully.");
+        this.gameMode = gameMode;
         switch (gameMode) {
             case NORMAL:
                 currentGame.startNormalGame();
@@ -369,7 +373,6 @@ public class GameController implements Initializable, ScoreObserver {
             System.out.printf("%s has %d Shapes on his Left Stack\n",
                     player.getName(), player.getLeftStack().size());
             currentGame.createPlayer(player);
-            GameBoard.getInstance().addPlayerPanel(player.getName());
             GameBoard.getInstance().updateScore(player.getScore(), player.getName());
         }
         for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes

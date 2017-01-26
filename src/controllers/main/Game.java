@@ -204,11 +204,6 @@ public class Game {
      * @param counter the counter of the shape generator thread.
      */
     void startNormalGame(long counter) {
-        if (PlayerFactory.getFactory().getPlayersSize() == 0) {
-            addDefaultPlayers();
-            logger.info("Players were created");
-        }
-
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {
             GameController.getInstance().getMainGame().getChildren().add(

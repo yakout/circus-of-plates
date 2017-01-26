@@ -83,6 +83,7 @@ public class GameBoard implements Initializable {
         this.counter.setTextFill(Color.RED);
         this.counter.setStyle("-fx-font-size: 4em;");
         this.counter.setVisible(true);
+        this.counter.setWrapText(true);
         this.timeSeconds.set(gameTime);
         this.timeline.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
@@ -119,7 +120,8 @@ public class GameBoard implements Initializable {
         } else {
             rightPanel.getChildren().add(scorePanel);
         }
-        logger.info("Scores of players are shown.");
+        Exception e = new Exception();
+        logger.info("Scores of players are shown.", e);
     }
 
     /**
