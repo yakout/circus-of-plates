@@ -21,7 +21,7 @@
                     <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="timeAttack" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            <Button id="timeAttack" disable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                     onMouseClicked="#mouseHandler" text="TIME ATTACK">
                 <font>
                     <Font size="18.0"/>

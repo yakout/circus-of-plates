@@ -284,6 +284,7 @@ public class GameController implements Initializable, ScoreObserver {
                 currentGame.startNormalGame();
                 break;
             case TIME_ATTACK:
+                currentGame.startNewTimeAttack();
                 break;
             case LEVEL:
                 break;
@@ -319,6 +320,7 @@ public class GameController implements Initializable, ScoreObserver {
 
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
+        players.clear();
         GameBoard.getInstance().reset();
         for (Player player : modelDataHolder.getPlayers()) {
             System.out.printf("%s has %d Shapes on his Right Stack\n",
@@ -354,7 +356,17 @@ public class GameController implements Initializable, ScoreObserver {
         }
         currentMenu.setMenuVisible(false);
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
-        currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
+        switch (modelDataHolder.getGameMode()) {
+            case NORMAL:
+                currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
+                break;
+            case TIME_ATTACK:
+                GameBoard.getInstance().setGameTime(modelDataHolder.getRemainingTimeAttack());
+                currentGame.startNewTimeAttack(modelDataHolder.getGeneratorCounter());
+                break;
+            default:
+                break;
+        }
         newGameStarted.set(true);
         ((Start) Start.getInstance()).activeDisabledButtons(true);
         System.out.println(modelDataHolder.getGeneratorCounter());
@@ -421,7 +433,7 @@ public class GameController implements Initializable, ScoreObserver {
         Collection<String> playerNames = currentGame.getPlayersController().getPlayersNames();
         for (String name : playerNames) {
             Player playerModel = currentGame.getPlayersController().getPlayerModel(name);
-            if (name.equals(playerName)) {
+            if (name != null && name.equals(playerName)) {
                 playerModel.setScore(playerModel.getScore() / 2);
             }
             if (maxScore < playerModel.getScore()) {

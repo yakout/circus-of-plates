@@ -158,6 +158,16 @@ public class Game {
         GameController.getInstance().continueGame();
     }
 
+    void startNewTimeAttack() {
+        GameBoard.getInstance().initializeGameTimer();
+        startNormalGame();
+    }
+
+    void startNewTimeAttack(long counter) {
+        GameBoard.getInstance().initializeGameTimer();
+        startNormalGame(counter);
+    }
+
     private void addDefaultPlayers() {
         createPlayer(DEFAULT_PLAYER_1, "player1", InputType
                 .KEYBOARD_PRIMARY);

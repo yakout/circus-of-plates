@@ -76,7 +76,8 @@ public class GameMode extends MenuController {
 //                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "timeAttack":
-//                 TODO: 12/25/16 save the current mode and go to player menu
+                 GameController.getInstance().startGame(models.GameMode
+                         .TIME_ATTACK);
                 break;
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
