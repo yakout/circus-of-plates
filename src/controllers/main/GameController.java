@@ -57,7 +57,6 @@ public class GameController implements Initializable, ScoreObserver {
     private Double currentX;
     private Game currentGame;
     private int currentLevel;
-    private List<Player> players;
 
     @FXML
     private AnchorPane rootPane;
@@ -95,7 +94,6 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         currentLevel = 1;
-        players = new ArrayList<>();
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
@@ -168,11 +166,19 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Handles the released key.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @FXML
     public synchronized void keyHandlerReleased(KeyEvent event) {
         keyMap.put(event.getCode(), false);
     }
 
+    /**
+     * Handles the pressed key.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @FXML
     public synchronized void keyHandler(KeyEvent event) {
         keyMap.put(event.getCode(), true);
@@ -193,7 +199,10 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-
+    /**
+     * Handles the pressed joystick-buttons.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
             .JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
@@ -227,11 +236,19 @@ public class GameController implements Initializable, ScoreObserver {
         });
     }
 
+    /**
+     * Handles the pressed mouse action.
+     * @param event {@link MouseEvent} Event done by the user.
+     */
     @FXML
     public void onMousePressedHandler(MouseEvent event) {
         currentX = event.getSceneX();
     }
 
+    /**
+     * Handles the dragged-mouse action.
+     * @param event {@link MouseEvent} Event done by the user.
+     */
     @FXML
     public void onMouseDraggedHandler(MouseEvent event) {
         if (currentX > event.getSceneX()) {
@@ -245,6 +262,10 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Saves the current game with the given name.
+     * @param name the name of the game.
+     */
     public void saveGame(String name) {
         System.err.println(name);
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yy HH,mm,ss");
@@ -272,11 +293,18 @@ public class GameController implements Initializable, ScoreObserver {
         logger.info("Game is saved successfully.");
     }
 
-
+    /**
+     * Gets the stage width in view.
+     * @return the width of the stage.
+     */
     public double getStageWidth() {
         return mainGame.getWidth();
     }
 
+    /**
+     * Starts the game with the given game mode.
+     * @param gameMode {@link GameMode} the chosen game mode.
+     */
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons(true);
         GameController.getInstance().getMainGame().setVisible(true);
@@ -298,16 +326,21 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Resets the game.
+     */
     public void resetGame() {
         currentGame.destroy();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
-        currentGame.createPlayer(players);
     }
 
+    /**
+     * Starts the key board listener for any action.
+     */
     void startKeyboardListener() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        exec.execute(() -> {
             while (!gamePaused) {
                 Platform.runLater(() -> updatePlayers());
                 try {
@@ -320,20 +353,29 @@ public class GameController implements Initializable, ScoreObserver {
                 }
             }
         });
-        executor.shutdown();
+        exec.shutdown();
     }
 
+    /**
+     * Starts the saved data game.
+     * @param modelDataHolder {@link ModelDataHolder} data model that holds
+     * saved game data.
+     */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
-        GameBoard.getInstance().reset();
-        for (Player player : modelDataHolder.getPlayers()) {
-            System.out.printf("%s has %d Shapes on his Right Stack\n",
-                    player.getName(), player.getRightStack().size());
-            System.out.printf("%s has %d Shapes on his Left Stack\n",
-                    player.getName(), player.getLeftStack().size());
-            currentGame.createPlayer(player);
-            GameBoard.getInstance().addPlayerPanel(player.getName());
-            GameBoard.getInstance().updateScore(player.getScore(), player.getName());
+        try {
+            GameBoard.getInstance().reset();
+            for (Player player : modelDataHolder.getPlayers()) {
+                System.out.printf("%s has %d Shapes on his Right Stack\n",
+                        player.getName(), player.getRightStack().size());
+                System.out.printf("%s has %d Shapes on his Left Stack\n",
+                        player.getName(), player.getLeftStack().size());
+                currentGame.createPlayer(player);
+                GameBoard.getInstance().addPlayerPanel(player.getName());
+                GameBoard.getInstance().updateScore(player.getScore(), player.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes
                 ()) {
@@ -366,6 +408,11 @@ public class GameController implements Initializable, ScoreObserver {
         System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
+    /**
+     * Checks the intersection for the current state shape.
+     * @param shapeController {@link ShapeController} the shape controller.
+     * @return whether the the Shape intersects the stack or not.
+     */
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         if (currentGame.getPlayersController().checkIntersection(shapeController)) {
@@ -375,6 +422,10 @@ public class GameController implements Initializable, ScoreObserver {
         return false;
     }
 
+    /**
+     * Pauses the game view.
+     * Pauses the audio player.
+     */
     public void pauseGame() {
         gamePaused = true;
         currentMenu = Start.getInstance();
@@ -386,7 +437,10 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
-
+    /**
+     * Continues the current paused game.
+     * Resumes the audio payer.
+     */
     public void continueGame() {
         gamePaused = false;
         currentMenu.setMenuVisible(false);
@@ -397,19 +451,28 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.play();
     }
 
+    /**
+     * Gets the curretn game.
+     * @return {@link Game}instance of the current game.
+     */
     public Game getCurrentGame() {
         return currentGame;
     }
 
+    /**
+     * Sets the current game level.
+     * @param level the current level in integer form.
+     */
     public void setCurrentGameLevel(int level) {
         currentLevel = level;
         currentGame.setLevel(level);
     }
 
-    public void setPlayersToCurrentGame(List<Player> players) {
-        this.players = players;
-    }
-
+    /**
+     * Called when any player has lost the game in order to pause running
+     * threads and the whole game.
+     * @param playerName the name of the player.
+     */
     public synchronized void playerLost(String playerName) {
         currentGame.pause();
         gamePaused = true;
@@ -452,6 +515,12 @@ public class GameController implements Initializable, ScoreObserver {
         resetGame();
     }
 
+    /**
+     * updates the score and the removes the last 3 shapes on the stack.
+     * @param score the new of the current scored-player.
+     * @param playerName the name of the current player who won the points.
+     * @param stick {@link Stick} the stick which contains the new explosion.
+     */
     @Override
     public void update(int score, String playerName, Stick stick) {
         currentGame.getPlayersController().removeShapes(playerName, stick);

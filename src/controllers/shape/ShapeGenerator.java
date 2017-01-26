@@ -67,8 +67,6 @@ public class ShapeGenerator {
                                                 "in the pool.");
                                         continue;
                                     }
-//                                    logger.debug("Shape object is built
-// successfully.");
                                     generateShape(imgView, platform, shapeModel);
                                 }
                             }
@@ -120,9 +118,7 @@ public class ShapeGenerator {
         this.parent = parent;
         this.counter = counter;
         shapeGeneratorThread = new Thread(shapeGenerator);
-//        setGenerationThreadIsNotStopped(true);
         generationThreadIsNotStopped = true;
-//        setGenerationThreadPaused(false);
         generationThreadPaused = false;
         shapeGeneratorThread.setDaemon(true);
         shapeGeneratorThread.start();
