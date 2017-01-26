@@ -97,5 +97,4 @@ public class BackgroundChooser implements Initializable {
         logger.debug("Player selected " + ((Node) event.getSource())
                 .getId() + " input type.");
     }
-
 }

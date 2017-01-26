@@ -57,7 +57,8 @@ public class GameController implements Initializable, ScoreObserver {
     private Double currentX;
     private Game currentGame;
     private int currentLevel;
-
+    private List<Player> players;
+    private GameMode gameMode;
     @FXML
     private AnchorPane rootPane;
 
@@ -95,6 +96,7 @@ public class GameController implements Initializable, ScoreObserver {
 
         currentLevel = 1;
         currentMenu = Start.getInstance();
+        players = new ArrayList<>();
         handler = FileHandler.getInstance();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
@@ -142,21 +144,27 @@ public class GameController implements Initializable, ScoreObserver {
         if (!newGameStarted.get()) {
             return;
         }
-        if (keyMap.get(KeyCode.A)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY) != null) {
+            if (keyMap.get(KeyCode.A)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
+            if (keyMap.get(KeyCode.D)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
         }
-        if (keyMap.get(KeyCode.D)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
-        }
-        if (keyMap.get(KeyCode.LEFT)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
-        }
-        if (keyMap.get(KeyCode.RIGHT)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY) != null) {
+            if (keyMap.get(KeyCode.LEFT)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
+            if (keyMap.get(KeyCode.RIGHT)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
         }
     }
 
@@ -268,6 +276,7 @@ public class GameController implements Initializable, ScoreObserver {
         String fileName = name + " - " + currentDate;
         ModelDataHolder modelData = new ModelDataHolder();
         modelData.setActiveLevel(currentGame.getCurrentLevel());
+        modelData.setGameMode(gameMode);
         //TODO: add player
 //        modelData.addPlayer(cu)
         for (ShapeController<? extends Node> shapeController : currentGame
@@ -281,6 +290,9 @@ public class GameController implements Initializable, ScoreObserver {
                     .getPlayerModel(player));
         }
         modelData.setGeneratorCounter(currentGame.getShapeGeneratorCounter());
+        if (this.gameMode == GameMode.TIME_ATTACK) {
+            modelData.setRemainingTimeAttack(GameBoard.getInstance().getRemainingTime());
+        }
         this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
                 fileName);
@@ -307,11 +319,14 @@ public class GameController implements Initializable, ScoreObserver {
         newGameStarted.set(true);
 
         logger.info("Game is launched successfully.");
+        this.gameMode = gameMode;
+        System.out.println(gameMode);
         switch (gameMode) {
             case NORMAL:
                 currentGame.startNormalGame();
                 break;
             case TIME_ATTACK:
+                currentGame.startNewTimeAttack();
                 break;
             case LEVEL:
                 break;
@@ -327,14 +342,15 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.destroy();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
+        currentGame.createPlayer(players);
     }
 
     /**
      * Starts the key board listener for any action.
      */
     void startKeyboardListener() {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.execute(() -> {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
             while (!gamePaused) {
                 Platform.runLater(() -> updatePlayers());
                 try {
@@ -347,7 +363,7 @@ public class GameController implements Initializable, ScoreObserver {
                 }
             }
         });
-        exec.shutdown();
+        executor.shutdown();
     }
 
     /**
@@ -355,8 +371,14 @@ public class GameController implements Initializable, ScoreObserver {
      * @param modelDataHolder {@link ModelDataHolder} data model that holds
      * saved game data.
      */
+    /**
+     * Starts the saved data game.
+     * @param modelDataHolder {@link ModelDataHolder} data model that holds
+     * saved game data.
+     */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
+        players.clear();
         GameBoard.getInstance().reset();
         for (Player player : modelDataHolder.getPlayers()) {
             System.out.printf("%s has %d Shapes on his Right Stack\n",
@@ -364,7 +386,6 @@ public class GameController implements Initializable, ScoreObserver {
             System.out.printf("%s has %d Shapes on his Left Stack\n",
                     player.getName(), player.getLeftStack().size());
             currentGame.createPlayer(player);
-            GameBoard.getInstance().addPlayerPanel(player.getName());
             GameBoard.getInstance().updateScore(player.getScore(), player.getName());
         }
         for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes
@@ -377,8 +398,8 @@ public class GameController implements Initializable, ScoreObserver {
                     mainGame.getChildren().add(shapeView);
                     ShapeController<? extends Node> shapeController = new
                             ShapeController<>
-                    (shapeView, shapePlatformPair
-                            .getShape(), shapePlatformPair.getPlatform());
+                            (shapeView, shapePlatformPair
+                                    .getShape(), shapePlatformPair.getPlatform());
                     shapeController.startMoving();
                     currentGame.getShapeControllers().add(shapeController);
                     break;
@@ -392,7 +413,17 @@ public class GameController implements Initializable, ScoreObserver {
         }
         currentMenu.setMenuVisible(false);
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
-        currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
+        switch (modelDataHolder.getGameMode()) {
+            case NORMAL:
+                currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
+                break;
+            case TIME_ATTACK:
+                GameBoard.getInstance().setGameTime(modelDataHolder.getRemainingTimeAttack());
+                currentGame.startNewTimeAttack(modelDataHolder.getGeneratorCounter());
+                break;
+            default:
+                break;
+        }
         newGameStarted.set(true);
         ((Start) Start.getInstance()).activeDisabledButtons(true);
         System.out.println(modelDataHolder.getGeneratorCounter());
@@ -459,6 +490,14 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     /**
+     * Sets the current game players.
+     * @param players players
+     */
+    public void setPlayersToCurrentGame(List<Player> players) {
+        this.players = players;
+    }
+
+    /**
      * Called when any player has lost the game in order to pause running
      * threads and the whole game.
      * @param playerName the name of the player.
@@ -480,7 +519,7 @@ public class GameController implements Initializable, ScoreObserver {
         Collection<String> playerNames = currentGame.getPlayersController().getPlayersNames();
         for (String name : playerNames) {
             Player playerModel = currentGame.getPlayersController().getPlayerModel(name);
-            if (name.equals(playerName)) {
+            if (name != null && name.equals(playerName)) {
                 playerModel.setScore(playerModel.getScore() / 2);
             }
             if (maxScore < playerModel.getScore()) {
@@ -516,4 +555,5 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.getPlayersController().removeShapes(playerName, stick);
         currentGame.updateScore(score, playerName, stick);
     }
+
 }

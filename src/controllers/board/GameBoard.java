@@ -1,12 +1,13 @@
 package controllers.board;
 
-import controllers.main.Game;
 import controllers.main.GameController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +23,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -50,8 +50,8 @@ public class GameBoard implements Initializable {
 
     private Timeline timeline;
     private IntegerProperty timeSeconds;
-    int GAMETIME = 60;
-
+    private int GAME_TIME = 100;
+    private int gameTime;
     /**
      * Called to show the game view.
      * @return returns the instance of this class.
@@ -73,18 +73,25 @@ public class GameBoard implements Initializable {
         instance = this;
         timeSeconds = new SimpleIntegerProperty();
         timeline = new Timeline();
+        gameTime = GAME_TIME;
     }
 
 
-    private void initializeGameTimer() {
+    public void initializeGameTimer() {
         timeline = new Timeline();
         this.counter.textProperty().bind(timeSeconds.asString());
         this.counter.setTextFill(Color.RED);
         this.counter.setStyle("-fx-font-size: 4em;");
-        this.timeSeconds.set(GAMETIME);
-
+        this.counter.setVisible(true);
+        this.timeSeconds.set(gameTime);
+        this.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GameController.getInstance().playerLost(null);
+            }
+        });
         this.timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(GAMETIME + 1),
+                new KeyFrame(Duration.seconds(GAME_TIME + 1),
                         new KeyValue(timeSeconds, 0)));
         this.timeline.play();
         logger.info("Timer started counting");
@@ -112,7 +119,8 @@ public class GameBoard implements Initializable {
         } else {
             rightPanel.getChildren().add(scorePanel);
         }
-        logger.info("Scores of players are shown.");
+        Exception e = new Exception();
+        logger.info("Scores of players are shown.", e);
     }
 
     /**
@@ -161,5 +169,13 @@ public class GameBoard implements Initializable {
             }
         }
         logger.info("Scores are updated.");
+    }
+
+    public synchronized int getRemainingTime() {
+        return (int) this.timeline.getCurrentTime().toMillis();
+    }
+
+    public void setGameTime(int gameTime) {
+        this.gameTime = gameTime;
     }
 }

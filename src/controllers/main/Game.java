@@ -123,7 +123,8 @@ public class Game {
     void createPlayer(Player player) {
         playersController.createPlayer(player);
         gameBoard.addPlayerPanel(player.getName());
-        logger.info("created player with input type " + player.getInputType());
+        logger.info("created player with input type "
+                + player.getInputType() + " speed = " + player.getSpeed());
     }
 
     void createPlayer(List<Player> players) {
@@ -204,11 +205,6 @@ public class Game {
      * @param counter the counter of the shape generator thread.
      */
     void startNormalGame(long counter) {
-        if (PlayerFactory.getFactory().getPlayersSize() == 0) {
-            addDefaultPlayers();
-            logger.info("Players were created");
-        }
-
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {
             GameController.getInstance().getMainGame().getChildren().add(
@@ -218,6 +214,16 @@ public class Game {
                 .getInstance().getMainGame(), counter);
         AudioPlayer.backgroundMediaPlayer.play();
         GameController.getInstance().continueGame();
+    }
+
+    void startNewTimeAttack() {
+        GameBoard.getInstance().initializeGameTimer();
+        startNormalGame();
+    }
+
+    void startNewTimeAttack(long counter) {
+        GameBoard.getInstance().initializeGameTimer();
+        startNormalGame(counter);
     }
 
     private void addDefaultPlayers() {

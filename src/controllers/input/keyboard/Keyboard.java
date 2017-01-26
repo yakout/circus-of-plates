@@ -93,8 +93,8 @@ public class Keyboard extends Input {
                 poll(firstController);
             }
         });
+        thread.setDaemon(true);
         thread.start();
-        // thread.setDaemon(true);
     }
 
     /**
