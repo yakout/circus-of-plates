@@ -536,6 +536,7 @@ public class GameController implements Initializable, ScoreObserver {
                     + winner + " has won with score " + maxScore);
             logger.info("Player: " + winner + " has won with score " + maxScore);
         }
+        players.clear();
         resetGame();
     }
 
