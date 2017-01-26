@@ -295,6 +295,10 @@ public class GameController implements Initializable, ScoreObserver {
         return mainGame.getWidth();
     }
 
+    /**
+     * Starts the game with the given game mode.
+     * @param gameMode {@link GameMode} the chosen game mode.
+     */
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons(true);
         GameController.getInstance().getMainGame().setVisible(true);
@@ -316,12 +320,18 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Resets the game.
+     */
     public void resetGame() {
         currentGame.destroy();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
     }
 
+    /**
+     * Starts the key board listener for any action.
+     */
     void startKeyboardListener() {
         ExecutorService exec = Executors.newSingleThreadExecutor();
         exec.execute(() -> {
@@ -340,6 +350,11 @@ public class GameController implements Initializable, ScoreObserver {
         exec.shutdown();
     }
 
+    /**
+     * Starts the saved data game.
+     * @param modelDataHolder {@link ModelDataHolder} data model that holds
+     * saved game data.
+     */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
         try {
