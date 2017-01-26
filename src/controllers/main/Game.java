@@ -133,11 +133,20 @@ public class Game {
         shapeControllers.remove(shapeController);
     }
 
+    /**
+     * Adds the given shape controller from the list.
+     * @param shapeController {@link ShapeController} shape controller of the
+     * given shape.
+     */
     public void addShapeController(ShapeController<? extends Node>
                                            shapeController) {
         shapeControllers.add(shapeController);
     }
 
+    /**
+     * Pauses the current played game.
+     * Pauses all the controllers that are running.
+     */
     void pause() {
         shapeControllers.forEach(ShapeController::gamePaused);
         gameBoard.pause();
@@ -146,12 +155,19 @@ public class Game {
         }
     }
 
+    /**
+     * Resumes the current paused game.
+     * Resumes all the controllers that are paused.
+     */
     void resume() {
         shapeControllers.forEach(ShapeController::gameResumed);
         gameBoard.resume();
         shapeGenerator.resumeGenerator();
     }
 
+    /**
+     * Starts a normal game type.
+     */
     void startNormalGame() {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
@@ -171,6 +187,12 @@ public class Game {
         GameController.getInstance().continueGame();
     }
 
+    /**
+     * Starts a normal game type.
+     * Assigned counter to the argument in order to compute the time
+     * remaining to generate new shape at shape generator.
+     * @param counter the counter of the shape generator thread.
+     */
     void startNormalGame(long counter) {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
@@ -179,7 +201,8 @@ public class Game {
 
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {
-            GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
+            GameController.getInstance().getMainGame().getChildren().add(
+                    builder.build(platform));
         }
         shapeGenerator = new ShapeGenerator(currentLevel, GameController
                 .getInstance().getMainGame(), counter);
@@ -194,10 +217,22 @@ public class Game {
                 .KEYBOARD_SECONDARY);
     }
 
+    /**
+     * Updates the current score for the given player.
+     * @param score the score of the given player.
+     * @param playerName tha player name.
+     * @param stick {@link Stick} the stick the the plate has fallen to.
+     */
     void updateScore(int score, String playerName, Stick stick) {
         gameBoard.updateScore(score, playerName);
     }
 
+    /**
+     * Stops the the shape generator.
+     * Stops shapes-movement.
+     * Stops the audio player.
+     * Clears the pool form shapes.
+     */
     void destroy() {
         if (shapeGenerator != null) {
             shapeGenerator.stopGeneration();
@@ -210,19 +245,36 @@ public class Game {
         ShapePool.clearPool();
     }
 
+    /**
+     * Gets the players controller.
+     * @return {@link PlayersController} Players controller for both players.
+     */
     public PlayersController getPlayersController() {
         return playersController;
     }
 
+    /**
+     * Gets all shape controllers.
+     * @return {@link Collection<ShapeController>} all shape controllers.
+     */
     public Collection<ShapeController<? extends Node>> getShapeControllers() {
         return shapeControllers;
     }
 
+    /**
+     * Assign the current shape controllers.
+     * @param shapeControllers {@link Collection<ShapeController>} all shape
+     * controllers.
+     */
     public void setShapeControllers(Collection<ShapeController<? extends
             Node>> shapeControllers) {
         this.shapeControllers = shapeControllers;
     }
 
+    /**
+     * Gets the shape generator counter.
+     * @return the counter of the shape generator to continue.
+     */
     public long getShapeGeneratorCounter() {
         return shapeGenerator.getGenerationThreadCounter();
     }
