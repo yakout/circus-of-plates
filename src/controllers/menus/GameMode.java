@@ -32,7 +32,9 @@ public class GameMode extends MenuController {
     private AnchorPane chooseLevel;
     private ChoiceBox<String> choiceBox;
 
-
+    /**
+     * Default constructor.
+     */
     public GameMode() {
         super();
         instance = this;
@@ -64,6 +66,10 @@ public class GameMode extends MenuController {
         }
     }
 
+    /**
+     * Handles the menu of given id.
+     * @param id
+     */
     @Override
     void handle(String id) {
         gameModeMenu.setVisible(false);
@@ -71,9 +77,6 @@ public class GameMode extends MenuController {
             case "back":
                 Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
-                break;
-            case "sandBox":
-//                 TODO: 12/25/16 save the current mode and go to player menu
                 break;
             case "timeAttack":
                  GameController.getInstance().startGame(models.GameMode
@@ -127,6 +130,10 @@ public class GameMode extends MenuController {
         return menu;
     }
 
+    /**
+     * sets the curren menu visible.
+     * @param visible states where visible or not.
+     */
     @Override
     public void setMenuVisible(boolean visible) {
         gameModeMenu.setVisible(visible);
@@ -135,11 +142,19 @@ public class GameMode extends MenuController {
         chooseLevel.setVisible(false);
     }
 
+    /**
+     * Checks whether the menu is visible or not.
+     * @return whether true or false.
+     */
     @Override
     public boolean isVisible() {
         return gameModeMenu.isVisible();
     }
 
+    /**
+     * Gets the instace of that class.
+     * @return instance.
+     */
     public static MenuController getInstance() {
         return instance;
     }

@@ -33,16 +33,27 @@ public class BackgroundChooser implements Initializable {
     @FXML
     Button choose;
 
+    /**
+     * default constructor BackgroundChooser class.
+     */
     public BackgroundChooser() {
 
     }
 
+    /**
+     * Called on loading the corresponding fxml file.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         chosenBackground = "1";
     }
 
+    /**
+     * @return instance of this class.
+     */
     public static BackgroundChooser getInstance() {
         return instance;
     }
@@ -51,11 +62,18 @@ public class BackgroundChooser implements Initializable {
         anchor.setVisible(visible);
     }
 
+    /**
+     * Handles any mouse actions.
+     * @param event the mouse event actioned.
+     */
     @FXML
     private void mouseHandler(MouseEvent event) {
         chosenBackground = ((Node) event.getSource()).getId();
     }
 
+    /**
+     * Sets background corresponding to the view.
+     */
     @FXML
     public void selectBackground() {
         anchor.setVisible(false);
@@ -65,7 +83,10 @@ public class BackgroundChooser implements Initializable {
         logger.info("First player has chosen clown_" + chosenBackground + ".");
     }
 
-
+    /**
+     * Selects input type that corresponds the actioned event.
+     * @param event {@link ActionEvent} event bby the user.
+     */
     @FXML
     private void selectInputType(ActionEvent event) {
         System.out.println(((Node) event.getSource()).getId());
@@ -76,5 +97,4 @@ public class BackgroundChooser implements Initializable {
         logger.debug("Player selected " + ((Node) event.getSource())
                 .getId() + " input type.");
     }
-
 }

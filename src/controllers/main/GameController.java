@@ -95,8 +95,8 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         currentLevel = 1;
-        players = new ArrayList<>();
         currentMenu = Start.getInstance();
+        players = new ArrayList<>();
         handler = FileHandler.getInstance();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
@@ -144,21 +144,27 @@ public class GameController implements Initializable, ScoreObserver {
         if (!newGameStarted.get()) {
             return;
         }
-        if (keyMap.get(KeyCode.A)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY) != null) {
+            if (keyMap.get(KeyCode.A)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
+            if (keyMap.get(KeyCode.D)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
         }
-        if (keyMap.get(KeyCode.D)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
-        }
-        if (keyMap.get(KeyCode.LEFT)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
-        }
-        if (keyMap.get(KeyCode.RIGHT)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY) != null) {
+            if (keyMap.get(KeyCode.LEFT)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
+            if (keyMap.get(KeyCode.RIGHT)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
         }
     }
 
@@ -418,6 +424,11 @@ public class GameController implements Initializable, ScoreObserver {
         System.out.println(modelDataHolder.getGeneratorCounter());
     }
 
+    /**
+     * Checks the intersection for the current state shape.
+     * @param shapeController {@link ShapeController} the shape controller.
+     * @return whether the the Shape intersects the stack or not.
+     */
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         if (currentGame.getPlayersController().checkIntersection(shapeController)) {
@@ -427,6 +438,10 @@ public class GameController implements Initializable, ScoreObserver {
         return false;
     }
 
+    /**
+     * Pauses the game view.
+     * Pauses the audio player.
+     */
     public void pauseGame() {
         gamePaused = true;
         currentMenu = Start.getInstance();
@@ -438,7 +453,10 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.pause();
     }
 
-
+    /**
+     * Continues the current paused game.
+     * Resumes the audio payer.
+     */
     public void continueGame() {
         gamePaused = false;
         currentMenu.setMenuVisible(false);
@@ -449,19 +467,36 @@ public class GameController implements Initializable, ScoreObserver {
         AudioPlayer.backgroundMediaPlayer.play();
     }
 
+    /**
+     * Gets the curretn game.
+     * @return {@link Game}instance of the current game.
+     */
     public Game getCurrentGame() {
         return currentGame;
     }
 
+    /**
+     * Sets the current game level.
+     * @param level the current level in integer form.
+     */
     public void setCurrentGameLevel(int level) {
         currentLevel = level;
         currentGame.setLevel(level);
     }
 
+    /**
+     * Sets the current game players.
+     * @param players players
+     */
     public void setPlayersToCurrentGame(List<Player> players) {
         this.players = players;
     }
 
+    /**
+     * Called when any player has lost the game in order to pause running
+     * threads and the whole game.
+     * @param playerName the name of the player.
+     */
     public synchronized void playerLost(String playerName) {
         currentGame.pause();
         gamePaused = true;
@@ -504,9 +539,16 @@ public class GameController implements Initializable, ScoreObserver {
         resetGame();
     }
 
+    /**
+     * updates the score and the removes the last 3 shapes on the stack.
+     * @param score the new of the current scored-player.
+     * @param playerName the name of the current player who won the points.
+     * @param stick {@link Stick} the stick which contains the new explosion.
+     */
     @Override
     public void update(int score, String playerName, Stick stick) {
         currentGame.getPlayersController().removeShapes(playerName, stick);
         currentGame.updateScore(score, playerName, stick);
     }
+
 }

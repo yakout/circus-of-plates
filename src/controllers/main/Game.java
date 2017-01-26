@@ -123,7 +123,8 @@ public class Game {
     void createPlayer(Player player) {
         playersController.createPlayer(player);
         gameBoard.addPlayerPanel(player.getName());
-        logger.info("created player with input type " + player.getInputType());
+        logger.info("created player with input type "
+                + player.getInputType() + " speed = " + player.getSpeed());
     }
 
     void createPlayer(List<Player> players) {
