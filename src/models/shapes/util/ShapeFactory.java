@@ -14,6 +14,11 @@ public class ShapeFactory {
 
     private static Map<String, Class<? extends Shape>> registeredShapes;
 
+    /**
+     * Registers the shape with the given key.
+     * @param key
+     * @param shapeClass
+     */
     public static void registerShape(String key, Class<? extends Shape>
             shapeClass) {
         if (registeredShapes == null) {
@@ -22,6 +27,11 @@ public class ShapeFactory {
         registeredShapes.put(key, shapeClass);
     }
 
+    /**
+     * Gets the random color with the given current level.
+     * @param curLevel
+     * @return
+     */
     public static Color getRandomColor(Level curLevel) {
         return curLevel.getSupportedColors()
                 .get(ThreadLocalRandom.current().nextInt(0, curLevel
