@@ -400,8 +400,8 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.setLevel(level);
     }
 
-    public void addPlayerToCurrentGame(Player player) {
-        players.add(player);
+    public void setPlayersToCurrentGame(List<Player> players) {
+        this.players = players;
     }
 
     public synchronized void playerLost(String playerName) {

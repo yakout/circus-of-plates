@@ -10,11 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import models.players.Player;
-import models.players.PlayerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -36,6 +37,7 @@ public class PlayerChooser implements Initializable {
     private InputType inputType;
     private String playerName;
     private boolean isPlayer1;
+    private List<Player> choosenPlayers;
 
     @FXML
     AnchorPane anchor;
@@ -58,6 +60,7 @@ public class PlayerChooser implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        choosenPlayers = new ArrayList<>();
         instance = this;
         isPlayer1 = true;
         inputType = InputType.KEYBOARD_PRIMARY;
@@ -81,6 +84,7 @@ public class PlayerChooser implements Initializable {
     @FXML
     public void selectClown() {
         if (isPlayer1) {
+            choosenPlayers.clear();
             updateData();
             setPlayer2Label();
             keyboard.setSelected(true);
@@ -99,6 +103,9 @@ public class PlayerChooser implements Initializable {
             setPlayer1Label();
             currPlayerName.setText("");
 
+
+            GameController.getInstance().setPlayersToCurrentGame(choosenPlayers);
+
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
             inputType = InputType.KEYBOARD_PRIMARY;
@@ -113,8 +120,8 @@ public class PlayerChooser implements Initializable {
         Player player = new Player(playerName);
         player.setPlayerUrl(CLOWN_DIR + chosenClownID + FILE_NAME);
         player.setInputType(inputType);
-
-        GameController.getInstance().addPlayerToCurrentGame(player);
+        player.setSpeed(20);
+        choosenPlayers.add(player);
     }
 
     @FXML
