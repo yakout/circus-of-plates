@@ -30,11 +30,23 @@ public class PlayersController {
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
 
+    /**
+     * Default constructor of this class.
+     * @param gamePane {@link Pane} the game pane.
+     */
     public PlayersController(Pane gamePane) {
         players = new HashMap<>();
         this.gamePane = gamePane;
     }
 
+    /**
+     * Creates the player as a node.
+     * @param path the path of his clown.
+     * @param playerName the name of the player.
+     * @param inputType the input type of the current player.
+     * @return the player as a node to the view.
+     * @throws IOException if not found file with such URL.
+     */
     public Node createPlayer(String path, String playerName, InputType
             inputType) throws IOException {
         URL url = new File(path).toURI().toURL();
@@ -54,7 +66,11 @@ public class PlayersController {
         return player;
     }
 
-
+    /**
+     * Creates the player with the given name.
+     * @param playerModel {@link Player} the player model.
+     * @return the Player as a node.
+     */
     public Node createPlayer(Player playerModel) {
         try {
             URL url = new File(playerModel.getPlayerUrl()).toURI().toURL();
@@ -89,6 +105,10 @@ public class PlayersController {
         return null;
     }
 
+    /**
+     * moves the player to the left.
+     * @param playerName the name of the current player.
+     */
     public synchronized void moveLeft(String playerName) {
         double playerWidth = players.get(playerName).getPlayerView()
                 .getLayoutBounds().getWidth();
@@ -100,6 +120,10 @@ public class PlayersController {
         players.get(playerName).getPlayerView().setLayoutX(newX);
     }
 
+    /**
+     * moves the player to the right.
+     * @param playerName the name of the current player.
+     */
     public synchronized void moveRight(String playerName) {
         double playerWidth = getPlayerWidth(playerName);
         double maxDistance = GameController.getInstance().getStageWidth() -
@@ -120,6 +144,12 @@ public class PlayersController {
                 + sign * players.get(playerName).getPlayerModel().getSpeed();
     }
 
+    /**
+     * Checks for intersection with the given plate.
+     * @param shapeController {@link ShapeController} the controller of the
+     * shape.
+     * @return where intersects or not.
+     */
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         for (String name : players.keySet()) {
@@ -137,6 +167,11 @@ public class PlayersController {
         return false;
     }
 
+    /**
+     * removes the shape out of the stick.
+     * @param playerName the player name.
+     * @param stick the sticks to move shapes from.
+     */
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);
         logger.debug("Last three shapes are removed from stick.");
@@ -145,10 +180,19 @@ public class PlayersController {
         AudioPlayer.newScoreMediaPlayer.seek(Duration.ZERO);
     }
 
+    /**
+     * Gets the players' names.
+     * @return {@link Collection} collection of players' names.
+     */
     public Collection<String> getPlayersNames() {
         return players.keySet();
     }
 
+    /**
+     * Gets the player model.
+     * @param playerName the player name.
+     * @return {@link Player} the player model.
+     */
     public Player getPlayerModel(String playerName) {
         if (players.containsKey(playerName)) {
             return players.get(playerName).getPlayerModel();

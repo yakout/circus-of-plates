@@ -99,4 +99,3 @@ public class BackgroundChooser implements Initializable {
     }
 
 }
-g
