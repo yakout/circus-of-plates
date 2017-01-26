@@ -57,6 +57,7 @@ public class GameController implements Initializable, ScoreObserver {
     private Double currentX;
     private Game currentGame;
     private int currentLevel;
+    private List<Player> players;
 
     @FXML
     private AnchorPane rootPane;
@@ -95,6 +96,7 @@ public class GameController implements Initializable, ScoreObserver {
 
         currentLevel = 1;
         currentMenu = Start.getInstance();
+        players = new ArrayList<>();
         handler = FileHandler.getInstance();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
@@ -333,14 +335,15 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.destroy();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
+        currentGame.createPlayer(players);
     }
 
     /**
      * Starts the key board listener for any action.
      */
     void startKeyboardListener() {
-        ExecutorService exec = Executors.newSingleThreadExecutor();
-        exec.execute(() -> {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
             while (!gamePaused) {
                 Platform.runLater(() -> updatePlayers());
                 try {
@@ -353,7 +356,7 @@ public class GameController implements Initializable, ScoreObserver {
                 }
             }
         });
-        exec.shutdown();
+        executor.shutdown();
     }
 
     /**
@@ -363,19 +366,15 @@ public class GameController implements Initializable, ScoreObserver {
      */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
-        try {
-            GameBoard.getInstance().reset();
-            for (Player player : modelDataHolder.getPlayers()) {
-                System.out.printf("%s has %d Shapes on his Right Stack\n",
-                        player.getName(), player.getRightStack().size());
-                System.out.printf("%s has %d Shapes on his Left Stack\n",
-                        player.getName(), player.getLeftStack().size());
-                currentGame.createPlayer(player);
-                GameBoard.getInstance().addPlayerPanel(player.getName());
-                GameBoard.getInstance().updateScore(player.getScore(), player.getName());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        GameBoard.getInstance().reset();
+        for (Player player : modelDataHolder.getPlayers()) {
+            System.out.printf("%s has %d Shapes on his Right Stack\n",
+                    player.getName(), player.getRightStack().size());
+            System.out.printf("%s has %d Shapes on his Left Stack\n",
+                    player.getName(), player.getLeftStack().size());
+            currentGame.createPlayer(player);
+            GameBoard.getInstance().addPlayerPanel(player.getName());
+            GameBoard.getInstance().updateScore(player.getScore(), player.getName());
         }
         for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes
                 ()) {
@@ -469,6 +468,14 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     /**
+     * Sets the current game players.
+     * @param players players
+     */
+    public void setPlayersToCurrentGame(List<Player> players) {
+        this.players = players;
+    }
+
+    /**
      * Called when any player has lost the game in order to pause running
      * threads and the whole game.
      * @param playerName the name of the player.
@@ -526,4 +533,5 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.getPlayersController().removeShapes(playerName, stick);
         currentGame.updateScore(score, playerName, stick);
     }
+
 }
