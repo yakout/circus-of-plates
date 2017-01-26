@@ -144,21 +144,27 @@ public class GameController implements Initializable, ScoreObserver {
         if (!newGameStarted.get()) {
             return;
         }
-        if (keyMap.get(KeyCode.A)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY) != null) {
+            if (keyMap.get(KeyCode.A)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
+            if (keyMap.get(KeyCode.D)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+            }
         }
-        if (keyMap.get(KeyCode.D)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
-        }
-        if (keyMap.get(KeyCode.LEFT)) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
-        }
-        if (keyMap.get(KeyCode.RIGHT)) {
-            currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                    .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+        if (PlayerFactory.getFactory()
+                .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY) != null) {
+            if (keyMap.get(KeyCode.LEFT)) {
+                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
+            if (keyMap.get(KeyCode.RIGHT)) {
+                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
+                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+            }
         }
     }
 

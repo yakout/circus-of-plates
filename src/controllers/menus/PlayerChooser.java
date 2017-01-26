@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.input.InputType;
+import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,10 +117,18 @@ public class PlayerChooser implements Initializable {
     }
 
     private void updateData() {
+        if (inputType == InputType.JOYSTICK_PRIMARY || inputType == InputType.JOYSTICK_SECONDARY) {
+            Joystick.getInstance().start();
+        }
         playerName = currPlayerName.getText();
         Player player = new Player(playerName);
         player.setPlayerUrl(CLOWN_DIR + chosenClownID + FILE_NAME);
         player.setInputType(inputType);
+        if (inputType == InputType.JOYSTICK_SECONDARY) {
+            player.setSpeed(15);
+        } else if (inputType == InputType.JOYSTICK_PRIMARY) {
+            player.setSpeed(5);
+        }
         player.setSpeed(20);
         choosenPlayers.add(player);
     }

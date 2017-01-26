@@ -71,8 +71,8 @@ public class Joystick extends Input {
                 poll(firstController);
             }
         });
-        thread.start();
         thread.setDaemon(true);
+        thread.start();
     }
 
     /**
