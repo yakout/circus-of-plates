@@ -22,9 +22,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
     /**
      * Default constructor.
-     * @param shape
-     * @param model
-     * @param platform
+     * @param shape Shape view.
+     * @param model Shape model.
+     * @param platform {@link Platform} Platform that this will positioned to.
      */
     public ShapeController(final T shape, final Shape model,
                            final models.Platform platform) {
@@ -36,6 +36,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 //		logger.info("Shape Controller Created");
     }
 
+    /**
+     * Starts moving the shape.
+     */
     public void startMoving() {
         //logger.debug("Shape " + " Movement Requested");
         switch (shapeModel.getState()) {
@@ -55,6 +58,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         }
     }
 
+    /**
+     * The shape should start to fall out of the platform.
+     */
     @Override
     public void shapeShouldStartFalling() {
         //logger.debug("A Shape Should Start Falling");
@@ -67,6 +73,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
                 = new FallingShapeStateController<>(shape, shapeModel, this);
     }
 
+    /**
+     * The shape should stop falling as reaches the ground.
+     */
     @Override
     public void shapeShouldStopFalling() {
         if (currentState == null) {
@@ -77,11 +86,17 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         currentState = new OnTheGroundShapeStateController<>(this);
     }
 
+    /**
+     * Checks for intersection.
+     */
     @Override
     public void checkIntersection() {
         GameController.getInstance().checkIntersection(this);
     }
 
+    /**
+     * Shape should be on the stack.
+     */
     public void shapeFellOnTheStack() {
         if (currentState == null) {
             return;
@@ -90,6 +105,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shapeModel.setState(ShapeState.ON_THE_STACK);
     }
 
+    /**
+     * Sets the state of the game to be paused.
+     */
     public void gamePaused() {
         if (currentState == null) {
             return;
@@ -97,6 +115,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         currentState.pauseCurrentState();
     }
 
+    /**
+     * Sets the state of the game to be resumed.
+     */
     public void gameResumed() {
         if (currentState == null) {
             return;
@@ -104,18 +125,33 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         currentState.resumeCurrentState();
     }
 
+    /**
+     * Gets the shape model of the current shape.
+     * @return {@link Shape} Shape model.
+     */
     public Shape getShapeModel() {
         return shapeModel;
     }
 
+    /**
+     * Gets the shape controller.
+     * @return
+     */
     public T getShape() {
         return shape;
     }
 
+    /**
+     * Gets the platform of this shape.
+     * @return
+     */
     public Platform getPlatform() {
         return platform;
     }
 
+    /**
+     * This shape should enter the pool as it is removed from the stack.
+     */
     @Override
     public void shapeShouldEnterThePool() {
         shape.setVisible(false);
@@ -123,6 +159,10 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         GameController.getInstance().getCurrentGame().removeShapeController(this);
     }
 
+    /**
+     * Resets the shape model to its default values as to be generated from
+     * the begining.
+     */
     public void resetShape() {
         shapeModel.setState(ShapeState.MOVING_HORIZONTALLY);
         shape.setLayoutX(shapeModel.getInitialPosition().getX());
@@ -136,6 +176,9 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
         shape.setVisible(true);
     }
 
+    /**
+     * Stops the the current shape.g
+     */
     public void stop() {
         if (currentState != null) {
             currentState.nextState();
