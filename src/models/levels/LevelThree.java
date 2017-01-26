@@ -72,7 +72,5 @@ public class LevelThree extends Level {
         supportedColors.add(Color.DARKRED);
         supportedColors.add(Color.GOLD);
         supportedColors.add(Color.ORANGE);
-        supportedColors.add(Color.PINK);
-        supportedColors.add(Color.PURPLE);
     }
 }

@@ -73,5 +73,6 @@ public class LevelFive extends Level {
         supportedColors.add(Color.ORANGE);
         supportedColors.add(Color.PINK);
         supportedColors.add(Color.PURPLE);
+        supportedColors.add(Color.BLACK);
     }
 }

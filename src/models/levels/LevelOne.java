@@ -66,9 +66,9 @@ public class LevelOne extends Level {
     }
 
     private void addSupportedColors() {
-        supportedColors.add(Color.GREEN);
-        supportedColors.add(Color.YELLOW);
         supportedColors.add(Color.CYAN);
-        supportedColors.add(Color.ORANGE);
+        supportedColors.add(Color.YELLOW);
+        supportedColors.add(Color.RED);
+        supportedColors.add(Color.GREEN);
     }
 }
