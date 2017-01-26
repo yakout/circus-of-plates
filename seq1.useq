@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.11" icons="true">  
+  <object id="1" language="java" name="GameMain" project="circus-of-plates" file="/circus-of-plates/src/GameMain.java" 
+    binary="false" label="gameMain" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="156" y="0"/>    
+    <execution id="2">      
+      <position height="277" width="83" x="5" y="99"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="controllers.player.PlayersController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/player/PlayersController.java" binary="false" label="playersController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="88" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="122" x="92" y="342"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="97" width="122" x="92" y="364"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="105" width="122" x="92" y="622"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="models.players.Player" project="circus-of-plates" 
+    file="/circus-of-plates/src/models/players/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="216" y="0"/>    
+    <execution id="16">      
+      <position height="155" width="71" x="218" y="457"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="21" width="71" x="218" y="499"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="7" x="250" y="540"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="controllers.player.PlayerController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/player/PlayerController.java" binary="false" label="playerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="217" y="0"/>    
+    <execution id="9">      
+      <position height="21" width="115" x="218" y="385"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="21" width="115" x="218" y="419"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="197" width="115" x="293" y="436"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="63" width="115" x="293" y="643"/>    
+    </execution>  
+  </object>  
+  <object id="28" language="java" name="controllers.main.GameController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/main/GameController.java" binary="false" label="gameController" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="245" y="0"/>    
+    <execution id="4">      
+      <position height="235" width="112" x="92" y="120"/>    
+    </execution>    
+    <execution id="31">      
+      <position height="63" width="7" x="145" y="321"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="21" width="112" x="412" y="570"/>    
+    </execution>    
+    <execution id="33">      
+      <position height="147" width="112" x="412" y="601"/>    
+    </execution>  
+  </object>  
+  <object id="35" language="java" name="controllers.main.Game" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/main/Game.java" binary="false" label="game" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="289" y="0"/>    
+    <execution id="30">      
+      <position height="193" width="73" x="208" y="141"/>    
+    </execution>  
+  </object>  
+  <object id="38" language="java" name="controllers.shape.ShapeGenerator" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/shape/ShapeGenerator.java" binary="false" label="shapeGenerator" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="435" y="0"/>    
+    <execution id="37">      
+      <position height="151" width="116" x="285" y="162"/>    
+    </execution>  
+  </object>  
+  <object id="41" language="java" name="controllers.shape.ShapeController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/shape/ShapeController.java" binary="false" label="shapeController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="515" y="0"/>    
+    <execution id="40">      
+      <position height="109" width="136" x="405" y="183"/>    
+    </execution>    
+    <execution id="46">      
+      <position height="105" width="7" x="470" y="300"/>    
+    </execution>    
+    <execution id="27">      
+      <position height="21" width="136" x="725" y="664"/>    
+    </execution>    
+    <execution id="48">      
+      <position height="21" width="7" x="790" y="225"/>    
+    </execution>  
+  </object>  
+  <object id="49" language="java" name="controllers.shape.MovingShapeStateController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/shape/MovingShapeStateController.java" binary="false" 
+    label="movingShapeStateController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="710" y="0"/>    
+    <execution id="43">      
+      <position height="63" width="206" x="545" y="204"/>    
+    </execution>  
+  </object>  
+  <object id="51" language="java" name="controllers.shape.FallingShapeStateController" project="circus-of-plates" 
+    file="/circus-of-plates/src/controllers/shape/FallingShapeStateController.java" binary="false" 
+    label="fallingShapeStateController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="707" y="0"/>    
+    <execution id="45">      
+      <position height="21" width="202" x="755" y="250"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="147" width="202" x="755" y="279"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="startGame(models.GameMode):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="8" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="13" operation="removeShape(models.players.Stick):void" asynchronous="false" x="147" y="649">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="17" operation="addScore(int):void" asynchronous="false" x="307" y="482">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="notifyObservers(models.players.Stick):void" asynchronous="false" x="308" y="523">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="updatePlayers():void" asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="25" operation="pushPlateLeft(models.shapes.Shape):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="26" operation="shapeShouldEnterThePool():void" asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="27"/>  
+  </message>  
+  <message id="29" operation="startNormalGame():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="32" asynchronous="false" x="63" y="321">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="34" operation="removeShapes(java.lang.String,models.players.Stick):void" asynchronous="false">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="36" operation="ShapeGenerator(models.levels.Level,javafx.scene.layout.Pane)" asynchronous="false">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="37"/>  
+  </message>  
+  <message id="39" operation="startMoving():void" asynchronous="false">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="42" 
+    operation="MovingShapeStateController(T,models.shapes.Shape,models.Platform,controllers.shape.util.ShapeMovingObserver)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="43"/>  
+  </message>  
+  <message id="44" 
+    operation="FallingShapeStateController(T,models.shapes.Shape,controllers.shape.util.ShapeFallingObserver)" 
+    asynchronous="false" x="806" y="255">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="45"/>  
+  </message>  
+  <message id="47" 
+    operation="checkIntersection(controllers.shape.ShapeController&lt;? extends javafx.scene.Node&gt;):boolean" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>  
+  <message id="50" operation="shapeShouldStartFalling():void" asynchronous="false" x="810" y="228">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="48"/>  
+  </message>  
+  <message id="53" operation="checkIntersection():void" asynchronous="false">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="46"/>  
+  </message>
+</sequence-diagram>
