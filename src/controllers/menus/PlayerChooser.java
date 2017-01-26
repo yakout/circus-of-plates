@@ -125,11 +125,12 @@ public class PlayerChooser implements Initializable {
         player.setPlayerUrl(CLOWN_DIR + chosenClownID + FILE_NAME);
         player.setInputType(inputType);
         if (inputType == InputType.JOYSTICK_SECONDARY) {
-            player.setSpeed(15);
-        } else if (inputType == InputType.JOYSTICK_PRIMARY) {
             player.setSpeed(5);
+        } else if (inputType == InputType.JOYSTICK_PRIMARY) {
+            player.setSpeed(0.5);
+        } else {
+            player.setSpeed(20);
         }
-        player.setSpeed(20);
         choosenPlayers.add(player);
     }
 
