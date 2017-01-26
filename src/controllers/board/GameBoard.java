@@ -92,7 +92,7 @@ public class GameBoard implements Initializable {
             }
         });
         this.timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(GAME_TIME + 1),
+                new KeyFrame(Duration.seconds(gameTime + 1),
                         new KeyValue(timeSeconds, 0)));
         this.timeline.play();
         logger.info("Timer started counting");
@@ -173,7 +173,7 @@ public class GameBoard implements Initializable {
     }
 
     public synchronized int getRemainingTime() {
-        return (int) this.timeline.getCurrentTime().toMillis();
+        return timeSeconds.getValue();
     }
 
     public void setGameTime(int gameTime) {

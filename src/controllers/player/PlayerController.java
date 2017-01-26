@@ -57,6 +57,11 @@ public class PlayerController {
                 .getHeight();
     }
 
+    /**
+     * Gets the node with the given id.
+     * @param id the ID of the required node.
+     * @return {@link Node} the node with given id.
+     */
     public Node getNodeWithId(String id) {
         return playerPane.getScene().lookup("#" + id);
     }
