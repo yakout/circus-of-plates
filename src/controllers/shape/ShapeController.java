@@ -20,6 +20,12 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
     private final Platform platform;
     private controllers.shape.util.ShapeState currentState;
 
+    /**
+     * Default constructor.
+     * @param shape
+     * @param model
+     * @param platform
+     */
     public ShapeController(final T shape, final Shape model,
                            final models.Platform platform) {
         this.shape = shape;
