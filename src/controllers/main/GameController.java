@@ -371,6 +371,11 @@ public class GameController implements Initializable, ScoreObserver {
      * @param modelDataHolder {@link ModelDataHolder} data model that holds
      * saved game data.
      */
+    /**
+     * Starts the saved data game.
+     * @param modelDataHolder {@link ModelDataHolder} data model that holds
+     * saved game data.
+     */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
         players.clear();
@@ -393,8 +398,8 @@ public class GameController implements Initializable, ScoreObserver {
                     mainGame.getChildren().add(shapeView);
                     ShapeController<? extends Node> shapeController = new
                             ShapeController<>
-                    (shapeView, shapePlatformPair
-                            .getShape(), shapePlatformPair.getPlatform());
+                            (shapeView, shapePlatformPair
+                                    .getShape(), shapePlatformPair.getPlatform());
                     shapeController.startMoving();
                     currentGame.getShapeControllers().add(shapeController);
                     break;
