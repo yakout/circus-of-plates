@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -94,9 +95,15 @@ public class GameBoard implements Initializable {
      * @param playerName the name of player in order to set his score.
      * @throws IOException if not found such a file.
      */
-    public void addPlayerPanel(String playerName) throws IOException {
-        URL url = new File(SCORE_PANEL_PATH).toURI().toURL();
-        AnchorPane scorePanel = FXMLLoader.load(url);
+    public void addPlayerPanel(String playerName) {
+        URL url = null;
+        AnchorPane scorePanel = null;
+        try {
+            url = new File(SCORE_PANEL_PATH).toURI().toURL();
+            scorePanel = FXMLLoader.load(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ((Label) scorePanel.getChildren().get(0)).setText(playerName);
 

@@ -106,6 +106,9 @@ public class LoadGame implements Initializable {
 
         Button button = new Button(saveDate + " - " + saveName);
         button.setMaxWidth(Double.MAX_VALUE);
+        button.setId("savedGameButton");
+        button.setPrefWidth(500.0);
+
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
