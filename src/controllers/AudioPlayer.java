@@ -72,6 +72,10 @@ public class AudioPlayer {
         }
     }
 
+    /**
+     * Stops the audio.
+     * @param audioType
+     */
     public static synchronized void stop(AudioType audioType) {
         switch (audioType) {
             case BACKGROUND:
@@ -82,6 +86,10 @@ public class AudioPlayer {
         }
     }
 
+    /**
+     * Pauses the audio.
+     * @param audioType
+     */
     public static synchronized void pause(AudioType audioType) {
         switch (audioType) {
             case BACKGROUND:
