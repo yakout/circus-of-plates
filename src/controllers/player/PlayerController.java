@@ -79,6 +79,12 @@ public class PlayerController {
         return playerModel;
     }
 
+    /**
+     * Checks whether the shape intersects with the left stack or not.
+     * @param shapeController {@link ShapeController} the controller of the
+     * current shape.
+     * @return whether it intersects or not.
+     */
     public synchronized boolean intersectsLeftStick(ShapeController<? extends
             Node> shapeController) {
         if (playerModel.isLeftStackFull()) {
@@ -116,6 +122,12 @@ public class PlayerController {
         return false;
     }
 
+    /**
+     * Checks whether the shape intersects with the right stack or not.
+     * @param shapeController {@link ShapeController} the controller of the
+     * current shape.
+     * @return whether it intersects or not.
+     */
     public synchronized boolean intersectsRightStick(ShapeController<?
             extends Node> shapeController) {
         if (playerModel.isRightStackFull()) {
@@ -177,6 +189,11 @@ public class PlayerController {
         return stickBounds.intersects(shapeBounds);
     }
 
+    /**
+     * Binds the Shape to left stick.
+     * @param shapeController {@link ShapeController} the controller of the
+     * shape.
+     */
     public synchronized void bindLeftStick(ShapeController<? extends Node>
                                                    shapeController) {
         Node shape = shapeController.getShape();
@@ -196,6 +213,11 @@ public class PlayerController {
         logger.debug("Shape is bound to the leftStick.");
     }
 
+    /**
+     * Binds the Shape to right stick.
+     * @param shapeController {@link ShapeController} the controller of the
+     * shape.
+     */
     public synchronized void bindRightStick(ShapeController<? extends Node>
                                                     shapeController) {
         Node shape = shapeController.getShape();
@@ -216,6 +238,10 @@ public class PlayerController {
         logger.debug("Shape is bound to the right stick.");
     }
 
+    /**
+     * Removes the shape from the given stick.
+     * @param stick {@link Stick} the stick of required plates to move off.
+     */
     public synchronized void removeShape(Stick stick) {
         for (int i = 0; i < GameRules.NUM_OF_CONSECUTIVE_PLATES; i++) {
             ShapeController<? extends Node> shapeController =
@@ -272,6 +298,9 @@ public class PlayerController {
         return height;
     }
 
+    /**
+     * Adds the shapes to the to stacks and binds them.
+     */
     public synchronized void addShapes() {
         Stack<Shape> leftShapes = new Stack<>();
         Stack<Shape> rightShapes = new Stack<>();
