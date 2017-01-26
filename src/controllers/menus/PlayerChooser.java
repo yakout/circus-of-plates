@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import models.players.Player;
 import models.players.PlayerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -109,12 +110,11 @@ public class PlayerChooser implements Initializable {
 
     private void updateData() {
         playerName = currPlayerName.getText();
-//        PlayerFactory.getFactory().registerPlayer(PLAYER + String.
-//                valueOf(currPlayer))
-//                .setPlayerUrl(CLOWN_DIR + String.valueOf(currPlayer));
+        Player player = new Player(playerName);
+        player.setPlayerUrl(CLOWN_DIR + chosenClownID + FILE_NAME);
+        player.setInputType(inputType);
 
-        GameController.getInstance().getCurrentGame().createPlayer(CLOWN_DIR
-                + chosenClownID + FILE_NAME, playerName, inputType);
+        GameController.getInstance().addPlayerToCurrentGame(player);
     }
 
     @FXML

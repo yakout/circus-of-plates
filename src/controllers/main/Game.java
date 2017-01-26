@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Ahmed Yakout on 1/25/17.
@@ -88,6 +89,12 @@ public class Game {
         playersController.createPlayer(player);
     }
 
+    void createPlayer(List<Player> players) {
+        for (Player player : players) {
+            createPlayer(player);
+        }
+    }
+
 
     public void removeShapeController(ShapeController<? extends Node>
                                               shapeController) {
@@ -118,6 +125,7 @@ public class Game {
             addDefaultPlayers();
             logger.info("Players were created");
         }
+        logger.info("players size in factory = " + PlayerFactory.getFactory().getPlayersSize());
 
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {

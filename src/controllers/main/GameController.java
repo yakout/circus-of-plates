@@ -57,6 +57,7 @@ public class GameController implements Initializable, ScoreObserver {
     private Double currentX;
     private Game currentGame;
     private int currentLevel;
+    private List<Player> players;
 
     @FXML
     private AnchorPane rootPane;
@@ -94,6 +95,7 @@ public class GameController implements Initializable, ScoreObserver {
         instance = this;
 
         currentLevel = 1;
+        players = new ArrayList<>();
         currentMenu = Start.getInstance();
         handler = FileHandler.getInstance();
         currentGame = new Game();
@@ -294,6 +296,7 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.destroy();
         currentGame = new Game();
         currentGame.setLevel(currentLevel);
+        currentGame.createPlayer(players);
     }
 
     void startKeyboardListener() {
@@ -399,6 +402,10 @@ public class GameController implements Initializable, ScoreObserver {
     public void setCurrentGameLevel(int level) {
         currentLevel = level;
         currentGame.setLevel(level);
+    }
+
+    public void addPlayerToCurrentGame(Player player) {
+        players.add(player);
     }
 
     public synchronized void playerLost(String playerName) {
