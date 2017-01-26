@@ -411,6 +411,7 @@ public class GameController implements Initializable, ScoreObserver {
                     break;
             }
         }
+        this.gameMode = modelDataHolder.getGameMode();
         currentMenu.setMenuVisible(false);
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
         switch (modelDataHolder.getGameMode()) {
@@ -541,6 +542,7 @@ public class GameController implements Initializable, ScoreObserver {
                     + winner + " has won with score " + maxScore);
             logger.info("Player: " + winner + " has won with score " + maxScore);
         }
+        players.clear();
         resetGame();
     }
 
