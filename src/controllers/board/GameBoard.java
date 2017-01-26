@@ -120,8 +120,7 @@ public class GameBoard implements Initializable {
         } else {
             rightPanel.getChildren().add(scorePanel);
         }
-        Exception e = new Exception();
-        logger.info("Scores of players are shown.", e);
+        logger.info("Scores of players are shown.");
     }
 
     /**
