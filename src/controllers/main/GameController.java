@@ -270,6 +270,7 @@ public class GameController implements Initializable, ScoreObserver {
         String fileName = name + " - " + currentDate;
         ModelDataHolder modelData = new ModelDataHolder();
         modelData.setActiveLevel(currentGame.getCurrentLevel());
+        modelData.setGameMode(gameMode);
         //TODO: add player
 //        modelData.addPlayer(cu)
         for (ShapeController<? extends Node> shapeController : currentGame
@@ -313,6 +314,7 @@ public class GameController implements Initializable, ScoreObserver {
 
         logger.info("Game is launched successfully.");
         this.gameMode = gameMode;
+        System.out.println(gameMode);
         switch (gameMode) {
             case NORMAL:
                 currentGame.startNormalGame();
