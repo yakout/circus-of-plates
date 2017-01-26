@@ -75,6 +75,10 @@ public class Start extends MenuController {
     }
 
 
+    /**
+     * Handles the menu of given id.
+     * @param id states tha id of the chosen button.
+     */
     @Override
     void handle(String id) {
         startMenu.setVisible(false);
@@ -135,11 +139,19 @@ public class Start extends MenuController {
         startMenu.setVisible(true);
     }
 
+    /**
+     * Gets the menu of the start.
+     * @return {@link VBox} the Vboox that coontains the menu.
+     */
     @Override
     protected VBox getMenu() {
         return menu;
     }
 
+    /**
+     * Sets the visibility of the menu.
+     * @param visible whether the menu is visible or not.
+     */
     @Override
     public void setMenuVisible(boolean visible) {
         startMenu.setVisible(visible);
@@ -151,16 +163,28 @@ public class Start extends MenuController {
         LoadGame.getInstance().setVisible(false);
     }
 
+    /**
+     * Sets the buttons to discactive mode.
+     * @param active whether active or not.
+     */
     public void activeDisabledButtons(boolean active) {
         this.newGameIsDisabled.set(!active);
         this.newGameIsDisabled.set(!active);
     }
 
+    /**
+     * Asks whether visible or not.
+     * @return visibilty of this menu.
+     */
     @Override
     public boolean isVisible() {
         return startMenu.isVisible();
     }
 
+    /**
+     * Gets the instance of the Start menu.
+     * @return the instance of start menu.
+     */
     public static MenuController getInstance() {
         return instance;
     }
