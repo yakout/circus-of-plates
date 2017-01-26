@@ -1,5 +1,6 @@
 package controllers.shape;
 
+import controllers.main.GameController;
 import controllers.shape.util.ShapeMovingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -52,7 +53,10 @@ public class MovingShapeStateController<T extends Node> extends
                             shapeMovingObserver.shapeShouldStartFalling();
                         } else {
                             shape.setTranslateX(shape.getTranslateX() + sign *
-                                    shapeModel.getHorizontalVelocity());
+                                    GameController.getInstance()
+                                            .getCurrentGame().getCurrentLevel
+                                            ().getShapeSpeedRatio() * shapeModel
+                                    .getHorizontalVelocity());
                         }
                     }
                 });

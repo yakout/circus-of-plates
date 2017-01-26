@@ -1,5 +1,6 @@
 package controllers.shape;
 
+import controllers.main.GameController;
 import controllers.shape.util.ShapeFallingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -43,7 +44,10 @@ public class FallingShapeStateController<T extends Node> extends
                             shapeFallingObserver.shapeShouldStopFalling();
                         } else {
                             shape.setTranslateY(shape.getTranslateY() +
-                                    shapeModel.getVerticalVelocity());
+                                    GameController.getInstance()
+                                            .getCurrentGame().getCurrentLevel
+                                            ().getShapeSpeedRatio() * shapeModel
+                                            .getVerticalVelocity());
                         }
                         shapeFallingObserver.checkIntersection();
                     }
