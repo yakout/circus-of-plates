@@ -10,7 +10,7 @@
       fx:controller="controllers.menus.Help" xmlns:fx="http://javafx.com/fxml/1"
       onKeyReleased="#keyHandler">
     <children>
-        <Button id="help" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler"
+        <Button id="help" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#mouseHandler"
                 text="GUIDE">
             <font>
                 <Font size="18.0"/>

@@ -30,7 +30,7 @@
                     <Font size="18.0"/>
                 </font>
             </Button>
-            <Button id="credits" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            <Button id="credits" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                     onMouseClicked="#mouseHandler" text="CREDITS">
                 <font>
                     <Font size="18.0"/>
