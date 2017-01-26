@@ -83,6 +83,14 @@ public class MovingShapeStateController<T extends Node> extends
         }
     };
 
+    /**
+     * default constructor.
+     * @param shape Shape view.
+     * @param model Shape model.
+     * @param platform {@link models.Platform} platform model.
+     * @param shapeMovingObserver {@link ShapeMovingObserver} obserber of the
+     * moving shape.
+     */
     public MovingShapeStateController(final T shape, final Shape model,
                                       final models.Platform platform, final
                                       ShapeMovingObserver shapeMovingObserver) {
@@ -112,21 +120,34 @@ public class MovingShapeStateController<T extends Node> extends
         //logger.debug("A Shape Started Moving");
     }
 
+    /**
+     * Next state after falling.
+     */
     @Override
     public void nextState() {
         super.stopMoving();
     }
 
+    /**
+     * Checks whether this state has next or not.
+     * @return whether this state has next or not.
+     */
     @Override
     public boolean hasNextState() {
         return true;
     }
 
+    /**
+     * Pauses the moving shape-thread.
+     */
     @Override
     public void pauseCurrentState() {
         super.pauseMovement();
     }
 
+    /**
+     * Resumes the moving shape-thread.
+     */
     @Override
     public void resumeCurrentState() {
         super.resumeMovement();

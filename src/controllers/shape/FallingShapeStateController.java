@@ -71,6 +71,12 @@ public class FallingShapeStateController<T extends Node> extends
         }
     };
 
+    /**
+     * Default constructor.
+     * @param shape Shape view.
+     * @param model Shape mode.
+     * @param shapeFallingObserver {@link ShapeFallingObserver} observer.
+     */
     public FallingShapeStateController(final T shape, final Shape model
             , final ShapeFallingObserver shapeFallingObserver) {
         super(shape, model);
@@ -81,21 +87,35 @@ public class FallingShapeStateController<T extends Node> extends
         shapeMovementThread.start();
     }
 
+    /**
+     * Next state after falling.
+     */
     @Override
     public void nextState() {
         super.stopMoving();
     }
 
+    /**
+     * Checks whether this state has next or not.
+     * @return whether this state has next or not.
+     */
     @Override
     public boolean hasNextState() {
         return true;
     }
 
     @Override
+
+    /**
+     * Pauses the falling shape-thread.
+     */
     public void pauseCurrentState() {
         super.pauseMovement();
     }
 
+    /**
+     * Resumes the falling shape-thread.
+     */
     @Override
     public void resumeCurrentState() {
         super.resumeMovement();
