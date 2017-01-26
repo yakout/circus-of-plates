@@ -18,10 +18,9 @@
             <content>
                 <AnchorPane>
                     <children>
-                        <VBox fx:id="savedGames" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="savedGames" alignment="CENTER" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Button maxWidth="1.7976931348623157E308" onMouseClicked="#mouseHandler"
+                                <Button id="savedGameButton" maxWidth="1.7976931348623157E308" onMouseClicked="#mouseHandler"
                                         mnemonicParsing="false" text="TEST_BUTTON_NOT_ACTUALLY_A_SAVED_GAME_LOL"
                                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
 
