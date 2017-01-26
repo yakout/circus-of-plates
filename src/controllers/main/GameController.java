@@ -405,7 +405,7 @@ public class GameController implements Initializable, ScoreObserver {
     }
 
     public synchronized void playerLost(String playerName) {
-        resetGame();
+        currentGame.pause();
         gamePaused = true;
         AudioPlayer.backgroundMediaPlayer.stop();
 
@@ -414,28 +414,36 @@ public class GameController implements Initializable, ScoreObserver {
 
         ((Start) Start.getInstance()).activeDisabledButtons(false);
 
-        int maxScore = 0;
+        int maxScore = Integer.MIN_VALUE;
         String winner = "";
-
+        System.out.println(currentGame.getPlayersController().getPlayersNames
+                ().size());
         Collection<String> playerNames = currentGame.getPlayersController().getPlayersNames();
         for (String name : playerNames) {
             Player playerModel = currentGame.getPlayersController().getPlayerModel(name);
             if (name.equals(playerName)) {
-                if (maxScore < playerModel.getScore() / 2) {
-                    maxScore = playerModel.getScore() / 2;
-                    winner = name;
-                }
-            } else {
-                if (maxScore < playerModel.getScore()) {
-                    maxScore = playerModel.getScore();
-                    winner = name;
-                }
+                playerModel.setScore(playerModel.getScore() / 2);
+            }
+            if (maxScore < playerModel.getScore()) {
+                maxScore = playerModel.getScore();
+                winner = name;
+            } else if (maxScore == playerModel.getScore()) {
+                winner = null;
             }
         }
         winPane.setVisible(true);
-        ((Label) winPane.getChildren().get(0)).setText("Player: "
-                + winner + " has won with score " + maxScore);
-        logger.info("Player: " + winner + " has won with score " + maxScore);
+        if (winner == null) {
+            ((Label) winPane.getChildren().get(0)).setText("The Game Ended in"
+                    + " A Draw With Score " + maxScore);
+            logger.info("The Game Ended in"
+                    + " A Draw With Score " + maxScore);
+
+        } else {
+            ((Label) winPane.getChildren().get(0)).setText("Player: "
+                    + winner + " has won with score " + maxScore);
+            logger.info("Player: " + winner + " has won with score " + maxScore);
+        }
+        resetGame();
     }
 
     @Override
