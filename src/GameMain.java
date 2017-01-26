@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
@@ -31,6 +32,8 @@ public class GameMain extends Application {
             Platform.exit();
             System.exit(0);
         });
+        primaryStage.getIcons().add(new Image(new File("src/assets/images"
+                + "/icon/circus-icon.png").toURI().toURL().toString()));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
