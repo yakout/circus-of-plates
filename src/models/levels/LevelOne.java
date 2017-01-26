@@ -46,11 +46,20 @@ public class LevelOne extends Level {
         supportedShapes.add(key);
     }
 
+    /**
+     * Gets the supported shapes.
+     * @return
+     */
     @Override
     public List<String> getSupportedShapes() {
         return supportedShapes;
     }
 
+    /**
+     * return where it supports this shape or not.
+     * @param shape
+     * @return
+     */
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
