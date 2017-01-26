@@ -162,11 +162,19 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Handles the released key.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @FXML
     public synchronized void keyHandlerReleased(KeyEvent event) {
         keyMap.put(event.getCode(), false);
     }
 
+    /**
+     * Handles the pressed key.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @FXML
     public synchronized void keyHandler(KeyEvent event) {
         keyMap.put(event.getCode(), true);
@@ -187,7 +195,10 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
-
+    /**
+     * Handles the pressed joystick-buttons.
+     * @param event {@link KeyEvent} Event done by the user.
+     */
     @InputAction(ACTION_TYPE = ActionType.BEGIN, INPUT_TYPE = InputType
             .JOYSTICK)
     public void performJoystickAction(JoystickEvent event) {
@@ -221,11 +232,19 @@ public class GameController implements Initializable, ScoreObserver {
         });
     }
 
+    /**
+     * Handles the pressed mouse action.
+     * @param event {@link MouseEvent} Event done by the user.
+     */
     @FXML
     public void onMousePressedHandler(MouseEvent event) {
         currentX = event.getSceneX();
     }
 
+    /**
+     * Handles the dragged-mouse action.
+     * @param event {@link MouseEvent} Event done by the user.
+     */
     @FXML
     public void onMouseDraggedHandler(MouseEvent event) {
         if (currentX > event.getSceneX()) {
@@ -239,6 +258,10 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Saves the current game with the given name.
+     * @param name the name of the game.
+     */
     public void saveGame(String name) {
         System.err.println(name);
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yy HH,mm,ss");
@@ -266,11 +289,18 @@ public class GameController implements Initializable, ScoreObserver {
         logger.info("Game is saved successfully.");
     }
 
-
+    /**
+     * Gets the stage width in view.
+     * @return the width of the stage.
+     */
     public double getStageWidth() {
         return mainGame.getWidth();
     }
 
+    /**
+     * Starts the game with the given game mode.
+     * @param gameMode {@link GameMode} the chosen game mode.
+     */
     public void startGame(GameMode gameMode) {
         ((Start) Start.getInstance()).activeDisabledButtons(true);
         GameController.getInstance().getMainGame().setVisible(true);
@@ -293,6 +323,9 @@ public class GameController implements Initializable, ScoreObserver {
         }
     }
 
+    /**
+     * Resets the game.
+     */
     public void resetGame() {
         currentGame.destroy();
         currentGame = new Game();
@@ -300,6 +333,9 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.createPlayer(players);
     }
 
+    /**
+     * Starts the key board listener for any action.
+     */
     void startKeyboardListener() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
@@ -318,6 +354,11 @@ public class GameController implements Initializable, ScoreObserver {
         executor.shutdown();
     }
 
+    /**
+     * Starts the saved data game.
+     * @param modelDataHolder {@link ModelDataHolder} data model that holds
+     * saved game data.
+     */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
         players.clear();
@@ -412,8 +453,8 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.setLevel(level);
     }
 
-    public void addPlayerToCurrentGame(Player player) {
-        players.add(player);
+    public void setPlayersToCurrentGame(List<Player> players) {
+        this.players = players;
     }
 
     public synchronized void playerLost(String playerName) {
