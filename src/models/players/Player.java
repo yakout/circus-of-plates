@@ -1,11 +1,5 @@
 package models.players;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-
-import com.sun.jmx.remote.internal.ArrayQueue;
 import controllers.input.InputType;
 import controllers.player.ScoreObserver;
 import javafx.beans.property.DoubleProperty;
@@ -13,6 +7,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import models.GameRules;
 import models.Point;
 import models.shapes.Shape;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.*;
 
 public class Player {
     private static int numOfPlayers = 0;

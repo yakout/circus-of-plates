@@ -115,7 +115,6 @@ public class Keyboard extends Input {
     }
 
     private void poll(Controller controller) {
-        Component prevComponent = null;
         Component currentComponent;
         KeyboardEvent keyboard = null;
         while (true) {
@@ -145,6 +144,8 @@ public class Keyboard extends Input {
                             if (currentComponent.getPollData() == 1.0f) {
                                 keyboard = new KeyboardEvent(eventType, KeyboardCode.RIGHT);
                             }
+                            break;
+                        default:
                             break;
                     }
                     if (keyboard != null) {
@@ -186,6 +187,7 @@ public class Keyboard extends Input {
                                 break;
                             case END:
                                 onActionEndMethods.put(_class, method);
+                                break;
                         }
                         System.out.println(method.getName());
                     }

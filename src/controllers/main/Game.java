@@ -90,7 +90,7 @@ public class Game {
      * Initialized used data structures used in this class.
      * Got called in the constructor.
      */
-    void initialize() {
+    private void initialize() {
         shapeControllers = new ArrayList<>();
         GameController.getInstance().getMainGame().getChildren().clear();
         playersController = new PlayersController(GameController.getInstance().getMainGame());
@@ -107,7 +107,7 @@ public class Game {
      * @param inputType {@link InputType} input type controller for the
      * current player.
      */
-    public void createPlayer(String path, String playerName, InputType inputType) {
+    private void createPlayer(String path, String playerName, InputType inputType) {
         try {
             playersController.createPlayer(path, playerName, inputType);
             gameBoard.addPlayerPanel(playerName);
@@ -120,14 +120,14 @@ public class Game {
      * Creates player with the given data.
      * @param player {@link Player} Player model.
      */
-    void createPlayer(Player player) {
+    public void createPlayer(Player player) {
         playersController.createPlayer(player);
         gameBoard.addPlayerPanel(player.getName());
         logger.info("created player with input type "
                 + player.getInputType() + " speed = " + player.getSpeed());
     }
 
-    void createPlayer(List<Player> players) {
+    public void createPlayer(List<Player> players) {
         for (Player player : players) {
             createPlayer(player);
         }
@@ -157,7 +157,7 @@ public class Game {
      * Pauses the current played game.
      * Pauses all the controllers that are running.
      */
-    void pause() {
+    public void pause() {
         shapeControllers.forEach(ShapeController::gamePaused);
         gameBoard.pause();
         if(shapeGenerator != null) {
@@ -169,7 +169,7 @@ public class Game {
      * Resumes the current paused game.
      * Resumes all the controllers that are paused.
      */
-    void resume() {
+    public void resume() {
         shapeControllers.forEach(ShapeController::gameResumed);
         gameBoard.resume();
         shapeGenerator.resumeGenerator();
@@ -178,7 +178,7 @@ public class Game {
     /**
      * Starts a normal game type.
      */
-    void startNormalGame() {
+    public void startNormalGame() {
         if (PlayerFactory.getFactory().getPlayersSize() == 0) {
             addDefaultPlayers();
             logger.info("Players were created");
@@ -204,7 +204,7 @@ public class Game {
      * remaining to generate new shape at shape generator.
      * @param counter the counter of the shape generator thread.
      */
-    void startNormalGame(long counter) {
+    public void startNormalGame(long counter) {
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {
             GameController.getInstance().getMainGame().getChildren().add(
@@ -216,12 +216,12 @@ public class Game {
         GameController.getInstance().continueGame();
     }
 
-    void startNewTimeAttack() {
+    public void startNewTimeAttack() {
         GameBoard.getInstance().initializeGameTimer();
         startNormalGame();
     }
 
-    void startNewTimeAttack(long counter) {
+    public void startNewTimeAttack(long counter) {
         GameBoard.getInstance().initializeGameTimer();
         startNormalGame(counter);
     }
@@ -239,7 +239,7 @@ public class Game {
      * @param playerName tha player name.
      * @param stick {@link Stick} the stick the the plate has fallen to.
      */
-    void updateScore(int score, String playerName, Stick stick) {
+    public void updateScore(int score, String playerName, Stick stick) {
         gameBoard.updateScore(score, playerName);
     }
 
@@ -249,7 +249,7 @@ public class Game {
      * Stops the audio player.
      * Clears the pool form shapes.
      */
-    void destroy() {
+    public void destroy() {
         if (shapeGenerator != null) {
             shapeGenerator.stopGeneration();
         }

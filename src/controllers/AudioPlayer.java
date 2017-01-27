@@ -69,6 +69,8 @@ public class AudioPlayer {
                 newScoreMediaPlayer.play();
                 newScoreMediaPlayer.seek(Duration.ZERO);
                 break;
+            default:
+                break;
         }
     }
 

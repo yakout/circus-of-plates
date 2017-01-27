@@ -93,7 +93,6 @@ public class Joystick extends Input {
     }
 
     private void poll(Controller controller) {
-        Component prevComponent = null;
         Component currentComponent;
         JoystickEvent joystick = null;
         while (true) {

@@ -2,7 +2,6 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +15,11 @@ public class Help extends MenuController {
     private VBox menu;
     private static Help instance;
 
+    @FXML
+    private VBox helpMenu;
+
     public Help() {
         super();
-        instance = this;
     }
 
     /**
@@ -33,22 +34,24 @@ public class Help extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         menu = helpMenu;
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
 
-    @FXML
-    private VBox helpMenu;
 
     @Override
-    void handle(String id) {
+    protected void handle(String id) {
         menu.setVisible(false);
         switch (id) {
             case "back":
                 Start.getInstance().setMenuVisible(true);
                 updateCurrentMenu(Start.getInstance());
                 logger.info("Menu is triggered to go back.");
+                break;
+            default:
+                // not implemented yet
                 break;
         }
     }

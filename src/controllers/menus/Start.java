@@ -21,7 +21,6 @@ public class Start extends MenuController {
 
     private static Logger logger = LogManager.getLogger(Start.class);
     private BooleanProperty newGameIsDisabled;
-    private String fileNameRegex; // TODO: 1/24/17
 
     @FXML
     private AnchorPane startMenu;
@@ -39,8 +38,6 @@ public class Start extends MenuController {
 
     public Start() {
         super();
-        instance = this;
-//        logger.debug("Start menu is loaded successfully.");
     }
 
     /**
@@ -55,6 +52,7 @@ public class Start extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         newGameIsDisabled = new SimpleBooleanProperty(true);
         getButton(1).disableProperty().bindBidirectional(newGameIsDisabled);
         getButton(2).disableProperty().bindBidirectional(newGameIsDisabled);
@@ -80,7 +78,7 @@ public class Start extends MenuController {
      * @param id states tha id of the chosen button.
      */
     @Override
-    void handle(String id) {
+    protected void handle(String id) {
         startMenu.setVisible(false);
         switch (id) {
             case "newGame":

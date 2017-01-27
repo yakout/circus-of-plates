@@ -37,7 +37,6 @@ public class GameMode extends MenuController {
      */
     public GameMode() {
         super();
-        instance = this;
     }
 
     /**
@@ -52,6 +51,7 @@ public class GameMode extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
         choiceBox = (ChoiceBox<String>) chooseLevel.getChildren().get(0);
@@ -71,7 +71,7 @@ public class GameMode extends MenuController {
      * @param id
      */
     @Override
-    void handle(String id) {
+    protected void handle(String id) {
         gameModeMenu.setVisible(false);
         switch (id) {
             case "back":

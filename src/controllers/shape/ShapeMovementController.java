@@ -3,8 +3,6 @@ package controllers.shape;
 import controllers.shape.util.ShapeState;
 import javafx.scene.Node;
 import models.shapes.Shape;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public abstract class ShapeMovementController<T extends Node>
         implements ShapeState {
@@ -13,8 +11,6 @@ public abstract class ShapeMovementController<T extends Node>
     protected Thread shapeMovementThread;
     protected boolean threadRunning;
     protected boolean threadPaused;
-    private static Logger logger = LogManager.getLogger(
-            ShapeMovementController.class);
 
     public ShapeMovementController(final T shape, final Shape model) {
         this.shape = shape;

@@ -32,9 +32,6 @@ public class Input implements Initializable {
 
     private IntegerProperty volume = new SimpleIntegerProperty(50);
 
-    public Input() {
-    }
-
     public static synchronized Input getInstance() {
         if (instance == null) {
             try {
@@ -58,8 +55,6 @@ public class Input implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-
-//        volumeSlider.valueProperty().bindBidirectional(volume);
     }
 
     @FXML

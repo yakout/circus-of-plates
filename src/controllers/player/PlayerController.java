@@ -8,21 +8,17 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import models.GameRules;
-import models.data.ModelDataHolder;
 import models.players.Player;
 import models.players.Stick;
 import models.shapes.Shape;
-import models.shapes.util.ShapePlatformPair;
 import models.states.ShapeState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import services.file.FileHandler;
 
-import java.io.File;
 import java.util.Stack;
 
 /**
- * Created by ahmedyakout on 1/23/17.
+ * Created by Ahmed Yakout on 1/23/17.
  */
 public class PlayerController {
     private String name;

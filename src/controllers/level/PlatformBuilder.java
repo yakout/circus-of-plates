@@ -12,14 +12,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PlatformBuilder {
     private static Logger logger = LogManager.getLogger(PlatformBuilder.class);
-
-    /**
-     * Default Constructor fot Platform builder instance.
-     */
-    public PlatformBuilder() {
-
-    }
-
+    
     /**
      * Converts the upcoming platform model to an image view.
      * @param platformModel the platform model.

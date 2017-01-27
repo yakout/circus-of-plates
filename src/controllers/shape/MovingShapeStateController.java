@@ -5,8 +5,6 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import models.shapes.Shape;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MovingShapeStateController<T extends Node> extends
         ShapeMovementController<T> {
@@ -14,9 +12,6 @@ public class MovingShapeStateController<T extends Node> extends
     private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
     private final ShapeMovingObserver shapeMovingObserver;
-    private static Logger logger = LogManager.getLogger
-            (MovingShapeStateController
-                    .class);
     private double offset;
     private final Runnable shapeMover = new Runnable() {
 

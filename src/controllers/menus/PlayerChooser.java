@@ -41,23 +41,20 @@ public class PlayerChooser implements Initializable {
     private List<Player> choosenPlayers;
 
     @FXML
-    AnchorPane anchor;
+    private AnchorPane anchor;
     @FXML
-    VBox imagesHolder;
+    private VBox imagesHolder;
     @FXML
-    HBox firstRow;
+    private HBox firstRow;
     @FXML
-    HBox secondRow;
+    private HBox secondRow;
     @FXML
-    Button choose;
+    private Button choose;
     @FXML
-    RadioButton keyboard, joystick, mouse;
+    private RadioButton keyboard, joystick, mouse;
     @FXML
-    TextField currPlayerName;
+    private TextField currPlayerName;
 
-    public PlayerChooser() {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

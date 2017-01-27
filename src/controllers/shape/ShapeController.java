@@ -7,14 +7,10 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
-import models.shapes.util.ShapePool;
 import models.states.ShapeState;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ShapeController<T extends Node> implements ShapeFallingObserver,
         ShapeMovingObserver, OnTheGroundShapeObserver {
-    private static Logger logger = LogManager.getLogger(ShapeController.class);
     private final T shape;
     private final Shape shapeModel;
     private final Platform platform;

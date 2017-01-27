@@ -37,7 +37,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.file.FileHandler;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -198,6 +197,8 @@ public class GameController implements Initializable, ScoreObserver {
                     }
                 }
                 break;
+            default:
+                break;
         }
     }
 
@@ -219,20 +220,17 @@ public class GameController implements Initializable, ScoreObserver {
                     if (playerName1 != null) {
                         currentGame.getPlayersController().moveLeft(playerName1);
                     }
-                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
-                    if (playerName1 != null) {
-                        currentGame.getPlayersController().moveRight(playerName1);
-                    }
+                } else if (event.getJoystickCode() == JoystickCode.RIGHT
+                        && playerName1 != null) {
+                    currentGame.getPlayersController().moveRight(playerName1);
                 }
             } else {
-                if (event.getJoystickCode() == JoystickCode.LEFT) {
-                    if (playerName2 != null) {
-                        currentGame.getPlayersController().moveLeft(playerName2);
-                    }
-                } else if (event.getJoystickCode() == JoystickCode.RIGHT) {
-                    if (playerName2 != null) {
-                        currentGame.getPlayersController().moveRight(playerName2);
-                    }
+                if (event.getJoystickCode() == JoystickCode.LEFT
+                        && playerName2 != null) {
+                    currentGame.getPlayersController().moveLeft(playerName2);
+                } else if (event.getJoystickCode() == JoystickCode.RIGHT
+                        && playerName2 != null) {
+                    currentGame.getPlayersController().moveRight(playerName2);
                 }
             }
         });
@@ -349,7 +347,7 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Starts the key board listener for any action.
      */
-    void startKeyboardListener() {
+    private void startKeyboardListener() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             while (!gamePaused) {
