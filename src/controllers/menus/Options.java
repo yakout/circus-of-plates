@@ -20,7 +20,7 @@ public class Options extends MenuController {
 
     private static Logger logger = LogManager.getLogger(Options.class);
     private static Options instance;
-    private final String BACKGROUND_CHOOSER_PANE_PATH = "src/views/menus/" +
+    private final String BACKGROUND_CHOOSER_PANE_PATH = "views/menus/" +
             "options/graphics/ChooseBackground/ChooseBackground.fxml";
 
     @FXML
@@ -114,7 +114,7 @@ public class Options extends MenuController {
     private void loadBackgroundChooser() {
         URL url;
         try {
-            url = new File(BACKGROUND_CHOOSER_PANE_PATH).toURI().toURL();
+            url = ClassLoader.getSystemResource(BACKGROUND_CHOOSER_PANE_PATH);
             AnchorPane backgroundChooser = FXMLLoader.load(url);
             GameController.getInstance().getRootPane().getChildren().add
                     (backgroundChooser);
