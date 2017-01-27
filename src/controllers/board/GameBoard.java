@@ -33,7 +33,7 @@ public class GameBoard implements Initializable {
 
     private static Logger logger = LogManager.getLogger(GameBoard.class);
     private static GameBoard instance;
-    private final String SCORE_PANEL_PATH = "src/views/board/scorePanel.fxml";
+    private final String SCORE_PANEL_PATH = "views/board/scorePanel.fxml";
 
     @FXML
     private HBox board;
@@ -108,7 +108,7 @@ public class GameBoard implements Initializable {
         URL url = null;
         AnchorPane scorePanel = null;
         try {
-            url = new File(SCORE_PANEL_PATH).toURI().toURL();
+            url = ClassLoader.getSystemResource(SCORE_PANEL_PATH);
             scorePanel = FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
