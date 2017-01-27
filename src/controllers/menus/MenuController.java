@@ -119,9 +119,6 @@ public abstract class MenuController implements Initializable {
                 menuSelectionMediaPlayer.seek(Duration.ZERO);
                 handle(getButton(getCurrentIndex()).getId());
                 break;
-            case ESCAPE:
-//                GameController.getInstance().continueGame();
-                break;
             case DOWN:
                 menuChoiceMediaPlayer.play();
                 menuChoiceMediaPlayer.seek(Duration.ZERO);

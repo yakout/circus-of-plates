@@ -48,7 +48,7 @@
                     AnchorPane.topAnchor="0.0"
                     AnchorPane.bottomAnchor="0.0">
             <ChoiceBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-            <Button id="doneChoosingLevel" mnemonicParsing="false" onMouseClicked="#mouseHandler"
+            <Button id="doneChoosingLevel" mnemonicParsing="false" onKeyReleased="#keyPressed" onMouseClicked="#mouseHandler"
                     text="DONE" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
         </AnchorPane>
 

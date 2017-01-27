@@ -4,7 +4,10 @@ import controllers.input.joystick.Joystick;
 import controllers.main.GameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import models.levels.util.LevelFactory;
@@ -158,5 +161,12 @@ public class GameMode extends MenuController {
     @Override
     public boolean isVisible() {
         return gameModeMenu.isVisible();
+    }
+
+    @FXML
+    public void keyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            handle(((Node) event.getSource()).getId());
+        }
     }
 }
