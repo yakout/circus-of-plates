@@ -48,7 +48,7 @@ public class PlayersController {
      */
     public Node createPlayer(String path, String playerName, InputType
             inputType) throws IOException {
-        URL url = new File(path).toURI().toURL();
+        URL url = ClassLoader.getSystemResource(path);
         Node player = FXMLLoader.load(url);
         PlayerFactory.getFactory().registerPlayer
                 (playerName).setInputType(inputType);
@@ -72,7 +72,7 @@ public class PlayersController {
      */
     public Node createPlayer(Player playerModel) {
         try {
-            URL url = new File(playerModel.getPlayerUrl()).toURI().toURL();
+            URL url = ClassLoader.getSystemResource(playerModel.getPlayerUrl());
             Node player = FXMLLoader.load(url);
             String playerName = playerModel.getName();
             PlayerFactory.getFactory().registerPlayer

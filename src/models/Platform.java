@@ -7,7 +7,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 public class Platform {
-    private static final String URL = "src/assets/images/platforms/rod.png";
+    private static final String URL = "assets/images/platforms/rod.png";
     private Point center;
     private DoubleProperty width;
     private DoubleProperty height;
@@ -53,13 +53,7 @@ public class Platform {
     }
 
     public String getUrl() {
-        try {
-            return new File(url).toURI().toURL()
-                    .toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return ClassLoader.getSystemResource(url).toString();
     }
 
     public void setUrl(String url) {

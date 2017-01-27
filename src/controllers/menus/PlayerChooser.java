@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  */
 public class PlayerChooser implements Initializable {
 
-    private static final String CLOWN_DIR = "src/views/clowns/clown_";
+    private static final String CLOWN_DIR = "views/clowns/clown_";
     private static final String FILE_NAME = "/clown.fxml";
     private static final String PLAYER = "PLAYER ";
     private static final String CHOOSE = ": Choose";

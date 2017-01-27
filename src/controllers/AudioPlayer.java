@@ -1,46 +1,75 @@
 package controllers;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import javafx.scene.media.MediaPlayer;
+
 import java.io.File;
+import java.net.URISyntaxException;
 
 public class AudioPlayer {
 
     private static final String MENU_SELECTION_RES =
-            "src/assets/sounds/effects/MenuSelection1.mp3";
-    public static final Media menuSelectionMedia =
-            new Media(new File(MENU_SELECTION_RES).toURI().toString());
+            "assets/sounds/effects/MenuSelection1.mp3";
+    public static Media menuSelectionMedia;
     private static final String MENU_CHOICE_RES =
-            "src/assets/sounds/effects/MenuChoice.mp3";
-    public static final Media menuChoiceMedia =
-            new Media(new File(MENU_CHOICE_RES).toURI().toString());
+            "assets/sounds/effects/MenuChoice.mp3";
+    public static Media menuChoiceMedia;
     private static final String BACKGROUND_RES =
-            "src/assets/sounds/Circus Dilemma.mp3";
-    public static final Media backgroundMedia =
-            new Media(new File(BACKGROUND_RES).toURI().toString());
+            "assets/sounds/Circus Dilemma.mp3";
+    public static Media backgroundMedia;
     private static final String NEW_SCORE_RES =
-            "src/assets/sounds/effects/score.mp3";
-    public static final Media newScoreMedia =
-            new Media(new File(NEW_SCORE_RES).toURI().toString());
+            "assets/sounds/effects/score.mp3";
+    public static Media newScoreMedia;
     private static final String WIN_RES =
-            "src/assets/sounds/384. Steppin Up_1.mp3";
-    public static final Media windMedia =
-            new Media(new File(WIN_RES).toURI().toString());
+            "assets/sounds/384. Steppin Up_1.mp3";
+    public static Media windMedia;
     public static final MediaPlayer
-            menuSelectionMediaPlayer =
-            new MediaPlayer(menuSelectionMedia);
-    public static final MediaPlayer menuChoiceMediaPlayer =
-            new MediaPlayer(menuChoiceMedia);
-    public static final MediaPlayer backgroundMediaPlayer =
-            new MediaPlayer(backgroundMedia);
-    public static final MediaPlayer newScoreMediaPlayer =
-            new MediaPlayer(newScoreMedia);
-    public static final MediaPlayer winMediaPlayer =
-            new MediaPlayer(windMedia);
+            menuSelectionMediaPlayer;
+    public static final MediaPlayer menuChoiceMediaPlayer;
+    public static final MediaPlayer backgroundMediaPlayer;
+    public static final MediaPlayer newScoreMediaPlayer;
+    public static final MediaPlayer winMediaPlayer;
     private static Logger logger = LogManager.getLogger(AudioPlayer.class);
+
+    static {
+        try {
+            menuSelectionMedia =
+                    new Media(ClassLoader.getSystemResource(MENU_SELECTION_RES)
+                            .toURI().toString());
+            menuChoiceMedia =
+                    new Media(ClassLoader.getSystemResource(MENU_CHOICE_RES)
+                            .toURI().toString());
+            backgroundMedia =
+                    new Media(ClassLoader.getSystemResource(BACKGROUND_RES)
+                            .toURI().toString());
+            newScoreMedia =
+                    new Media(ClassLoader.getSystemResource(NEW_SCORE_RES)
+                            .toURI().toString());
+             windMedia =
+                    new Media(ClassLoader.getSystemResource(WIN_RES)
+                            .toURI().toString());
+        } catch (URISyntaxException e) {
+            menuSelectionMedia = null;
+            menuChoiceMedia = null;
+            backgroundMedia = null;
+            newScoreMedia = null;
+            windMedia = null;
+            e.printStackTrace();
+        }
+        menuSelectionMediaPlayer =
+                new MediaPlayer(menuSelectionMedia);
+        menuChoiceMediaPlayer =
+                new MediaPlayer(menuChoiceMedia);
+        backgroundMediaPlayer =
+                new MediaPlayer(backgroundMedia);
+        newScoreMediaPlayer =
+                new MediaPlayer(newScoreMedia);
+        winMediaPlayer =
+                new MediaPlayer(windMedia);
+    }
 
     public static synchronized void play(AudioType audioType) {
         switch (audioType) {

@@ -29,9 +29,9 @@ import java.util.List;
  */
 public class Game {
     private static Logger logger = LogManager.getLogger(Game.class);
-    private final String DEFAULT_PLAYER_1 = "src/views/clowns/clown_5/clown"
+    private final String DEFAULT_PLAYER_1 = "views/clowns/clown_5/clown"
             + ".fxml";
-    private final String DEFAULT_PLAYER_2 = "src/views/clowns/clown_6/clown"
+    private final String DEFAULT_PLAYER_2 = "views/clowns/clown_6/clown"
             + ".fxml";
     private PlayersController playersController;
     private int level;
