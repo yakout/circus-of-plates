@@ -55,7 +55,6 @@ public class GameController implements Initializable, ScoreObserver {
     private Map<KeyCode, Boolean> keyMap;
     private volatile boolean gamePaused = false;
     private FileHandler handler;
-    private Double currentX;
     private Game currentGame;
     private int currentLevel;
     private List<Player> players;
@@ -243,31 +242,6 @@ public class GameController implements Initializable, ScoreObserver {
         });
     }
 
-    /**
-     * Handles the pressed mouse action.
-     * @param event {@link MouseEvent} Event done by the user.
-     */
-    @FXML
-    public void onMousePressedHandler(MouseEvent event) {
-        currentX = event.getSceneX();
-    }
-
-    /**
-     * Handles the dragged-mouse action.
-     * @param event {@link MouseEvent} Event done by the user.
-     */
-    @FXML
-    public void onMouseDraggedHandler(MouseEvent event) {
-        if (currentX > event.getSceneX()) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.MOUSE));
-        } else {
-            currentGame.getPlayersController().moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.MOUSE));
-        }
-    }
 
     /**
      * Saves the current game with the given name.
