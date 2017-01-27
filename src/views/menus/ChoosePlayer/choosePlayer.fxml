@@ -71,7 +71,7 @@
     </children>
 
     <stylesheets>
-        <URL value="@ChoosePlayer.css"/>
+        <URL value="@choosePlayer.css"/>
     </stylesheets>
 
 </AnchorPane>

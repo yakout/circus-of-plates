@@ -11,7 +11,6 @@ import models.levels.util.LevelFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +20,7 @@ public class GameMode extends MenuController {
     private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
     private final String LOAD_GAME_PANE_PATH
-            = "views/menus/ChoosePlayer/ChoosePlayer.fxml";
+            = "views/menus/ChoosePlayer/choosePlayer.fxml";
     private final int LEVEL_INDEX = 6;
     @FXML
     private VBox menu;
