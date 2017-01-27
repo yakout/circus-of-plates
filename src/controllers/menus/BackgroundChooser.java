@@ -25,20 +25,13 @@ public class BackgroundChooser implements Initializable {
     private String chosenBackground;
 
     @FXML
-    AnchorPane anchor;
+    private AnchorPane anchor;
     @FXML
-    VBox imagesHolder;
+    private VBox imagesHolder;
     @FXML
-    HBox firstRow;
+    private HBox firstRow;
     @FXML
-    Button choose;
-
-    /**
-     * default constructor BackgroundChooser class.
-     */
-    public BackgroundChooser() {
-
-    }
+    private Button choose;
 
     /**
      * Called on loading the corresponding fxml file.

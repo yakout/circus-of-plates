@@ -20,13 +20,11 @@ public class FileHandler implements FileWriter, FileReader {
     private static Logger logger = LogManager.getLogger(FileHandler.class);
     private FileWriter writer;
     private FileReader reader;
-    private int savedGamesCnt;
     private static FileHandler instance;
 
     private FileHandler() {
         writer = new JsonWriter();
         reader = new JsonReader();
-        savedGamesCnt = 0;
     }
 
     public static synchronized FileHandler getInstance() {

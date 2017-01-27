@@ -34,6 +34,7 @@ public class LoadGame implements Initializable {
     private String selectedGame;
 
     public LoadGame() {
+        super();
     }
 
     public static LoadGame getInstance() {
@@ -77,6 +78,8 @@ public class LoadGame implements Initializable {
             case "CANCEL":
                 Start.getInstance().setMenuVisible(true);
                 loadGamePane.setVisible(false);
+                break;
+            default:
                 break;
         }
     }

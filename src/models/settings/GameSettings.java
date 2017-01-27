@@ -1,13 +1,13 @@
 package models.settings;
 
 public class GameSettings {
-    private GameSettings() {
-    }
-
     private static GameSettings instance;
     private Audio audioSettings;
     private Graphics graphicsSettings;
     private General generalSettings;
+
+    private GameSettings() {
+    }
 
     public static GameSettings getInstance() {
         if (instance == null) {

@@ -22,7 +22,7 @@ public class SavedGameSet implements Iterable<String> {
     }
 
     private class SavedGameIterator implements Iterator<String> {
-        int counter = 0;
+        private int counter = 0;
         /**
          * Returns {@code true} if the iteration has more elements.
          * (In other words, returns {@code true} if {@link #next} would

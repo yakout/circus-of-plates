@@ -32,7 +32,6 @@ public class Options extends MenuController {
 
     public Options() {
         super();
-        instance = this;
     }
 
     /**
@@ -47,12 +46,13 @@ public class Options extends MenuController {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
 
     @Override
-    void handle(String id) {
+    protected void handle(String id) {
         optionsMenu.setVisible(false);
         switch (id) {
             case "back":

@@ -54,7 +54,7 @@ public abstract class MenuController implements Initializable {
         return currentIndex;
     }
 
-    void updateCurrentMenu(MenuController menuController) {
+    public void updateCurrentMenu(MenuController menuController) {
         GameController.getInstance().setCurrentMenu(menuController);
         menuController.requestFocus(0);
     }
@@ -63,7 +63,7 @@ public abstract class MenuController implements Initializable {
         Platform.runLater(() -> getButton(index).requestFocus());
     }
 
-    abstract void handle(String id);
+    abstract protected void handle(String id);
 
     private void handleEvent(Direction direction) {
         getCurrentIndex();
@@ -81,6 +81,7 @@ public abstract class MenuController implements Initializable {
             case PRESS:
                 handle(getButton(currentIndex).getId());
                 currentIndex = 0;
+                break;
             default:
                 break;
         }
@@ -110,6 +111,7 @@ public abstract class MenuController implements Initializable {
                             .menuSelectionMedia).play();
                     handleEvent(Direction.PRESS);
                 });
+                break;
             default:
                 break;
         }

@@ -70,7 +70,7 @@ public abstract class Level {
 
     public boolean isSupportedColor(Color color) {
         for (Color currColor : supportedColors) {
-            if (currColor == color) {
+            if (currColor.equals(color)) {
                 return true;
             }
         }
