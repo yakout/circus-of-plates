@@ -4,11 +4,8 @@ import controllers.main.GameController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,12 +29,6 @@ public class BackgroundChooser implements Initializable {
 
     @FXML
     private AnchorPane anchor;
-    @FXML
-    private VBox imagesHolder;
-    @FXML
-    private HBox firstRow;
-    @FXML
-    private Button choose;
 
     /**
      * @return instance of this class.
@@ -54,7 +45,7 @@ public class BackgroundChooser implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-        chosenBackground = "1";
+        chosenBackground = "5";
     }
 
     public void setVisible(final boolean visible) {

@@ -23,12 +23,16 @@
     -fx-background-size: stretch;
 }
 
-
-
-.button:focused {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
+#1:focused, #2:focused, #4:focused, #5:focused {
+    -fx-border-color: black;
+    -fx-border-width: 8;
 }
 
-.button {
+
+#choose:focused {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}
+
+#choose {
     -fx-background-color: rgba(0, 0, 0, 0.7);
 }
