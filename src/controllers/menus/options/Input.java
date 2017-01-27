@@ -32,9 +32,6 @@ public class Input implements Initializable {
 
     private IntegerProperty volume = new SimpleIntegerProperty(50);
 
-    public Input() {
-    }
-
     public static synchronized Input getInstance() {
         if (instance == null) {
             try {

@@ -1,6 +1,5 @@
 package controllers.input.keyboard;
 
-import controllers.input.joystick.JoystickTest;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;

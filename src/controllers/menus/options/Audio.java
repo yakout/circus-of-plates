@@ -35,8 +35,6 @@ public class Audio implements Initializable {
     private IntegerProperty volume = new SimpleIntegerProperty(50);
     private BooleanProperty mute = new SimpleBooleanProperty(false);
 
-    public Audio() {
-    }
 
     public static synchronized Audio getInstance() {
         if (instance == null) {
