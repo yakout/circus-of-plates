@@ -18,11 +18,11 @@ public class Player {
     private static int numOfPlayers = 0;
 
     private transient List<ScoreObserver> observers;
-    private Stack<Shape> leftStick;
-    private Stack<Shape> rightStick;
+    private volatile Stack<Shape> leftStick;
+    private volatile Stack<Shape> rightStick;
     private String playerName;
     private Point position;
-    private int score;
+    private volatile int score;
     private DoubleProperty speed;
     private InputType inputType;
     private String playerUrl;
@@ -53,19 +53,19 @@ public class Player {
         this.playerName = name;
     }
 
-    public Stack<Shape> getLeftStack() {
+    public synchronized Stack<Shape> getLeftStack() {
         return leftStick;
     }
 
-    public Stack<Shape> getRightStack() {
+    public synchronized Stack<Shape> getRightStack() {
         return rightStick;
     }
 
-    public boolean pushPlateLeft(Shape shape) {
+    public synchronized boolean pushPlateLeft(Shape shape) {
         return pushPlate(this.leftStick, shape, Stick.LEFT);
     }
 
-    public boolean pushPlateRight(Shape shape) {
+    public synchronized boolean pushPlateRight(Shape shape) {
         return pushPlate(this.rightStick, shape, Stick.RIGHT);
     }
 
@@ -74,7 +74,7 @@ public class Player {
     }
 
     // returns true if got consecutive plates and the score increased
-    private boolean pushPlate(Stack<Shape> stack, Shape shape, Stick stick) {
+    private synchronized boolean pushPlate(Stack<Shape> stack, Shape shape, Stick stick) {
         stack.push(shape);
         if (stack.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
             Queue<Shape> queue = new LinkedList<>();
@@ -97,11 +97,11 @@ public class Player {
         return false;
     }
 
-    public void addScore(int change) {
+    private synchronized void addScore(int change) {
         this.score += change;
     }
 
-    private void notifyObservers(Stick stick) {
+    private synchronized void notifyObservers(Stick stick) {
         for (ScoreObserver scoreObserver : observers) {
             scoreObserver.update(this.score, this.playerName, stick);
         }

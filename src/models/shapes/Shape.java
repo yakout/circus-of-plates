@@ -14,7 +14,7 @@ public abstract class Shape {
     protected Point initialPosition;
     protected double xVelocity;
     protected double yVelocity;
-    protected ShapeState state;
+    protected volatile ShapeState state;
     protected DoubleProperty width;
     protected DoubleProperty height;
     protected String key;
