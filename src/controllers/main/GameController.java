@@ -23,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import models.GameMode;
@@ -55,7 +54,6 @@ public class GameController implements Initializable, ScoreObserver {
     private Map<KeyCode, Boolean> keyMap;
     private volatile boolean gamePaused = false;
     private FileHandler handler;
-    private Double currentX;
     private Game currentGame;
     private int currentLevel;
     private List<Player> players;
@@ -191,12 +189,15 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(event.getCode(), true);
         switch (event.getCode()) {
             case ESCAPE:
-                winPane.setVisible(false);
                 AudioPlayer.winMediaPlayer.stop();
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
                         logger.info("Game is continued.");
+                    } else if (winPane.isVisible()) {
+                        winPane.setVisible(false);
+                        currentMenu = Start.getInstance();
+                        currentMenu.setMenuVisible(true);
                     } else {
                         pauseGame();
                         logger.info("Game is paused.");
@@ -243,31 +244,6 @@ public class GameController implements Initializable, ScoreObserver {
         });
     }
 
-    /**
-     * Handles the pressed mouse action.
-     * @param event {@link MouseEvent} Event done by the user.
-     */
-    @FXML
-    public void onMousePressedHandler(MouseEvent event) {
-        currentX = event.getSceneX();
-    }
-
-    /**
-     * Handles the dragged-mouse action.
-     * @param event {@link MouseEvent} Event done by the user.
-     */
-    @FXML
-    public void onMouseDraggedHandler(MouseEvent event) {
-        if (currentX > event.getSceneX()) {
-            currentGame.getPlayersController().moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.MOUSE));
-        } else {
-            currentGame.getPlayersController().moveLeft(PlayerFactory
-                    .getFactory().getPlayerNameWithController
-                            (InputType.MOUSE));
-        }
-    }
 
     /**
      * Saves the current game with the given name.

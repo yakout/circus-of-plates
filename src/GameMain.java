@@ -10,11 +10,12 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import models.settings.FileConstants;
 import models.shapes.util.ShapeLoader;
-
 import java.io.File;
 import java.io.IOException;
 
 public class GameMain extends Application {
+    private final String ICON_RES_PATH = "assets/images"
+            + "/icon/circus-icon.png";
     private static void registerLevels() {
         try {
             Class.forName("models.levels.LevelOne");
@@ -46,16 +47,16 @@ public class GameMain extends Application {
         primaryStage.setScene(new Scene(root, visualBounds.getWidth(),
                 visualBounds.getHeight()));
         primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit
-        // full screen."
+        primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreenExitKeyCombination(KeyCombination
                 .keyCombination("Ctrl+F"));
         primaryStage.setOnCloseRequest(event -> {
             Platform.exit();
             System.exit(0);
         });
-        primaryStage.getIcons().add(new Image(new File("src/assets/images"
-                + "/icon/circus-icon.png").toURI().toURL().toString()));
+
+        primaryStage.getIcons().add(new Image(ClassLoader.
+                getSystemResource(ICON_RES_PATH).toString()));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

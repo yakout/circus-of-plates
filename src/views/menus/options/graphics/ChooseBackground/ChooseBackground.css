@@ -5,17 +5,34 @@
 }
 
 #2 {
-    -fx-background-image: url('../../../../../assets/images/backgrounds/background_5.png');
+    -fx-background-image: url('../../../../../assets/images/backgrounds/background_2.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
 }
 
 
-
-.button:focused {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
+#4 {
+    -fx-background-image: url('../../../../../assets/images/backgrounds/background_4.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
 }
 
-.button {
+#5 {
+    -fx-background-image: url('../../../../../assets/images/backgrounds/background_5.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#1:focused, #2:focused, #4:focused, #5:focused {
+    -fx-border-color: black;
+    -fx-border-width: 8;
+}
+
+
+#choose:focused {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}
+
+#choose {
     -fx-background-color: rgba(0, 0, 0, 0.7);
 }
