@@ -9,38 +9,8 @@ import java.io.File;
 
 public class AudioPlayer {
 
-    private static Logger logger = LogManager.getLogger(AudioPlayer.class);
-
-    public enum AudioType {
-        MENU_SELECTION,
-        MENU_CHOICE,
-        BACKGROUND,
-        NEW_SCORE
-    }
-
-    private static final String MENU_SELECTION_RES =
-            "src/assets/sounds/effects/MenuSelection1.mp3";
-    private static final String MENU_CHOICE_RES =
-            "src/assets/sounds/effects/MenuChoice.mp3";
-    private static final String BACKGROUND_RES =
-            "src/assets/sounds/Circus Dilemma.mp3";
-    private static final String NEW_SCORE_RES =
-            "src/assets/sounds/effects/score.mp3";
-    private static final String WIN_RES =
-            "src/assets/sounds/384. Steppin Up_1.mp3";
-
-    public static final Media menuSelectionMedia =
-            new Media(new File(MENU_SELECTION_RES).toURI().toString());
-    public static final Media menuChoiceMedia =
-            new Media(new File(MENU_CHOICE_RES).toURI().toString());
-    public static final Media backgroundMedia =
-            new Media(new File(BACKGROUND_RES).toURI().toString());
-    public static final Media newScoreMedia =
-            new Media(new File(NEW_SCORE_RES).toURI().toString());
-    public static final Media windMedia =
-            new Media(new File(WIN_RES).toURI().toString());
-
-    public static final javafx.scene.media.MediaPlayer menuSelectionMediaPlayer =
+    public static final javafx.scene.media.MediaPlayer
+            menuSelectionMediaPlayer =
             new javafx.scene.media.MediaPlayer(menuSelectionMedia);
     public static final javafx.scene.media.MediaPlayer menuChoiceMediaPlayer =
             new javafx.scene.media.MediaPlayer(menuChoiceMedia);
@@ -50,6 +20,27 @@ public class AudioPlayer {
             new javafx.scene.media.MediaPlayer(newScoreMedia);
     public static final javafx.scene.media.MediaPlayer winMediaPlayer =
             new javafx.scene.media.MediaPlayer(windMedia);
+    private static final String MENU_SELECTION_RES =
+            "src/assets/sounds/effects/MenuSelection1.mp3";
+    public static final Media menuSelectionMedia =
+            new Media(new File(MENU_SELECTION_RES).toURI().toString());
+    private static final String MENU_CHOICE_RES =
+            "src/assets/sounds/effects/MenuChoice.mp3";
+    public static final Media menuChoiceMedia =
+            new Media(new File(MENU_CHOICE_RES).toURI().toString());
+    private static final String BACKGROUND_RES =
+            "src/assets/sounds/Circus Dilemma.mp3";
+    public static final Media backgroundMedia =
+            new Media(new File(BACKGROUND_RES).toURI().toString());
+    private static final String NEW_SCORE_RES =
+            "src/assets/sounds/effects/score.mp3";
+    public static final Media newScoreMedia =
+            new Media(new File(NEW_SCORE_RES).toURI().toString());
+    private static final String WIN_RES =
+            "src/assets/sounds/384. Steppin Up_1.mp3";
+    public static final Media windMedia =
+            new Media(new File(WIN_RES).toURI().toString());
+    private static Logger logger = LogManager.getLogger(AudioPlayer.class);
 
     public static synchronized void play(AudioType audioType) {
         switch (audioType) {
@@ -112,7 +103,6 @@ public class AudioPlayer {
         }
     }
 
-
     public static synchronized void mute(boolean isMute) {
         menuChoiceMediaPlayer.setMute(isMute);
         menuSelectionMediaPlayer.setMute(isMute);
@@ -129,5 +119,12 @@ public class AudioPlayer {
         newScoreMediaPlayer.setVolume(volume);
         winMediaPlayer.setVolume(volume);
         logger.info("Volume is set successfully.");
+    }
+
+    public enum AudioType {
+        MENU_SELECTION,
+        MENU_CHOICE,
+        BACKGROUND,
+        NEW_SCORE
     }
 }

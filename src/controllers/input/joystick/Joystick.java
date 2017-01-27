@@ -46,6 +46,10 @@ public class Joystick extends Input {
         return instance;
     }
 
+    public static void main(String[] args) {
+        //   getMethodsAnnotatedWith();
+    }
+
     /**
      * Starts the thread of the input controller.
      */
@@ -194,7 +198,6 @@ public class Joystick extends Input {
         }
     }
 
-
     private void invokeOnActionMethods(JoystickEvent joystickEvent)
             throws InvocationTargetException, IllegalAccessException {
         for (Map.Entry<Class<?>, Method> entry : onActionMethods.entrySet()) {
@@ -220,7 +223,6 @@ public class Joystick extends Input {
             entry.getValue().invoke(instance, joystickEvent);
         }
     }
-
 
     private void findAnnotatedMethods() {
         for (Map.Entry<Class<?>, Object> entry : registeredClasses.entrySet()) {
@@ -279,10 +281,6 @@ public class Joystick extends Input {
     @Override
     public void registerClassForInputAction(Class<?> clazz, Object instance) {
         registeredClasses.put(clazz, instance);
-    }
-
-    public static void main(String[] args) {
-        //   getMethodsAnnotatedWith();
     }
 
 }

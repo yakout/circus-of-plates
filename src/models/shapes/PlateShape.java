@@ -13,11 +13,11 @@ import java.net.MalformedURLException;
  * Created by Ahmed Khaled on 19/01/2017.
  */
 public class PlateShape extends Shape {
+    public static final String KEY = PlateShape.class.getName();
     private static final String URL = "src/assets/images/plates/";
     private static final String FILE_NAME = "platewithoutbase.png";
     private static final double HORIZONTAL_VELOCITY = 1.5;
     private static final double VERTICAL_VELOCITY = 1.7;
-    public static final String KEY = PlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
 
     static {

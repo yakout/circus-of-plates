@@ -34,13 +34,15 @@ public class Options extends MenuController {
         super();
     }
 
+    public static MenuController getInstance() {
+        return instance;
+    }
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the
-     *                  root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
      *                  <tt>null</tt> if
      */
@@ -112,7 +114,8 @@ public class Options extends MenuController {
         try {
             url = new File(BACKGROUND_CHOOSER_PANE_PATH).toURI().toURL();
             AnchorPane backgroundChooser = FXMLLoader.load(url);
-            GameController.getInstance().getRootPane().getChildren().add(backgroundChooser);
+            GameController.getInstance().getRootPane().getChildren().add
+                    (backgroundChooser);
 
             double width = GameController.getInstance().getStageWidth();
             AnchorPane.setLeftAnchor(backgroundChooser,
@@ -131,9 +134,5 @@ public class Options extends MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static MenuController getInstance() {
-        return instance;
     }
 }

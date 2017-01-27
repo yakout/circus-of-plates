@@ -3,14 +3,9 @@ package models.settings;
 import com.sun.javafx.geom.Dimension2D;
 
 final class Graphics {
-    public enum Quality {
-        ULTRA, HIGH, MEDIUM, LOW
-    }
-
     private boolean isFullScreen;
     private Quality quality;
     private Dimension2D dimension;
-
     public Graphics() {
         this.quality = Quality.MEDIUM;
         this.dimension = new Dimension2D(800, 600);
@@ -35,5 +30,9 @@ final class Graphics {
 
     public void setDimension(Dimension2D newDimension) {
         this.dimension = newDimension;
+    }
+
+    public enum Quality {
+        ULTRA, HIGH, MEDIUM, LOW
     }
 }

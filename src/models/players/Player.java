@@ -13,8 +13,9 @@ import java.net.MalformedURLException;
 import java.util.*;
 
 public class Player {
+    private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
+    private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
     private static int numOfPlayers = 0;
-
     private transient List<ScoreObserver> observers;
     private volatile Stack<Shape> leftStick;
     private volatile Stack<Shape> rightStick;
@@ -28,8 +29,6 @@ public class Player {
     private String rightStickUrl;
     private boolean leftStackFull;
     private boolean rightStackFull;
-    private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
-    private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
 
     public Player() {
         this.playerName = "PlayerController " + numOfPlayers;
@@ -72,7 +71,8 @@ public class Player {
     }
 
     // returns true if got consecutive plates and the score increased
-    private synchronized boolean pushPlate(Stack<Shape> stack, Shape shape, Stick stick) {
+    private synchronized boolean pushPlate(Stack<Shape> stack, Shape shape,
+                                           Stick stick) {
         stack.push(shape);
         if (stack.size() >= GameRules.NUM_OF_CONSECUTIVE_PLATES) {
             Queue<Shape> queue = new LinkedList<>();
@@ -117,24 +117,28 @@ public class Player {
         return this.rightStick.size();
     }
 
-    public void setName(String newName) {
-        this.playerName = newName;
-    }
-
     public String getName() {
         return this.playerName;
     }
 
-    public void setPosition(Point newPosition) {
-        this.position = newPosition;
+    public void setName(String newName) {
+        this.playerName = newName;
     }
 
     public Point getPosition() {
         return this.position;
     }
 
+    public void setPosition(Point newPosition) {
+        this.position = newPosition;
+    }
+
     public int getScore() {
         return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public double getSpeed() {
@@ -145,12 +149,12 @@ public class Player {
         this.speed.set(speed);
     }
 
-    public void setInputType(InputType inputType) {
-        this.inputType = inputType;
-    }
-
     public InputType getInputType() {
         return inputType;
+    }
+
+    public void setInputType(InputType inputType) {
+        this.inputType = inputType;
     }
 
     public String getPlayerUrl() {
@@ -201,10 +205,6 @@ public class Player {
 
     public void setRightStick(Stack<Shape> rightStick) {
         this.rightStick = rightStick;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public DoubleProperty speedProperty() {

@@ -49,6 +49,7 @@ import java.util.concurrent.Executors;
 public class GameController implements Initializable, ScoreObserver {
 
     private static GameController instance;
+    private static Logger logger = LogManager.getLogger(GameController.class);
     private MenuController currentMenu;
     private BooleanProperty newGameStarted;
     private Map<KeyCode, Boolean> keyMap;
@@ -61,17 +62,12 @@ public class GameController implements Initializable, ScoreObserver {
     private GameMode gameMode;
     @FXML
     private AnchorPane rootPane;
-
     @FXML
     private AnchorPane menuPane;
-
     @FXML
     private AnchorPane mainGame;
-
     @FXML
     private AnchorPane winPane;
-
-    private static Logger logger = LogManager.getLogger(GameController.class);
 
     /**
      * Gets the instance of the GameController using Singleton.
@@ -84,7 +80,6 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
      * @param location  The location used to resolve relative paths for the root
      *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
@@ -117,7 +112,7 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Sets the current menu that is loaded on screen.
      * @param currentMenu {@link MenuController} the curren menu that is on
-     * screen.
+     *                    screen.
      */
     public void setCurrentMenu(MenuController currentMenu) {
         this.currentMenu = currentMenu;
@@ -145,25 +140,35 @@ public class GameController implements Initializable, ScoreObserver {
             return;
         }
         if (PlayerFactory.getFactory()
-                .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY) != null) {
+                .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY) !=
+                null) {
             if (keyMap.get(KeyCode.A)) {
-                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                currentGame.getPlayersController().moveLeft(PlayerFactory
+                        .getFactory()
+                        .getPlayerNameWithController(InputType
+                                .KEYBOARD_SECONDARY));
             }
             if (keyMap.get(KeyCode.D)) {
-                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                        .getPlayerNameWithController(InputType.KEYBOARD_SECONDARY));
+                currentGame.getPlayersController().moveRight(PlayerFactory
+                        .getFactory()
+                        .getPlayerNameWithController(InputType
+                                .KEYBOARD_SECONDARY));
             }
         }
         if (PlayerFactory.getFactory()
-                .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY) != null) {
+                .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY) !=
+                null) {
             if (keyMap.get(KeyCode.LEFT)) {
-                currentGame.getPlayersController().moveLeft(PlayerFactory.getFactory()
-                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+                currentGame.getPlayersController().moveLeft(PlayerFactory
+                        .getFactory()
+                        .getPlayerNameWithController(InputType
+                                .KEYBOARD_PRIMARY));
             }
             if (keyMap.get(KeyCode.RIGHT)) {
-                currentGame.getPlayersController().moveRight(PlayerFactory.getFactory()
-                        .getPlayerNameWithController(InputType.KEYBOARD_PRIMARY));
+                currentGame.getPlayersController().moveRight(PlayerFactory
+                        .getFactory()
+                        .getPlayerNameWithController(InputType
+                                .KEYBOARD_PRIMARY));
             }
         }
     }
@@ -219,7 +224,8 @@ public class GameController implements Initializable, ScoreObserver {
             if (event.getJoystickType() == JoystickType.PRIMARY) {
                 if (event.getJoystickCode() == JoystickCode.LEFT) {
                     if (playerName1 != null) {
-                        currentGame.getPlayersController().moveLeft(playerName1);
+                        currentGame.getPlayersController().moveLeft
+                                (playerName1);
                     }
                 } else if (event.getJoystickCode() == JoystickCode.RIGHT
                         && playerName1 != null) {
@@ -290,7 +296,8 @@ public class GameController implements Initializable, ScoreObserver {
         }
         modelData.setGeneratorCounter(currentGame.getShapeGeneratorCounter());
         if (this.gameMode == GameMode.TIME_ATTACK) {
-            modelData.setRemainingTimeAttack(GameBoard.getInstance().getRemainingTime());
+            modelData.setRemainingTimeAttack(GameBoard.getInstance()
+                    .getRemainingTime());
         }
         this.handler.write(modelData, "." + File.separator +
                         FileConstants.SAVE_PATH,
@@ -374,7 +381,7 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Starts the saved data game.
      * @param modelDataHolder {@link ModelDataHolder} data model that holds
-     * saved game data.
+     *                        saved game data.
      */
     public void startNewLoadGame(ModelDataHolder modelDataHolder) {
         resetGame();
@@ -386,7 +393,8 @@ public class GameController implements Initializable, ScoreObserver {
             System.out.printf("%s has %d Shapes on his Left Stack\n",
                     player.getName(), player.getLeftStack().size());
             currentGame.createPlayer(player);
-            GameBoard.getInstance().updateScore(player.getScore(), player.getName());
+            GameBoard.getInstance().updateScore(player.getScore(), player
+                    .getName());
         }
         for (ShapePlatformPair shapePlatformPair : modelDataHolder.getShapes
                 ()) {
@@ -399,7 +407,8 @@ public class GameController implements Initializable, ScoreObserver {
                     ShapeController<? extends Node> shapeController = new
                             ShapeController<>
                             (shapeView, shapePlatformPair
-                                    .getShape(), shapePlatformPair.getPlatform());
+                                    .getShape(), shapePlatformPair
+                                    .getPlatform());
                     shapeController.startMoving();
                     currentGame.getShapeControllers().add(shapeController);
                     break;
@@ -416,11 +425,14 @@ public class GameController implements Initializable, ScoreObserver {
         currentGame.setCurrentLevel(modelDataHolder.getActiveLevel());
         switch (modelDataHolder.getGameMode()) {
             case NORMAL:
-                currentGame.startNormalGame(modelDataHolder.getGeneratorCounter());
+                currentGame.startNormalGame(modelDataHolder
+                        .getGeneratorCounter());
                 break;
             case TIME_ATTACK:
-                GameBoard.getInstance().setGameTime(modelDataHolder.getRemainingTimeAttack());
-                currentGame.startNewTimeAttack(modelDataHolder.getGeneratorCounter());
+                GameBoard.getInstance().setGameTime(modelDataHolder
+                        .getRemainingTimeAttack());
+                currentGame.startNewTimeAttack(modelDataHolder
+                        .getGeneratorCounter());
                 break;
             default:
                 break;
@@ -437,7 +449,8 @@ public class GameController implements Initializable, ScoreObserver {
      */
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (currentGame.getPlayersController().checkIntersection(shapeController)) {
+        if (currentGame.getPlayersController().checkIntersection
+                (shapeController)) {
             shapeController.shapeFellOnTheStack();
             return true;
         }
@@ -517,9 +530,11 @@ public class GameController implements Initializable, ScoreObserver {
         String winner = "";
         System.out.println(currentGame.getPlayersController().getPlayersNames
                 ().size());
-        Collection<String> playerNames = currentGame.getPlayersController().getPlayersNames();
+        Collection<String> playerNames = currentGame.getPlayersController()
+                .getPlayersNames();
         for (String name : playerNames) {
-            Player playerModel = currentGame.getPlayersController().getPlayerModel(name);
+            Player playerModel = currentGame.getPlayersController()
+                    .getPlayerModel(name);
             if (name != null && name.equals(playerName)) {
                 playerModel.setScore(playerModel.getScore() / 2);
             }
@@ -540,7 +555,8 @@ public class GameController implements Initializable, ScoreObserver {
         } else {
             ((Label) winPane.getChildren().get(0)).setText("Player: "
                     + winner + " has won with score " + maxScore);
-            logger.info("Player: " + winner + " has won with score " + maxScore);
+            logger.info("Player: " + winner + " has won with score " +
+                    maxScore);
         }
         players.clear();
         resetGame();
@@ -548,9 +564,10 @@ public class GameController implements Initializable, ScoreObserver {
 
     /**
      * updates the score and the removes the last 3 shapes on the stack.
-     * @param score the new of the current scored-player.
+     * @param score      the new of the current scored-player.
      * @param playerName the name of the current player who won the points.
-     * @param stick {@link Stick} the stick which contains the new explosion.
+     * @param stick      {@link Stick} the stick which contains the new
+     *                   explosion.
      */
     @Override
     public void update(int score, String playerName, Stick stick) {

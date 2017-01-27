@@ -11,25 +11,26 @@ import java.util.List;
 
 public abstract class Level {
 
+    protected static final double PLATFORM_BASE_WIDTH = 500;
+    protected static final double PLATFORM_BASE_Y_FACTOR = 0.1;
+    protected static final double PLATFORM_HEIGHT = 5;
     private final String IMG_EXTENSION = ".png";
     private final String DIRECTORY = "assets/images/backgrounds/background_";
-    private double shapeSpeedRatio = 1.0;
-    private double clownSpeedRatio = 1.0;
     protected int noOfPlatforms;
     protected String backgroundURL;
     protected int currentLevel;
     protected List<Platform> platforms;
     protected List<Color> supportedColors;
     protected double minX, minY, maxX, maxY;
-    protected static final double PLATFORM_BASE_WIDTH = 500;
-    protected static final double PLATFORM_BASE_Y_FACTOR = 0.1;
-    protected static final double PLATFORM_HEIGHT = 5;
+    private double shapeSpeedRatio = 1.0;
+    private double clownSpeedRatio = 1.0;
 
     public Level(int currentLevel, int noOfPlatforms) {
         this.noOfPlatforms = noOfPlatforms;
         this.currentLevel = currentLevel;
         platforms = new ArrayList<>();
-        backgroundURL = DIRECTORY + String.valueOf(currentLevel) + IMG_EXTENSION;
+        backgroundURL = DIRECTORY + String.valueOf(currentLevel) +
+                IMG_EXTENSION;
     }
 
     public double getShapeSpeedRatio() {
@@ -52,10 +53,6 @@ public abstract class Level {
 
     public abstract boolean isSupportedShape(String shape);
 
-    protected void setSupportedColors(List<Color> supportedColors) {
-        this.supportedColors = supportedColors;
-    }
-
     public String getBackgroundURL() {
         return backgroundURL;
     }
@@ -66,6 +63,10 @@ public abstract class Level {
 
     public List<Color> getSupportedColors() {
         return supportedColors;
+    }
+
+    protected void setSupportedColors(List<Color> supportedColors) {
+        this.supportedColors = supportedColors;
     }
 
     public boolean isSupportedColor(Color color) {

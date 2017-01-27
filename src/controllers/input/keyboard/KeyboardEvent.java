@@ -9,10 +9,10 @@ public class KeyboardEvent extends InputEvent {
 
     /**
      * Creates new instance of InputEvent.
-     *
      * @param eventType Type of the event
      */
-    public KeyboardEvent(@NamedArg("eventType") EventType<? extends InputEvent> eventType,
+    public KeyboardEvent(@NamedArg("eventType") EventType<? extends
+            InputEvent> eventType,
                          @NamedArg("code") KeyboardCode keyboardCode) {
         // // TODO: 1/9/17 add parameter for player type
         super(eventType);

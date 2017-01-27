@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 public class FallingShapeStateController<T extends Node> extends
         ShapeMovementController<T> {
+    private static final Long THREAD_SLEEP_TIME = 10L;
     private static Logger logger = LogManager.getLogger
             (FallingShapeStateController.class);
-    private static final Long THREAD_SLEEP_TIME = 10L;
     private final ShapeFallingObserver shapeFallingObserver;
     private final Runnable shapeMover = new Runnable() {
 
@@ -73,8 +73,8 @@ public class FallingShapeStateController<T extends Node> extends
 
     /**
      * Default constructor.
-     * @param shape Shape view.
-     * @param model Shape mode.
+     * @param shape                Shape view.
+     * @param model                Shape mode.
      * @param shapeFallingObserver {@link ShapeFallingObserver} observer.
      */
     public FallingShapeStateController(final T shape, final Shape model

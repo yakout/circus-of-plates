@@ -7,8 +7,8 @@
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<AnchorPane fx:id="loadGamePane" visible="false" prefHeight="269.0"
-            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="loadGamePane" visible="false"
+            prefHeight="269.0" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="controllers.menus.LoadGame">
     <children>
         <ScrollPane layoutY="5.0" prefHeight="209.0" AnchorPane.leftAnchor="0.0"
@@ -18,7 +18,8 @@
                     <children>
                         <VBox fx:id="savedGames" alignment="CENTER" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Button id="savedGameButton" maxWidth="1.7976931348623157E308" onMouseClicked="#mouseHandler"
+                                <Button id="savedGameButton" maxWidth="1.7976931348623157E308"
+                                        onMouseClicked="#mouseHandler"
                                         mnemonicParsing="false" text="TEST_BUTTON_NOT_ACTUALLY_A_SAVED_GAME_LOL"
                                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
 

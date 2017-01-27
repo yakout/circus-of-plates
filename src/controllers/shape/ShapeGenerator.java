@@ -18,14 +18,14 @@ import java.util.List;
  */
 public class ShapeGenerator {
 
+    private static Logger logger = LogManager.getLogger(ShapeGenerator.class);
     private final long THREAD_SLEEP_TIME = 50;
     private final long THREAD_PULSE_RATE = 150;
+    private final Thread shapeGeneratorThread;
     private volatile long counter;
     private Level level;
-    private final Thread shapeGeneratorThread;
     private volatile boolean generationThreadIsNotStopped;
     private volatile boolean generationThreadPaused;
-    private static Logger logger = LogManager.getLogger(ShapeGenerator.class);
     private Pane parent;
     private final Runnable shapeGenerator = new Runnable() {
         @Override
@@ -55,7 +55,8 @@ public class ShapeGenerator {
                                     shapeController.resetShape();
                                     shapeController.startMoving();
                                 } else {
-                                    Shape shapeModel = ShapePool.getShape(level);
+                                    Shape shapeModel = ShapePool.getShape
+                                            (level);
                                     PositionInitializer.normalize(platform,
                                             shapeModel);
                                     ImageView imgView = (ImageView) ShapeBuilder
@@ -65,7 +66,8 @@ public class ShapeGenerator {
                                                 "in the pool.");
                                         continue;
                                     }
-                                    generateShape(imgView, platform, shapeModel);
+                                    generateShape(imgView, platform,
+                                            shapeModel);
                                 }
                             }
                         }
@@ -87,7 +89,7 @@ public class ShapeGenerator {
 
     /**
      * Constructor of ShapeGenerator class.
-     * @param level Current level for players.
+     * @param level  Current level for players.
      * @param parent {@link Pane} the pane of the game board.
      */
     public ShapeGenerator(Level level, Pane parent) {
@@ -107,8 +109,8 @@ public class ShapeGenerator {
 
     /**
      * Constructor of ShapeGenerator class.
-     * @param level Current level for players.
-     * @param parent {@link Pane} the pane of the game board.
+     * @param level   Current level for players.
+     * @param parent  {@link Pane} the pane of the game board.
      * @param counter The start value of the generation thread counter.
      */
     public ShapeGenerator(Level level, Pane parent, long counter) {
@@ -134,7 +136,8 @@ public class ShapeGenerator {
         parent.getChildren().add(imgView);
         ShapeController<ImageView> shapeController = new ShapeController<>
                 (imgView, shapeModel, platform);
-        GameController.getInstance().getCurrentGame().addShapeController(shapeController);
+        GameController.getInstance().getCurrentGame().addShapeController
+                (shapeController);
         shapeController.startMoving();
     }
 
@@ -170,13 +173,13 @@ public class ShapeGenerator {
         return generationThreadIsNotStopped;
     }
 
-    private synchronized boolean isGenerationThreadPaused() {
-        return generationThreadPaused;
-    }
-
     private synchronized void setGenerationThreadIsNotStopped(
             boolean generationThreadIsNotStopped) {
         this.generationThreadIsNotStopped = generationThreadIsNotStopped;
+    }
+
+    private synchronized boolean isGenerationThreadPaused() {
+        return generationThreadPaused;
     }
 
     private synchronized void setGenerationThreadPaused(

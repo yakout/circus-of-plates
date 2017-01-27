@@ -21,7 +21,6 @@ public class Point implements Cloneable {
 
     /**
      * Default constructor, sets double value of point with the value of (x,y).
-     *
      * @param x point on X axis.
      * @param y point on Y axis.
      */
@@ -33,26 +32,7 @@ public class Point implements Cloneable {
     }
 
     /**
-     * Sets double value of point on X axis.
-     *
-     * @param x value of point on X axis.
-     */
-    public void setX(final double x) {
-        propX.set(x);
-    }
-
-    /**
-     * Sets double value of point on Y axis.
-     *
-     * @param y value of point on Y axis.
-     */
-    public void setY(final double y) {
-        propY.set(y);
-    }
-
-    /**
      * Gets double value of point on X axis.
-     *
      * @return Double value of X axis value.
      */
     public double getX() {
@@ -60,8 +40,15 @@ public class Point implements Cloneable {
     }
 
     /**
+     * Sets double value of point on X axis.
+     * @param x value of point on X axis.
+     */
+    public void setX(final double x) {
+        propX.set(x);
+    }
+
+    /**
      * Gets double value of point on Y axis.
-     *
      * @return Double value of Y axis value.
      */
     public double getY() {
@@ -69,8 +56,15 @@ public class Point implements Cloneable {
     }
 
     /**
+     * Sets double value of point on Y axis.
+     * @param y value of point on Y axis.
+     */
+    public void setY(final double y) {
+        propY.set(y);
+    }
+
+    /**
      * Gets the X axis property of point.
-     *
      * @return {@link DoubleProperty} double property on X axis.
      */
     public DoubleProperty xProperty() {
@@ -79,7 +73,6 @@ public class Point implements Cloneable {
 
     /**
      * Gets the Y axis property of point.
-     *
      * @return {@link DoubleProperty} double property on Y axis.
      */
     public DoubleProperty yProperty() {
@@ -116,9 +109,11 @@ public class Point implements Cloneable {
             return false;
         }
         final Point other = (Point) obj;
-        if (Double.doubleToLongBits(propX.doubleValue()) != Double.doubleToLongBits(other.propX.doubleValue())) {
+        if (Double.doubleToLongBits(propX.doubleValue()) != Double
+                .doubleToLongBits(other.propX.doubleValue())) {
             return false;
-        } else if (Double.doubleToLongBits(propY.doubleValue()) != Double.doubleToLongBits(other.propY.doubleValue())) {
+        } else if (Double.doubleToLongBits(propY.doubleValue()) != Double
+                .doubleToLongBits(other.propY.doubleValue())) {
             return false;
         }
         return true;

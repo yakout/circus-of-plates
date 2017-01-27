@@ -17,11 +17,11 @@ import java.net.MalformedURLException;
  */
 public class BasedPlateShape extends Shape {
 
+    public static final String KEY = BasedPlateShape.class.getName();
     private static final String URL = "src/assets/images/plates/";
     private static final String FILE_NAME = "platewithbase.png";
     private static final double HORIZONTAL_VELOCITY = 1.6;
     private static final double VERTICAL_VELOCITY = 1.8;
-    public static final String KEY = BasedPlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
 
     static {

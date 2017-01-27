@@ -7,11 +7,11 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 public class Platform {
+    private static final String URL = "src/assets/images/platforms/rod.png";
     private Point center;
     private DoubleProperty width;
     private DoubleProperty height;
     private Orientation orientation;
-    private static final String URL = "src/assets/images/platforms/rod.png";
     private String url;
 
     public Platform(Point center, Orientation orientation) {
@@ -20,36 +20,36 @@ public class Platform {
         this.url = URL;
     }
 
-    public void setWidth(DoubleProperty width) {
-        this.width = width;
-    }
-
-    public void setHeight(DoubleProperty height) {
-        this.height = height;
-    }
-
     public DoubleProperty getWidth() {
         return width;
+    }
+
+    public void setWidth(DoubleProperty width) {
+        this.width = width;
     }
 
     public DoubleProperty getHeight() {
         return height;
     }
 
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
+    public void setHeight(DoubleProperty height) {
+        this.height = height;
     }
 
     public Orientation getOrientation() {
         return orientation;
     }
 
-    public void setCenter(Point center) {
-        this.center = center;
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
     }
 
     public Point getCenter() {
         return center;
+    }
+
+    public void setCenter(Point center) {
+        this.center = center;
     }
 
     public String getUrl() {

@@ -39,7 +39,8 @@ public class Audio implements Initializable {
     public static synchronized Audio getInstance() {
         if (instance == null) {
             try {
-                URL url = new File("src/views/menus/options/audio/audio.fxml").toURI().toURL();
+                URL url = new File("src/views/menus/options/audio/audio"
+                        + ".fxml").toURI().toURL();
                 FXMLLoader.load(url);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -51,10 +52,10 @@ public class Audio implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or
+     *                  <tt>null</tt> if
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

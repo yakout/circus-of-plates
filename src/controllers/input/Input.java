@@ -9,8 +9,9 @@ public abstract class Input {
 
     /**
      * Required for registering the given class for Keyboard input controller.
-     * @param clazz {@link Class}class is required to ger registered.
+     * @param clazz    {@link Class}class is required to ger registered.
      * @param instance instance of the upcoming class.
      */
-    public abstract void registerClassForInputAction(Class<?> clazz, Object instance);
+    public abstract void registerClassForInputAction(Class<?> clazz, Object
+            instance);
 }

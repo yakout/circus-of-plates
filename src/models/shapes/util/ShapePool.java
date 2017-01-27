@@ -10,9 +10,11 @@ import java.util.List;
 public class ShapePool {
 
     private static List<Shape> pool;
+
     static {
         pool = new ArrayList<>();
     }
+
     public static Shape getShape(Level curLevel) {
         Color color = ShapeFactory.getRandomColor(curLevel);
         String shapeIdentifier = ShapeFactory.getRandomShapeIdentifier
@@ -28,7 +30,6 @@ public class ShapePool {
 
     /**
      * Get called when plates are lost.
-     *
      * @param shape
      */
     public static void destroyShape(Shape shape) {

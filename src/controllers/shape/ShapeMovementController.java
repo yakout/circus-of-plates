@@ -6,8 +6,8 @@ import models.shapes.Shape;
 
 public abstract class ShapeMovementController<T extends Node>
         implements ShapeState {
-    protected T shape;
     protected final Shape shapeModel;
+    protected T shape;
     protected Thread shapeMovementThread;
     protected boolean threadRunning;
     protected boolean threadPaused;

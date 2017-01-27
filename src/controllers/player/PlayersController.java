@@ -24,10 +24,10 @@ import java.util.Map;
 
 
 public class PlayersController {
-    private Map<String, PlayerController> players;
-    private Pane gamePane;
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
+    private Map<String, PlayerController> players;
+    private Pane gamePane;
 
     /**
      * Default constructor of this class.
@@ -40,9 +40,9 @@ public class PlayersController {
 
     /**
      * Creates the player as a node.
-     * @param path the path of his clown.
+     * @param path       the path of his clown.
      * @param playerName the name of the player.
-     * @param inputType the input type of the current player.
+     * @param inputType  the input type of the current player.
      * @return the player as a node to the view.
      * @throws IOException if not found file with such URL.
      */
@@ -146,7 +146,7 @@ public class PlayersController {
     /**
      * Checks for intersection with the given plate.
      * @param shapeController {@link ShapeController} the controller of the
-     * shape.
+     *                        shape.
      * @return where intersects or not.
      */
     public synchronized boolean checkIntersection(
@@ -169,7 +169,7 @@ public class PlayersController {
     /**
      * removes the shape out of the stick.
      * @param playerName the player name.
-     * @param stick the sticks to move shapes from.
+     * @param stick      the sticks to move shapes from.
      */
     public void removeShapes(String playerName, Stick stick) {
         players.get(playerName).removeShape(stick);

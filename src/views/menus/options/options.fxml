@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<AnchorPane fx:id="optionsMenu" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.Options">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="optionsMenu" visible="false"
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="controllers.menus.Options">
     <children>
 
         <VBox fx:id="menu" visible="true" onKeyReleased="#keyHandler" AnchorPane.topAnchor="0.0"

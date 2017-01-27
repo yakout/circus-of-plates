@@ -10,12 +10,11 @@ public class JoystickEvent extends InputEvent {
 
     /**
      * Creates new instance of InputEvent.
-     *
      * @param eventType Type of the event
      */
     public JoystickEvent(@NamedArg("eventType") EventType<? extends
             InputEvent> eventType, @NamedArg("code") JoystickCode joystickCode,
-            JoystickType joystickType) {
+                         JoystickType joystickType) {
         // // TODO: 1/9/17 add parameter for player type
         super(eventType);
         this.joystickCode = joystickCode;
@@ -30,7 +29,6 @@ public class JoystickEvent extends InputEvent {
     }
 
     /**
-     *
      * @return the joystick type.
      */
     public JoystickType getJoystickType() {

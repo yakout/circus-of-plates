@@ -16,11 +16,11 @@ import java.net.MalformedURLException;
  */
 public class DeepPlateShape extends Shape {
 
+    public static final String KEY = DeepPlateShape.class.getName();
     private static final String URL = "src/assets/images/plates/";
     private static final String FILE_NAME = "platewithdeepbase.png";
     private static final double HORIZONTAL_VELOCITY = 1.7;
     private static final double VERTICAL_VELOCITY = 1.9;
-    public static final String KEY = DeepPlateShape.class.getName();
     private static Logger logger = LogManager.getLogger();
 
     static {

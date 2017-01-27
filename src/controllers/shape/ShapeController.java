@@ -18,8 +18,8 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
 
     /**
      * Default constructor.
-     * @param shape Shape view.
-     * @param model Shape model.
+     * @param shape    Shape view.
+     * @param model    Shape model.
      * @param platform {@link Platform} Platform that this will positioned to.
      */
     public ShapeController(final T shape, final Shape model,
@@ -152,7 +152,8 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
     public void shapeShouldEnterThePool() {
         shape.setVisible(false);
         shapeModel.setState(ShapeState.INACTIVE);
-        GameController.getInstance().getCurrentGame().removeShapeController(this);
+        GameController.getInstance().getCurrentGame().removeShapeController
+                (this);
     }
 
     /**

@@ -52,6 +52,7 @@ public class GameBoard implements Initializable {
     private IntegerProperty timeSeconds;
     private int GAME_TIME = 100;
     private int gameTime;
+
     /**
      * Called to show the game view.
      * @return returns the instance of this class.
@@ -63,10 +64,10 @@ public class GameBoard implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
-     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or
+     *                  <tt>null</tt> if
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -153,19 +154,24 @@ public class GameBoard implements Initializable {
 
     /**
      * Updates scores of players on getting Points.
-     * @param score the value of score to be incremented to the initial score.
+     * @param score      the value of score to be incremented to the initial
+     *                   score.
      * @param playerName the name of the current player.
      */
     public void updateScore(int score, String playerName) {
         for (Node node : leftPanel.getChildren()) {
-            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
-                ((Label) ((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText()
+                    .equals(playerName)) {
+                ((Label) ((AnchorPane) node).getChildren().get(1)).setText
+                        (String.valueOf(score));
             }
         }
 
         for (Node node : rightPanel.getChildren()) {
-            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText().equals(playerName)) {
-                ((Label) ((AnchorPane) node).getChildren().get(1)).setText(String.valueOf(score));
+            if (((Label) ((AnchorPane) node).getChildren().get(0)).getText()
+                    .equals(playerName)) {
+                ((Label) ((AnchorPane) node).getChildren().get(1)).setText
+                        (String.valueOf(score));
             }
         }
         logger.info("Scores are updated.");

@@ -5,13 +5,18 @@ import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 public class JoystickTest {
+    public static void main(String[] args) {
+        new JoystickTest().pollControllerAndItsComponents(Controller.Type
+                .STICK);
+    }
+
     /**
      * Prints controllers components and its values.
-     *
      * @param controllerType Desired type of the controller.
      */
     public void pollControllerAndItsComponents(Controller.Type controllerType) {
-        Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+        Controller[] controllers = ControllerEnvironment
+                .getDefaultEnvironment().getControllers();
 
         // First controller of the desired type.
         Controller firstController = null;
@@ -31,8 +36,10 @@ public class JoystickTest {
             System.exit(0);
         }
 
-        System.out.println("First controller of a desired type is: " + firstController.getName()
-                + firstController.getPortType() + " number " + firstController.getPortNumber());
+        System.out.println("First controller of a desired type is: " +
+                firstController.getName()
+                + firstController.getPortType() + " number " +
+                firstController.getPortNumber());
 
         while (true) {
             firstController.poll();
@@ -41,15 +48,20 @@ public class JoystickTest {
                 if (components[i].isAnalog()) {
                     if (components[i].getName().equals("y")) {
                         if (components[i].getPollData() == 1.0f) {
-                            System.out.println("down" + " done by controller: " + (i > 11 ? "player 2" : "player 1"));
+                            System.out.println("down" + " done by controller:"
+                                    + " " + (i > 11 ? "player 2" : "player 1"));
                         } else if (components[i].getPollData() == -1.0f) {
-                            System.out.println("up" + " done by controller: " + (i > 11 ? "player 2" : "player 1"));
+                            System.out.println("up" + " done by controller: "
+                                    + (i > 11 ? "player 2" : "player 1"));
                         }
                     } else {
                         if (components[i].getPollData() == 1.0f) {
-                            System.out.println("right" + " done by controller: " + (i > 11 ? "player 2" : "player 1"));
+                            System.out.println("right" + " done by "
+                                    + "controller: " + (i > 11 ? "player 2" :
+                                    "player 1"));
                         } else if (components[i].getPollData() == -1.0f) {
-                            System.out.println("left" + " done by controller: " + (i > 11 ? "player 2" : "player 1"));
+                            System.out.println("left" + " done by controller:"
+                                    + " " + (i > 11 ? "player 2" : "player 1"));
                         }
                     }
                 }
@@ -60,10 +72,6 @@ public class JoystickTest {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new JoystickTest().pollControllerAndItsComponents(Controller.Type.STICK);
     }
 
 }

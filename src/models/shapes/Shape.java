@@ -19,20 +19,20 @@ public abstract class Shape {
     protected DoubleProperty height;
     protected String key;
 
-    public String getIdentifier() {
-        return key;
-    }
-
-    protected void setKey(String key) {
-        this.key = key;
-    }
-
     public Shape() {
         this.height = new SimpleDoubleProperty();
         this.width = new SimpleDoubleProperty();
         this.state = ShapeState.MOVING_HORIZONTALLY;
         this.position = new Point();
         this.initialPosition = new Point();
+    }
+
+    public String getIdentifier() {
+        return key;
+    }
+
+    protected void setKey(String key) {
+        this.key = key;
     }
 
     public ShapeState getState() {
@@ -55,12 +55,12 @@ public abstract class Shape {
         return width;
     }
 
-    public DoubleProperty getHeight() {
-        return height;
-    }
-
     public void setWidth(double newWidth) {
         width.setValue(newWidth);
+    }
+
+    public DoubleProperty getHeight() {
+        return height;
     }
 
     public void setHeight(double newHeight) {
@@ -79,12 +79,12 @@ public abstract class Shape {
         return xVelocity;
     }
 
-    public double getVerticalVelocity() {
-        return yVelocity;
-    }
-
     public void setHorizontalVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
+    }
+
+    public double getVerticalVelocity() {
+        return yVelocity;
     }
 
     public void setVerticalVelocity(double yVelocity) {

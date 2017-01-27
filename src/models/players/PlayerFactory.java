@@ -9,8 +9,9 @@ import java.util.Map;
 
 public class PlayerFactory {
     private static PlayerFactory factory;
-    private Map<String, Player> players;
     private static Logger logger = LogManager.getLogger(PlayerFactory.class);
+    private Map<String, Player> players;
+
     private PlayerFactory() {
         players = new HashMap<>();
     }

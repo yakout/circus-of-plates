@@ -21,40 +21,12 @@ public class SavedGameSet implements Iterable<String> {
         savedGames = listFiles(FileConstants.SAVE_PATH, EXTENSION);
     }
 
-    private class SavedGameIterator implements Iterator<String> {
-        private int counter = 0;
-        /**
-         * Returns {@code true} if the iteration has more elements.
-         * (In other words, returns {@code true} if {@link #next} would
-         * return an element rather than throwing an exception.)
-         *
-         * @return {@code true} if the iteration has more elements
-         */
-        @Override
-        public boolean hasNext() {
-            return counter < savedGames.size();
-        }
-
-        /**
-         * Returns the next element in the iteration.
-         *
-         * @return the next element in the iteration
-         * @throws NoSuchElementException if the iteration has no more elements
-         */
-        @Override
-        public String next() {
-            return savedGames.get(counter++);
-        }
-    }
-
     /**
      * Finds and returns the names of all
      * the files that end with a given extension in a
      * specific folder.
-     *
      * @param path          the folder path
      * @param fileExtension the extension of the file
-     *
      * @return The names of the files
      */
     private List<String> listFiles(final String path, final String
@@ -76,11 +48,35 @@ public class SavedGameSet implements Iterable<String> {
 
     /**
      * Returns an iterator over elements of type {@code T}.
-     *
      * @return an Iterator.
      */
     @Override
     public Iterator iterator() {
         return new SavedGameIterator();
+    }
+
+    private class SavedGameIterator implements Iterator<String> {
+        private int counter = 0;
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return counter < savedGames.size();
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public String next() {
+            return savedGames.get(counter++);
+        }
     }
 }

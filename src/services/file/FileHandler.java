@@ -19,9 +19,9 @@ import java.util.List;
 public class FileHandler implements FileWriter, FileReader {
 
     private static Logger logger = LogManager.getLogger(FileHandler.class);
+    private static FileHandler instance;
     private FileWriter writer;
     private FileReader reader;
-    private static FileHandler instance;
 
     private FileHandler() {
         writer = new JsonWriter();
@@ -36,7 +36,8 @@ public class FileHandler implements FileWriter, FileReader {
     }
 
     @Override
-    public void write(ModelDataHolder dataHolder, String path, String fileName) {
+    public void write(ModelDataHolder dataHolder, String path, String
+            fileName) {
         this.addSaveEntry(path, fileName);
         writer.write(dataHolder, path, fileName);
     }
@@ -91,7 +92,8 @@ public class FileHandler implements FileWriter, FileReader {
                 logger.debug("File .ini doesn't exist.");
                 return new ArrayList<>();
             }
-            String saveFileContents = IOUtils.toString(saveData.toURI(), "UTF-8");
+            String saveFileContents = IOUtils.toString(saveData.toURI(),
+                    "UTF-8");
             List<String> fileList = new ArrayList<>();
             for (String file : saveFileContents.split("\n")) {
                 if (file.contains(reader.getExtension())) {

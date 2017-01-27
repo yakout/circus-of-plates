@@ -25,12 +25,6 @@ public abstract class MenuController implements Initializable {
     private static Logger logger = LogManager.getLogger(MenuController.class);
     private int currentIndex = 0;
 
-    enum Direction {
-        UP,
-        DOWN,
-        PRESS
-    }
-
     public MenuController() {
     }
 
@@ -117,7 +111,6 @@ public abstract class MenuController implements Initializable {
         }
     }
 
-
     @FXML
     public void keyHandler(KeyEvent event) {
         switch (event.getCode()) {
@@ -153,5 +146,11 @@ public abstract class MenuController implements Initializable {
     public abstract void setMenuVisible(boolean visible);
 
     public abstract boolean isVisible();
+
+    enum Direction {
+        UP,
+        DOWN,
+        PRESS
+    }
 
 }

@@ -1,10 +1,6 @@
 package models.settings;
 
 final class General {
-    public enum Difficulty {
-        EASY, NORMAL, HARD, INSANE
-    }
-
     private Difficulty difficulty;
 
     public General() {
@@ -17,5 +13,9 @@ final class General {
 
     public void setDifficulty(Difficulty newDifficulty) {
         this.difficulty = newDifficulty;
+    }
+
+    public enum Difficulty {
+        EASY, NORMAL, HARD, INSANE
     }
 }

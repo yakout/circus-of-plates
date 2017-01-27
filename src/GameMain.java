@@ -15,26 +15,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameMain extends Application {
-    @Override
-    public void start(final Stage primaryStage) throws IOException {
-        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-        final Pane root = FXMLLoader.load(getClass().getResource("views/game.fxml"));
-        primaryStage.setTitle("Circus Of plates");
-        primaryStage.setScene(new Scene(root, visualBounds.getWidth(),
-                visualBounds.getHeight()));
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit full screen."
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("Ctrl+F"));
-        primaryStage.setOnCloseRequest(event -> {
-            Platform.exit();
-            System.exit(0);
-        });
-        primaryStage.getIcons().add(new Image(new File("src/assets/images"
-                + "/icon/circus-icon.png").toURI().toURL().toString()));
-        primaryStage.setResizable(false);
-        primaryStage.show();
-    }
-
     private static void registerLevels() {
         try {
             Class.forName("models.levels.LevelOne");
@@ -51,10 +31,32 @@ public class GameMain extends Application {
         ShapeLoader.loadShapes(new File(FileConstants.CLASS_LOADING_PATH));
     }
 
-
     public static void main(final String[] args) {
         registerLevels();
         registerShapes();
         launch(args);
+    }
+
+    @Override
+    public void start(final Stage primaryStage) throws IOException {
+        Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+        final Pane root = FXMLLoader.load(getClass().getResource("views/game"
+                + ".fxml"));
+        primaryStage.setTitle("Circus Of plates");
+        primaryStage.setScene(new Scene(root, visualBounds.getWidth(),
+                visualBounds.getHeight()));
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint(""); //"Press \"Ctrl + F\" to exit
+        // full screen."
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination
+                .keyCombination("Ctrl+F"));
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        primaryStage.getIcons().add(new Image(new File("src/assets/images"
+                + "/icon/circus-icon.png").toURI().toURL().toString()));
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 }

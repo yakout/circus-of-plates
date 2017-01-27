@@ -29,7 +29,6 @@ import java.util.ResourceBundle;
  */
 public class PlayerChooser implements Initializable {
 
-    private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static final String CLOWN_DIR = "src/views/clowns/clown_";
     private static final String FILE_NAME = "/clown.fxml";
     private static final String PLAYER = "PLAYER ";
@@ -37,6 +36,7 @@ public class PlayerChooser implements Initializable {
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
     private static final String MOUSE = "mouse";
+    private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static PlayerChooser instance;
     private String chosenClownID;
     private int currPlayer;
@@ -60,6 +60,9 @@ public class PlayerChooser implements Initializable {
     @FXML
     private TextField currPlayerName;
 
+    public static PlayerChooser getInstance() {
+        return instance;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,10 +72,6 @@ public class PlayerChooser implements Initializable {
         inputType = InputType.KEYBOARD_PRIMARY;
         chosenClownID = "5";
         currPlayer = 1;
-    }
-
-    public static PlayerChooser getInstance() {
-        return instance;
     }
 
     public void setVisible(final boolean visible) {
@@ -107,7 +106,8 @@ public class PlayerChooser implements Initializable {
             currPlayerName.setText("");
 
 
-            GameController.getInstance().setPlayersToCurrentGame(choosenPlayers);
+            GameController.getInstance().setPlayersToCurrentGame
+                    (choosenPlayers);
 
             GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
@@ -119,7 +119,8 @@ public class PlayerChooser implements Initializable {
     }
 
     private void updateData() {
-        if (inputType == InputType.JOYSTICK_PRIMARY || inputType == InputType.JOYSTICK_SECONDARY) {
+        if (inputType == InputType.JOYSTICK_PRIMARY || inputType == InputType
+                .JOYSTICK_SECONDARY) {
             Joystick.getInstance().start();
         }
         playerName = currPlayerName.getText();

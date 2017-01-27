@@ -15,8 +15,9 @@ import java.util.Map;
  */
 public class LevelFactory {
     private static LevelFactory factoryInstance;
-    private Map<Integer, Class<? extends Level>> registeredLevels;
     private static Logger logger = LogManager.getLogger(LevelFactory.class);
+    private Map<Integer, Class<? extends Level>> registeredLevels;
+
     private LevelFactory() {
         registeredLevels = new LinkedHashMap<>();
     }

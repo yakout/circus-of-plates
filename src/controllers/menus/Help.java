@@ -12,9 +12,8 @@ import java.util.ResourceBundle;
 public class Help extends MenuController {
 
     private static Logger logger = LogManager.getLogger(Help.class);
-    private VBox menu;
     private static Help instance;
-
+    private VBox menu;
     @FXML
     private VBox helpMenu;
 
@@ -22,13 +21,15 @@ public class Help extends MenuController {
         super();
     }
 
+    public static MenuController getInstance() {
+        return instance;
+    }
+
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the
-     *                  root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
      *                  <tt>null</tt> if
      */
@@ -39,7 +40,6 @@ public class Help extends MenuController {
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
     }
-
 
     @Override
     protected void handle(String id) {
@@ -69,9 +69,5 @@ public class Help extends MenuController {
     @Override
     public boolean isVisible() {
         return helpMenu.isVisible();
-    }
-
-    public static MenuController getInstance() {
-        return instance;
     }
 }

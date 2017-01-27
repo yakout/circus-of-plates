@@ -12,8 +12,6 @@ import java.util.List;
  * Created by Ahmed Khaled on 24/01/2017.
  */
 public class LevelFour extends Level {
-    private final double PLATE_SPEED_RATIO = 1.6;
-    private final double CLOWN_SPEED_RATIO = 1.6;
     private static final int PLATFORMS = 8;
     private static final int LEVEL = 4;
     private static List<String> supportedShapes
@@ -24,6 +22,9 @@ public class LevelFour extends Level {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelFour.class);
         logger.debug("Class " + LevelFour.class.getName() + " Initialized");
     }
+
+    private final double PLATE_SPEED_RATIO = 1.6;
+    private final double CLOWN_SPEED_RATIO = 1.6;
 
     public LevelFour(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
@@ -48,6 +49,10 @@ public class LevelFour extends Level {
         return supportedShapes;
     }
 
+    protected static void setSupportedShapes(List<String> supportedShapes) {
+        LevelFour.supportedShapes = supportedShapes;
+    }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
@@ -56,10 +61,6 @@ public class LevelFour extends Level {
             }
         }
         return false;
-    }
-
-    protected static void setSupportedShapes(List<String> supportedShapes) {
-        LevelFour.supportedShapes = supportedShapes;
     }
 
     private void addSupportedColors() {

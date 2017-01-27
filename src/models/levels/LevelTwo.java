@@ -13,8 +13,6 @@ import java.util.List;
  */
 public class LevelTwo extends Level {
 
-    private final double PLATE_SPEED_RATIO = 1.2;
-    private final double CLOWN_SPEED_RATIO = 1.2;
     private static final int PLATFORMS = 4;
     private static final int LEVEL = 2;
     private static List<String> supportedShapes
@@ -25,6 +23,9 @@ public class LevelTwo extends Level {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelTwo.class);
         logger.debug("Class " + LevelTwo.class.getName() + " Initialized");
     }
+
+    private final double PLATE_SPEED_RATIO = 1.2;
+    private final double CLOWN_SPEED_RATIO = 1.2;
 
     public LevelTwo(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
@@ -49,6 +50,10 @@ public class LevelTwo extends Level {
         return supportedShapes;
     }
 
+    protected static void setSupportedShapes(List<String> supportedShapes) {
+        LevelTwo.supportedShapes = supportedShapes;
+    }
+
     @Override
     public boolean isSupportedShape(String shape) {
         for (String key : supportedShapes) {
@@ -57,10 +62,6 @@ public class LevelTwo extends Level {
             }
         }
         return false;
-    }
-
-    protected static void setSupportedShapes(List<String> supportedShapes) {
-        LevelTwo.supportedShapes = supportedShapes;
     }
 
     private void addSupportedColors() {

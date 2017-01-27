@@ -21,6 +21,10 @@ import java.util.Stack;
  * Created by Ahmed Yakout on 1/23/17.
  */
 public class PlayerController {
+    private static final double STICK_BASE_RATIO = 0.275;
+    private static final double STACK_Y_RATIO = 0.05;
+    private static Logger logger = LogManager.getLogger(PlayersController
+            .class);
     private String name;
     private Node leftStick;
     private Node rightStick;
@@ -29,12 +33,8 @@ public class PlayerController {
     private Player playerModel;
     private Stack<ShapeController<? extends Node>> leftStack;
     private Stack<ShapeController<? extends Node>> rightStack;
-    private static final double STICK_BASE_RATIO = 0.275;
-    private static final double STACK_Y_RATIO = 0.05;
     private double leftStickYConstant;
     private double rightStickYConstant;
-    private static Logger logger = LogManager.getLogger(PlayersController
-            .class);
 
     PlayerController(String name, Node playerPane, models
             .players.Player playerModel) {
@@ -89,7 +89,7 @@ public class PlayerController {
     /**
      * Checks whether the shape intersects with the left stack or not.
      * @param shapeController {@link ShapeController} the controller of the
-     * current shape.
+     *                        current shape.
      * @return whether it intersects or not.
      */
     public synchronized boolean intersectsLeftStick(ShapeController<? extends
@@ -122,7 +122,8 @@ public class PlayerController {
                     .getCurrentGame().getCurrentLevel().getHighestPlatformY()) {
                 playerModel.setLeftStackFull(true);
                 if (playerModel.isRightStackFull()) {
-                    GameController.getInstance().playerLost(playerModel.getName());
+                    GameController.getInstance().playerLost(playerModel
+                            .getName());
                 }
             }
             logger.debug("Shape intersects the stick.");
@@ -134,7 +135,7 @@ public class PlayerController {
     /**
      * Checks whether the shape intersects with the right stack or not.
      * @param shapeController {@link ShapeController} the controller of the
-     * current shape.
+     *                        current shape.
      * @return whether it intersects or not.
      */
     public synchronized boolean intersectsRightStick(ShapeController<?
@@ -168,7 +169,8 @@ public class PlayerController {
                     .getCurrentGame().getCurrentLevel().getHighestPlatformY()) {
                 playerModel.setRightStackFull(true);
                 if (playerModel.isLeftStackFull()) {
-                    GameController.getInstance().playerLost(playerModel.getName());
+                    GameController.getInstance().playerLost(playerModel
+                            .getName());
                 }
             }
             logger.debug("Shape intersects the stick.");
@@ -203,7 +205,7 @@ public class PlayerController {
     /**
      * Binds the Shape to left stick.
      * @param shapeController {@link ShapeController} the controller of the
-     * shape.
+     *                        shape.
      */
     public synchronized void bindLeftStick(ShapeController<? extends Node>
                                                    shapeController) {
@@ -227,7 +229,7 @@ public class PlayerController {
     /**
      * Binds the Shape to right stick.
      * @param shapeController {@link ShapeController} the controller of the
-     * shape.
+     *                        shape.
      */
     public synchronized void bindRightStick(ShapeController<? extends Node>
                                                     shapeController) {

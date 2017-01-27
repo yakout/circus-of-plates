@@ -20,7 +20,8 @@ public class GameMode extends MenuController {
 
     private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
-    private final String LOAD_GAME_PANE_PATH = "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
+    private final String LOAD_GAME_PANE_PATH =
+            "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
     private final int LEVEL_INDEX = 6;
     @FXML
     private VBox menu;
@@ -40,12 +41,18 @@ public class GameMode extends MenuController {
     }
 
     /**
+     * Gets the instace of that class.
+     * @return instance.
+     */
+    public static MenuController getInstance() {
+        return instance;
+    }
+
+    /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the
-     *                  root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
      *                  <tt>null</tt> if
      */
@@ -79,8 +86,8 @@ public class GameMode extends MenuController {
                 updateCurrentMenu(Start.getInstance());
                 break;
             case "timeAttack":
-                 GameController.getInstance().startGame(models.GameMode
-                         .TIME_ATTACK);
+                GameController.getInstance().startGame(models.GameMode
+                        .TIME_ATTACK);
                 break;
             case "normal":
                 GameController.getInstance().startGame(models.GameMode.NORMAL);
@@ -101,7 +108,8 @@ public class GameMode extends MenuController {
                 break;
             case "doneChoosingLevel":
                 GameController.getInstance().setCurrentGameLevel(
-                        Integer.parseInt(choiceBox.getValue().substring(LEVEL_INDEX)));
+                        Integer.parseInt(choiceBox.getValue().substring
+                                (LEVEL_INDEX)));
                 setMenuVisible(true);
                 break;
             default:
@@ -114,7 +122,8 @@ public class GameMode extends MenuController {
         try {
             url = new File(LOAD_GAME_PANE_PATH).toURI().toURL();
             AnchorPane playerChooser = FXMLLoader.load(url);
-            GameController.getInstance().getRootPane().getChildren().add(playerChooser);
+            GameController.getInstance().getRootPane().getChildren().add
+                    (playerChooser);
 
             double width = GameController.getInstance().getStageWidth();
             AnchorPane.setLeftAnchor(playerChooser,
@@ -149,13 +158,5 @@ public class GameMode extends MenuController {
     @Override
     public boolean isVisible() {
         return gameModeMenu.isVisible();
-    }
-
-    /**
-     * Gets the instace of that class.
-     * @return instance.
-     */
-    public static MenuController getInstance() {
-        return instance;
     }
 }

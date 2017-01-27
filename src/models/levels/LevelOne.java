@@ -13,19 +13,19 @@ import java.util.List;
  */
 public class LevelOne extends Level {
 
-    private final double PLATE_SPEED_RATIO = 1.0;
-    private final double CLOWN_SPEED_RATIO = 1.0;
     private static final int PLATFORMS = 2;
     private static final int LEVEL = 1;
     private static Logger logger = LogManager.getLogger(LevelOne.class);
+    private static List<String> supportedShapes
+            = new ArrayList<>();
 
     static {
         LevelFactory.getInstance().registerLevel(LEVEL, LevelOne.class);
         logger.debug("Class " + LevelOne.class.getName() + " Initialized");
     }
 
-    private static List<String> supportedShapes
-            = new ArrayList<>();
+    private final double PLATE_SPEED_RATIO = 1.0;
+    private final double CLOWN_SPEED_RATIO = 1.0;
 
     public LevelOne(double minX, double minY, double maxX, double maxY) {
         super(LEVEL, PLATFORMS);
@@ -55,6 +55,10 @@ public class LevelOne extends Level {
         return supportedShapes;
     }
 
+    protected static void setSupportedShapes(List<String> supportedShapes) {
+        LevelOne.supportedShapes = supportedShapes;
+    }
+
     /**
      * return where it supports this shape or not.
      * @param shape
@@ -68,10 +72,6 @@ public class LevelOne extends Level {
             }
         }
         return false;
-    }
-
-    protected static void setSupportedShapes(List<String> supportedShapes) {
-        LevelOne.supportedShapes = supportedShapes;
     }
 
     private void addSupportedColors() {

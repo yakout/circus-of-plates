@@ -34,6 +34,13 @@ public class BackgroundChooser implements Initializable {
     private Button choose;
 
     /**
+     * @return instance of this class.
+     */
+    public static BackgroundChooser getInstance() {
+        return instance;
+    }
+
+    /**
      * Called on loading the corresponding fxml file.
      * @param location
      * @param resources
@@ -42,13 +49,6 @@ public class BackgroundChooser implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         chosenBackground = "1";
-    }
-
-    /**
-     * @return instance of this class.
-     */
-    public static BackgroundChooser getInstance() {
-        return instance;
     }
 
     public void setVisible(final boolean visible) {

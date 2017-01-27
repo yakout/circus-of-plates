@@ -8,10 +8,10 @@ import models.shapes.Shape;
 
 public class MovingShapeStateController<T extends Node> extends
         ShapeMovementController<T> {
-    private final models.Platform platform;
-    private double sign;
     private static final Long THREAD_SLEEP_TIME = 10L;
+    private final models.Platform platform;
     private final ShapeMovingObserver shapeMovingObserver;
+    private double sign;
     private double offset;
     private final Runnable shapeMover = new Runnable() {
 
@@ -80,11 +80,11 @@ public class MovingShapeStateController<T extends Node> extends
 
     /**
      * default constructor.
-     * @param shape Shape view.
-     * @param model Shape model.
-     * @param platform {@link models.Platform} platform model.
+     * @param shape               Shape view.
+     * @param model               Shape model.
+     * @param platform            {@link models.Platform} platform model.
      * @param shapeMovingObserver {@link ShapeMovingObserver} obserber of the
-     * moving shape.
+     *                            moving shape.
      */
     public MovingShapeStateController(final T shape, final Shape model,
                                       final models.Platform platform, final

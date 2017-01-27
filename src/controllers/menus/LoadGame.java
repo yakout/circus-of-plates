@@ -21,9 +21,9 @@ import java.util.*;
 
 public class LoadGame implements Initializable {
 
+    private static final String SAVED_GAMES_PATH = "save";
     private static Logger logger = LogManager.getLogger(LoadGame.class);
     private static LoadGame instance;
-    private static final String SAVED_GAMES_PATH = "save";
     private FileHandler fileHandler;
     @FXML
     private AnchorPane loadGamePane;
@@ -43,10 +43,8 @@ public class LoadGame implements Initializable {
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the
-     *                  root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
      *                  <tt>null</tt> if
      */
@@ -55,7 +53,8 @@ public class LoadGame implements Initializable {
         instance = this;
         fileHandler = FileHandler.getInstance();
 
-//        double width = ((AnchorPane) loadGamePane.getParent()).getPrefWidth(); //((ScrollPane) loadGamePane.getChildren().get(0)).getPrefWidth();
+//        double width = ((AnchorPane) loadGamePane.getParent()).getPrefWidth
+// (); //((ScrollPane) loadGamePane.getChildren().get(0)).getPrefWidth();
 //        System.err.println(width);
 //        ((ScrollPane) loadGamePane.getChildren().get(0)).setPrefWidth(width);
 //        savedGames.setPrefWidth(width);
@@ -84,7 +83,8 @@ public class LoadGame implements Initializable {
     }
 
     private void updateSavedGames() {
-        List<String> savedGames = new ArrayList<>(); //fileHandler.getFileList(SAVED_GAMES_PATH);
+        List<String> savedGames = new ArrayList<>(); //fileHandler
+        // .getFileList(SAVED_GAMES_PATH);
 
         Iterator iterator = new SavedGameSet().iterator();
 

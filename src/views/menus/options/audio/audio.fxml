@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="audioSettings" visible="false" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.options.Audio">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="audioSettings" visible="false"
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="controllers.menus.options.Audio">
     <SplitPane dividerPositions="0.5" orientation="VERTICAL" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                AnchorPane.topAnchor="0.0">
         <items>

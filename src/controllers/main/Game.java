@@ -29,8 +29,10 @@ import java.util.List;
  */
 public class Game {
     private static Logger logger = LogManager.getLogger(Game.class);
-    private final String DEFAULT_PLAYER_1 = "src/views/clowns/clown_5/clown.fxml";
-    private final String DEFAULT_PLAYER_2 = "src/views/clowns/clown_6/clown.fxml";
+    private final String DEFAULT_PLAYER_1 = "src/views/clowns/clown_5/clown"
+            + ".fxml";
+    private final String DEFAULT_PLAYER_2 = "src/views/clowns/clown_6/clown"
+            + ".fxml";
     private PlayersController playersController;
     private int level;
     private Level currentLevel;
@@ -44,6 +46,14 @@ public class Game {
     Game() {
         logger.info("new Game Object is created");
         initialize();
+    }
+
+    /**
+     * Gets the current level of the game as an integer.
+     * @return the level of the game.
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**
@@ -61,14 +71,6 @@ public class Game {
         if (currentLevel == null) {
             logger.fatal("Couldn't Create Level " + level);
         }
-    }
-
-    /**
-     * Gets the current level of the game as an integer.
-     * @return the level of the game.
-     */
-    public int getLevel() {
-        return level;
     }
 
     /**
@@ -94,7 +96,8 @@ public class Game {
     private void initialize() {
         shapeControllers = new ArrayList<>();
         GameController.getInstance().getMainGame().getChildren().clear();
-        playersController = new PlayersController(GameController.getInstance().getMainGame());
+        playersController = new PlayersController(GameController.getInstance
+                ().getMainGame());
         gameBoard = GameBoard.getInstance();
         gameBoard.reset();
     }
@@ -103,12 +106,13 @@ public class Game {
      * Creates player with the given data.
      * Delegates it to the player controller.
      * This is called after loading a saved game.
-     * @param path the path of the player clown.
+     * @param path       the path of the player clown.
      * @param playerName the name of the player.
-     * @param inputType {@link InputType} input type controller for the
-     * current player.
+     * @param inputType  {@link InputType} input type controller for the current
+     *                   player.
      */
-    private void createPlayer(String path, String playerName, InputType inputType) {
+    private void createPlayer(String path, String playerName, InputType
+            inputType) {
         try {
             playersController.createPlayer(path, playerName, inputType);
             gameBoard.addPlayerPanel(playerName);
@@ -137,7 +141,7 @@ public class Game {
     /**
      * Removes the given shape controller from the list.
      * @param shapeController {@link ShapeController} shape controller of the
-     * given shape.
+     *                        given shape.
      */
     public void removeShapeController(ShapeController<? extends Node>
                                               shapeController) {
@@ -147,7 +151,7 @@ public class Game {
     /**
      * Adds the given shape controller from the list.
      * @param shapeController {@link ShapeController} shape controller of the
-     * given shape.
+     *                        given shape.
      */
     public void addShapeController(ShapeController<? extends Node>
                                            shapeController) {
@@ -161,7 +165,7 @@ public class Game {
     public void pause() {
         shapeControllers.forEach(ShapeController::gamePaused);
         gameBoard.pause();
-        if(shapeGenerator != null) {
+        if (shapeGenerator != null) {
             shapeGenerator.pauseGenerator();
         }
     }
@@ -184,13 +188,16 @@ public class Game {
             addDefaultPlayers();
             logger.info("Players were created");
         }
-        logger.info("players size in factory = " + PlayerFactory.getFactory().getPlayersSize());
+        logger.info("players size in factory = " + PlayerFactory.getFactory()
+                .getPlayersSize());
 
         PlatformBuilder builder = new PlatformBuilder();
         for (models.Platform platform : currentLevel.getPlatforms()) {
-            GameController.getInstance().getMainGame().getChildren().add(builder.build(platform));
+            GameController.getInstance().getMainGame().getChildren().add
+                    (builder.build(platform));
         }
-        shapeGenerator = new ShapeGenerator(currentLevel, GameController.getInstance().getMainGame());
+        shapeGenerator = new ShapeGenerator(currentLevel, GameController
+                .getInstance().getMainGame());
 
         AudioPlayer.backgroundMediaPlayer.setOnEndOfMedia(() ->
                 AudioPlayer.backgroundMediaPlayer.seek(Duration.ZERO));
@@ -236,9 +243,9 @@ public class Game {
 
     /**
      * Updates the current score for the given player.
-     * @param score the score of the given player.
+     * @param score      the score of the given player.
      * @param playerName tha player name.
-     * @param stick {@link Stick} the stick the the plate has fallen to.
+     * @param stick      {@link Stick} the stick the the plate has fallen to.
      */
     public void updateScore(int score, String playerName, Stick stick) {
         gameBoard.updateScore(score, playerName);
@@ -281,7 +288,7 @@ public class Game {
     /**
      * Assign the current shape controllers.
      * @param shapeControllers {@link Collection<ShapeController>} all shape
-     * controllers.
+     *                         controllers.
      */
     public void setShapeControllers(Collection<ShapeController<? extends
             Node>> shapeControllers) {

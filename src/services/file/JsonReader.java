@@ -27,6 +27,7 @@ class JsonReader implements FileReader {
 
     private static Logger logger = LogManager.getLogger(ModelDataHolder
             .class);
+
     @Override
     public ModelDataHolder read(String path, String fileName) {
 

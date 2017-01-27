@@ -20,33 +20,34 @@ import java.util.ResourceBundle;
 public class Start extends MenuController {
 
     private static Logger logger = LogManager.getLogger(Start.class);
+    private static Start instance;
     private BooleanProperty newGameIsDisabled;
-
     @FXML
     private AnchorPane startMenu;
-
     @FXML
     private VBox menu;
-
     @FXML
     private AnchorPane saveGamePane;
-
     @FXML
     private TextField gameName;
-
-    private static Start instance;
 
     public Start() {
         super();
     }
 
     /**
+     * Gets the instance of the Start menu.
+     * @return the instance of start menu.
+     */
+    public static MenuController getInstance() {
+        return instance;
+    }
+
+    /**
      * Called to initialize a controller after its root element has been
      * completely processed.
-     *
-     * @param location  The location used to resolve relative paths for the
-     *                  root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or <tt>null</tt> if the location is not known.
      * @param resources The resources used to localize the root object, or
      *                  <tt>null</tt> if
      */
@@ -60,7 +61,8 @@ public class Start extends MenuController {
                 new ChangeListener<String>() {
 
                     @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue,
+                    public void changed(ObservableValue<? extends String>
+                                                observable, String oldValue,
                                         String newValue) {
                         if (!newValue.matches("[a-zA-Z\\d ]*")) {
                             gameName.setText(newValue.replaceAll("[^a-zA-Z\\d "
@@ -69,9 +71,9 @@ public class Start extends MenuController {
                     }
                 });
         requestFocus(0);
-        Joystick.getInstance().registerClassForInputAction(getClass(), instance);
+        Joystick.getInstance().registerClassForInputAction(getClass(),
+                instance);
     }
-
 
     /**
      * Handles the menu of given id.
@@ -177,13 +179,5 @@ public class Start extends MenuController {
     @Override
     public boolean isVisible() {
         return startMenu.isVisible();
-    }
-
-    /**
-     * Gets the instance of the Start menu.
-     * @return the instance of start menu.
-     */
-    public static MenuController getInstance() {
-        return instance;
     }
 }
