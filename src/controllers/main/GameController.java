@@ -196,6 +196,7 @@ public class GameController implements Initializable, ScoreObserver {
                         logger.info("Game is continued.");
                     } else if (winPane.isVisible()) {
                         winPane.setVisible(false);
+                        currentMenu = Start.getInstance();
                         currentMenu.setMenuVisible(true);
                     } else {
                         pauseGame();
