@@ -1,6 +1,6 @@
 package controllers.menus;
 
-import javafx.event.ActionEvent;
+import controllers.main.GameController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -23,6 +23,12 @@ public class BackgroundChooser implements Initializable {
     private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static BackgroundChooser instance;
     private String chosenBackground;
+    private final String BACKGROUND_PATH = "assets/images/backgrounds/background_";
+    private final String BACKGROUND_IMAGE_STYLE = "-fx-background-image:" +
+            " url(\"";// + BACKGROUND_PATH;
+    private final String BACKGROUND_EXTENSION = ".png";
+    private final String OTHER_BACKGROUND_STYLE = "-fx-background-repeat: " +
+            "no-repeat;\n-fx-background-size: stretch;";
 
     @FXML
     private AnchorPane anchor;
@@ -73,21 +79,12 @@ public class BackgroundChooser implements Initializable {
         Options.getInstance().setMenuVisible(true);
         Options.getInstance().updateCurrentMenu(GameMode.getInstance());
 
-        logger.info("First player has chosen clown_" + chosenBackground + ".");
-    }
-
-    /**
-     * Selects input type that corresponds the actioned event.
-     * @param event {@link ActionEvent} event bby the user.
-     */
-    @FXML
-    private void selectInputType(ActionEvent event) {
-        System.out.println(((Node) event.getSource()).getId());
-        switch (((Node) event.getSource()).getId()) {
-            default:
-                break;
-        }
-        logger.debug("Player selected " + ((Node) event.getSource())
-                .getId() + " input type.");
+        String backgroundPath = ClassLoader.getSystemResource(BACKGROUND_PATH + chosenBackground
+                + BACKGROUND_EXTENSION).toString();
+        GameController.getInstance().getRootPane()
+                .setStyle(BACKGROUND_IMAGE_STYLE
+                        + backgroundPath + "\");"
+                        + OTHER_BACKGROUND_STYLE);
+        logger.info("background changed to background_" + chosenBackground + ".");
     }
 }

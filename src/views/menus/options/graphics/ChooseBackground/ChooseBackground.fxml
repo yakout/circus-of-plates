@@ -24,7 +24,7 @@
                     <children>
                         <Button id="1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                                 onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="350.0"/>
-                        <Button id="2" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        <Button id="5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                                 onMouseClicked="#mouseHandler" prefHeight="230.0" prefWidth="350.0"/>
                     </children>
                 </HBox>
