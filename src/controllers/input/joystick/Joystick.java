@@ -53,7 +53,8 @@ public class Joystick extends Input {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+                Controller[] controllers = ControllerEnvironment
+                        .getDefaultEnvironment().getControllers();
 
                 // First controller of the desired type.
                 Controller firstController = searchForController(controllers);
@@ -64,8 +65,10 @@ public class Joystick extends Input {
                     return;
                 }
 
-                System.out.println("First controller of a desired type is: " + firstController.getName()
-                        + firstController.getPortType() + " number " + firstController.getPortNumber());
+                System.out.println("First controller of a desired type is: "
+                        + firstController.getName()
+                        + firstController.getPortType() + " number " +
+                        firstController.getPortNumber());
 
                 findAnnotatedMethods();
                 poll(firstController);
@@ -105,27 +108,41 @@ public class Joystick extends Input {
                         currentComponent = components[i];
                         if (currentComponent.getName().equals("y")) {
                             if (components[i].getPollData() == 1.0f) {
-//                                System.out.println("down" + " done by controller: "
+//                                System.out.println("down" + " done by
+// controller: "
 //                                        + (i > 11 ? "player 2" : "player 1"));
-                                joystick = new JoystickEvent(eventType, JoystickCode.DOWN,
-                                        i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                            } else if (currentComponent.getPollData() == -1.0f) {
-                                joystick = new JoystickEvent(eventType, JoystickCode.UP,
-                                        i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-//                                System.out.println("up" + " done by controller: "
+                                joystick = new JoystickEvent(eventType,
+                                        JoystickCode.DOWN,
+                                        i > 11 ? JoystickType.SECONDARY :
+                                                JoystickType.PRIMARY);
+                            } else if (currentComponent.getPollData() ==
+                                    -1.0f) {
+                                joystick = new JoystickEvent(eventType,
+                                        JoystickCode.UP,
+                                        i > 11 ? JoystickType.SECONDARY :
+                                                JoystickType.PRIMARY);
+//                                System.out.println("up" + " done by
+// controller: "
 //                                        + (i > 11 ? "player 2" : "player 1"));
                             }
                         } else {
                             if (currentComponent.getPollData() == 1.0f) {
-                                joystick = new JoystickEvent(eventType, JoystickCode.RIGHT,
-                                        i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-//                                System.out.println("right" + " done by controller: "
+                                joystick = new JoystickEvent(eventType,
+                                        JoystickCode.RIGHT,
+                                        i > 11 ? JoystickType.SECONDARY :
+                                                JoystickType.PRIMARY);
+//                                System.out.println("right" + " done by
+// controller: "
 //                                        + (i > 11 ? "player 2" : "player 1"));
 
-                            } else if (currentComponent.getPollData() == -1.0f) {
-                                joystick = new JoystickEvent(eventType, JoystickCode.LEFT,
-                                        i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-//                                System.out.println("left" + " done by controller: "
+                            } else if (currentComponent.getPollData() ==
+                                    -1.0f) {
+                                joystick = new JoystickEvent(eventType,
+                                        JoystickCode.LEFT,
+                                        i > 11 ? JoystickType.SECONDARY :
+                                                JoystickType.PRIMARY);
+//                                System.out.println("left" + " done by
+// controller: "
 //                                        + (i > 11 ? "player 2" : "player 1"));
                             }
                         }
@@ -133,11 +150,13 @@ public class Joystick extends Input {
                         // ======================================================================
 
 
-//                        if (joystick != null) { //&& !currentComponent.equals(prevComponent)) {
+//                        if (joystick != null) { //&& !currentComponent
+// .equals(prevComponent)) {
 //                            invokeOnActionBeginMethods(joystick);
 //                            // invokeOnActionMethods(joystick);
 //                        }
-//                        else if (joystick != null && currentComponent.equals(prevComponent)) {
+//                        else if (joystick != null && currentComponent
+// .equals(prevComponent)) {
 //                            invokeOnActionMethods(joystick);
 //                            System.out.println("on");
 //                        }
@@ -145,17 +164,22 @@ public class Joystick extends Input {
 
                         // component is not analog
                     } else {
-                        if (components[i].getName().equals("2") && components[i].getPollData() == 1.0f) {
-//                            System.out.println( i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
-                            joystick = new JoystickEvent(eventType, JoystickCode.PRESS,
-                                    i > 11 ? JoystickType.SECONDARY : JoystickType.PRIMARY);
+                        if (components[i].getName().equals("2") &&
+                                components[i].getPollData() == 1.0f) {
+//                            System.out.println( i > 11 ? JoystickType
+// .SECONDARY : JoystickType.PRIMARY);
+                            joystick = new JoystickEvent(eventType,
+                                    JoystickCode.PRESS,
+                                    i > 11 ? JoystickType.SECONDARY :
+                                            JoystickType.PRIMARY);
                         }
                     }
 
                     if (joystick != null) {
                         invokeOnActionBeginMethods(joystick);
                     }
-//                    if (joystick != null && prevComponent != null && !prevComponent.equals(components[i])) {
+//                    if (joystick != null && prevComponent != null &&
+// !prevComponent.equals(components[i])) {
 //                        invokeOnActionEndMethods(joystick);
 //                        System.out.println("end");
 //                    }
@@ -163,7 +187,8 @@ public class Joystick extends Input {
                 }
 
                 Thread.sleep(50);
-            } catch (InterruptedException | IllegalAccessException | InvocationTargetException e) {
+            } catch (InterruptedException | IllegalAccessException |
+                    InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
@@ -180,7 +205,8 @@ public class Joystick extends Input {
 
     private void invokeOnActionBeginMethods(JoystickEvent joystickEvent)
             throws InvocationTargetException, IllegalAccessException {
-        for (Map.Entry<Class<?>, Method> entry : onActionBeginMethods.entrySet()) {
+        for (Map.Entry<Class<?>, Method> entry : onActionBeginMethods
+                .entrySet()) {
             Object instance = registeredClasses.get(entry.getKey());
             entry.getValue().invoke(instance, joystickEvent);
         }
@@ -188,7 +214,8 @@ public class Joystick extends Input {
 
     private void invokeOnActionEndMethods(JoystickEvent joystickEvent)
             throws InvocationTargetException, IllegalAccessException {
-        for (Map.Entry<Class<?>, Method> entry : onActionEndMethods.entrySet()) {
+        for (Map.Entry<Class<?>, Method> entry : onActionEndMethods.entrySet
+                ()) {
             Object instance = registeredClasses.get(entry.getKey());
             entry.getValue().invoke(instance, joystickEvent);
         }
@@ -198,19 +225,26 @@ public class Joystick extends Input {
     private void findAnnotatedMethods() {
         for (Map.Entry<Class<?>, Object> entry : registeredClasses.entrySet()) {
             Class<?> _class = entry.getKey();
-            // need to iterated thought hierarchy in order to retrieve methods from above the current instance
+            // need to iterated thought hierarchy in order to retrieve
+            // methods from above the current instance
             Class<?> klass = _class;
             while (klass != Object.class) {
-                // iterate though the list of methods declared in the class represented by klass variable,
+                // iterate though the list of methods declared in the class
+                // represented by klass variable,
                 // and add those annotated with the specified annotation
                 final List<Method> allMethods =
-                        new ArrayList<Method>(Arrays.asList(klass.getDeclaredMethods()));
+                        new ArrayList<Method>(Arrays.asList(klass
+                                .getDeclaredMethods()));
                 for (final Method method : allMethods) {
                     if (method.isAnnotationPresent(InputAction.class)) {
-                        Annotation annotInstance = method.getAnnotation(InputAction.class);
-                        if (((InputAction) annotInstance).INPUT_TYPE() != InputType.JOYSTICK
-                                && ((InputAction) annotInstance).INPUT_TYPE() != InputType.JOYSTICK_PRIMARY
-                                && ((InputAction) annotInstance).INPUT_TYPE() != InputType.KEYBOARD_SECONDARY) {
+                        Annotation annotInstance = method.getAnnotation
+                                (InputAction.class);
+                        if (((InputAction) annotInstance).INPUT_TYPE() !=
+                                InputType.JOYSTICK
+                                && ((InputAction) annotInstance).INPUT_TYPE()
+                                != InputType.JOYSTICK_PRIMARY
+                                && ((InputAction) annotInstance).INPUT_TYPE()
+                                != InputType.KEYBOARD_SECONDARY) {
                             return;
                         }
                         // process annotInstance
@@ -230,7 +264,8 @@ public class Joystick extends Input {
                         System.out.println(method.getName());
                     }
                 }
-                // move to the upper class in the hierarchy in search for more methods
+                // move to the upper class in the hierarchy in search for
+                // more methods
                 klass = klass.getSuperclass();
             }
         }

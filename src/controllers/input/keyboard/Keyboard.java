@@ -50,7 +50,6 @@ public class Keyboard extends Input {
     }
 
     /**
-     *
      * @param userAction {@link UserAction} responsible for actions of user.
      */
     @Override
@@ -60,7 +59,7 @@ public class Keyboard extends Input {
 
     /**
      * Required for registering the given class for Keyboard input controller.
-     * @param clazz {@link Class}class is required to ger registered.
+     * @param clazz    {@link Class}class is required to ger registered.
      * @param instance instance of the upcoming class.
      */
     @Override
@@ -75,7 +74,8 @@ public class Keyboard extends Input {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+                Controller[] controllers = ControllerEnvironment
+                        .getDefaultEnvironment().getControllers();
 
                 // First controller of the desired type.
                 Controller firstController = searchForController(controllers);
@@ -86,8 +86,10 @@ public class Keyboard extends Input {
                     return;
                 }
 
-                System.out.println("First controller of a desired type is: " + firstController.getName()
-                        + firstController.getPortType() + " number " + firstController.getPortNumber());
+                System.out.println("First controller of a desired type is: "
+                        + firstController.getName()
+                        + firstController.getPortType() + " number " +
+                        firstController.getPortNumber());
 
                 findAnnotatedMethods();
                 poll(firstController);
@@ -127,22 +129,26 @@ public class Keyboard extends Input {
                     switch (currentComponent.getName()) {
                         case "A":
                             if (currentComponent.getPollData() == 1.0f) {
-                                keyboard = new KeyboardEvent(eventType, KeyboardCode.A);
+                                keyboard = new KeyboardEvent(eventType,
+                                        KeyboardCode.A);
                             }
                             break;
                         case "D":
                             if (currentComponent.getPollData() == 1.0f) {
-                                keyboard = new KeyboardEvent(eventType, KeyboardCode.D);
+                                keyboard = new KeyboardEvent(eventType,
+                                        KeyboardCode.D);
                             }
                             break;
                         case "Left":
                             if (currentComponent.getPollData() == 1.0f) {
-                                keyboard = new KeyboardEvent(eventType, KeyboardCode.LEFT);
+                                keyboard = new KeyboardEvent(eventType,
+                                        KeyboardCode.LEFT);
                             }
                             break;
                         case "Right":
                             if (currentComponent.getPollData() == 1.0f) {
-                                keyboard = new KeyboardEvent(eventType, KeyboardCode.RIGHT);
+                                keyboard = new KeyboardEvent(eventType,
+                                        KeyboardCode.RIGHT);
                             }
                             break;
                         default:
@@ -154,7 +160,8 @@ public class Keyboard extends Input {
                 }
 
                 Thread.sleep(50);
-            } catch (InterruptedException | IllegalAccessException | InvocationTargetException e) {
+            } catch (InterruptedException | IllegalAccessException |
+                    InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
@@ -163,18 +170,24 @@ public class Keyboard extends Input {
     private void findAnnotatedMethods() {
         for (Map.Entry<Class<?>, Object> entry : registeredClasses.entrySet()) {
             Class<?> _class = entry.getKey();
-            // need to iterated thought hierarchy in order to retrieve methods from above the current instance
+            // need to iterated thought hierarchy in order to retrieve
+            // methods from above the current instance
             Class<?> klass = _class;
             while (klass != Object.class) {
-                // iterate though the list of methods declared in the class represented by klass variable,
+                // iterate though the list of methods declared in the class
+                // represented by klass variable,
                 // and add those annotated with the specified annotation
                 final List<Method> allMethods =
-                        new ArrayList<Method>(Arrays.asList(klass.getDeclaredMethods()));
+                        new ArrayList<Method>(Arrays.asList(klass
+                                .getDeclaredMethods()));
                 for (final Method method : allMethods) {
                     if (method.isAnnotationPresent(InputAction.class)) {
-                        Annotation annotInstance = method.getAnnotation(InputAction.class);
-                        if (((InputAction) annotInstance).INPUT_TYPE() != InputType.KEYBOARD_SECONDARY
-                                && ((InputAction) annotInstance).INPUT_TYPE() != InputType.KEYBOARD_PRIMARY) {
+                        Annotation annotInstance = method.getAnnotation
+                                (InputAction.class);
+                        if (((InputAction) annotInstance).INPUT_TYPE() !=
+                                InputType.KEYBOARD_SECONDARY
+                                && ((InputAction) annotInstance).INPUT_TYPE()
+                                != InputType.KEYBOARD_PRIMARY) {
                             return;
                         }
                         // process annotInstance
@@ -188,11 +201,14 @@ public class Keyboard extends Input {
                             case END:
                                 onActionEndMethods.put(_class, method);
                                 break;
+                            default:
+                                break;
                         }
                         System.out.println(method.getName());
                     }
                 }
-                // move to the upper class in the hierarchy in search for more methods
+                // move to the upper class in the hierarchy in search for
+                // more methods
                 klass = klass.getSuperclass();
             }
         }
@@ -200,7 +216,8 @@ public class Keyboard extends Input {
 
     private void invokeOnActionBeginMethods(KeyboardEvent keyboardEvent)
             throws InvocationTargetException, IllegalAccessException {
-        for (Map.Entry<Class<?>, Method> entry : onActionBeginMethods.entrySet()) {
+        for (Map.Entry<Class<?>, Method> entry : onActionBeginMethods
+                .entrySet()) {
             Object instance = registeredClasses.get(entry.getKey());
             entry.getValue().invoke(instance, keyboardEvent);
         }
@@ -216,7 +233,8 @@ public class Keyboard extends Input {
 
     private void invokeOnActionEndMethods(KeyboardEvent keyboardEvent)
             throws InvocationTargetException, IllegalAccessException {
-        for (Map.Entry<Class<?>, Method> entry : onActionEndMethods.entrySet()) {
+        for (Map.Entry<Class<?>, Method> entry : onActionEndMethods.entrySet
+                ()) {
             Object instance = registeredClasses.get(entry.getKey());
             entry.getValue().invoke(instance, keyboardEvent);
         }
