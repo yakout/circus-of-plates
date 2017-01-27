@@ -9,17 +9,6 @@ import java.io.File;
 
 public class AudioPlayer {
 
-    public static final javafx.scene.media.MediaPlayer
-            menuSelectionMediaPlayer =
-            new javafx.scene.media.MediaPlayer(menuSelectionMedia);
-    public static final javafx.scene.media.MediaPlayer menuChoiceMediaPlayer =
-            new javafx.scene.media.MediaPlayer(menuChoiceMedia);
-    public static final javafx.scene.media.MediaPlayer backgroundMediaPlayer =
-            new javafx.scene.media.MediaPlayer(backgroundMedia);
-    public static final javafx.scene.media.MediaPlayer newScoreMediaPlayer =
-            new javafx.scene.media.MediaPlayer(newScoreMedia);
-    public static final javafx.scene.media.MediaPlayer winMediaPlayer =
-            new javafx.scene.media.MediaPlayer(windMedia);
     private static final String MENU_SELECTION_RES =
             "src/assets/sounds/effects/MenuSelection1.mp3";
     public static final Media menuSelectionMedia =
@@ -40,6 +29,17 @@ public class AudioPlayer {
             "src/assets/sounds/384. Steppin Up_1.mp3";
     public static final Media windMedia =
             new Media(new File(WIN_RES).toURI().toString());
+    public static final javafx.scene.media.MediaPlayer
+            menuSelectionMediaPlayer =
+            new javafx.scene.media.MediaPlayer(menuSelectionMedia);
+    public static final javafx.scene.media.MediaPlayer menuChoiceMediaPlayer =
+            new javafx.scene.media.MediaPlayer(menuChoiceMedia);
+    public static final javafx.scene.media.MediaPlayer backgroundMediaPlayer =
+            new javafx.scene.media.MediaPlayer(backgroundMedia);
+    public static final javafx.scene.media.MediaPlayer newScoreMediaPlayer =
+            new javafx.scene.media.MediaPlayer(newScoreMedia);
+    public static final javafx.scene.media.MediaPlayer winMediaPlayer =
+            new javafx.scene.media.MediaPlayer(windMedia);
     private static Logger logger = LogManager.getLogger(AudioPlayer.class);
 
     public static synchronized void play(AudioType audioType) {
