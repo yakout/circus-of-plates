@@ -20,8 +20,8 @@ public class GameMode extends MenuController {
 
     private static Logger logger = LogManager.getLogger(GameMode.class);
     private static GameMode instance;
-    private final String LOAD_GAME_PANE_PATH =
-            "src/views/menus/ChoosePlayer/ChoosePlayer.fxml";
+    private final String LOAD_GAME_PANE_PATH
+            = "views/menus/ChoosePlayer/ChoosePlayer.fxml";
     private final int LEVEL_INDEX = 6;
     @FXML
     private VBox menu;
@@ -120,7 +120,8 @@ public class GameMode extends MenuController {
     private void loadPlayerChooser() {
         URL url;
         try {
-            url = new File(LOAD_GAME_PANE_PATH).toURI().toURL();
+            url = ClassLoader.getSystemResource(LOAD_GAME_PANE_PATH);
+            System.out.println(LOAD_GAME_PANE_PATH);
             AnchorPane playerChooser = FXMLLoader.load(url);
             GameController.getInstance().getRootPane().getChildren().add
                     (playerChooser);
