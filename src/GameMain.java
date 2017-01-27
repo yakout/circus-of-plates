@@ -1,9 +1,3 @@
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import controllers.input.joystick.Joystick;
-import controllers.input.keyboard.Keyboard;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +10,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import models.settings.FileConstants;
 import models.shapes.util.ShapeLoader;
+
+import java.io.File;
+import java.io.IOException;
 
 public class GameMain extends Application {
     @Override

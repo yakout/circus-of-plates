@@ -58,8 +58,6 @@ public class Input implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-
-//        volumeSlider.valueProperty().bindBidirectional(volume);
     }
 
     @FXML

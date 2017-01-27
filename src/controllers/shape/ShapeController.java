@@ -7,7 +7,6 @@ import controllers.shape.util.ShapeMovingObserver;
 import javafx.scene.Node;
 import models.Platform;
 import models.shapes.Shape;
-import models.shapes.util.ShapePool;
 import models.states.ShapeState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

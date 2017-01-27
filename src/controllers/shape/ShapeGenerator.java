@@ -5,11 +5,9 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import models.data.ModelDataHolder;
-import models.shapes.util.ShapePlatformPair;
-import models.shapes.util.ShapePool;
 import models.levels.Level;
 import models.shapes.Shape;
+import models.shapes.util.ShapePool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

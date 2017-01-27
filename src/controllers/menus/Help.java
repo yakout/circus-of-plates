@@ -2,7 +2,6 @@ package controllers.menus;
 
 import controllers.input.joystick.Joystick;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

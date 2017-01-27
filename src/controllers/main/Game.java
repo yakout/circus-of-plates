@@ -120,7 +120,7 @@ public class Game {
      * Creates player with the given data.
      * @param player {@link Player} Player model.
      */
-    private void createPlayer(Player player) {
+    public void createPlayer(Player player) {
         playersController.createPlayer(player);
         gameBoard.addPlayerPanel(player.getName());
         logger.info("created player with input type "

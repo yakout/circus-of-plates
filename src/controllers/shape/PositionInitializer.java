@@ -1,6 +1,5 @@
 package controllers.shape;
 
-import javafx.scene.image.ImageView;
 import models.shapes.Shape;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

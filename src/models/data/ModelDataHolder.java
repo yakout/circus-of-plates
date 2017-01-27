@@ -3,10 +3,8 @@ package models.data;
 import models.GameMode;
 import models.levels.Level;
 import models.players.Player;
-import models.shapes.Shape;
 import models.shapes.util.ShapePlatformPair;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
