@@ -4,7 +4,7 @@ import javafx.scene.media.Media;
 import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class AudioPlayer {
@@ -29,17 +29,17 @@ public class AudioPlayer {
             "src/assets/sounds/384. Steppin Up_1.mp3";
     public static final Media windMedia =
             new Media(new File(WIN_RES).toURI().toString());
-    public static final javafx.scene.media.MediaPlayer
+    public static final MediaPlayer
             menuSelectionMediaPlayer =
-            new javafx.scene.media.MediaPlayer(menuSelectionMedia);
-    public static final javafx.scene.media.MediaPlayer menuChoiceMediaPlayer =
-            new javafx.scene.media.MediaPlayer(menuChoiceMedia);
-    public static final javafx.scene.media.MediaPlayer backgroundMediaPlayer =
-            new javafx.scene.media.MediaPlayer(backgroundMedia);
-    public static final javafx.scene.media.MediaPlayer newScoreMediaPlayer =
-            new javafx.scene.media.MediaPlayer(newScoreMedia);
-    public static final javafx.scene.media.MediaPlayer winMediaPlayer =
-            new javafx.scene.media.MediaPlayer(windMedia);
+            new MediaPlayer(menuSelectionMedia);
+    public static final MediaPlayer menuChoiceMediaPlayer =
+            new MediaPlayer(menuChoiceMedia);
+    public static final MediaPlayer backgroundMediaPlayer =
+            new MediaPlayer(backgroundMedia);
+    public static final MediaPlayer newScoreMediaPlayer =
+            new MediaPlayer(newScoreMedia);
+    public static final MediaPlayer winMediaPlayer =
+            new MediaPlayer(windMedia);
     private static Logger logger = LogManager.getLogger(AudioPlayer.class);
 
     public static synchronized void play(AudioType audioType) {
