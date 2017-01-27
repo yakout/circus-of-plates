@@ -223,6 +223,9 @@ public class Joystick extends Input {
                                 break;
                             case END:
                                 onActionEndMethods.put(_class, method);
+                                break;
+                            default:
+                                break;
                         }
                         System.out.println(method.getName());
                     }
