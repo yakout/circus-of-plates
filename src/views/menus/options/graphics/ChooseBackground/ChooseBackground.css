@@ -5,6 +5,19 @@
 }
 
 #2 {
+    -fx-background-image: url('../../../../../assets/images/backgrounds/background_2.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+
+#4 {
+    -fx-background-image: url('../../../../../assets/images/backgrounds/background_4.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+}
+
+#5 {
     -fx-background-image: url('../../../../../assets/images/backgrounds/background_5.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
