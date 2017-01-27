@@ -338,6 +338,8 @@ public class GameController implements Initializable, ScoreObserver {
                 break;
             case SANDBOX:
                 break;
+            default:
+                break;
         }
         players.clear();
     }

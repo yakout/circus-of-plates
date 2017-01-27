@@ -86,6 +86,8 @@ public class Options extends MenuController {
                 // TODO: 1/25/17
                 logger.info("Game credits is triggerd.");
                 break;
+            default:
+                break;
         }
     }
 
