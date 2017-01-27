@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<!-- load game menu -->
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<!-- load game menu -->
-
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <AnchorPane fx:id="loadGamePane" visible="false" prefHeight="269.0"
             xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.menus.LoadGame">

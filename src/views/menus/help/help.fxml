@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <!-- help menu -->
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 <VBox fx:id="helpMenu" alignment="CENTER" visible="false"
       fx:controller="controllers.menus.Help" xmlns:fx="http://javafx.com/fxml/1"
       onKeyReleased="#keyHandler">

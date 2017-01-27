@@ -1,7 +1,7 @@
 package models.shapes;
 
-import models.shapes.util.ShapeFactory;
 import models.levels.*;
+import models.shapes.util.ShapeFactory;
 import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

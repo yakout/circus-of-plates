@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import models.levels.util.LevelFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import models.levels.util.LevelFactory;
 
 import java.io.File;
 import java.io.IOException;

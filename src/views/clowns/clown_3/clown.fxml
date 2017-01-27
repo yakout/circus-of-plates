@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane id="clown_3" layoutX="800.0" prefHeight="216.0" prefWidth="323.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65">
     <children>
         <ImageView id="clown" fitHeight="216.0" fitWidth="126.0" layoutX="102.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="105.77621459960938" AnchorPane.topAnchor="1.0">

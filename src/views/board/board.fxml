@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <HBox fx:id="board" prefHeight="100.0" prefWidth="202.0" xmlns="http://javafx.com/javafx/8.0.65"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.board.GameBoard">
     <children>

@@ -1,13 +1,13 @@
 package models.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.beans.property.SimpleDoubleProperty;
+import models.Platform;
 import models.Point;
 import models.states.Color;
-import models.Platform;
 import models.states.Orientation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Level {
 
