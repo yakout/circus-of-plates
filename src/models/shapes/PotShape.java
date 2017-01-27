@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
 public class PotShape extends Shape {
 
     private static final String URL = "assets/images/plates/";
-    private static final String FILE_NAME = "Pot.png";
+    private static final String FILE_NAME = "pot.png";
     private static final double HORIZONTAL_VELOCITY = 1.8;
     private static final double VERTICAL_VELOCITY = 2.0;
     private static final String KEY = PotShape.class.getName();
