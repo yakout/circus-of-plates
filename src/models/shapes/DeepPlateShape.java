@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 public class DeepPlateShape extends Shape {
 
     public static final String KEY = DeepPlateShape.class.getName();
-    private static final String URL = "src/assets/images/plates/";
+    private static final String URL = "assets/images/plates/";
     private static final String FILE_NAME = "platewithdeepbase.png";
     private static final double HORIZONTAL_VELOCITY = 1.7;
     private static final double VERTICAL_VELOCITY = 1.9;
@@ -41,14 +41,8 @@ public class DeepPlateShape extends Shape {
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);
-        try {
-            return new File(URL + colorString + FILE_NAME)
-                    .toURI().toURL().toString();
-        } catch (MalformedURLException e) {
-            logger.error("Couldn't find " + KEY + " with this color");
-            e.printStackTrace();
-            return null;
-        }
+        return ClassLoader.getSystemResource(URL + colorString + FILE_NAME)
+                .toString();
     }
 
     protected String getColorName(Color color) {

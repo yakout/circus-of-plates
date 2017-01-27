@@ -9,7 +9,6 @@ import models.states.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.net.MalformedURLException;
 
 /**
@@ -43,8 +42,8 @@ public class BasedPlateShape extends Shape {
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);
-        return ClassLoader.getSystemResource(URL).toString();
-
+        return ClassLoader.getSystemResource(URL + colorString + FILE_NAME)
+                    .toString();
     }
 
     public String getColorName(Color color) {

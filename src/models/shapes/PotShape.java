@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
  */
 public class PotShape extends Shape {
 
-    private static final String URL = "src/assets/images/plates/";
+    private static final String URL = "assets/images/plates/";
     private static final String FILE_NAME = "Pot.png";
     private static final double HORIZONTAL_VELOCITY = 1.8;
     private static final double VERTICAL_VELOCITY = 2.0;
@@ -39,14 +39,8 @@ public class PotShape extends Shape {
     @Override
     public String getShapeURL() {
         String colorString = getColorName(color);
-        try {
-            return new File(URL + colorString + FILE_NAME)
-                    .toURI().toURL().toString();
-        } catch (MalformedURLException e) {
-            logger.error("Couldn't find " + KEY + " with this color");
-            e.printStackTrace();
-            return null;
-        }
+        return ClassLoader.getSystemResource(URL + colorString + FILE_NAME)
+                .toString();
     }
 
     protected String getColorName(Color color) {
