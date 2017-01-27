@@ -48,7 +48,7 @@ public class PlayerController {
         playerModel.registerObserver(GameController.getInstance());
         leftStickYConstant = STACK_Y_RATIO * leftStick.getLayoutBounds()
                 .getHeight();
-        rightStickYConstant = STACK_Y_RATIO * leftStick.getLayoutBounds()
+        rightStickYConstant = STACK_Y_RATIO * rightStick.getLayoutBounds()
                 .getHeight();
     }
 
