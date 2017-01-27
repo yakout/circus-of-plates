@@ -1,6 +1,7 @@
 package controllers.menus;
 
 import controllers.main.GameController;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -77,5 +78,10 @@ public class BackgroundChooser implements Initializable {
                         + backgroundPath + "\");"
                         + OTHER_BACKGROUND_STYLE);
         logger.info("background changed to background_" + chosenBackground + ".");
+    }
+
+    @FXML
+    public void keyPressed(Event event) {
+        selectBackground();
     }
 }

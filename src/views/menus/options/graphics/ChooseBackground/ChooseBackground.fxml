@@ -32,7 +32,9 @@
             </children>
         </VBox>
 
-        <Button id="choose" mnemonicParsing="false" onAction="#selectBackground" text="Done" textFill="#2e5faeb2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Button id="choose" mnemonicParsing="false" onAction="#selectBackground" text="Done"
+                onKeyReleased="#keyPressed"
+                textFill="#2e5faeb2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <font>
                 <Font name="System Bold Italic" size="24.0" />
             </font>
