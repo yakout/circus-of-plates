@@ -23,7 +23,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
      * @param platform {@link Platform} Platform that this will positioned to.
      */
     public ShapeController(final T shape, final Shape model,
-                           final models.Platform platform) {
+                           final Platform platform) {
         this.shape = shape;
         this.shapeModel = model;
         this.platform = platform;

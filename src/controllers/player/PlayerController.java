@@ -36,8 +36,7 @@ public class PlayerController {
     private double leftStickYConstant;
     private double rightStickYConstant;
 
-    PlayerController(String name, Node playerPane, models
-            .players.Player playerModel) {
+    PlayerController(String name, Node playerPane, Player playerModel) {
         this.name = name;
         this.playerModel = playerModel;
         this.playerPane = playerPane;
@@ -82,7 +81,7 @@ public class PlayerController {
         return playerPane;
     }
 
-    public models.players.Player getPlayerModel() {
+    public Player getPlayerModel() {
         return playerModel;
     }
 
