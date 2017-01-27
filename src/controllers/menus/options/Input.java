@@ -35,8 +35,8 @@ public class Input implements Initializable {
     public static synchronized Input getInstance() {
         if (instance == null) {
             try {
-                URL url = new File("src/views/menus/options/input/input"
-                        + ".fxml").toURI().toURL();
+                URL url = ClassLoader.getSystemResource("views/menus/options/input/input"
+                        + ".fxml");
                 FXMLLoader.load(url);
             } catch (IOException e) {
                 e.printStackTrace();

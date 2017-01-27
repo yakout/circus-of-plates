@@ -39,8 +39,8 @@ public class Audio implements Initializable {
     public static synchronized Audio getInstance() {
         if (instance == null) {
             try {
-                URL url = new File("src/views/menus/options/audio/audio"
-                        + ".fxml").toURI().toURL();
+                URL url = ClassLoader.getSystemResource("views/menus/options/audio/audio"
+                        + ".fxml");
                 FXMLLoader.load(url);
             } catch (IOException e) {
                 e.printStackTrace();
