@@ -23,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import models.GameMode;
@@ -190,12 +189,14 @@ public class GameController implements Initializable, ScoreObserver {
         keyMap.put(event.getCode(), true);
         switch (event.getCode()) {
             case ESCAPE:
-                winPane.setVisible(false);
                 AudioPlayer.winMediaPlayer.stop();
                 if (newGameStarted.get()) {
                     if (currentMenu.isVisible()) {
                         continueGame();
                         logger.info("Game is continued.");
+                    } else if (winPane.isVisible()) {
+                        winPane.setVisible(false);
+                        currentMenu.setMenuVisible(true);
                     } else {
                         pauseGame();
                         logger.info("Game is paused.");
