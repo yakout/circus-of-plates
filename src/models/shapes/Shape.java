@@ -35,7 +35,7 @@ public abstract class Shape {
         this.key = key;
     }
 
-    public ShapeState getState() {
+    public synchronized ShapeState getState() {
         return state;
     }
 
@@ -59,7 +59,7 @@ public abstract class Shape {
         width.setValue(newWidth);
     }
 
-    public DoubleProperty getHeight() {
+    public synchronized DoubleProperty getHeight() {
         return height;
     }
 

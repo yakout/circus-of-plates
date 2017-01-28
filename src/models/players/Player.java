@@ -13,8 +13,8 @@ import java.net.MalformedURLException;
 import java.util.*;
 
 public class Player {
-    private static final String LEFT_STICK_URL = "src/views/sticks/stick.fxml";
-    private static final String RIGHT_STICK_URL = "src/views/sticks/stick.fxml";
+    private static final String LEFT_STICK_URL = "views/sticks/stick.fxml";
+    private static final String RIGHT_STICK_URL = "views/sticks/stick.fxml";
     private static int numOfPlayers = 0;
     private transient List<ScoreObserver> observers;
     private volatile Stack<Shape> leftStick;
@@ -179,16 +179,6 @@ public class Player {
 
     public void setRightStickUrl(String rightStickUrl) {
         this.rightStickUrl = rightStickUrl;
-    }
-
-    private String urlFromPath(String path) {
-        try {
-            return new File(path).toURI().toURL()
-                    .toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public Stack<Shape> getLeftStick() {

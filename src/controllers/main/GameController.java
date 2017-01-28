@@ -445,12 +445,8 @@ public class GameController implements Initializable, ScoreObserver {
      */
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
-        if (currentGame.getPlayersController().checkIntersection
-                (shapeController)) {
-            shapeController.shapeFellOnTheStack();
-            return true;
-        }
-        return false;
+        return currentGame.getPlayersController().checkIntersection
+                (shapeController);
     }
 
     /**

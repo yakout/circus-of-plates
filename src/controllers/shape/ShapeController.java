@@ -86,14 +86,15 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
      * Checks for intersection.
      */
     @Override
-    public void checkIntersection() {
-        GameController.getInstance().checkIntersection(this);
+    public synchronized boolean checkIntersection() {
+        return GameController.getInstance().checkIntersection(this);
     }
 
     /**
      * Shape should be on the stack.
      */
-    public void shapeFellOnTheStack() {
+    @Override
+    public synchronized void shapeFellOnTheStack() {
         if (currentState == null) {
             return;
         }
@@ -125,7 +126,7 @@ public class ShapeController<T extends Node> implements ShapeFallingObserver,
      * Gets the shape model of the current shape.
      * @return {@link Shape} Shape model.
      */
-    public Shape getShapeModel() {
+    public synchronized Shape getShapeModel() {
         return shapeModel;
     }
 

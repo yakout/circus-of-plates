@@ -49,7 +49,9 @@ public class FallingShapeStateController<T extends Node> extends
                                             ().getShapeSpeedRatio() * shapeModel
                                             .getVerticalVelocity());
                         }
-                        shapeFallingObserver.checkIntersection();
+                        if (shapeFallingObserver.checkIntersection()) {
+                            shapeFallingObserver.shapeFellOnTheStack();
+                        }
                     }
                 });
                 if (shape == null) {
