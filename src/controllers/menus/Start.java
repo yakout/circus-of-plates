@@ -8,8 +8,11 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
@@ -185,5 +188,13 @@ public class Start extends MenuController {
     @Override
     public boolean isVisible() {
         return startMenu.isVisible();
+    }
+
+
+    @FXML
+    public void keyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            handle(((Node) event.getSource()).getId());
+        }
     }
 }

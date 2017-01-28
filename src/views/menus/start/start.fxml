@@ -57,8 +57,8 @@
             </Label>
             <TextField fx:id="gameName" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
 
-            <Button id="save" onMouseClicked="#mouseHandler" text="SAVE" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Button id="cancelSave" mnemonicParsing="false" onMouseClicked="#mouseHandler" text="CANCEL" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button id="save" onMouseClicked="#mouseHandler" onKeyReleased="#keyPressed" text="SAVE" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button id="cancelSave" mnemonicParsing="false" onMouseClicked="#mouseHandler" onKeyReleased="#keyPressed" text="CANCEL" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          <ChoiceBox fx:id="gameExtension" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
         </AnchorPane>
 
