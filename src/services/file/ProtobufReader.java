@@ -15,6 +15,7 @@ import models.states.Color;
 import models.states.Orientation;
 import models.states.ShapeState;
 import services.file.util.ProtobuffGame;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,14 +60,13 @@ public class ProtobufReader implements FileReader {
         for (ProtobuffGame.ProtoGame.ShapePlatformPair shapePlatformPair : shapesList) {
             ShapePlatformPair modelShapePlatformPair = new ShapePlatformPair();
             setPlatform(modelShapePlatformPair, shapePlatformPair.getPlatform());
-            setShape(modelShapePlatformPair, shapePlatformPair.getShape());
+            modelShapePlatformPair.setShape(buildShape(shapePlatformPair.getShape()));
             shapes.add(modelShapePlatformPair);
         }
         modelDataHolder.setShapes(shapes);
     }
 
-    private void setShape(ShapePlatformPair modelShapePlatformPair,
-                          ProtobuffGame.ProtoGame.Shape shape) {
+    private Shape buildShape(ProtobuffGame.ProtoGame.Shape shape) {
         Shape modelShape = null;
         Point center = new Point(shape.getPosition().getPropX(), shape.getPosition().getPropY());
         switch (shape.getColor()) {
@@ -124,7 +124,7 @@ public class ProtobufReader implements FileReader {
                 modelShape.setState(ShapeState.ON_THE_STACK);
                 break;
         }
-        modelShapePlatformPair.setShape(modelShape);
+        return modelShape;
     }
 
     private void setPlatform(ShapePlatformPair shapePlatformPair,
@@ -175,6 +175,13 @@ public class ProtobufReader implements FileReader {
             player.setPlayerUrl(protoPlayer.getPlayerUrl());
             player.setPosition(new Point(protoPlayer.getPosition().getPropX(),
                     protoPlayer.getPosition().getPropY()));
+
+            for (ProtobuffGame.ProtoGame.Shape shape : protoPlayer.getRightStickList()) {
+                player.pushPlateRight(buildShape(shape));
+            }
+            for (ProtobuffGame.ProtoGame.Shape shape : protoPlayer.getLeftStickList()) {
+                player.pushPlateLeft(buildShape(shape));
+            }
             playerSet.add(player);
         }
 
