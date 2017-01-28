@@ -129,4 +129,24 @@ public abstract class Level {
     protected void setNumberOfPlatforms(int size) {
         this.noOfPlatforms = size;
     }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public double getMaxX() {
+        return maxX;
+    }
+
+    public double getMaxY() {
+        return maxY;
+    }
+
+    public double getMinX() {
+        return minX;
+    }
+
+    public double getMinY() {
+        return minY;
+    }
 }
