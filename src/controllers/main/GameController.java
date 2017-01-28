@@ -10,6 +10,7 @@ import controllers.input.joystick.JoystickCode;
 import controllers.input.joystick.JoystickEvent;
 import controllers.input.joystick.JoystickType;
 import controllers.menus.MenuController;
+import controllers.menus.PlayerChooser;
 import controllers.menus.Start;
 import controllers.player.ScoreObserver;
 import controllers.shape.ShapeBuilder;
@@ -197,6 +198,9 @@ public class GameController implements Initializable, ScoreObserver {
                     } else if (winPane.isVisible()) {
                         winPane.setVisible(false);
                         currentMenu = Start.getInstance();
+                        currentMenu.setMenuVisible(true);
+                    } else if (PlayerChooser.getInstance().isVisible()) {
+                        PlayerChooser.getInstance().setVisible(false);
                         currentMenu.setMenuVisible(true);
                     } else {
                         pauseGame();

@@ -104,8 +104,8 @@ public class GameMode extends MenuController {
                 if (PlayerChooser.getInstance() == null) {
                     loadPlayerChooser();
                 }
-                gameModeMenu.setVisible(true);
-                menu.setVisible(false);
+                gameModeMenu.setVisible(false);
+                menu.setVisible(true);
                 PlayerChooser.getInstance().setVisible(true);
                 break;
             case "doneChoosingLevel":

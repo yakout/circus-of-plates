@@ -35,7 +35,6 @@ public class PlayerChooser implements Initializable {
     private static final String CHOOSE = ": Choose";
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
-    private static final String MOUSE = "mouse";
     private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static PlayerChooser instance;
     private String chosenClownID;
@@ -74,10 +73,6 @@ public class PlayerChooser implements Initializable {
         currPlayer = 1;
     }
 
-    public void setVisible(final boolean visible) {
-        anchor.setVisible(visible);
-    }
-
     @FXML
     private void mouseHandler(MouseEvent event) {
         chosenClownID = ((Node) event.getSource()).getId();
@@ -107,8 +102,8 @@ public class PlayerChooser implements Initializable {
             GameController.getInstance().setPlayersToCurrentGame
                     (choosenPlayers);
 
-            GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
+            GameMode.getInstance().setMenuVisible(true);
             inputType = InputType.KEYBOARD_PRIMARY;
             logger.info("Game mode menu is shown after choosing clown.");
         }
@@ -137,7 +132,6 @@ public class PlayerChooser implements Initializable {
 
     @FXML
     private void selectInputType(ActionEvent event) {
-        System.out.println(((Node) event.getSource()).getId());
         switch (((Node) event.getSource()).getId()) {
             case KEYBOARD:
                 keyboard.setSelected(true);
@@ -186,5 +180,12 @@ public class PlayerChooser implements Initializable {
             default:
                 break;
         }
+    }
+    public boolean isVisible() {
+        return anchor.isVisible();
+    }
+
+    public void setVisible(final boolean visible) {
+        anchor.setVisible(visible);
     }
 }
