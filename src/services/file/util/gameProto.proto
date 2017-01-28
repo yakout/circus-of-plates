@@ -87,9 +87,8 @@ message ProtoGame {
             JOYSTICK = 0;
             JOYSTICK_PRIMARY = 1;
             JOYSTICK_SECONDARY = 2;
-            MOUSE = 3;
-            KEYBOARD_PRIMARY = 4;
-            KEYBOARD_SECONDARY = 5;
+            KEYBOARD_PRIMARY = 3;
+            KEYBOARD_SECONDARY = 4;
         }
 
     }

@@ -53,8 +53,6 @@
                              prefHeight="49.0" prefWidth="128.6" selected="true" text="Keyboard"/>
                 <RadioButton id="joystick" fx:id="joystick" mnemonicParsing="false" onAction="#selectInputType"
                              prefHeight="55.0" prefWidth="128.6" text="Joystick"/>
-                <RadioButton id="mouse" fx:id="mouse" mnemonicParsing="false" onAction="#selectInputType"
-                             prefHeight="50.0" prefWidth="129.0" text="mouse"/>
             </children>
         </HBox>
 

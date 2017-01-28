@@ -56,7 +56,7 @@ public class PlayerChooser implements Initializable {
     @FXML
     private Button choose;
     @FXML
-    private RadioButton keyboard, joystick, mouse;
+    private RadioButton keyboard, joystick;
     @FXML
     private TextField currPlayerName;
 
@@ -91,7 +91,6 @@ public class PlayerChooser implements Initializable {
             setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
-            mouse.setSelected(false);
             currPlayerName.setText("");
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
@@ -100,7 +99,6 @@ public class PlayerChooser implements Initializable {
             isPlayer1 = true;
             keyboard.setSelected(true);
             joystick.setSelected(false);
-            mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
             currPlayerName.setText("");
@@ -144,20 +142,12 @@ public class PlayerChooser implements Initializable {
             case KEYBOARD:
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
-                mouse.setSelected(false);
                 handleInputType(KEYBOARD);
                 break;
             case JOYSTICK:
                 joystick.setSelected(true);
                 keyboard.setSelected(false);
-                mouse.setSelected(false);
                 handleInputType(JOYSTICK);
-                break;
-            case MOUSE:
-                mouse.setSelected(true);
-                keyboard.setSelected(false);
-                joystick.setSelected(false);
-                handleInputType(MOUSE);
                 break;
             default:
                 break;
@@ -192,9 +182,6 @@ public class PlayerChooser implements Initializable {
                 } else {
                     inputType = InputType.JOYSTICK_SECONDARY;
                 }
-                break;
-            case MOUSE:
-                inputType = InputType.MOUSE;
                 break;
             default:
                 break;

@@ -169,9 +169,6 @@ public class ProtobufReader implements FileReader {
                 case KEYBOARD_SECONDARY:
                     player.setInputType(InputType.KEYBOARD_SECONDARY);
                     break;
-                case MOUSE:
-                    player.setInputType(InputType.MOUSE);
-                    break;
             }
             player.setLeftStackFull(protoPlayer.getLeftStackFull());
             player.setRightStackFull(protoPlayer.getRightStackFull());
