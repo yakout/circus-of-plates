@@ -22,7 +22,9 @@ import java.util.Stack;
  */
 public class PlayerController {
     private static final double STICK_BASE_RATIO = 0.275;
-    private static final double STACK_Y_RATIO = 0.05;
+    private static final double STACK_Y_RATIO = 0.01;
+    private static final double SHAPE_MIN_X_RATIO = 0.25;
+    private static final double SHAPE_MAX_X_RATIO = 0.75;
     private static Logger logger = LogManager.getLogger(PlayersController
             .class);
     private String name;
@@ -183,9 +185,10 @@ public class PlayerController {
         double shapeMinY = shapeModel.getPosition().getY();
         double shapeMaxY = shapeModel.getPosition().getY() + shapeModel
                 .getHeight().doubleValue();
-        double shapeMinX = shapeModel.getPosition().getX();
+        double shapeMinX = shapeModel.getPosition().getX() + shapeModel
+                .getWidth().doubleValue() * SHAPE_MIN_X_RATIO;
         double shapeMaxX = shapeModel.getPosition().getX() + shapeModel
-                .getWidth().doubleValue();
+                .getWidth().doubleValue() * SHAPE_MAX_X_RATIO;
         Bounds shapeBounds = new BoundingBox(shapeMinX, shapeMinY, shapeMaxX
                 - shapeMinX, shapeMaxY - shapeMinY);
         Bounds stickBounds = new BoundingBox(stickMinX, stickMinY, stickMaxX
