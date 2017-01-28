@@ -27,6 +27,7 @@ class JsonReader implements FileReader {
 
     private static Logger logger = LogManager.getLogger(ModelDataHolder
             .class);
+    private final String FILE_EXTENSION = ".josn";
 
     @Override
     public ModelDataHolder read(String path, String fileName) {
@@ -63,7 +64,7 @@ class JsonReader implements FileReader {
 
     @Override
     public String getExtension() {
-        return ".json";
+        return FILE_EXTENSION;
     }
 
     private class DoublePropertyDeserializer

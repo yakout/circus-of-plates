@@ -35,6 +35,7 @@ import models.settings.FileConstants;
 import models.shapes.util.ShapePlatformPair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import services.file.FileFormat;
 import services.file.FileHandler;
 
 import java.io.File;
@@ -199,7 +200,8 @@ public class GameController implements Initializable, ScoreObserver {
                         winPane.setVisible(false);
                         currentMenu = Start.getInstance();
                         currentMenu.setMenuVisible(true);
-                    } else if (PlayerChooser.getInstance().isVisible()) {
+                    } else if (PlayerChooser.getInstance() != null
+                            && PlayerChooser.getInstance().isVisible()) {
                         PlayerChooser.getInstance().setVisible(false);
                         currentMenu.setMenuVisible(true);
                     } else {
@@ -252,9 +254,10 @@ public class GameController implements Initializable, ScoreObserver {
     /**
      * Saves the current game with the given name.
      * @param name the name of the game.
+     * @param extension the extension of the saved game
      */
-    public void saveGame(String name) {
-        System.err.println(name);
+    public void saveGame(String name, String extension) {
+        setFileFormat(extension);
         DateFormat dateFormat = new SimpleDateFormat("dd_MM_yy HH,mm,ss");
         Date date = new Date();
         String currentDate = dateFormat.format(date);
@@ -283,6 +286,17 @@ public class GameController implements Initializable, ScoreObserver {
                         FileConstants.SAVE_PATH,
                 fileName);
         logger.info("Game is saved successfully.");
+    }
+
+    private void setFileFormat(String extension) {
+        switch (extension) {
+            case ".json":
+                handler.setWriter(FileFormat.JSON);
+                break;
+            case ".protobuff":
+                handler.setWriter(FileFormat.JSON);
+                break;
+        }
     }
 
     /**

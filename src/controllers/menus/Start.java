@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -30,6 +31,8 @@ public class Start extends MenuController {
     private AnchorPane saveGamePane;
     @FXML
     private TextField gameName;
+    @FXML
+    private ChoiceBox<String> gameExtension;
 
     public Start() {
         super();
@@ -70,6 +73,9 @@ public class Start extends MenuController {
                         }
                     }
                 });
+        gameExtension.getItems().add(".json");
+        gameExtension.getItems().add(".protobuff");
+        gameExtension.setValue(gameExtension.getItems().get(0));
         requestFocus(0);
         Joystick.getInstance().registerClassForInputAction(getClass(),
                 instance);
@@ -98,7 +104,7 @@ public class Start extends MenuController {
                 LoadGame.getInstance().setVisible(true);
                 logger.debug("Loaded game menu is loaded.");
                 break;
-            case "saveGame":
+            case "saveGame": // this show the save game panel
                 startMenu.setVisible(true);
                 menu.setVisible(false);
                 saveGamePane.setVisible(true);
@@ -119,8 +125,8 @@ public class Start extends MenuController {
                 System.exit(0);
                 logger.debug("Game is exited.");
                 break;
-            case "save":
-                GameController.getInstance().saveGame(gameName.getText());
+            case "save": // and this save the current game
+                GameController.getInstance().saveGame(gameName.getText(), gameExtension.getValue());
                 hideSaveGamePanel();
                 logger.info("Game is saved successfully.");
                 break;
