@@ -129,7 +129,8 @@ public class Start extends MenuController {
                 logger.debug("Game is exited.");
                 break;
             case "save": // and this save the current game
-                GameController.getInstance().saveGame(gameName.getText(), gameExtension.getValue());
+                GameController.getInstance().saveGame(gameName.getText(),
+                        gameExtension.getValue());
                 hideSaveGamePanel();
                 logger.info("Game is saved successfully.");
                 break;

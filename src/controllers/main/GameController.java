@@ -294,7 +294,7 @@ public class GameController implements Initializable, ScoreObserver {
                 handler.setWriter(FileFormat.JSON);
                 break;
             case ".protobuff":
-                handler.setWriter(FileFormat.JSON);
+                handler.setWriter(FileFormat.PROTOCOL_BUFFER);
                 break;
         }
     }

@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
  */
 class JsonWriter implements FileWriter {
     private static Logger logger = LogManager.getLogger(JsonWriter.class);
-    private final String FILE_EXTENSION = ".josn";
+    private final String FILE_EXTENSION = ".json";
 
     @Override
     public void write(ModelDataHolder dataHolder, String path, String

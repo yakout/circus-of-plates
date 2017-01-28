@@ -27,7 +27,7 @@ class JsonReader implements FileReader {
 
     private static Logger logger = LogManager.getLogger(ModelDataHolder
             .class);
-    private final String FILE_EXTENSION = ".josn";
+    private final String FILE_EXTENSION = ".json";
 
     @Override
     public ModelDataHolder read(String path, String fileName) {

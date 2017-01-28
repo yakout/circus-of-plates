@@ -2,6 +2,7 @@ package services.file;
 
 import controllers.input.InputType;
 import javafx.beans.property.SimpleDoubleProperty;
+import models.GameMode;
 import models.Platform;
 import models.Point;
 import models.data.ModelDataHolder;
@@ -51,7 +52,25 @@ public class ProtobufReader implements FileReader {
         setShapes(modelDataHolder, protoGame.getShapesList());
         modelDataHolder.setGeneratorCounter(protoGame.getGeneratorCounter());
         modelDataHolder.setRemainingTimeAttack(protoGame.getRemainingTimeAttack());
+        setGameMode(modelDataHolder, protoGame.getGameMode());
         return modelDataHolder;
+    }
+
+    private void setGameMode(ModelDataHolder modelDataHolder, ProtobuffGame.ProtoGame.GameMode gameMode) {
+        switch (gameMode) {
+            case LEVEL:
+                modelDataHolder.setGameMode(GameMode.LEVEL);
+                break;
+            case NORMAL:
+                modelDataHolder.setGameMode(GameMode.NORMAL);
+                break;
+            case SANDBOX:
+                modelDataHolder.setGameMode(GameMode.SANDBOX);
+                break;
+            case TIME_ATTACK:
+                modelDataHolder.setGameMode(GameMode.TIME_ATTACK);
+                break;
+        }
     }
 
     private void setShapes(ModelDataHolder modelDataHolder,
