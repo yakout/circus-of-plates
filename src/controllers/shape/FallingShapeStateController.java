@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class FallingShapeStateController<T extends Node> extends
         ShapeMovementController<T> {
-    private static final Long THREAD_SLEEP_TIME = 10L;
+    private static final Long THREAD_SLEEP_TIME = 15L;
     private static Logger logger = LogManager.getLogger
             (FallingShapeStateController.class);
     private final ShapeFallingObserver shapeFallingObserver;
@@ -47,7 +47,7 @@ public class FallingShapeStateController<T extends Node> extends
                                     GameController.getInstance()
                                             .getCurrentGame().getCurrentLevel
                                             ().getShapeSpeedRatio() * shapeModel
-                                            .getVerticalVelocity());
+                                            .getVerticalVelocity() * 2);
                         }
                         if (shapeFallingObserver.checkIntersection()) {
                             shapeFallingObserver.shapeFellOnTheStack();

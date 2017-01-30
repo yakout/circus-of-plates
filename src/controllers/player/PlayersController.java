@@ -152,15 +152,18 @@ public class PlayersController {
     public synchronized boolean checkIntersection(
             ShapeController<? extends Node> shapeController) {
         for (String name : players.keySet()) {
-            if (players.get(name).intersectsLeftStick(shapeController)) {
-                logger.debug("A Shape Intersected With the Left Stick of "
-                        + "Player: " + name);
-                return true;
-            }
-            if (players.get(name).intersectsRightStick(shapeController)) {
-                logger.debug("A Shape Intersected With the Right Stick of "
-                        + "Player: " + name);
-                return true;
+            PlayerController player = players.get(name);
+            synchronized (player) {
+                if (player.intersectsLeftStick(shapeController)) {
+                    logger.debug("A Shape Intersected With the Left Stick of "
+                            + "Player: " + name);
+                    return true;
+                }
+                if (player.intersectsRightStick(shapeController)) {
+                    logger.debug("A Shape Intersected With the Right Stick of "
+                            + "Player: " + name);
+                    return true;
+                }
             }
         }
         return false;
