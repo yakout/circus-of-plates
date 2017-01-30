@@ -13,12 +13,14 @@ import java.util.NoSuchElementException;
  * Created by Ahmed Yakout on 1/25/17.
  */
 public class SavedGameSet implements Iterable<String> {
-    private final String EXTENSION = ".json";
+    private final String PROTOBUFF_EXTENSION = ".protobuff";
+    private final String JSON_EXTENSION = ".json";
 
     private List<String> savedGames;
 
     public SavedGameSet() {
-        savedGames = listFiles(FileConstants.SAVE_PATH, EXTENSION);
+        savedGames = listFiles(FileConstants.SAVE_PATH, PROTOBUFF_EXTENSION);
+        savedGames.addAll(listFiles(FileConstants.SAVE_PATH, JSON_EXTENSION));
     }
 
     /**

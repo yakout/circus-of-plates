@@ -24,8 +24,8 @@ public class FileHandler implements FileWriter, FileReader {
     private FileReader reader;
 
     private FileHandler() {
-        writer = new JsonWriter();
-        reader = new JsonReader();
+        // default format
+        setWriter(FileFormat.PROTOCOL_BUFFER);
     }
 
     public static synchronized FileHandler getInstance() {
@@ -108,24 +108,19 @@ public class FileHandler implements FileWriter, FileReader {
         return null;
     }
 
- /*   public static void main(String[] args) {
-        ModelDataHolder obj = new ModelDataHolder();
-        Shape shape = new PlateShape();
-        shape.setColor(Color.CYAN);
-        shape.setHeight(119);
-        obj.addShape(shape);
-
-        Player player = new Player("Ahmed");
-        player.setSpeed(5.0);
-        obj.addPlayer(player);
-
-//        Level lvl = new LevelOne(1, 2, 3, 4);
-//        obj.setActiveLevel(lvl);
-
-        FileHandler fh = new FileHandler();
-        fh.write(obj, "save", "firstTest");
-        for (String s : fh.getFileList("save/")) {
-            System.out.println(s);
+    public void setWriter(FileFormat format) {
+        switch (format) {
+            case PROTOCOL_BUFFER:
+                this.writer = new ProtobuffWriter();
+                this.reader = new ProtobufReader();
+                break;
+            case JSON:
+                writer = new JsonWriter();
+                reader = new JsonReader();
+                break;
+            case XML:
+                // not implemented yet
+                break;
         }
-    }*/
+    }
 }

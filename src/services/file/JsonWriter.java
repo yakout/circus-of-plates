@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
  */
 class JsonWriter implements FileWriter {
     private static Logger logger = LogManager.getLogger(JsonWriter.class);
+    private final String FILE_EXTENSION = ".json";
 
     @Override
     public void write(ModelDataHolder dataHolder, String path, String
@@ -26,11 +27,10 @@ class JsonWriter implements FileWriter {
                 .setPrettyPrinting().create();
         String json = gson.toJson(dataHolder);
         File jsonFile = new File(path + File.separator +
-                fileName + ".json");
+                fileName + FILE_EXTENSION);
         try {
             logger.debug("Save Path: " + jsonFile.getAbsolutePath());
             if (!jsonFile.exists()) {
-//                jsonFile.mkdirs();
                 jsonFile.createNewFile();
             }
             FileOutputStream outputStream = null;
@@ -50,7 +50,7 @@ class JsonWriter implements FileWriter {
 
     @Override
     public String getExtension() {
-        return ".json";
+        return FILE_EXTENSION;
     }
 
     private class DoublePropertySerializer

@@ -65,7 +65,6 @@ public class GameMode extends MenuController {
                 instance);
         choiceBox = (ChoiceBox<String>) chooseLevel.getChildren().get(0);
 
-        // // TODO: 1/25/17 get the levels from model
         for (Integer levelNumber : LevelFactory.getInstance()
                 .getRegisteredLevels()) {
             choiceBox.getItems().add("Level " + levelNumber);
@@ -104,8 +103,8 @@ public class GameMode extends MenuController {
                 if (PlayerChooser.getInstance() == null) {
                     loadPlayerChooser();
                 }
-                gameModeMenu.setVisible(true);
-                menu.setVisible(false);
+                gameModeMenu.setVisible(false);
+                menu.setVisible(true);
                 PlayerChooser.getInstance().setVisible(true);
                 break;
             case "doneChoosingLevel":

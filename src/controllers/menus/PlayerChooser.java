@@ -35,7 +35,6 @@ public class PlayerChooser implements Initializable {
     private static final String CHOOSE = ": Choose";
     private static final String JOYSTICK = "joystick";
     private static final String KEYBOARD = "keyboard";
-    private static final String MOUSE = "mouse";
     private static Logger logger = LogManager.getLogger(PlayerChooser.class);
     private static PlayerChooser instance;
     private String chosenClownID;
@@ -56,7 +55,7 @@ public class PlayerChooser implements Initializable {
     @FXML
     private Button choose;
     @FXML
-    private RadioButton keyboard, joystick, mouse;
+    private RadioButton keyboard, joystick;
     @FXML
     private TextField currPlayerName;
 
@@ -74,10 +73,6 @@ public class PlayerChooser implements Initializable {
         currPlayer = 1;
     }
 
-    public void setVisible(final boolean visible) {
-        anchor.setVisible(visible);
-    }
-
     @FXML
     private void mouseHandler(MouseEvent event) {
         chosenClownID = ((Node) event.getSource()).getId();
@@ -91,7 +86,6 @@ public class PlayerChooser implements Initializable {
             setPlayer2Label();
             keyboard.setSelected(true);
             joystick.setSelected(false);
-            mouse.setSelected(false);
             currPlayerName.setText("");
             inputType = InputType.KEYBOARD_SECONDARY;
             isPlayer1 = false;
@@ -100,7 +94,6 @@ public class PlayerChooser implements Initializable {
             isPlayer1 = true;
             keyboard.setSelected(true);
             joystick.setSelected(false);
-            mouse.setSelected(false);
             setVisible(false);
             setPlayer1Label();
             currPlayerName.setText("");
@@ -109,8 +102,8 @@ public class PlayerChooser implements Initializable {
             GameController.getInstance().setPlayersToCurrentGame
                     (choosenPlayers);
 
-            GameMode.getInstance().getMenu().setVisible(true);
             GameMode.getInstance().updateCurrentMenu(GameMode.getInstance());
+            GameMode.getInstance().setMenuVisible(true);
             inputType = InputType.KEYBOARD_PRIMARY;
             logger.info("Game mode menu is shown after choosing clown.");
         }
@@ -139,25 +132,16 @@ public class PlayerChooser implements Initializable {
 
     @FXML
     private void selectInputType(ActionEvent event) {
-        System.out.println(((Node) event.getSource()).getId());
         switch (((Node) event.getSource()).getId()) {
             case KEYBOARD:
                 keyboard.setSelected(true);
                 joystick.setSelected(false);
-                mouse.setSelected(false);
                 handleInputType(KEYBOARD);
                 break;
             case JOYSTICK:
                 joystick.setSelected(true);
                 keyboard.setSelected(false);
-                mouse.setSelected(false);
                 handleInputType(JOYSTICK);
-                break;
-            case MOUSE:
-                mouse.setSelected(true);
-                keyboard.setSelected(false);
-                joystick.setSelected(false);
-                handleInputType(MOUSE);
                 break;
             default:
                 break;
@@ -193,11 +177,15 @@ public class PlayerChooser implements Initializable {
                     inputType = InputType.JOYSTICK_SECONDARY;
                 }
                 break;
-            case MOUSE:
-                inputType = InputType.MOUSE;
-                break;
             default:
                 break;
         }
+    }
+    public boolean isVisible() {
+        return anchor.isVisible();
+    }
+
+    public void setVisible(final boolean visible) {
+        anchor.setVisible(visible);
     }
 }

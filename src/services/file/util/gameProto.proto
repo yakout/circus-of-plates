@@ -1,0 +1,120 @@
+syntax = "proto2";
+package circus;
+
+option java_package = "";
+option java_outer_classname = "ProtobuffGame";
+
+message ProtoGame {
+    optional int32 remainingTimeAttack = 1;
+    optional int64 generatorCounter = 2;
+    repeated ShapePlatformPair shapes = 3;
+    repeated Player players = 4;
+    optional GameMode gameMode = 5;
+    optional Level activeLevel = 6;
+
+    message Level {
+        optional int32 noOfPlatforms = 1;
+        optional string backgroundURL = 2;
+        optional int32 currentLevel = 3;
+
+        repeated Platform platforms = 4;
+        repeated Color supportedColors = 5;
+
+        optional double minX = 6;
+        optional double minY = 7;
+        optional double maxX = 8;
+        optional double maxY = 9;
+        optional double shapeSpeedRatio = 10;
+        optional double clownSpeedRatio = 11;
+    }
+
+    message Point {
+        optional double propX = 1;
+        optional double propY = 2;
+    }
+
+    enum Color {
+        CYAN = 0;
+        GREEN = 1;
+        ORANGE = 2;
+        YELLOW = 3;
+        RED = 4;
+        BLACK = 5;
+        DARKRED = 6;
+        PINK = 7;
+        BLUE = 8;
+        PURPLE = 9;
+        GOLD = 10;
+    }
+
+    message Platform {
+        optional double width = 1;
+        optional double height = 2;
+        optional string url = 3;
+
+        enum Orientation {
+            LEFT = 0;
+            RIGHT = 1;
+        }
+
+        optional Point point = 4;
+        optional Orientation orientation = 5;
+    }
+
+    enum GameMode {
+        NORMAL = 0;
+        TIME_ATTACK = 1;
+        SANDBOX = 2;
+        LEVEL = 3;
+    }
+
+    message Player {
+        optional int32 numberOfPlayer = 1;
+        optional string playerName = 2;
+        optional Point position = 3;
+        optional int32 score = 4;
+        optional double speed = 5;
+        optional InputType inputType = 6;
+        optional string playerUrl = 7;
+        optional string leftStickUrl = 8;
+        optional string rightStickUrl = 9;
+        optional bool leftStackFull = 10;
+        optional bool rightStackFull = 11;
+        repeated Shape leftStick = 12;
+        repeated Shape rightStick = 13;
+
+        enum InputType {
+            JOYSTICK = 0;
+            JOYSTICK_PRIMARY = 1;
+            JOYSTICK_SECONDARY = 2;
+            KEYBOARD_PRIMARY = 3;
+            KEYBOARD_SECONDARY = 4;
+        }
+
+    }
+
+    message ShapePlatformPair {
+        optional Platform platform = 1;
+        optional Shape shape = 2;
+    }
+
+    message Shape {
+        optional Color color = 1;
+        optional Point position = 2;
+        optional Point initialPosition = 3;
+        optional double xVelocity = 4;
+        optional double yVelocity = 5;
+        optional ShapeState state = 6;
+        optional double width = 7;
+        optional double height = 8;
+        optional string key = 9;
+
+        enum ShapeState {
+            MOVING_HORIZONTALLY = 0;
+            FALLING = 1;
+            ON_THE_GROUND = 2;
+            ON_THE_STACK = 3;
+            INACTIVE = 4;
+        }
+    }
+}

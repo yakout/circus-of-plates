@@ -106,4 +106,7 @@ public abstract class Shape {
         position.yProperty().add(y);
     }
 
+    public String getKey() {
+        return key;
+    }
 }
