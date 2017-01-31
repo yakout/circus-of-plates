@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Created by Ahmed Yakout on 1/27/17.
  */
-public class ProtobuffWriter implements FileWriter {
+public class ProtobufWriter implements FileWriter {
     private static Logger logger = LogManager.getLogger(JsonWriter.class);
     private final String FILE_EXTENSION = ".protobuff";
 

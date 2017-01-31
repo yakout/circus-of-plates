@@ -111,7 +111,7 @@ public class FileHandler implements FileWriter, FileReader {
     public void setWriter(FileFormat format) {
         switch (format) {
             case PROTOCOL_BUFFER:
-                this.writer = new ProtobuffWriter();
+                this.writer = new ProtobufWriter();
                 this.reader = new ProtobufReader();
                 break;
             case JSON:
