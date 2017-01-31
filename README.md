@@ -46,4 +46,6 @@ This project is public, Feel free to create pull requests.
 ![picture alt](https://github.com/yakout/circus-of-plates/blob/master/screenshots/Screenshot_2.png)
 ![picture alt](https://github.com/yakout/circus-of-plates/blob/master/screenshots/Screenshot_3.png)
 ![picture alt](https://github.com/yakout/circus-of-plates/blob/master/screenshots/Screenshot_4.png)
+
+### GIF ###
 ![picture alt](https://github.com/yakout/circus-of-plates/blob/master/screenshots/1.gif)
