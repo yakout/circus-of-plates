@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menus.PlayerChooser">
+   <ImageView fx:id="playerImageView" fitHeight="300.0" fitWidth="250.0" preserveRatio="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="50.0" />
+   <ImageView fx:id="stickImageView" fitHeight="100.0" fitWidth="25.0" preserveRatio="true" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="80.0" />
+</AnchorPane>
